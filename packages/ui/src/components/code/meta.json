@@ -1,0 +1,29 @@
+{
+  "name": "code",
+  "title": "代码块",
+  "summary": "纯样式组件：不需要 JS，写好标记即可。展示代码：zh-code 用在 <pre> 上（等宽字体，过宽时横向滚动），zh-code-inline 用在行内的 <code> 上。不含语法高亮。",
+  "classes": [
+    "zh-code",
+    "zh-code-inline"
+  ],
+  "attributes": [
+    {
+      "name": "zh-code",
+      "on": "<pre>（class）",
+      "value": "里面放 <code>",
+      "desc": "代码块，带底色和边框，长行横向滚动"
+    },
+    {
+      "name": "zh-code-inline",
+      "on": "<code>（class）",
+      "value": "",
+      "desc": "行内代码"
+    }
+  ],
+  "events": [],
+  "methods": [],
+  "a11y": [
+    "代码块可横向滚动，因此可被键盘聚焦时请加 tabindex=\"0\"，方便键盘用户滚动查看"
+  ],
+  "example": "<p>调用 <code class=\"zh-code-inline\">ZhaoUI.message('已保存')</code> 显示提示。</p>\n<pre class=\"zh-code\"><code>ZhaoUI.message('已保存');\nZhaoUI.dialog({ title: '确认' });</code></pre>"
+}

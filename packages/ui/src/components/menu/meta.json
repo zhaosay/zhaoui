@@ -1,0 +1,44 @@
+{
+  "name": "menu",
+  "title": "配置式菜单与右键菜单",
+  "summary": "用一个数组描述菜单，再挂到按钮或区域上：分组标题、分隔线、图标、快捷键提示、复选项、单选项、危险项、禁用项、多级子菜单。同一份数组也能做右键菜单。固定写在 HTML 里的简单菜单用「下拉菜单」（data-zh-dropdown）更省事。",
+  "classes": [
+    "zh-dd-menu",
+    "zh-dd-item",
+    "zh-dd-group",
+    "zh-dd-sep",
+    "zh-dd-lead",
+    "zh-dd-label",
+    "zh-dd-kbd",
+    "zh-dd-caret"
+  ],
+  "attributes": [],
+  "events": [],
+  "methods": [
+    {
+      "name": "ZhaoUI.menu(button, items, options)",
+      "on": "",
+      "value": "",
+      "desc": "点击按钮打开菜单，返回弹出层句柄（open、close、toggle、isOpen）。options：placement（默认 bottom-start）、label（菜单的 aria-label）、onSelect(item)、onClose()、trigger（click 默认，manual 则自己调用 open）"
+    },
+    {
+      "name": "ZhaoUI.contextMenu(area, items, options)",
+      "on": "",
+      "value": "",
+      "desc": "在区域上右键、按 Shift+F10 或菜单键时，在鼠标处（或区域中心）打开菜单。区域会自动可聚焦。options：label、onSelect(item)"
+    },
+    {
+      "name": "菜单项 item",
+      "on": "",
+      "value": "{ label, icon, shortcut, danger, disabled, type, checked, name, sub }",
+      "desc": "type 取 'sep'（分隔线）、'group'（分组标题，label 为标题）、'check'（复选，点击切换 checked，菜单保持打开）、'radio'（同一 name 的单选，菜单保持打开）；普通项点击后触发 onSelect 并关闭；sub 是子菜单数组"
+    }
+  ],
+  "a11y": [
+    "role=menu，项为 menuitem / menuitemcheckbox / menuitemradio，复选与单选带 aria-checked",
+    "键盘：↑↓ 移动，输入首字母跳转，→ 进入子菜单，← 回到上一级，Esc 关闭并回到触发按钮，右键菜单关闭后焦点回到区域",
+    "打开后第一项自动获得焦点；按钮上按 ↑ 会从最后一项开始",
+    "右键菜单只是快捷方式，所有操作也要能在页面里用按钮完成"
+  ],
+  "example": "<div class=\"zh-row\">\n  <button class=\"zh-btn\" id=\"mn-btn\">文件 <i data-i=\"chevron-down\"></i></button>\n  <div id=\"mn-area\" class=\"zh-card\" style=\"padding:16px\">在这里点右键</div>\n</div>\n<script>\n  var items = [\n    { type: 'group', label: '文件' },\n    { label: '重命名', icon: 'pencil', shortcut: 'F2' },\n    { label: '移动到', icon: 'folder-open', sub: [{ label: '我的文档' }, { label: '项目归档' }] },\n    { type: 'sep' },\n    { type: 'check', label: '显示隐藏文件', checked: true },\n    { type: 'sep' },\n    { label: '删除', icon: 'trash-2', danger: true }\n  ];\n  ZhaoUI.menu(document.getElementById('mn-btn'), items, { label: '文件操作', onSelect: function (it) { ZhaoUI.message('选择了：' + it.label); } });\n  ZhaoUI.contextMenu(document.getElementById('mn-area'), items);\n</script>"
+}

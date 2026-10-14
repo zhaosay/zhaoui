@@ -1,0 +1,154 @@
+      <section class="block" id="utilities">
+        <h2>公共类</h2>
+        <p class="desc">一套九百多个的原子类，用来做间距、对齐、显示、文字、颜色这类「微调」。组件自己的外观仍然由组件类负责，公共类只在组件之上补一笔，不用来重写组件内部。所有颜色、间距、圆角、层级都取自 Token，所以换品牌、亮暗、B/C 端后会自动跟着变。</p>
+
+        <h3>命名规则</h3>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:640px">
+          <thead><tr><th>规则</th><th>写法</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>前缀与结构</td><td><code>zh-{属性}-{值}</code></td><td>全部以 <code>zh-</code> 开头，如 <code>zh-mt-4</code>、<code>zh-text-sm</code>、<code>zh-items-center</code></td></tr>
+            <tr><td>间距刻度</td><td><code>0 1 2 3 4 5 6 8 10 12</code></td><td>数字是 Token 序号，不是像素：<code>zh-p-4</code> = <code>var(--zh-space-4)</code>（16px）。没有负值，需要时用 <code>zh-m*-auto</code></td></tr>
+            <tr><td>颜色</td><td><code>zh-text-*</code> <code>zh-bg-*</code> <code>zh-border-*</code></td><td>只映射语义 Token：主 / 次 / 辅助、品牌、成功 / 警告 / 危险 / 信息、涨跌、图表 1–8</td></tr>
+            <tr><td>状态</td><td><code>zh-hover-*</code> <code>zh-focus-*</code></td><td>悬停类只在支持悬停的设备生效（<code>@media (hover: hover)</code>），触屏不会出现「粘住」的悬停态</td></tr>
+            <tr><td>响应式后缀</td><td><code>-phone</code> <code>-tablet</code> <code>-desktop</code> <code>-large</code></td><td>写在末尾，没有冒号。<code>-phone</code> = 手机（&lt;768），<code>-tablet</code> = 平板及更小（≤1199），<code>-desktop</code> = 桌面及更大（≥1200），<code>-large</code> = 大屏（≥1920）</td></tr>
+            <tr><td>显示 / 隐藏</td><td><code>zh-hide-*</code> <code>zh-show-*-only</code></td><td>按档位精确生效：<code>hide-phone</code> / <code>hide-tablet</code> / <code>hide-desktop</code>（1200–1919）/ <code>hide-large</code>；另有 <code>hide-tablet-down</code>（≤1199）、<code>hide-desktop-up</code>（≥1200）</td></tr>
+            <tr><td>优先级</td><td>单类选择器</td><td>特异度固定为 (0,1,0)，不使用 <code>!important</code>；样式表里排在组件之后，所以同一元素上工具类会胜出</td></tr>
+          </tbody>
+        </table></div>
+        <ul class="check" style="margin-top:14px">
+          <li>优先用组件类，工具类只做微调；一个元素上超过 8 个工具类时，考虑抽成组件</li>
+          <li>不要用工具类去改组件的内部状态（悬停、禁用、选中），那是组件的职责</li>
+          <li>响应式工具类跟随<strong>浏览器视口</strong>，而组件内部用容器查询；本页顶部的「屏幕」开关会同时模拟两者</li>
+        </ul>
+
+        <h3>速查表 <span class="zh-hint" style="font-weight:400" id="utCount"></span></h3>
+        <div class="zh-ut-toolbar">
+          <div class="zh-ut-search"><i data-i="search" data-s="16"></i><input class="zh-input" id="utFilter" type="search" placeholder="搜索类名或样式，如 flex、margin-top、16px" aria-label="搜索公共类" autocomplete="off"></div>
+          <span class="zh-hint" id="utResult" aria-live="polite" style="margin:0"></span>
+        </div>
+        <div class="zh-ut-chips" id="utChips" role="group" aria-label="按分类筛选"></div>
+        <div id="utGroups"></div>
+        <div class="zh-ut-empty" id="utEmpty" hidden>没有匹配的类。试试搜索属性名（如 <code>padding</code>）或数值（如 <code>12</code>）。</div>
+        <p class="zh-hint">点击任意类名即可复制。列表由页面里真实的样式表在运行时解析生成，不会和实际样式脱节。</p>
+
+        <h3>在线试用</h3>
+        <div class="zh-ut-play">
+          <div class="zh-field"><label for="utPlayInput">输入类名（空格分隔）</label>
+            <textarea class="zh-input zh-textarea" id="utPlayInput" spellcheck="false" autocomplete="off">zh-flex zh-items-center zh-gap-3 zh-p-4 zh-bg-subtle zh-rounded-lg zh-shadow-md</textarea>
+            <p class="zh-ut-bad" id="utBad" role="status" hidden></p>
+          </div>
+          <div class="zh-row" style="--g:6px" id="utPresets" role="group" aria-label="示例">
+            <span class="zh-hint" style="margin:0">示例：</span>
+            <button type="button" class="zh-ut-preset" data-v="zh-flex zh-items-center zh-justify-center zh-gap-3 zh-p-4">水平居中</button>
+            <button type="button" class="zh-ut-preset" data-v="zh-flex zh-items-center zh-justify-between zh-p-4 zh-bg-subtle zh-rounded-lg">两端对齐</button>
+            <button type="button" class="zh-ut-preset" data-v="zh-d-grid zh-cols-3 zh-gap-3 zh-p-4">三列网格</button>
+            <button type="button" class="zh-ut-preset" data-v="zh-flex zh-flex-col zh-gap-2 zh-p-4 zh-bg-elevated zh-border zh-rounded-lg zh-shadow-md">卡片</button>
+            <button type="button" class="zh-ut-preset" data-v="zh-flex zh-flex-col-phone zh-gap-3 zh-p-4 zh-border zh-border-dashed zh-border-strong zh-rounded-md">手机上堆叠</button>
+            <button type="button" class="zh-btn sm text" id="utCopy"><i data-i="copy"></i>复制类名</button>
+          </div>
+          <div class="zh-ut-stage"><div class="zh-ut-sample" id="utSample"><i>A</i><i>B</i><i>C</i></div></div>
+        </div>
+
+        <h3>效果示例</h3>
+        <div class="zh-grid">
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><h4>间距刻度</h4><div class="zh-ut-scale" id="utScale"></div>
+            <p class="zh-hint">margin、padding、gap 共用同一把刻度（<code>zh-mt-*</code>、<code>zh-px-*</code>、<code>zh-gap-*</code>）。</p></div>
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><h4>对齐：justify × items</h4><div class="zh-ut-matrix">
+            <div class="zh-flex zh-justify-start zh-items-start"><i></i><i></i><span>start / start</span></div>
+            <div class="zh-flex zh-justify-center zh-items-start"><i></i><i></i><span>center / start</span></div>
+            <div class="zh-flex zh-justify-end zh-items-start"><i></i><i></i><span>end / start</span></div>
+            <div class="zh-flex zh-justify-start zh-items-center"><i></i><i></i><span>start / center</span></div>
+            <div class="zh-flex zh-justify-center zh-items-center"><i></i><i></i><span>center / center</span></div>
+            <div class="zh-flex zh-justify-end zh-items-center"><i></i><i></i><span>end / center</span></div>
+            <div class="zh-flex zh-justify-between zh-items-end"><i></i><i></i><span>between / end</span></div>
+            <div class="zh-flex zh-justify-around zh-items-end"><i></i><i></i><span>around / end</span></div>
+            <div class="zh-flex zh-justify-evenly zh-items-end"><i></i><i></i><span>evenly / end</span></div>
+          </div></div>
+
+          <div class="zh-col zh-card" style="--d:12;--t:8;--p:4"><h4>响应式显示</h4>
+            <div class="zh-flex zh-items-center zh-gap-3 zh-flex-wrap">
+              <span class="zh-hint" style="margin:0">当前档位：</span>
+              <div class="zh-show-phone-only"><span class="zh-ut-tier">手机 &lt; 768</span></div>
+              <div class="zh-show-tablet-only"><span class="zh-ut-tier">平板 768–1199</span></div>
+              <div class="zh-show-desktop-only"><span class="zh-ut-tier">桌面 1200–1919</span></div>
+              <div class="zh-show-large-only"><span class="zh-ut-tier">大屏 ≥ 1920</span></div>
+            </div>
+            <div class="zh-flex zh-flex-wrap zh-gap-2 zh-mt-3">
+              <span class="zh-tag zh-hide-phone">zh-hide-phone</span>
+              <span class="zh-tag zh-hide-tablet">zh-hide-tablet</span>
+              <span class="zh-tag zh-hide-desktop">zh-hide-desktop</span>
+              <span class="zh-tag zh-hide-large">zh-hide-large</span>
+              <span class="zh-tag zh-hide-tablet-down">zh-hide-tablet-down</span>
+              <span class="zh-tag zh-hide-desktop-up">zh-hide-desktop-up</span>
+            </div>
+            <p class="zh-hint">上面每个标签只在<strong>没有被隐藏</strong>的档位出现。拖动浏览器窗口，或用顶部「屏幕」切换来观察。</p>
+            <div class="zh-flex zh-flex-col-phone zh-gap-3 zh-p-3 zh-border zh-border-dashed zh-border-strong zh-rounded-md zh-mt-2">
+              <div class="zh-ut-item zh-grow">flex-col-phone：手机上竖排</div><div class="zh-ut-item zh-grow">平板及以上横排</div><div class="zh-ut-item zh-grow">三块等宽</div>
+            </div>
+          </div>
+
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><h4>文字</h4>
+            <div class="zh-stack" style="--g:10px">
+              <div class="zh-w-1-2 zh-min-w-0"><div class="zh-truncate zh-border-b zh-pb-1">zh-truncate：这是一段很长很长很长很长很长的单行文字，超出会显示省略号</div></div>
+              <div class="zh-w-2-3 zh-min-w-0 zh-line-clamp-2 zh-text-secondary">zh-line-clamp-2：最多显示两行，多出的部分被省略。适合卡片摘要、列表副标题，能保持列表整齐一致，不会因为内容长短不一而参差不齐。</div>
+              <div class="zh-flex zh-gap-6"><div><div class="zh-hint" style="margin:0">tabular-nums</div><div class="zh-tabular-nums zh-text-xl zh-font-semibold">1111<br>0000</div></div><div><div class="zh-hint" style="margin:0">proportional</div><div class="zh-proportional-nums zh-text-xl zh-font-semibold">1111<br>0000</div></div></div>
+              <div class="zh-uppercase zh-tracking-widest zh-text-xs zh-text-tertiary zh-font-medium">zh-uppercase zh-tracking-widest</div>
+              <div class="zh-flex zh-flex-wrap zh-items-baseline zh-gap-3"><span class="zh-text-xs">xs</span><span class="zh-text-sm">sm</span><span class="zh-text-base">base</span><span class="zh-text-lg">lg</span><span class="zh-text-xl">xl</span><span class="zh-text-2xl">2xl</span><span class="zh-text-3xl zh-font-bold">3xl</span></div>
+            </div></div>
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><h4>颜色</h4>
+            <div class="zh-ut-swatches">
+              <div class="zh-ut-sw zh-text-primary">zh-text-primary</div><div class="zh-ut-sw zh-text-secondary">zh-text-secondary</div>
+              <div class="zh-ut-sw zh-text-tertiary">zh-text-tertiary</div><div class="zh-ut-sw zh-text-brand">zh-text-brand</div>
+              <div class="zh-ut-sw zh-text-success">zh-text-success</div><div class="zh-ut-sw zh-text-warning">zh-text-warning</div>
+              <div class="zh-ut-sw zh-text-danger">zh-text-danger</div><div class="zh-ut-sw zh-text-info">zh-text-info</div>
+              <div class="zh-ut-sw zh-bg-subtle">zh-bg-subtle</div><div class="zh-ut-sw zh-bg-brand-subtle zh-text-brand">zh-bg-brand-subtle</div>
+              <div class="zh-ut-sw zh-bg-success zh-text-success">zh-bg-success</div><div class="zh-ut-sw zh-bg-warning zh-text-warning">zh-bg-warning</div>
+              <div class="zh-ut-sw zh-bg-danger zh-text-danger">zh-bg-danger</div><div class="zh-ut-sw zh-bg-info zh-text-info">zh-bg-info</div>
+              <div class="zh-ut-sw zh-border-brand">zh-border-brand</div><div class="zh-ut-sw zh-border-strong">zh-border-strong</div>
+              <div class="zh-ut-sw zh-flex zh-items-center zh-gap-2"><span class="zh-size-3 zh-rounded-full zh-bg-chart-1"></span>zh-bg-chart-1</div>
+              <div class="zh-ut-sw zh-flex zh-items-center zh-gap-2"><span class="zh-size-3 zh-rounded-full zh-bg-chart-2"></span>zh-bg-chart-2</div>
+            </div>
+            <p class="zh-hint">图表色只用于标记（圆点、色块），不要拿来染文字。</p></div>
+
+          <div class="zh-col zh-card" style="--d:4;--t:4;--p:4"><h4>圆角 · 阴影</h4>
+            <div class="zh-flex zh-flex-wrap zh-gap-4 zh-p-4 zh-bg-subtle zh-rounded-md">
+              <div class="zh-size-10 zh-bg-elevated zh-border zh-rounded-sm zh-shadow-sm" title="rounded-sm shadow-sm"></div>
+              <div class="zh-size-10 zh-bg-elevated zh-border zh-rounded-md zh-shadow-md" title="rounded-md shadow-md"></div>
+              <div class="zh-size-10 zh-bg-elevated zh-border zh-rounded-lg zh-shadow-lg" title="rounded-lg shadow-lg"></div>
+              <div class="zh-size-10 zh-bg-elevated zh-border zh-rounded-full zh-shadow-md" title="rounded-full shadow-md"></div>
+            </div><p class="zh-hint">sm / md / lg 随 B / C 端切换而变化。</p></div>
+          <div class="zh-col zh-card" style="--d:4;--t:4;--p:4"><h4>尺寸与比例</h4>
+            <div class="zh-flex zh-items-end zh-gap-3">
+              <div class="zh-size-6 zh-bg-brand zh-rounded-sm" title="size-6"></div><div class="zh-size-8 zh-bg-brand zh-rounded-sm" title="size-8"></div><div class="zh-size-10 zh-bg-brand zh-rounded-sm" title="size-10"></div>
+              <div class="zh-w-12 zh-aspect-video zh-bg-brand-subtle zh-border zh-border-brand zh-rounded-sm" title="aspect-video"></div>
+              <div class="zh-w-8 zh-aspect-square zh-bg-brand-subtle zh-border zh-border-brand zh-rounded-sm" title="aspect-square"></div>
+            </div><p class="zh-hint">size-N、aspect-video、aspect-square。</p></div>
+          <div class="zh-col zh-card" style="--d:4;--t:8;--p:4"><h4>状态</h4>
+            <div class="zh-flex zh-flex-wrap zh-gap-3 zh-items-center">
+              <div class="zh-p-3 zh-border zh-rounded-md zh-bg-elevated zh-transition zh-hover-lift zh-cursor-pointer" tabindex="0">hover-lift</div>
+              <button type="button" class="zh-btn zh-focus-ring zh-active-scale">focus-ring</button>
+              <button type="button" class="zh-btn zh-disabled" tabindex="-1">disabled</button>
+            </div><p class="zh-hint">用 Tab 键聚焦第二个按钮可以看到焦点环。</p></div>
+
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><h4>分隔线</h4>
+            <div>段落一<hr class="zh-divider"><div class="zh-divider-text">或者</div>段落二<hr class="zh-divider zh-divider-dashed"></div>
+            <div class="zh-text-secondary">首页<span class="zh-divider zh-divider-vertical"></span>文档<span class="zh-divider zh-divider-vertical"></span>更新日志</div></div>
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><h4>滚动吸附 · 安全区</h4>
+            <div class="zh-ut-snap zh-snap-x" tabindex="0" aria-label="滚动吸附示例">
+              <div class="zh-snap-start zh-bg-brand">1</div><div class="zh-snap-start zh-bg-chart-3">2</div><div class="zh-snap-start zh-bg-chart-2">3</div><div class="zh-snap-start zh-bg-chart-7">4</div>
+            </div>
+            <div class="zh-pb-safe-4 zh-pt-3 zh-px-3 zh-mt-3 zh-bg-subtle zh-rounded-md zh-text-sm zh-text-secondary">zh-pb-safe-4：底部留白取 16px 与刘海屏安全区的较大者（桌面端安全区为 0）。</div></div>
+        </div>
+
+        <h3>兼容说明</h3>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:600px">
+          <thead><tr><th>写法</th><th>最低版本<br>Chrome / Safari / Firefox</th><th>兜底</th></tr></thead>
+          <tbody>
+            <tr><td><code>:where()</code>（响应式类的档位限定）</td><td>88 / 14 / 78</td><td>真实产品里只用 <code>@media</code>；<code>:where(html[data-screen])</code> 仅用于本页模拟档位</td></tr>
+            <tr><td><code>line-clamp</code></td><td>同时输出 <code>-webkit-line-clamp</code></td><td>所有浏览器通用</td></tr>
+            <tr><td><code>100dvh</code></td><td>108 / 15.4 / 101</td><td>前一行先写 <code>100vh</code>，不认识的浏览器自动沿用</td></tr>
+            <tr><td><code>env(safe-area-inset-*)</code></td><td>69 / 11.2 / 65</td><td>写了默认值 0，不支持时无副作用</td></tr>
+            <tr><td><code>text-wrap: balance / pretty</code></td><td>114 / 17.5 / 121</td><td>不认识时按普通换行，只是排版稍差</td></tr>
+          </tbody>
+        </table></div>
+      </section>

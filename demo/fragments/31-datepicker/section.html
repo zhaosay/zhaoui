@@ -1,0 +1,62 @@
+      <section class="block" id="datepicker">
+        <h2>日期与时间</h2>
+        <p class="desc">日期选择由「输入框 + 日历浮层」组成：输入框支持直接键入，日历支持全键盘操作。日历一律从周一开始，中文月份与星期，不可选的日期用灰色并说明原因，不会隐藏。</p>
+
+        <h3>日期选择 Date picker</h3>
+        <div class="zh-grid">
+          <div class="zh-col zh-field" style="--d:4;--t:4;--p:4"><label id="lbDp1">基础</label><div data-dp="basic"></div><span class="zh-hint" data-msg="basic">可直接输入，如 2026-10-01 或 2026/10/1</span></div>
+          <div class="zh-col zh-field" style="--d:4;--t:4;--p:4"><label id="lbDp2">周末不可选</label><div data-dp="weekend"></div><span class="zh-hint" data-msg="weekend">不可选的日期悬停或输入时给出原因</span></div>
+          <div class="zh-col zh-field" style="--d:4;--t:8;--p:4"><label id="lbDp3">限定范围：本月内</label><div data-dp="minmax"></div><span class="zh-hint" data-msg="minmax">超出范围的日期置灰</span></div>
+          <div class="zh-col zh-field" style="--d:4;--t:4;--p:4"><label id="lbDp4">小 sm</label><div data-dp="sm"></div></div>
+          <div class="zh-col zh-field" style="--d:4;--t:4;--p:4"><label id="lbDp5">中 md</label><div data-dp="md"></div></div>
+          <div class="zh-col zh-field" style="--d:4;--t:8;--p:4"><label id="lbDp6">大 lg</label><div data-dp="lg"></div></div>
+        </div>
+
+        <h3>日期范围 Range picker</h3>
+        <p class="zh-hint" style="margin-top:0">先点开始日，移动鼠标预览范围，再点结束日；先点了较晚的日期会自动对调。桌面并排显示两个月，手机显示一个月，快捷项变成横向滚动的标签。</p>
+        <div class="zh-grid">
+          <div class="zh-col zh-field" style="--d:6;--t:8;--p:4"><label id="lbDpr">统计区间（最晚到今天）</label><div data-dp="range"></div><span class="zh-hint" data-msg="range">—</span></div>
+        </div>
+
+        <h3>时间选择 Time picker</h3>
+        <p class="zh-hint" style="margin-top:0">三列滚轮：小时、分钟、秒。滚动停下、点击或按 ↑ ↓ 都会选中；← → 在列间切换。</p>
+        <div class="zh-grid">
+          <div class="zh-col zh-field" style="--d:4;--t:4;--p:4"><label id="lbTp1">时:分</label><div data-tp="hm"></div></div>
+          <div class="zh-col zh-field" style="--d:4;--t:4;--p:4"><label id="lbTp2">时:分:秒</label><div data-tp="hms"></div></div>
+          <div class="zh-col zh-field" style="--d:4;--t:8;--p:4"><label id="lbTp3">分钟步长 15</label><div data-tp="step"></div></div>
+        </div>
+
+        <h3>日期时间 Date-time</h3>
+        <div class="zh-grid">
+          <div class="zh-col zh-field" style="--d:6;--t:8;--p:4"><label id="lbDt">预约时间</label><div data-dp="datetime"></div><span class="zh-hint" data-msg="datetime">选好日期和时间后点「确定」</span></div>
+        </div>
+
+        <h3>内嵌日历、日程圆点与热度</h3>
+        <p class="zh-hint" style="margin-top:0">圆点表示当天有几类日程（最多 3 类）；热度用品牌色阶表示当天日程多少，适合看「哪几天忙」。</p>
+        <div class="zh-row" style="margin-bottom:12px">
+          <div class="zh-dp-chips" id="dpMarkMode" role="group" aria-label="标记方式">
+            <button type="button" class="zh-dp-chip" data-m="dots" aria-pressed="true">圆点</button>
+            <button type="button" class="zh-dp-chip" data-m="heat" aria-pressed="false">热度</button>
+          </div>
+        </div>
+        <div class="zh-dp-inline-wrap">
+          <div class="zh-dp-inline" id="dpInline"></div>
+          <div class="zh-dp-detail">
+            <div class="zh-dp-detail-title" id="dpDetailTitle">—</div>
+            <ul class="zh-dp-events" id="dpEvents" aria-live="polite"></ul>
+            <div class="zh-dp-legend" id="dpLegend"></div>
+          </div>
+        </div>
+
+        <div class="matrix-wrap" style="margin-top:20px"><table class="matrix" style="min-width:560px">
+          <thead><tr><th>按键（焦点在日历内）</th><th>行为</th></tr></thead>
+          <tbody>
+            <tr><td><kbd class="zh-kbd">←</kbd> <kbd class="zh-kbd">→</kbd> <kbd class="zh-kbd">↑</kbd> <kbd class="zh-kbd">↓</kbd></td><td>前一天 / 后一天 / 上一周 / 下一周；跨月时自动翻页</td></tr>
+            <tr><td><kbd class="zh-kbd">Home</kbd> / <kbd class="zh-kbd">End</kbd></td><td>本周周一 / 周日</td></tr>
+            <tr><td><kbd class="zh-kbd">PageUp</kbd> / <kbd class="zh-kbd">PageDown</kbd></td><td>上个月 / 下个月；加 <kbd class="zh-kbd">Shift</kbd> 为上一年 / 下一年</td></tr>
+            <tr><td><kbd class="zh-kbd">Enter</kbd> / <kbd class="zh-kbd">Space</kbd></td><td>选中当前日期（不可选日期无效）</td></tr>
+            <tr><td><kbd class="zh-kbd">Esc</kbd></td><td>关闭日历，焦点回到输入框且不改变已选值</td></tr>
+            <tr><td>输入框内 <kbd class="zh-kbd">↓</kbd></td><td>打开日历，焦点进入当前日期</td></tr>
+          </tbody>
+        </table></div>
+      </section>

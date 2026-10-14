@@ -1,0 +1,73 @@
+/* Visual polish for the whole page. Loaded in the last CSS layer because base.html declares h2/.desc rules after the fragment slot. */
+
+/* chapter header: number pill + larger title + calmer description */
+.stage-inner section.block { padding-top: calc(var(--zh-section-gap) * 1.6); margin-bottom: calc(var(--zh-section-gap) * 1.2); }
+.stage-inner section.block > h2 { font-size: calc(var(--zh-fs) * 2.15); line-height: 1.2; letter-spacing: -.02em; margin-bottom: 12px; }
+.stage-inner section.block > h2::before { display: inline-block; vertical-align: .32em; padding: 4px 10px; margin: 0 14px 0 0; border-radius: 999px;
+  font: 600 12px/1 var(--zh-font-mono); letter-spacing: .12em; color: var(--zh-color-primary-text); background: var(--zh-color-primary-subtle); }
+.stage-inner section.block > .desc { max-width: none; font-size: 1.02em; line-height: 1.85; color: var(--zh-text-secondary); margin-bottom: 28px; }
+.stage-inner section.block > h3 { margin: 44px 0 16px; font-size: 1.08em; letter-spacing: -.005em; }
+
+/* token tiles: sit on a tinted board so borders and shadows are actually visible */
+#radius > .grid { padding: 24px; border-radius: var(--zh-radius-lg); background: var(--zh-bg-subtle); box-shadow: inset 0 0 0 1px var(--zh-border); gap: 20px; }
+#radius > .grid + .grid { margin-top: 16px !important; }
+#radius .demo-box { background: var(--zh-bg-elevated); color: var(--zh-text-secondary); font-weight: 500; }
+#space #spaceScale > div, #type .type-row { padding-block: 10px; }
+#space #spaceScale .space-bar { height: 14px; border-radius: 4px; }
+#type .type-row span:first-child { white-space: nowrap; }
+
+/* chapter map (built from the sidebar) */
+.zh-ov-map { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 16px; }
+.zh-ov-map section { padding: 20px 22px; border-radius: var(--zh-radius-lg); background: var(--zh-bg-elevated); box-shadow: 0 0 0 1px var(--zh-border) inset; }
+.zh-ov-map h4 { display: flex; justify-content: space-between; align-items: baseline; margin: 0 0 12px; font-size: 15px; }
+.zh-ov-map h4 small { font: 500 12px var(--zh-font-mono); color: var(--zh-text-tertiary); }
+.zh-ov-map ul { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 0; }
+.zh-ov-map a { display: inline-block; padding: 3px 10px; border-radius: 8px; font-size: 13px; text-decoration: none; color: var(--zh-text-secondary); background: var(--zh-bg-subtle); transition: background var(--zh-dur-fast) var(--zh-ease-standard), color var(--zh-dur-fast) var(--zh-ease-standard); }
+.zh-ov-map a:hover { background: var(--zh-color-primary-subtle); color: var(--zh-color-primary-text); }
+.zh-ov-map section:has(li:nth-child(13)) { grid-column: 1 / -1; }
+
+/* ---- vertical rhythm: 20px between sibling blocks, 44px above / 16px below an h3 (block flow, so margins collapse, not add) ---- */
+.stage-inner section.block > * + * { margin-top: 20px; }
+.stage-inner section.block > [style*="margin-top"]:not(h3):not(h2) { margin-top: 20px !important; }
+.stage-inner section.block > .desc + * { margin-top: 0; }
+.stage-inner section.block > h3 + * { margin-top: 0 !important; }
+.stage-inner section.block > .zh-hint, .stage-inner section.block > p.zh-hint { margin-top: 10px; }
+.stage .grid { gap: 20px; }
+.stage .row { gap: 14px; }
+
+/* ---- inner padding: every container scales with density (--zh-pad) ---- */
+.stage .zh-card { padding: calc(var(--zh-space-6) * var(--zh-pad)); }
+.stage .zh-card > h4 { margin-bottom: 14px; }
+.stage .zh-field { gap: 8px; }
+.stage .zh-field label { font-weight: 500; }
+.stage .zh-alert { gap: 12px; padding: calc(14px * var(--zh-pad)) calc(18px * var(--zh-pad)); }
+.stage .zh-empty { padding: calc(48px * var(--zh-pad)) 20px; }
+.stage .matrix th, .stage .matrix td { padding: calc(12px * var(--zh-pad)) 16px; }
+.stage .matrix th { padding-block: calc(10px * var(--zh-pad)); }
+
+/* ---- overflow fixes found by the page-wide scan ---- */
+.stage input[type="range"] { margin-inline: 0; }
+.stage :not(pre) > code { overflow-wrap: break-word; }  /* not `anywhere`: that shrinks min-content to one glyph and stacks code vertically inside flex items */
+
+/* ---- hierarchical numbering: chapter 1, 2, 3 and section 1.1, 1.2 (h3 counters restart in every chapter) ---- */
+.stage-inner section.block { counter-reset: sub; }
+.stage-inner section.block > h2::before { content: counter(sec); }
+.stage-inner section.block > h3 { counter-increment: sub; }
+.stage-inner section.block > h3::before { content: counter(sec) "." counter(sub); width: auto; height: auto; padding: 2px 8px; border-radius: 6px;
+  font: 600 12px/1.5 var(--zh-font-mono); letter-spacing: .04em; color: var(--zh-color-primary-text); background: var(--zh-color-primary-subtle); }
+.toc a[data-n]::before, .zh-ov-map a[data-n]::before { content: attr(data-n); display: inline-block; min-width: 1.7em; margin-right: 6px; font: 500 11px/1 var(--zh-font-mono); color: var(--zh-text-tertiary); }
+.toc a[data-n][aria-current="true"]::before, .toc a[data-n]:hover::before { color: inherit; }
+
+/* ---- sidebar: sticky nav taller than the viewport must scroll on its own ---- */
+.toc { max-height: calc(100vh - 84px - 16px); overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; padding: 0 6px 24px 0;
+  scrollbar-width: thin; scrollbar-color: var(--zh-border-strong) transparent; }
+.toc::-webkit-scrollbar { width: 6px; }
+.toc::-webkit-scrollbar-thumb { background: var(--zh-border-strong); border-radius: 3px; }
+
+/* ---- check list: plain block text with an absolutely placed tick. As a flex row every text run and inline <code> became its own flex item (split lines, tall code boxes). ---- */
+.stage .check li { display: block; position: relative; padding-left: calc(1.1em + 10px); min-width: 0; }
+.stage .check li::before { position: absolute; left: 0; top: .28em; margin: 0; }
+.stage .check li code { display: inline; }
+
+/* description text follows the content width (base.html caps .desc at 70ch, which left wide stages half empty) */
+.stage .desc, .zh-ov > .desc { max-width: none; }

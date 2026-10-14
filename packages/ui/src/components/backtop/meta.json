@@ -1,0 +1,42 @@
+{
+  "name": "backtop",
+  "title": "返回顶部",
+  "summary": "滚动超过一段距离后出现的圆形按钮，点击平滑回到顶部；系统开启“减少动态效果”时直接跳回。",
+  "classes": [
+    "zh-backtop"
+  ],
+  "attributes": [
+    {
+      "name": "data-zh-backtop",
+      "on": "<button>（可为空）",
+      "value": "",
+      "desc": "声明为返回顶部按钮；空按钮会自动放入向上的箭头图标和 aria-label"
+    },
+    {
+      "name": "data-threshold",
+      "on": "按钮",
+      "value": "像素，默认 400",
+      "desc": "滚动超过多少像素后出现"
+    },
+    {
+      "name": "data-target",
+      "on": "按钮",
+      "value": "选择器",
+      "desc": "监听某个可滚动容器而不是整页；这时按钮不会固定在视口，需要你自己定位"
+    }
+  ],
+  "events": [
+    {
+      "name": "zh:backtop",
+      "detail": "无",
+      "desc": "点击回到顶部时触发",
+      "on": "按钮"
+    }
+  ],
+  "methods": [],
+  "a11y": [
+    "未出现时 aria-hidden=true 且不可聚焦",
+    "按钮没有文字时自动加 aria-label=\"返回顶部\"；你也可以自己写"
+  ],
+  "example": "<button class=\"zh-backtop\" data-zh-backtop data-threshold=\"200\"></button>"
+}

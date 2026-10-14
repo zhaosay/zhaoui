@@ -1,0 +1,98 @@
+{
+  "name": "steps",
+  "title": "步骤条",
+  "summary": "表示多步流程走到了哪一步：数字或图标标记、连接线、当前步骤、出错步骤。你只写每步的标题，库生成标记并按当前步骤算出完成、进行中、未开始。容器放不下时自动改成纵向。",
+  "classes": [
+    "zh-steps",
+    "zh-steps--h",
+    "zh-steps--v",
+    "zh-steps--sm",
+    "zh-steps--lg",
+    "zh-steps--dot",
+    "zh-step"
+  ],
+  "attributes": [
+    {
+      "name": "data-zh-steps",
+      "on": "<ol>",
+      "value": "里面放 <li data-title=\"…\">",
+      "desc": "声明为步骤条；<li> 里的内容会被替换"
+    },
+    {
+      "name": "data-title / data-desc",
+      "on": "<li>",
+      "value": "文字",
+      "desc": "步骤标题与说明（图标模式不显示说明）"
+    },
+    {
+      "name": "data-icon",
+      "on": "<li>",
+      "value": "图标名",
+      "desc": "图标模式下该步的图标；完成变成对勾，出错变成叉"
+    },
+    {
+      "name": "data-current",
+      "on": "<ol>",
+      "value": "从 0 开始的序号，默认 0",
+      "desc": "当前步骤；之前的算已完成，之后的未开始"
+    },
+    {
+      "name": "data-error",
+      "on": "<ol>",
+      "value": "出错步骤的序号",
+      "desc": "该步显示为错误；可配 data-error-text 写出错说明"
+    },
+    {
+      "name": "data-done",
+      "on": "<ol>",
+      "value": "",
+      "desc": "全部完成"
+    },
+    {
+      "name": "data-mode",
+      "on": "<ol>",
+      "value": "icon",
+      "desc": "用图标代替数字"
+    },
+    {
+      "name": "data-clickable",
+      "on": "<ol>",
+      "value": "",
+      "desc": "每一步变成按钮，点击触发 zh:step-click；data-reach 指定最远可点到哪一步，默认只到当前步"
+    },
+    {
+      "name": "zh-steps--v / --sm / --lg / --dot",
+      "on": "<ol>（class）",
+      "value": "",
+      "desc": "纵向 / 小尺寸 / 大尺寸 / 极简圆点；默认是横向"
+    }
+  ],
+  "events": [
+    {
+      "name": "zh:step-click",
+      "on": "<ol>",
+      "value": "{ index, title }",
+      "desc": "可点击模式下点了某一步。是否真的跳转由你决定（比如先校验表单），然后调用 ZhaoUI.steps.set"
+    }
+  ],
+  "methods": [
+    {
+      "name": "ZhaoUI.steps.set(el, { current, error, done })",
+      "on": "",
+      "value": "",
+      "desc": "更新状态并重绘；设置 current 会清除错误态"
+    },
+    {
+      "name": "ZhaoUI.steps.get(el)",
+      "on": "",
+      "value": "",
+      "desc": "返回 { current, error, done }"
+    }
+  ],
+  "a11y": [
+    "当前步骤带 aria-current=\"step\"",
+    "状态不只靠颜色：完成是对勾，出错是叉，并且可以写出错文字",
+    "外面的 <ol> 请加 aria-label 说明是什么流程"
+  ],
+  "example": "<div class=\"zh-stack\">\n  <ol data-zh-steps data-current=\"1\" aria-label=\"开通流程\">\n    <li data-title=\"填写信息\" data-desc=\"企业与联系人\"></li>\n    <li data-title=\"资质审核\" data-desc=\"约 1 个工作日\"></li>\n    <li data-title=\"开通完成\"></li>\n  </ol>\n  <ol data-zh-steps data-mode=\"icon\" data-current=\"2\" data-error=\"1\" data-error-text=\"文件过大\" aria-label=\"上传流程\">\n    <li data-title=\"选择文件\" data-icon=\"file-text\"></li>\n    <li data-title=\"上传\" data-icon=\"settings\"></li>\n    <li data-title=\"完成\" data-icon=\"check\"></li>\n  </ol>\n</div>"
+}

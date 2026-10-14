@@ -1,0 +1,17 @@
+{
+  "name": "message",
+  "title": "消息提示",
+  "summary": "顶部居中的轻量提示，自动消失。只提供方法调用，不需要写标记。",
+  "classes": ["zh-message"],
+  "attributes": [],
+  "events": [],
+  "methods": [
+    { "name": "ZhaoUI.message(text, { type, duration })", "desc": "显示一条消息。type：success（默认）、info、warning、error；duration 为毫秒，默认 2400，传 0 则不自动消失。返回一个函数，调用即提前关闭。text 按纯文本处理" }
+  ],
+  "a11y": [
+    "容器是 aria-live=\"polite\"；error 类型使用 role=\"alert\"，其余为 role=\"status\"",
+    "在模态框打开时调用，消息会显示在模态框之上（库会把容器放进打开的 <dialog>），关闭后自动挪回",
+    "不要把必须阅读的信息只放在消息里：它会自己消失"
+  ],
+  "example": "<script>\nZhaoUI.message('保存成功');\nZhaoUI.message('网络异常，请重试', { type: 'error', duration: 4000 });\n\nvar close = ZhaoUI.message('正在上传…', { type: 'info', duration: 0 });\n// 完成后\nclose();\n</script>"
+}

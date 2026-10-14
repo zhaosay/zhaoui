@@ -1,0 +1,48 @@
+{
+  "name": "tabs",
+  "title": "标签页",
+  "summary": "横向或纵向标签页。标签用 aria-controls 关联面板，面板的显示隐藏由库处理。也可以当「分段开关」用：几个标签指向同一个面板，在 zh:tab-change 里换内容。",
+  "classes": [
+    "zh-tabs"
+  ],
+  "attributes": [
+    {
+      "name": "role=\"tablist\"",
+      "on": ".zh-tabs",
+      "value": "必填",
+      "desc": "标识这是标签列表，库据此初始化"
+    },
+    {
+      "name": "aria-orientation",
+      "on": ".zh-tabs",
+      "value": "vertical",
+      "desc": "纵向标签页：方向键改为上下"
+    },
+    {
+      "name": "aria-controls",
+      "on": "每个 [role=tab]",
+      "value": "对应面板的 id",
+      "desc": "对应面板的 id。多个标签可以指向同一个面板：只要当前选中的标签指向它，它就是显示的；不写则只切换选中状态，不管理面板"
+    },
+    {
+      "name": "aria-selected",
+      "on": "每个 [role=tab]",
+      "value": "true | false",
+      "desc": "初始选中项；都没写则选中第一个"
+    }
+  ],
+  "events": [
+    {
+      "name": "zh:tab-change",
+      "on": ".zh-tabs",
+      "detail": "{ index, tab }",
+      "desc": "选中项变化时触发（冒泡），初始化时也会触发一次"
+    }
+  ],
+  "methods": [],
+  "a11y": [
+    "只有当前标签在 Tab 顺序里（roving tabindex），方向键在标签间移动并同时激活，Home / End 跳到首尾，到边界会循环",
+    "面板自动加上 role=\"tabpanel\"，隐藏的面板用 hidden"
+  ],
+  "example": "<div class=\"zh-tabs\" role=\"tablist\" aria-label=\"分区\">\n  <button role=\"tab\" aria-selected=\"true\" aria-controls=\"p1\">概览</button>\n  <button role=\"tab\" aria-selected=\"false\" aria-controls=\"p2\">正文</button>\n</div>\n<div id=\"p1\">概览内容</div>\n<div id=\"p2\">正文内容</div>\n\n<!-- 分段开关：三个标签共用一个面板，由事件换内容 -->\n<div class=\"zh-tabs\" role=\"tablist\" id=\"range\" aria-label=\"统计周期\">\n  <button role=\"tab\" aria-selected=\"true\" aria-controls=\"kpi\">今日</button>\n  <button role=\"tab\" aria-selected=\"false\" aria-controls=\"kpi\">近 7 天</button>\n  <button role=\"tab\" aria-selected=\"false\" aria-controls=\"kpi\">近 30 天</button>\n</div>\n<section id=\"kpi\" aria-live=\"polite\">…</section>\n<script>\nfunction render(i) { document.getElementById('kpi').textContent = ['今日数据', '近 7 天数据', '近 30 天数据'][i]; }\n// 初始化时也会触发一次 zh:tab-change，所以第一次进来就会按当前选中的标签渲染\ndocument.getElementById('range').addEventListener('zh:tab-change', function (e) { render(e.detail.index); });\n</script>"
+}

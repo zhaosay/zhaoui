@@ -1,0 +1,24 @@
+/* charts */
+.zh-chart { position: relative; color: var(--zh-text); }
+.zh-chart-stage { position: relative; width: 100%; }
+.zh-chart-stage svg { max-width: 100%; border-radius: var(--zh-radius-sm); }
+.zh-chart-stage svg:focus-visible { outline: 2px solid var(--zh-color-primary); outline-offset: 2px; }
+.zh-chart-grid { stroke: var(--zh-border); stroke-width: 1; shape-rendering: crispEdges; }   /* keeps 1px lines sharp at 125% and 150% display scaling */
+.zh-chart-grid.is-zero { stroke: var(--zh-border-strong); }
+.zh-chart-tick { fill: var(--zh-text-tertiary); font-size: 11px; font-family: var(--zh-font-sans); font-variant-numeric: tabular-nums; }
+.zh-chart-total { fill: var(--zh-text); font-size: 22px; font-weight: 700; font-family: var(--zh-font-sans); }
+.zh-chart-cursor { stroke: var(--zh-border-strong); stroke-width: 1; stroke-dasharray: 3 3; pointer-events: none; }
+.zh-chart-slice { transition: opacity var(--zh-dur-fast) var(--zh-ease-standard); }
+.zh-chart-slice:hover { opacity: .85; }
+.zh-chart-legend { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-bottom: 8px; }
+.zh-chart-key { display: inline-flex; align-items: center; gap: 6px; padding: 2px 6px; font: inherit; font-size: .9em; color: var(--zh-text-secondary); background: none; border: 0; border-radius: var(--zh-radius-sm); cursor: pointer; }
+.zh-chart-key i { width: 10px; height: 10px; border-radius: 3px; flex: none; }
+.zh-chart-key[aria-pressed="false"] { opacity: .45; text-decoration: line-through; }
+.zh-chart-key:hover { color: var(--zh-text); background: var(--zh-bg-subtle); }
+.zh-chart-key:focus-visible { outline: 2px solid var(--zh-color-primary); outline-offset: 1px; }
+.zh-chart-tip { position: absolute; z-index: 2; min-width: 120px; padding: 8px 10px; background: var(--zh-bg-elevated); border: 1px solid var(--zh-border); border-radius: var(--zh-radius-md); box-shadow: var(--zh-shadow-md); font-size: .88em; pointer-events: none; }
+.zh-chart-tip b { display: block; margin-bottom: 4px; }
+.zh-chart-tip div { display: flex; align-items: center; gap: 6px; line-height: 1.6; }
+.zh-chart-tip div i { width: 8px; height: 8px; border-radius: 2px; flex: none; }
+.zh-chart-tip div span { margin-inline-start: auto; padding-inline-start: 12px; font-variant-numeric: tabular-nums; font-weight: 600; }
+@media (forced-colors: active) { :root .zh-chart-grid { stroke: GrayText; } :root .zh-chart-tick, :root .zh-chart-total { fill: CanvasText; } }

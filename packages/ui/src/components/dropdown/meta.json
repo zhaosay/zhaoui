@@ -1,0 +1,55 @@
+{
+  "name": "dropdown",
+  "title": "下拉菜单",
+  "summary": "点击按钮弹出菜单。菜单内容写在页面里的一个隐藏列表中，选中后触发 zh:select。一个菜单可以被多个按钮共用（比如表格每一行一个「操作」按钮，都指向同一个 #menu）。",
+  "classes": [
+    "zh-menu"
+  ],
+  "attributes": [
+    {
+      "name": "data-zh-dropdown",
+      "on": "按钮",
+      "value": "菜单元素的选择器，如 #menu",
+      "desc": "声明这个按钮控制哪个菜单"
+    },
+    {
+      "name": "data-zh-placement",
+      "on": "按钮",
+      "value": "bottom-start（默认）、bottom-end、top-start、top-end、left、right 等",
+      "desc": "菜单出现的位置，空间不足时自动翻转"
+    },
+    {
+      "name": "hidden",
+      "on": "菜单 <ul class=\"zh-menu\">",
+      "value": "布尔",
+      "desc": "菜单源元素保持隐藏；库会克隆它来显示"
+    },
+    {
+      "name": "data-value",
+      "on": "菜单项 <a> 或 <button>",
+      "value": "字符串",
+      "desc": "选中时作为 detail.value；不写则取文字"
+    },
+    {
+      "name": "aria-disabled",
+      "on": "菜单项",
+      "value": "true",
+      "desc": "禁用某一项"
+    }
+  ],
+  "events": [
+    {
+      "name": "zh:select",
+      "on": "触发按钮",
+      "detail": "{ value, item }",
+      "desc": "选中某项后在被点击的那个按钮上触发（冒泡），随后菜单关闭。多个按钮共用一个菜单时，用 e.target.closest('[data-zh-dropdown]') 就能知道是哪一行的按钮"
+    }
+  ],
+  "methods": [],
+  "a11y": [
+    "按钮带 aria-haspopup / aria-expanded；菜单 role=\"menu\"，菜单项 role=\"menuitem\"",
+    "在按钮上按 ↓ 打开；打开后焦点落在第一项，↑ ↓ / Home / End 移动，输入字母可跳转，Enter 选中",
+    "Esc 关闭并把焦点还给按钮；点击外部也会关闭"
+  ],
+  "example": "<button class=\"zh-btn\" data-zh-dropdown=\"#menu\">操作 <i data-i=\"chevron-down\"></i></button>\n<ul class=\"zh-menu\" id=\"menu\" hidden>\n  <li><a href=\"#\" data-value=\"edit\">编辑</a></li>\n  <li><a href=\"#\" data-value=\"copy\">复制</a></li>\n  <li><a href=\"#\" data-value=\"del\">删除</a></li>\n</ul>\n\n<script>\ndocument.querySelector('[data-zh-dropdown]').addEventListener('zh:select', function (e) {\n  console.log(e.detail.value);\n});\n</script>\n\n<!-- 表格行菜单：每行一个按钮，共用同一个菜单 -->\n<table>\n  <tr data-id=\"1\"><td>文章一</td><td><button class=\"zh-btn text\" data-zh-dropdown=\"#rowMenu\">操作</button></td></tr>\n  <tr data-id=\"2\"><td>文章二</td><td><button class=\"zh-btn text\" data-zh-dropdown=\"#rowMenu\">操作</button></td></tr>\n</table>\n<ul class=\"zh-menu\" id=\"rowMenu\" hidden>\n  <li><a href=\"#\" data-value=\"edit\">编辑</a></li><li><a href=\"#\" data-value=\"del\">删除</a></li>\n</ul>\n<script>\ndocument.addEventListener('zh:select', function (e) {\n  var btn = e.target.closest('[data-zh-dropdown=\"#rowMenu\"]'), id = btn.closest('tr').dataset.id;\n  console.log(e.detail.value, '第', id, '行');\n});\n</script>"
+}

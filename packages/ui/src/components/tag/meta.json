@@ -1,0 +1,71 @@
+{
+  "name": "tag",
+  "title": "标签",
+  "summary": "标签：普通的彩色标签、可关闭的标签，以及可选中的标签（单选组、多选）。普通标签只要 class=\"zh-tag\" 加颜色类，不需要 zh-tag--x；zh-tag--x 才表示可关闭或可选。新增标签的输入框不在库里，按你的业务自己做。",
+  "classes": [
+    "zh-tag",
+    "zh-tag--x",
+    "zh-tag--check",
+    "zh-tag-close",
+    "zh-tag-group"
+  ],
+  "attributes": [
+    {
+      "name": "zh-tag",
+      "on": "<span>（class）",
+      "value": "可加 primary | success | warning | danger",
+      "desc": "普通标签。不加颜色类就是中性灰（适合「草稿」「默认」这类状态）；加 zh-tag--x 才有关闭按钮或选中行为"
+    },
+    {
+      "name": "zh-tag-close",
+      "on": ".zh-tag--x 内的按钮（class）",
+      "value": "无",
+      "desc": "点击后移除所在标签；按钮必须有 aria-label（如「移除 设计」）"
+    },
+    {
+      "name": "role=\"radio\"",
+      "on": ".zh-tag--check",
+      "value": "放在 role=\"radiogroup\" 里",
+      "desc": "单选：点击或方向键切换，roving tabindex"
+    },
+    {
+      "name": "role=\"checkbox\"",
+      "on": ".zh-tag--check",
+      "value": "aria-checked=\"true|false\"",
+      "desc": "多选：点击切换"
+    },
+    {
+      "name": "primary / success / warning / danger / info",
+      "on": ".zh-tag",
+      "value": "class",
+      "desc": "颜色"
+    },
+    {
+      "name": "zh-tag--filled / zh-tag--outline / zh-tag--sm / zh-tag--lg",
+      "on": ".zh-tag",
+      "value": "class",
+      "desc": "填充或描边外观、小或大尺寸，可与颜色类组合"
+    }
+  ],
+  "events": [
+    {
+      "name": "zh:tag-remove",
+      "on": "被点击的 .zh-tag",
+      "detail": "{ label, tag }",
+      "desc": "移除前触发（冒泡，可取消）；调用 preventDefault() 则保留标签"
+    },
+    {
+      "name": "zh:tag-change",
+      "on": "单选：radiogroup；多选：被点击的标签",
+      "detail": "单选 { value, values }；多选 { value, checked, values }",
+      "desc": "选中状态变化时触发（冒泡）"
+    }
+  ],
+  "methods": [],
+  "a11y": [
+    "单选组使用 radiogroup / radio 语义，方向键移动并选中；多选使用 checkbox 语义",
+    "移除后，如果相邻元素可以聚焦（比如「新增」按钮），焦点会移过去；普通标签本身不可聚焦，所以没有可移的目标时焦点回到页面",
+    "选中不只靠颜色：选中的标签左侧显示对勾"
+  ],
+  "example": "<span class=\"zh-tag success\">已发布</span>\n<span class=\"zh-tag warning\">待审核</span>\n<span class=\"zh-tag\">草稿</span>\n\n<div id=\"tag-demo\">\n  <span class=\"zh-tag zh-tag--x primary\"><span>设计</span><button type=\"button\" class=\"zh-tag-close\" aria-label=\"移除 设计\"><i data-i=\"x\"></i></button></span>\n  <span class=\"zh-tag zh-tag--x\"><span>研发</span><button type=\"button\" class=\"zh-tag-close\" aria-label=\"移除 研发\"><i data-i=\"x\"></i></button></span>\n</div>\n\n<div class=\"zh-tag-group\" id=\"period\" role=\"radiogroup\" aria-label=\"选择周期\">\n  <button class=\"zh-tag zh-tag--x zh-tag--check\" role=\"radio\" aria-checked=\"true\" tabindex=\"0\"><i data-i=\"check\" data-s=\"12\" class=\"zh-tag-tick\"></i>今天</button>\n  <button class=\"zh-tag zh-tag--x zh-tag--check\" role=\"radio\" aria-checked=\"false\" tabindex=\"-1\"><i data-i=\"check\" data-s=\"12\" class=\"zh-tag-tick\"></i>近 7 天</button>\n</div>\n\n<script>\ndocument.getElementById('period').addEventListener('zh:tag-change', function (e) {\n  console.log(e.detail.value);\n});\n</script>"
+}

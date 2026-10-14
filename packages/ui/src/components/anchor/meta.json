@@ -1,0 +1,45 @@
+{
+  "name": "anchor",
+  "title": "锚点目录",
+  "summary": "长页面的“本页目录”：一列指向页内各节的链接，滚动时自动标出当前所在的一节，点击平滑滚动过去。适合文档、设置页的右侧。",
+  "classes": [
+    "zh-anchor"
+  ],
+  "attributes": [
+    {
+      "name": "data-zh-anchor",
+      "on": "<nav>",
+      "value": "里面放 <ul><li><a href=\"#节的id\">",
+      "desc": "声明为锚点目录；嵌套的 <ul> 表示二级标题"
+    },
+    {
+      "name": "data-offset",
+      "on": "<nav>",
+      "value": "像素，默认 16",
+      "desc": "滚动后目标离顶部保留的距离；页面有吸顶导航条时设成它的高度"
+    },
+    {
+      "name": "data-target",
+      "on": "<nav>",
+      "value": "选择器",
+      "desc": "内容在某个可滚动容器里时，监听它而不是整个页面"
+    }
+  ],
+  "events": [
+    {
+      "name": "zh:anchor-change",
+      "on": "<nav>",
+      "value": "{ id, link }",
+      "desc": "当前所在的一节变化"
+    }
+  ],
+  "methods": [],
+  "a11y": [
+    "当前节用 aria-current=\"location\" 标出",
+    "点击后目标节获得焦点（不再触发二次滚动），键盘用户可继续往下读",
+    "给 <nav> 加 aria-label，默认是“本页目录”",
+    "系统开启“减少动态效果”时直接跳转，不做平滑滚动",
+    "链接的目标 id 必须存在，否则该项被忽略"
+  ],
+  "example": "<div style=\"display:flex;gap:24px;align-items:flex-start\">\n  <nav data-zh-anchor data-target=\"#an-box\" data-offset=\"8\" style=\"width:12rem;flex:none\">\n    <ul>\n      <li><a href=\"#an-a\">简介</a></li>\n      <li><a href=\"#an-b\">用法</a>\n        <ul><li><a href=\"#an-c\">属性</a></li></ul>\n      </li>\n    </ul>\n  </nav>\n  <div id=\"an-box\" tabindex=\"0\" role=\"region\" aria-label=\"文档内容\" style=\"height:12rem;overflow:auto;flex:1;min-width:0;padding:0 16px;border:1px solid var(--zh-border);border-radius:var(--zh-radius-md)\">\n    <p id=\"an-a\" style=\"margin-top:0\"><strong>简介</strong></p><p style=\"height:7rem\">锚点目录适合长页面。</p>\n    <p id=\"an-b\"><strong>用法</strong></p><p style=\"height:7rem\">把目录放在内容旁边。</p>\n    <p id=\"an-c\"><strong>属性</strong></p><p style=\"height:9rem\">data-offset、data-target。</p>\n  </div>\n</div>"
+}

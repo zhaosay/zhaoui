@@ -1,0 +1,124 @@
+{
+  "name": "tree",
+  "title": "树",
+  "summary": "可展开的层级列表：文件目录、组织架构、分类。写一个嵌套的 <ul>，库渲染成带展开箭头的行；可选复选框（父级根据子级显示全选、半选、未选）、单选高亮和完整的键盘操作。",
+  "classes": [
+    "zh-tree",
+    "zh-tree-row",
+    "zh-tree-toggle",
+    "zh-tree-check",
+    "zh-tree-icon",
+    "zh-tree-label",
+    "zh-tree--guides"
+  ],
+  "attributes": [
+    {
+      "name": "data-zh-tree",
+      "on": "<div class=\"zh-tree\">",
+      "value": "里面放一个嵌套的 <ul>",
+      "desc": "声明为树；<li> 的文字是节点名称，子级写在它里面的 <ul> 里"
+    },
+    {
+      "name": "data-id",
+      "on": "<li>",
+      "value": "唯一标识",
+      "desc": "事件和方法里用它指代节点；不写会自动生成"
+    },
+    {
+      "name": "data-icon",
+      "on": "<li>",
+      "value": "图标名",
+      "desc": "节点前的图标"
+    },
+    {
+      "name": "data-open",
+      "on": "<li>",
+      "value": "",
+      "desc": "该节点默认展开"
+    },
+    {
+      "name": "data-checked",
+      "on": "<li>",
+      "value": "",
+      "desc": "默认选中（仅复选模式；父级的状态由子级算出）"
+    },
+    {
+      "name": "data-disabled",
+      "on": "<li>",
+      "value": "",
+      "desc": "禁用，不可选择、不可勾选"
+    },
+    {
+      "name": "data-checkable",
+      "on": "容器",
+      "value": "",
+      "desc": "显示复选框"
+    },
+    {
+      "name": "data-no-select",
+      "on": "容器",
+      "value": "",
+      "desc": "不要点击高亮（只做展开或勾选时用）"
+    },
+    {
+      "name": "data-toggle-on-click",
+      "on": "容器",
+      "value": "",
+      "desc": "点击整行也展开或收起，不只是点箭头"
+    },
+    {
+      "name": "zh-tree--guides",
+      "on": "容器（class）",
+      "value": "",
+      "desc": "显示缩进参考线"
+    }
+  ],
+  "events": [
+    {
+      "name": "zh:tree-select",
+      "on": "容器",
+      "value": "{ id, label }",
+      "desc": "点击或回车选中某个节点"
+    },
+    {
+      "name": "zh:tree-check",
+      "on": "容器",
+      "value": "{ id, checked, ids }",
+      "desc": "勾选变化；ids 是当前全部选中的叶子节点的 data-id"
+    },
+    {
+      "name": "zh:tree-toggle",
+      "on": "容器",
+      "value": "{ id, open }",
+      "desc": "展开或收起"
+    }
+  ],
+  "methods": [
+    {
+      "name": "ZhaoUI.tree.checked(el)",
+      "on": "",
+      "value": "",
+      "desc": "返回选中的叶子节点 id 数组"
+    },
+    {
+      "name": "ZhaoUI.tree.expandAll(el) / collapseAll(el)",
+      "on": "",
+      "value": "",
+      "desc": "全部展开 / 收起"
+    },
+    {
+      "name": "ZhaoUI.tree.select(el, id)",
+      "on": "",
+      "value": "",
+      "desc": "选中某个节点并展开它的祖先；找不到返回 false"
+    }
+  ],
+  "a11y": [
+    "容器 role=tree，行 role=treeitem，带 aria-level、aria-expanded、aria-checked、aria-selected",
+    "键盘：上下键移动，右键展开或进入子级，左键收起或回到父级，Home/End 到首尾，回车选中，空格勾选（无复选框时选中）",
+    "勾选结果通过隐藏的 aria-live 区域读出",
+    "请给容器加 aria-label 说明这棵树是什么",
+    "不含拖拽排序、行内重命名和按需加载子节点；这些需要你自己处理数据后重新渲染"
+  ],
+  "example": "<div class=\"zh-tree\" data-zh-tree data-checkable aria-label=\"文件\" style=\"max-width:20rem\">\n  <ul>\n    <li data-id=\"src\" data-open data-icon=\"file-text\">src\n      <ul>\n        <li data-id=\"a\" data-checked>index.js</li>\n        <li data-id=\"b\">style.css</li>\n        <li data-id=\"c\" data-disabled>locked.txt</li>\n      </ul>\n    </li>\n    <li data-id=\"docs\" data-icon=\"file-text\">docs\n      <ul><li data-id=\"d\">readme.md</li></ul>\n    </li>\n  </ul>\n</div>"
+}

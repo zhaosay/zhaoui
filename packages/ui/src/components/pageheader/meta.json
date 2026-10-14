@@ -1,0 +1,60 @@
+{
+  "name": "pageheader",
+  "title": "页头",
+  "summary": "纯样式组件：不需要 JS。后台内容区顶部的标题区：返回按钮、标题、说明、操作按钮和一行元信息。",
+  "classes": [
+    "zh-ph",
+    "zh-ph-main",
+    "zh-ph-title",
+    "zh-ph-back",
+    "zh-ph-sec",
+    "zh-ph-actions",
+    "zh-ph-meta",
+    "zh-ph--compact"
+  ],
+  "attributes": [
+    {
+      "name": "zh-ph",
+      "on": "<header>（class）",
+      "value": "",
+      "desc": "页头容器，上方一般放面包屑"
+    },
+    {
+      "name": "zh-ph-main",
+      "on": "容器",
+      "value": "",
+      "desc": "标题和操作按钮所在的一行，空间不够会换行"
+    },
+    {
+      "name": "zh-ph-title",
+      "on": "容器",
+      "value": "里面放 <h4>，可带 zh-ph-back 返回按钮与 zh-ph-sec 副标题",
+      "desc": "手机宽度隐藏副标题"
+    },
+    {
+      "name": "zh-ph-actions",
+      "on": "容器",
+      "value": "里面放 zh-btn",
+      "desc": "右侧操作区"
+    },
+    {
+      "name": "zh-ph-meta",
+      "on": "<dl>",
+      "value": "多个 <div><dt>…</dt><dd>…</dd></div>",
+      "desc": "标题下面的一行元信息"
+    },
+    {
+      "name": "zh-ph--compact",
+      "on": ".zh-ph",
+      "value": "",
+      "desc": "紧凑版：标题、标签页、操作排在一行"
+    }
+  ],
+  "events": [],
+  "methods": [],
+  "a11y": [
+    "返回按钮是图标按钮，必须有 aria-label",
+    "页面的唯一一级标题放在 zh-ph-title 里"
+  ],
+  "example": "<header class=\"zh-ph\">\n  <nav aria-label=\"当前位置\"><ol class=\"zh-crumb\"><li><a href=\"#\">首页</a></li><li aria-current=\"page\">文章详情</li></ol></nav>\n  <div class=\"zh-ph-main\">\n    <div class=\"zh-ph-title\"><button class=\"zh-ph-back\" aria-label=\"返回\"><i data-i=\"chevron-left\"></i></button><h4>产品发布会回顾</h4><span class=\"zh-tag success\">已发布</span></div>\n    <div class=\"zh-ph-actions\"><button class=\"zh-btn\">预览</button><button class=\"zh-btn primary\">编辑</button></div>\n  </div>\n  <dl class=\"zh-ph-meta\"><div><dt>作者</dt><dd>李明</dd></div><div><dt>更新</dt><dd>2026-10-04</dd></div></dl>\n</header>"
+}

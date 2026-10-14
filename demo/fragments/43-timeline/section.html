@@ -1,0 +1,99 @@
+      <section class="block" id="timeline">
+        <h2>时间线与步骤</h2>
+        <p class="desc">时间线回放「发生了什么」，步骤条引导用户完成「接下来做什么」。两者都用有序列表 <code>&lt;ol&gt;</code> 表达先后；颜色只表达状态，永远配图标或文字；动效只用 transform 与 opacity。</p>
+
+        <h3>时间线布局</h3>
+        <div class="zh-grid">
+          <div class="zh-col zh-card" style="--d:6;--t:4;--p:4"><div class="panel-label">left · 内容在右（默认）</div><ol class="zh-tl zh-tl--left" data-tl="basic" aria-label="订单进度（左侧布局）"></ol></div>
+          <div class="zh-col zh-card" style="--d:6;--t:4;--p:4"><div class="panel-label">right · 内容在左，文字右对齐</div><ol class="zh-tl zh-tl--right" data-tl="basic" aria-label="订单进度（右侧布局）"></ol></div>
+          <div class="zh-col zh-card" style="--d:12;--t:8;--p:4"><div class="panel-label">alternate · 左右交替，时间在对侧；手机上自动收成 left</div><ol class="zh-tl zh-tl--alt" data-tl="basic" data-opp="1" aria-label="订单进度（交替布局）"></ol></div>
+        </div>
+
+        <h3>圆点类型与状态色</h3>
+        <div class="zh-grid">
+          <div class="zh-col zh-card" style="--d:6;--t:4;--p:4"><div class="panel-label">solid / hollow / icon / large</div><ol class="zh-tl zh-tl--left zh-tl--rail-lg" data-tl="types" aria-label="圆点类型"></ol></div>
+          <div class="zh-col zh-card" style="--d:6;--t:4;--p:4"><div class="panel-label">带附件与展开详情</div><ol class="zh-tl zh-tl--left" data-tl="files" aria-label="审批记录"></ol></div>
+        </div>
+
+        <h3>分组、紧凑与动态流</h3>
+        <div class="zh-grid">
+          <div class="zh-col zh-card" style="--d:4;--t:4;--p:4"><div class="panel-label">按日期分组</div><ol class="zh-tl zh-tl--left" data-tl="grouped" aria-label="按日期分组的操作记录"></ol></div>
+          <div class="zh-col zh-card" style="--d:4;--t:4;--p:4"><div class="panel-label">compact · 高密度</div><ol class="zh-tl zh-tl--left zh-tl--compact" data-tl="compact" aria-label="紧凑时间线"></ol></div>
+          <div class="zh-col zh-card" style="--d:4;--t:8;--p:4"><div class="panel-label">活动流 · 头像</div><ol class="zh-tl zh-tl--left zh-tl--rail-lg zh-tl--feed" data-tl="feed" aria-label="团队动态"></ol></div>
+        </div>
+
+        <h3>待处理项与实时追加</h3>
+        <div class="zh-card">
+          <div class="zh-split" style="margin-bottom:14px"><span class="zh-hint" style="margin:0">最后一项是「进行中」：圆点为旋转图标。每次推进，它转为已完成并追加下一项。</span>
+            <div class="zh-row" style="--g:8px"><button type="button" class="zh-btn sm primary" id="zhTlAdvance"><i data-i="play"></i>模拟新事件</button><button type="button" class="zh-btn sm" id="zhTlReset"><i data-i="rotate-ccw"></i>重置</button></div></div>
+          <ol class="zh-tl zh-tl--left" id="zhTlLive" aria-live="polite" aria-label="物流进度"></ol>
+        </div>
+
+        <h3>规范</h3>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:640px">
+          <thead><tr><th>项</th><th>规则</th></tr></thead>
+          <tbody>
+            <tr><td>语义</td><td>用 <code>&lt;ol&gt;</code>，时间用 <code>&lt;time datetime&gt;</code>；进行中的项加 <code>aria-live</code> 所在容器，变化时读出</td></tr>
+            <tr><td>状态色</td><td>默认灰、品牌、成功、警告、危险；圆点旁必须有标题文字，警告与危险再配图标</td></tr>
+            <tr><td>时间位置</td><td>left / right：时间跟在标题后；alternate：时间放在轴的另一侧；手机 &lt;768 一律收成 left</td></tr>
+            <tr><td>展开详情</td><td>按钮带 <code>aria-expanded</code> / <code>aria-controls</code>；折叠内容不可聚焦；高度动画只用 grid 行高过渡</td></tr>
+            <tr><td>间距</td><td>项间距 20px × 密度系数；compact 为 10px，并隐藏描述以外的次要内容</td></tr>
+            <tr><td>数量</td><td>超过 20 项时分组或改为「加载更多」，不要一次画出全部</td></tr>
+          </tbody>
+        </table></div>
+
+        <h3>步骤条 Steps</h3>
+        <div class="zh-grid">
+          <div class="zh-col zh-card" style="--d:12;--t:8;--p:4"><div class="panel-label">horizontal · 数字；窄于 768 自动变纵向</div><ol class="zh-steps zh-steps--h" data-steps="basic" aria-label="开通流程"></ol></div>
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><div class="panel-label">icon · 图标</div><ol class="zh-steps zh-steps--h" data-steps="icons" data-mode="icon" aria-label="下单流程"></ol></div>
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><div class="panel-label">error · 出错的步骤</div><ol class="zh-steps zh-steps--h" data-steps="error" aria-label="上传流程"></ol></div>
+          <div class="zh-col zh-card" style="--d:4;--t:4;--p:4"><div class="panel-label">small · 24px</div><ol class="zh-steps zh-steps--h zh-steps--sm" data-steps="small" aria-label="小尺寸步骤"></ol></div>
+          <div class="zh-col zh-card" style="--d:4;--t:4;--p:4"><div class="panel-label">dot · 极简</div><ol class="zh-steps zh-steps--h zh-steps--dot" data-steps="small" aria-label="圆点步骤"></ol></div>
+          <div class="zh-col zh-card" style="--d:4;--t:8;--p:4"><div class="panel-label">vertical · 纵向</div><ol class="zh-steps zh-steps--v" data-steps="vertical" aria-label="纵向步骤"></ol></div>
+        </div>
+
+        <h3>连线进度动画</h3>
+        <div class="zh-card">
+          <ol class="zh-steps zh-steps--h" id="zhStepsPlay" data-steps="basic" aria-label="进度动画演示"></ol>
+          <div class="zh-row" style="margin-top:16px;--g:8px"><button type="button" class="zh-btn sm primary" id="zhStepsPlayBtn"><i data-i="play"></i>播放</button><span class="zh-hint" style="margin:0">连线用 scaleX / scaleY 填充，不动画宽高，也不触发布局。</span></div>
+        </div>
+
+        <h3>可点击 + 校验拦截</h3>
+        <div class="zh-card zh-wiz" id="zhWiz">
+          <ol class="zh-steps zh-steps--h zh-steps--click" id="zhWizSteps" aria-label="注册向导"></ol>
+          <div class="zh-wiz-panels">
+            <div class="zh-wiz-panel" data-i="0">
+              <div class="zh-grid">
+                <div class="zh-col zh-field" style="--d:6;--t:4;--p:4"><label for="zhWizName">姓名</label><input id="zhWizName" class="zh-input" autocomplete="off" placeholder="请输入姓名" aria-describedby="zhWizNameE"><span class="zh-hint err" id="zhWizNameE" hidden>请填写姓名</span></div>
+                <div class="zh-col zh-field" style="--d:6;--t:4;--p:4"><label for="zhWizMail">邮箱</label><input id="zhWizMail" class="zh-input" autocomplete="off" placeholder="name@example.com" aria-describedby="zhWizMailE"><span class="zh-hint err" id="zhWizMailE" hidden>邮箱格式不正确</span></div>
+              </div>
+            </div>
+            <div class="zh-wiz-panel" data-i="1" hidden>
+              <fieldset class="zh-wiz-plans" aria-describedby="zhWizPlanE"><legend class="zh-hint" style="margin-bottom:8px">选择方案</legend>
+                <label class="zh-wiz-plan"><input type="radio" name="zhWizPlan" value="基础版"><span><b>基础版</b><small>1 个项目，适合个人</small></span></label>
+                <label class="zh-wiz-plan"><input type="radio" name="zhWizPlan" value="专业版"><span><b>专业版</b><small>无限项目，团队协作</small></span></label>
+                <label class="zh-wiz-plan"><input type="radio" name="zhWizPlan" value="企业版"><span><b>企业版</b><small>私有部署，专属支持</small></span></label>
+              </fieldset>
+              <span class="zh-hint err" id="zhWizPlanE" hidden>请选择一个方案</span>
+            </div>
+            <div class="zh-wiz-panel" data-i="2" hidden><dl class="dl" id="zhWizSum"></dl></div>
+          </div>
+          <div class="zh-split" style="margin-top:16px">
+            <span class="zh-hint" id="zhWizMsg" role="status" aria-live="polite" style="margin:0"></span>
+            <div class="zh-row" style="--g:8px"><button type="button" class="zh-btn" id="zhWizPrev">上一步</button><button type="button" class="zh-btn primary" id="zhWizNext">下一步</button></div>
+          </div>
+        </div>
+
+        <h3>规范</h3>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:640px">
+          <thead><tr><th>项</th><th>规则</th></tr></thead>
+          <tbody>
+            <tr><td>状态</td><td>wait 灰色空心 · process 品牌色实心 · finish 浅色底加对勾 · error 危险色加 ×，标题同时变色</td></tr>
+            <tr><td>语义</td><td><code>&lt;ol&gt;</code>；当前步骤 <code>aria-current="step"</code>，整条只能有一个</td></tr>
+            <tr><td>可点击</td><td>只能回到已完成的步骤；越过当前步骤必须走「下一步」并通过校验；禁用的步骤加 <code>disabled</code></td></tr>
+            <tr><td>尺寸</td><td>lg 40 · md 32（默认）· sm 24 · dot 12；标题永远与图标垂直居中</td></tr>
+            <tr><td>响应式</td><td>&lt;768 横向自动变纵向，连线从水平改为竖直</td></tr>
+            <tr><td>数量</td><td>3–6 步最佳；超过 6 步分组，不要把步骤条拉成两行</td></tr>
+          </tbody>
+        </table></div>
+      </section>

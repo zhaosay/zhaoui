@@ -1,0 +1,261 @@
+<section class="block" id="popover">
+  <h2>弹出层</h2>
+  <p class="desc">Tooltip、Popover、Popconfirm 共用同一个弹出引擎：贴边自动翻转和避让，点击外部或按 Esc 关闭，在模态框里打开时会挂在模态框内部，不会被遮住。</p>
+
+  <h3>选哪一个</h3>
+  <div class="matrix-wrap"><table class="matrix" style="min-width:640px">
+    <thead><tr><th>组件</th><th>触发</th><th>内容</th><th>能否操作内容</th><th>典型场景</th></tr></thead>
+    <tbody>
+      <tr><td>Tooltip</td><td>悬停或键盘聚焦</td><td>一句话，可带快捷键</td><td>否</td><td>图标按钮说明、被截断的文字、按钮禁用的原因</td></tr>
+      <tr><td>Popover</td><td>点击（也可悬停）</td><td>标题 + 正文 + 操作</td><td>是</td><td>快速查看、轻量表单、用户名片</td></tr>
+      <tr><td>Popconfirm</td><td>点击</td><td>一句确认 + 两个按钮</td><td>是</td><td>删除、下线等轻量二次确认；不可逆的大操作改用 Modal</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Tooltip</h3>
+  <div class="matrix-wrap"><table class="matrix" style="min-width:640px">
+    <thead><tr><th>项</th><th>规范</th></tr></thead>
+    <tbody>
+      <tr><td>触发</td><td>鼠标悬停或键盘聚焦都会出现；移开、失焦或按 Esc 消失；触屏设备不依赖它传达关键信息</td></tr>
+      <tr><td>延迟</td><td>默认悬停 80ms 后出现、120ms 后消失；说明文字较长的场景可拉长到 400ms，避免鼠标划过时闪烁</td></tr>
+      <tr><td>位置</td><td>12 个方位：上下左右各 3 个（居中、start、end）；空间不够时自动翻到对面，并贴边避让</td></tr>
+      <tr><td>内容</td><td>一句话，不超过 260px 宽；需要标题或快捷键时使用富内容，仍然不可操作</td></tr>
+      <tr><td>无障碍</td><td><code>role="tooltip"</code>，触发元素通过 <code>aria-describedby</code> 关联；纯图标按钮本身必须有 <code>aria-label</code>，此时 Tooltip 只作视觉补充</td></tr>
+      <tr><td>禁用按钮</td><td>禁用的按钮收不到鼠标事件，外面包一层可聚焦的容器来挂 Tooltip，并说明禁用原因</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="zh-grid" style="margin-top:16px">
+    <div class="zh-col" style="--d:7;--t:8;--p:4">
+      <p class="zh-hint" style="margin-top:0">12 个方位（悬停或聚焦每个按钮）</p>
+      <div class="zh-tt-grid" role="group" aria-label="Tooltip 的 12 个方位">
+        <span></span>
+        <button class="zh-btn sm" data-zh-tt="top-start" data-zh-tt-placement="top-start">上左</button>
+        <button class="zh-btn sm" data-zh-tt="top" data-zh-tt-placement="top">上</button>
+        <button class="zh-btn sm" data-zh-tt="top-end" data-zh-tt-placement="top-end">上右</button>
+        <span></span>
+
+        <button class="zh-btn sm" data-zh-tt="left-start" data-zh-tt-placement="left-start">左上</button>
+        <span></span><span></span><span></span>
+        <button class="zh-btn sm" data-zh-tt="right-start" data-zh-tt-placement="right-start">右上</button>
+
+        <button class="zh-btn sm" data-zh-tt="left" data-zh-tt-placement="left">左</button>
+        <span></span><span></span><span></span>
+        <button class="zh-btn sm" data-zh-tt="right" data-zh-tt-placement="right">右</button>
+
+        <button class="zh-btn sm" data-zh-tt="left-end" data-zh-tt-placement="left-end">左下</button>
+        <span></span><span></span><span></span>
+        <button class="zh-btn sm" data-zh-tt="right-end" data-zh-tt-placement="right-end">右下</button>
+
+        <span></span>
+        <button class="zh-btn sm" data-zh-tt="bottom-start" data-zh-tt-placement="bottom-start">下左</button>
+        <button class="zh-btn sm" data-zh-tt="bottom" data-zh-tt-placement="bottom">下</button>
+        <button class="zh-btn sm" data-zh-tt="bottom-end" data-zh-tt-placement="bottom-end">下右</button>
+        <span></span>
+      </div>
+    </div>
+    <div class="zh-col" style="--d:5;--t:8;--p:4">
+      <div class="zh-stack" style="--g:18px">
+        <div>
+          <p class="zh-hint" style="margin-top:0">纯图标按钮（自带 aria-label，Tooltip 仅作视觉补充）</p>
+          <div class="zh-row" style="--g:8px">
+            <button class="zh-btn icon" aria-label="复制链接" data-zh-tt="复制链接" data-zh-tt-visual><i data-i="link"></i></button>
+            <button class="zh-btn icon" aria-label="下载" data-zh-tt="下载" data-zh-tt-visual><i data-i="download"></i></button>
+            <button class="zh-btn icon" aria-label="分享" data-zh-tt="分享给同事" data-zh-tt-visual><i data-i="share-2"></i></button>
+            <button class="zh-btn icon" aria-label="更多" data-zh-tt="更多操作" data-zh-tt-visual><i data-i="ellipsis"></i></button>
+          </div>
+        </div>
+        <div>
+          <p class="zh-hint" style="margin-top:0">富内容（标题 + 说明 + 快捷键）</p>
+          <button class="zh-btn" data-zh-tt-rich><i data-i="save"></i>保存草稿</button>
+        </div>
+        <div>
+          <p class="zh-hint" style="margin-top:0">禁用按钮：用可聚焦的外层说明原因</p>
+          <span class="zh-tt-wrap" tabindex="0" data-zh-tt="没有编辑权限，请联系管理员开通" data-zh-tt-placement="top"><button class="zh-btn primary" disabled aria-disabled="true">提交审核</button></span>
+        </div>
+        <div>
+          <p class="zh-hint" style="margin-top:0">较长延迟（500ms），划过不会闪</p>
+          <button class="zh-btn" data-zh-tt="悬停停留半秒才会出现" data-zh-tt-delay="500">慢一点</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Popover</h3>
+  <div class="matrix-wrap"><table class="matrix" style="min-width:640px">
+    <thead><tr><th>项</th><th>规范</th></tr></thead>
+    <tbody>
+      <tr><td>触发</td><td>默认点击；名片类内容可用悬停。点击触发时，再点触发按钮、点击外部或按 Esc 关闭，关闭后焦点回到触发按钮</td></tr>
+      <tr><td>结构</td><td>标题（可省略）+ 正文 + 底部操作，宽度 280px，最宽不超过屏幕减 32px</td></tr>
+      <tr><td>无障碍</td><td><code>role="dialog"</code>，触发按钮带 <code>aria-expanded</code>、<code>aria-controls</code>；含表单时打开后焦点移入</td></tr>
+    </tbody>
+  </table></div>
+  <div class="zh-card" style="margin-top:16px">
+    <div class="zh-row" style="--g:12px">
+      <div class="zh-field" style="width:180px"><label for="zhPvPlace">位置</label>
+        <div class="zh-select"><select id="zhPvPlace">
+          <option value="bottom-start">下方 · 左对齐</option><option value="bottom">下方 · 居中</option><option value="bottom-end">下方 · 右对齐</option>
+          <option value="top-start">上方 · 左对齐</option><option value="top">上方 · 居中</option><option value="top-end">上方 · 右对齐</option>
+          <option value="left-start">左侧 · 顶对齐</option><option value="left">左侧 · 居中</option><option value="left-end">左侧 · 底对齐</option>
+          <option value="right-start">右侧 · 顶对齐</option><option value="right">右侧 · 居中</option><option value="right-end">右侧 · 底对齐</option>
+        </select></div></div>
+      <div class="seg" role="group" aria-label="触发方式" id="zhPvTrigger"><button data-v="click" aria-pressed="true">点击</button><button data-v="hover" aria-pressed="false">悬停</button></div>
+      <button class="zh-btn primary" id="zhPvDemo"><i data-i="message-square"></i>查看说明</button>
+    </div>
+    <hr style="border:0;border-top:1px solid var(--zh-border);margin:18px 0">
+    <div class="zh-row" style="--g:12px">
+      <button class="zh-btn" id="zhPvInvite"><i data-i="user-plus"></i>邀请成员</button>
+      <button class="zh-btn" id="zhPvUser" data-zh-user><i data-i="user-round"></i>悬停查看名片</button>
+    </div>
+  </div>
+
+  <h3>Popconfirm</h3>
+  <div class="matrix-wrap"><table class="matrix" style="min-width:640px">
+    <thead><tr><th>项</th><th>规范</th></tr></thead>
+    <tbody>
+      <tr><td>什么时候用</td><td>可以撤销或影响范围小的操作。影响很大或不可逆时用 Modal，并写清后果</td></tr>
+      <tr><td>按钮</td><td>取消在左、确认在右；危险操作的确认按钮用危险色，按钮文字写动作（「删除」「下线」），不写「确定」</td></tr>
+      <tr><td>异步</td><td>确认后按钮进入加载态并禁用，请求结束再关闭；期间不能通过 Esc 或点击外部误关</td></tr>
+      <tr><td>键盘</td><td>打开后焦点在「取消」上，Tab 在两个按钮间循环，Enter 执行当前按钮，Esc 关闭并把焦点还给触发按钮</td></tr>
+    </tbody>
+  </table></div>
+  <div class="zh-card" style="margin-top:16px">
+    <div class="zh-row" style="--g:12px">
+      <button class="zh-btn" id="zhPcBasic"><i data-i="trash-2"></i>删除文件</button>
+      <button class="zh-btn danger" id="zhPcDanger"><i data-i="trash-2"></i>永久删除</button>
+      <button class="zh-btn" id="zhPcCustom">下线文章</button>
+      <button class="zh-btn primary" id="zhPcAsync">提交审核</button>
+      <button class="zh-btn" id="zhPcBottom">位置在下方</button>
+    </div>
+    <p class="zh-hint" id="zhPcResult" role="status" style="margin:12px 0 0">还没有操作</p>
+  </div>
+</section>
+
+<section class="block" id="dialogs">
+  <h2>模态与通知</h2>
+  <p class="desc">四种打断程度：Modal 必须处理才能继续，Drawer 在不离开当前页面的前提下处理一件事，Notification 是需要留意的消息，Message 是一闪而过的操作反馈。</p>
+
+  <h3>选哪一个</h3>
+  <div class="matrix-wrap"><table class="matrix" style="min-width:680px">
+    <thead><tr><th>组件</th><th>打断程度</th><th>会自动消失</th><th>适合</th></tr></thead>
+    <tbody>
+      <tr><td>Modal</td><td>阻断，背景不可操作</td><td>否</td><td>必须确认的决定、聚焦的短表单</td></tr>
+      <tr><td>Drawer</td><td>半阻断，可点遮罩关闭</td><td>否</td><td>详情、编辑、多字段表单、筛选面板</td></tr>
+      <tr><td>Notification</td><td>不阻断，出现在角落</td><td>默认 5 秒，悬停暂停</td><td>系统消息、后台任务完成、需要点击处理的通知</td></tr>
+      <tr><td>Message</td><td>不阻断，顶部居中</td><td>默认 2.6 秒</td><td>「保存成功」「已复制」这类操作反馈</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Modal</h3>
+  <div class="matrix-wrap"><table class="matrix" style="min-width:680px">
+    <thead><tr><th>尺寸</th><th>宽度</th><th>用在哪里</th></tr></thead>
+    <tbody>
+      <tr><td>sm</td><td>360px</td><td>确认对话框：一句话 + 两个按钮</td></tr>
+      <tr><td>md（默认）</td><td>520px</td><td>短表单、设置项</td></tr>
+      <tr><td>lg</td><td>720px</td><td>较复杂的内容，例如选择器或预览</td></tr>
+      <tr><td>full</td><td>整屏减 32px</td><td>编辑器、长流程</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="check" style="margin-top:12px">
+    <li>手机上自动变成底部弹层（顶部圆角、带拖拽条、底部留出安全区），全屏尺寸铺满整个屏幕</li>
+    <li>打开后焦点移入并被限制在对话框内，关闭后回到触发按钮；Esc 与点击遮罩是否关闭可单独配置，不允许时对话框会轻微抖动提示</li>
+    <li>确认类对话框用 <code>role="alertdialog"</code>，标题和描述通过 <code>aria-labelledby</code>、<code>aria-describedby</code> 关联</li>
+    <li>处理中不允许通过 Esc、遮罩或关闭按钮中途退出，按钮进入加载态</li>
+  </ul>
+
+  <div class="zh-grid" style="margin-top:16px">
+    <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><h4>尺寸</h4>
+      <div class="zh-row" style="--g:8px">
+        <button class="zh-btn" data-zh-modal="sm">sm</button><button class="zh-btn" data-zh-modal="md">md</button>
+        <button class="zh-btn" data-zh-modal="lg">lg</button><button class="zh-btn" data-zh-modal="full">full</button>
+      </div></div>
+    <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><h4>确认对话框</h4>
+      <div class="zh-row" style="--g:8px">
+        <button class="zh-btn" data-zh-confirm="info"><i data-i="info"></i>提示</button><button class="zh-btn" data-zh-confirm="success"><i data-i="circle-check"></i>成功</button>
+        <button class="zh-btn" data-zh-confirm="warning"><i data-i="triangle-alert"></i>警告</button><button class="zh-btn" data-zh-confirm="error"><i data-i="circle-x"></i>错误</button>
+      </div></div>
+    <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><h4>场景</h4>
+      <div class="zh-row" style="--g:8px">
+        <button class="zh-btn" data-zh-modal="form">表单</button><button class="zh-btn" data-zh-modal="scroll">长内容</button>
+        <button class="zh-btn" data-zh-modal="nested">嵌套</button><button class="zh-btn" data-zh-modal="loading">处理中</button>
+      </div></div>
+    <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><h4>可关闭性</h4>
+      <div class="zh-row" style="--g:16px">
+        <label class="zh-check"><input type="checkbox" class="zh-switch" role="switch" id="zhMdMask" checked> 点击遮罩关闭</label>
+        <label class="zh-check"><input type="checkbox" class="zh-switch" role="switch" id="zhMdEsc" checked> Esc 关闭</label>
+        <button class="zh-btn primary" data-zh-modal="closable">试一试</button>
+      </div></div>
+  </div>
+
+  <h3>Drawer</h3>
+  <div class="matrix-wrap"><table class="matrix" style="min-width:680px">
+    <thead><tr><th>项</th><th>规范</th></tr></thead>
+    <tbody>
+      <tr><td>方向</td><td>右侧（默认，详情与编辑）、左侧（导航与筛选）、顶部与底部（批量操作、简短说明）</td></tr>
+      <tr><td>尺寸</td><td>左右：sm 320 · md 420 · lg 640 · xl 880；上下：sm 30% · md 45% · lg 70% 屏高；手机上左右抽屉铺满宽度</td></tr>
+      <tr><td>结构</td><td>标题栏（固定）+ 内容（独立滚动）+ 底部操作栏（固定）</td></tr>
+      <tr><td>行为</td><td>可点击遮罩关闭；支持嵌套，后打开的在上层；焦点被限制在抽屉内，关闭后回到触发按钮</td></tr>
+    </tbody>
+  </table></div>
+  <div class="zh-grid" style="margin-top:16px">
+    <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><h4>方向</h4>
+      <div class="zh-row" style="--g:8px">
+        <button class="zh-btn" data-zh-drawer="right"><i data-i="panel-right"></i>右侧</button><button class="zh-btn" data-zh-drawer="left"><i data-i="panel-left"></i>左侧</button>
+        <button class="zh-btn" data-zh-drawer="top"><i data-i="panel-top"></i>顶部</button><button class="zh-btn" data-zh-drawer="bottom"><i data-i="panel-bottom"></i>底部</button>
+      </div></div>
+    <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><h4>尺寸与场景</h4>
+      <div class="zh-row" style="--g:8px">
+        <button class="zh-btn" data-zh-drawer="sm">sm</button><button class="zh-btn" data-zh-drawer="lg">lg</button>
+        <button class="zh-btn" data-zh-drawer="footer">带操作栏</button><button class="zh-btn" data-zh-drawer="nested">嵌套</button>
+        <button class="zh-btn" data-zh-drawer="nomask">不可点遮罩</button>
+      </div></div>
+  </div>
+
+  <h3>Notification</h3>
+  <div class="matrix-wrap"><table class="matrix" style="min-width:680px">
+    <thead><tr><th>项</th><th>规范</th></tr></thead>
+    <tbody>
+      <tr><td>位置</td><td>右上（默认）、左上、右下、左下；手机上上方的左右合并为顶部通栏，下方为底部通栏</td></tr>
+      <tr><td>结构</td><td>类型图标 + 标题 + 描述（可选）+ 操作按钮（可选）+ 关闭按钮；右侧带倒计时进度条</td></tr>
+      <tr><td>时长</td><td>默认 5 秒；鼠标悬停或键盘聚焦时暂停；需要用户处理的通知设为常驻（不自动消失）</td></tr>
+      <tr><td>数量</td><td>同一位置最多同时 4 条，超出时最早的一条被挤掉</td></tr>
+      <tr><td>无障碍</td><td>成功和提示为 <code>role="status"</code>，警告和错误为 <code>role="alert"</code>，会被读屏软件朗读；关闭按钮有 <code>aria-label</code></td></tr>
+    </tbody>
+  </table></div>
+  <div class="zh-grid" style="margin-top:16px">
+    <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><h4>四个角落</h4>
+      <div class="zh-row" style="--g:8px">
+        <button class="zh-btn" data-zh-notice-pos="tr">右上</button><button class="zh-btn" data-zh-notice-pos="tl">左上</button>
+        <button class="zh-btn" data-zh-notice-pos="br">右下</button><button class="zh-btn" data-zh-notice-pos="bl">左下</button>
+      </div></div>
+    <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><h4>类型</h4>
+      <div class="zh-row" style="--g:8px">
+        <button class="zh-btn" data-zh-notice="info">提示</button><button class="zh-btn" data-zh-notice="success">成功</button>
+        <button class="zh-btn" data-zh-notice="warning">警告</button><button class="zh-btn" data-zh-notice="error">错误</button>
+      </div></div>
+    <div class="zh-col zh-card" style="--d:12;--t:8;--p:4"><h4>场景</h4>
+      <div class="zh-row" style="--g:8px">
+        <button class="zh-btn" data-zh-notice="action">带操作按钮</button><button class="zh-btn" data-zh-notice="sticky">常驻通知</button>
+        <button class="zh-btn" data-zh-notice="stack">连发 6 条（看堆叠上限）</button><button class="zh-btn text" data-zh-notice="clear">全部关闭</button>
+      </div></div>
+  </div>
+
+  <h3>Message</h3>
+  <div class="matrix-wrap"><table class="matrix" style="min-width:680px">
+    <thead><tr><th>项</th><th>规范</th></tr></thead>
+    <tbody>
+      <tr><td>类型</td><td>提示、成功、警告、失败、加载中；加载中的消息可以原地变成成功或失败</td></tr>
+      <tr><td>时长</td><td>默认 2.6 秒；加载中不自动消失；需要用户看清的可以加关闭按钮并延长</td></tr>
+      <tr><td>数量</td><td>最多同时 4 条，超出时挤掉最早的</td></tr>
+      <tr><td>文案</td><td>说结果，不超过一行：「已保存」「复制失败，请重试」</td></tr>
+    </tbody>
+  </table></div>
+  <div class="zh-card" style="margin-top:16px">
+    <div class="zh-row" style="--g:8px">
+      <button class="zh-btn" data-zh-msg="info">提示</button><button class="zh-btn" data-zh-msg="success">成功</button>
+      <button class="zh-btn" data-zh-msg="warning">警告</button><button class="zh-btn" data-zh-msg="error">失败</button>
+      <button class="zh-btn primary" data-zh-msg="loading">加载中 → 成功</button>
+      <button class="zh-btn" data-zh-msg="closable">可关闭，10 秒</button>
+    </div>
+  </div>
+</section>

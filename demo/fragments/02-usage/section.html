@@ -1,0 +1,1032 @@
+      <section class="block" id="quickstart">
+        <h2>快速开始</h2>
+        <p class="desc">原生版只需要两个文件：<code>zhaoui.css</code> 与 <code>zhaoui.js</code>，不依赖框架与构建工具。组件用 <code>data-zh-*</code> 属性声明，也可以调用全局对象 <code>ZhaoUI</code>。版本 0.1.0。</p>
+        <h3>引入</h3>
+        <pre class="tokens">&lt;link rel=&quot;stylesheet&quot; href=&quot;zhaoui.css&quot;&gt;
+
+&lt;button class=&quot;zh-btn primary&quot; data-zh-open=&quot;#dlg&quot;&gt;打开&lt;/button&gt;
+&lt;dialog class=&quot;zh-modal&quot; id=&quot;dlg&quot; aria-labelledby=&quot;t&quot;&gt;
+  &lt;header id=&quot;t&quot;&gt;你好&lt;/header&gt;
+  &lt;div class=&quot;body&quot;&gt;这是 ZhaoUI 的模态框。&lt;/div&gt;
+  &lt;footer&gt;&lt;button class=&quot;zh-btn primary&quot; data-zh-close&gt;知道了&lt;/button&gt;&lt;/footer&gt;
+&lt;/dialog&gt;
+
+&lt;script src=&quot;zhaoui.js&quot;&gt;&lt;/script&gt;   &lt;!-- 放在 &lt;/body&gt; 前 --&gt;</pre>
+        <h3>文件</h3>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>文件</th><th>说明</th><th>大小</th></tr></thead><tbody><tr><td><code>zhaoui.css</code></td><td>Token 变量 + 全部组件样式</td><td>189.3 KB → 165.0 KB，gzip 28.3 KB</td></tr><tr><td><code>modular/core.css</code></td><td>核心：Token、基础、通用组件样式</td><td>156.8 KB → 136.4 KB，gzip 24.0 KB</td></tr><tr><td><code>modular/select.css</code></td><td>下拉选择与级联选择的样式</td><td>8.8 KB → 7.8 KB，gzip 2.0 KB</td></tr><tr><td><code>modular/upload.css</code></td><td>文件上传的样式</td><td>4.2 KB → 3.7 KB，gzip 1.1 KB</td></tr><tr><td><code>modular/tree.css</code></td><td>树的样式</td><td>4.4 KB → 3.9 KB，gzip 1.2 KB</td></tr><tr><td><code>modular/chart.css</code></td><td>基础图表的样式</td><td>2.5 KB → 2.2 KB，gzip 0.9 KB</td></tr><tr><td><code>modular/command.css</code></td><td>命令面板的样式</td><td>3.2 KB → 2.9 KB，gzip 1.0 KB</td></tr><tr><td><code>modular/date.css</code></td><td>日期、日期范围、时间、日期时间选择的样式</td><td>10.0 KB → 8.9 KB，gzip 2.1 KB</td></tr><tr><td><code>zhaoui-utilities.css</code></td><td>可选：公共类（间距、布局、文字、响应式显示隐藏、动画）</td><td>65.1 KB → 56.0 KB，gzip 9.1 KB</td></tr><tr><td><code>zhaoui-marketing.css</code></td><td>可选：营销页区块（页宽、区块、hero、特性卡、价格卡）</td><td>10.9 KB → 8.1 KB，gzip 2.2 KB</td></tr><tr><td><code>zhaoui-style-glass.css</code></td><td>可选：玻璃拟态风格包（实验性）</td><td>16.5 KB → 14.0 KB，gzip 1.9 KB</td></tr><tr><td><code>zhaoui-icons.js</code></td><td>可选：完整 Lucide 图标集（372 个）</td><td>67.0 KB → 62.6 KB，gzip 16.0 KB</td></tr><tr><td><code>zhaoui.js</code></td><td>主题运行时 + 全部组件行为 + 内置图标 + 自动初始化</td><td>264.2 KB → 179.8 KB，gzip 55.7 KB</td></tr><tr><td><code>modular/brand.js</code></td><td>品牌色运行时：ZhaoUI.setBrand()、Logo 取色（可选）</td><td>22.6 KB → 13.7 KB，gzip 6.1 KB</td></tr><tr><td><code>modular/core.js</code></td><td>核心：组件注册与自动初始化 + 通用组件行为（必须最先加载）</td><td>123.8 KB → 83.9 KB，gzip 25.3 KB</td></tr><tr><td><code>modular/select.js</code></td><td>下拉选择与级联选择的行为（在 core.js 之后加载）</td><td>35.9 KB → 23.2 KB，gzip 7.5 KB</td></tr><tr><td><code>modular/upload.js</code></td><td>文件上传的行为（在 core.js 之后加载）</td><td>9.3 KB → 7.3 KB，gzip 3.0 KB</td></tr><tr><td><code>modular/tree.js</code></td><td>树的行为（在 core.js 之后加载）</td><td>7.7 KB → 5.5 KB，gzip 2.2 KB</td></tr><tr><td><code>modular/chart.js</code></td><td>基础图表的行为（在 core.js 之后加载）</td><td>12.4 KB → 8.7 KB，gzip 3.7 KB</td></tr><tr><td><code>modular/command.js</code></td><td>命令面板的行为（在 core.js 之后加载）</td><td>7.6 KB → 5.5 KB，gzip 2.5 KB</td></tr><tr><td><code>modular/date.js</code></td><td>日期、日期范围、时间、日期时间选择的行为（在 core.js 之后加载）</td><td>48.6 KB → 34.0 KB，gzip 10.1 KB</td></tr></tbody></table></div>
+        <h3>主题属性 <code>&lt;html data-*&gt;</code></h3>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-audience</code></td><td>b | c</td><td>默认 b。B 端 / C 端：字号、圆角、控件高度、动效、阴影</td></tr><tr><td><code>data-mode</code></td><td>light | dark</td><td>默认 light。不会自动跟随系统</td></tr><tr><td><code>data-density</code></td><td>compact | standard | comfortable</td><td>默认 standard</td></tr><tr><td><code>data-trend</code></td><td>cn | intl</td><td>默认 cn。红涨绿跌 / 绿涨红跌</td></tr><tr><td><code>data-brand</code></td><td>indigo | teal | coral | violet | rose</td><td>默认 indigo；任意颜色用 ZhaoUI.setBrand(hex)</td></tr><tr><td><code>data-style</code></td><td>flat | glass</td><td>默认 flat。glass 需另引风格包，实验性</td></tr></tbody></table></div>
+        <p class="zh-hint" style="margin-top:12px">用代码切换：<code>ZhaoUI.setTheme({ mode: 'dark', audience: 'c' })</code>、<code>ZhaoUI.setBrand('#00857f')</code>。完整文档在 <code>zhaoui/packages/ui/docs/</code>，Claude Code 技能在 <code>zhaoui/skills/zhaoui/</code>。</p>
+      </section>
+
+      <section class="block" id="usage">
+        <h2>组件调用</h2>
+        <p class="desc">下面是已经抽成独立版的组件。每个组件的标记、属性、方法和事件都取自 <code>meta.json</code>，与 Markdown 文档、技能资料同源；示例代码由自动测试在 Chromium、Firefox、WebKit 里原样运行过。演示页里其余的组件还没有独立版。</p>
+        <h3>锚点目录</h3>
+        <p class="desc" style="margin-bottom:12px">长页面的“本页目录”：一列指向页内各节的链接，滚动时自动标出当前所在的一节，点击平滑滚动过去。适合文档、设置页的右侧。</p>
+        <pre class="tokens">&lt;div style=&quot;display:flex;gap:24px;align-items:flex-start&quot;&gt;
+  &lt;nav data-zh-anchor data-target=&quot;#an-box&quot; data-offset=&quot;8&quot; style=&quot;width:12rem;flex:none&quot;&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#an-a&quot;&gt;简介&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#an-b&quot;&gt;用法&lt;/a&gt;
+        &lt;ul&gt;&lt;li&gt;&lt;a href=&quot;#an-c&quot;&gt;属性&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+  &lt;div id=&quot;an-box&quot; tabindex=&quot;0&quot; role=&quot;region&quot; aria-label=&quot;文档内容&quot; style=&quot;height:12rem;overflow:auto;flex:1;min-width:0;padding:0 16px;border:1px solid var(--zh-border);border-radius:var(--zh-radius-md)&quot;&gt;
+    &lt;p id=&quot;an-a&quot; style=&quot;margin-top:0&quot;&gt;&lt;strong&gt;简介&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;height:7rem&quot;&gt;锚点目录适合长页面。&lt;/p&gt;
+    &lt;p id=&quot;an-b&quot;&gt;&lt;strong&gt;用法&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;height:7rem&quot;&gt;把目录放在内容旁边。&lt;/p&gt;
+    &lt;p id=&quot;an-c&quot;&gt;&lt;strong&gt;属性&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;height:9rem&quot;&gt;data-offset、data-target。&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-zh-anchor</code></td><td>&lt;nav&gt;</td><td>里面放 &lt;ul&gt;&lt;li&gt;&lt;a href=&quot;#节的id&quot;&gt;</td><td>声明为锚点目录；嵌套的 &lt;ul&gt; 表示二级标题</td></tr><tr><td><code>data-offset</code></td><td>&lt;nav&gt;</td><td>像素，默认 16</td><td>滚动后目标离顶部保留的距离；页面有吸顶导航条时设成它的高度</td></tr><tr><td><code>data-target</code></td><td>&lt;nav&gt;</td><td>选择器</td><td>内容在某个可滚动容器里时，监听它而不是整个页面</td></tr></tbody></table></div>
+        
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:anchor-change</code></td><td>&lt;nav&gt;</td><td>undefined</td><td>当前所在的一节变化</td></tr></tbody></table></div>
+        <h3>头像</h3>
+        <p class="desc" style="margin-bottom:12px">图片头像；图片缺失或加载失败时，用姓名首字（中文取第一个字，英文取首字母）和由姓名决定的颜色代替。</p>
+        <pre class="tokens">&lt;span class=&quot;zh-avatar&quot; data-name=&quot;张三&quot; data-size=&quot;md&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;zh-avatar&quot; data-name=&quot;Ada Lovelace&quot; data-size=&quot;md&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;zh-avatar&quot; data-name=&quot;设计&quot; data-size=&quot;md&quot; data-shape=&quot;square&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;zh-avatar&quot; data-name=&quot;在线&quot; data-size=&quot;lg&quot; data-status=&quot;success&quot;&gt;&lt;/span&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-name</code></td><td>.zh-avatar</td><td>字符串</td><td>姓名；必填，库据此初始化，也是无障碍名称</td></tr><tr><td><code>data-src</code></td><td>.zh-avatar</td><td>图片地址</td><td>头像图片；加载失败自动退回首字</td></tr><tr><td><code>data-size</code></td><td>.zh-avatar</td><td>xs | sm | md | lg | xl</td><td>尺寸</td></tr><tr><td><code>data-shape</code></td><td>.zh-avatar</td><td>square | circle（默认）</td><td>方形头像，默认圆形</td></tr><tr><td><code>data-icon</code></td><td>.zh-avatar</td><td>图标名</td><td>用图标代替首字</td></tr><tr><td><code>data-status</code></td><td>.zh-avatar</td><td>success | warning | danger | primary</td><td>右下角的在线状态点</td></tr><tr><td><code>data-tone</code></td><td>头像</td><td>brand</td><td>用品牌色代替按名字挑选的 8 种分类色，适合一个品牌页里所有头像颜色一致</td></tr></tbody></table></div>
+        
+        
+        <h3>返回顶部</h3>
+        <p class="desc" style="margin-bottom:12px">滚动超过一段距离后出现的圆形按钮，点击平滑回到顶部；系统开启“减少动态效果”时直接跳回。</p>
+        <pre class="tokens">&lt;button class=&quot;zh-backtop&quot; data-zh-backtop data-threshold=&quot;200&quot;&gt;&lt;/button&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-zh-backtop</code></td><td>&lt;button&gt;（可为空）</td><td></td><td>声明为返回顶部按钮；空按钮会自动放入向上的箭头图标和 aria-label</td></tr><tr><td><code>data-threshold</code></td><td>按钮</td><td>像素，默认 400</td><td>滚动超过多少像素后出现</td></tr><tr><td><code>data-target</code></td><td>按钮</td><td>选择器</td><td>监听某个可滚动容器而不是整页；这时按钮不会固定在视口，需要你自己定位</td></tr></tbody></table></div>
+        
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:backtop</code></td><td>按钮</td><td>无</td><td>点击回到顶部时触发</td></tr></tbody></table></div>
+        <h3>徽标</h3>
+        <p class="desc" style="margin-bottom:12px">挂在头像、图标、按钮角上的数字、红点或文字徽标。数量为 0 时自动隐藏，超过上限显示 99+。</p>
+        <pre class="tokens">&lt;span class=&quot;zh-bdg&quot;&gt;&lt;button class=&quot;zh-btn&quot; aria-label=&quot;消息&quot;&gt;消息&lt;/button&gt;&lt;span class=&quot;zh-bdg-mark&quot; id=&quot;unread&quot; data-count=&quot;5&quot; data-tone=&quot;danger&quot; data-label=&quot;条未读&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;zh-bdg&quot;&gt;&lt;button class=&quot;zh-btn&quot;&gt;待办&lt;/button&gt;&lt;span class=&quot;zh-bdg-mark&quot; data-count=&quot;128&quot; data-tone=&quot;primary&quot; data-label=&quot;项待办&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;zh-bdg&quot;&gt;&lt;button class=&quot;zh-btn&quot;&gt;动态&lt;/button&gt;&lt;span class=&quot;zh-bdg-mark&quot; data-dot=&quot;true&quot; data-tone=&quot;danger&quot; data-label=&quot;有更新&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;zh-bdg&quot;&gt;&lt;button class=&quot;zh-btn&quot;&gt;功能&lt;/button&gt;&lt;span class=&quot;zh-bdg-mark&quot; data-text=&quot;NEW&quot; data-tone=&quot;success&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+
+&lt;script&gt;
+var m = document.getElementById('unread');
+m.dataset.count = '12';
+ZhaoUI.badge.paint(m); ZhaoUI.badge.pop(m);
+&lt;/script&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-count</code></td><td>.zh-bdg-mark</td><td>整数</td><td>数字徽标；0 时隐藏（除非 data-show-zero）</td></tr><tr><td><code>data-max</code></td><td>.zh-bdg-mark</td><td>整数，默认 99</td><td>超过则显示 99+</td></tr><tr><td><code>data-dot</code></td><td>.zh-bdg-mark</td><td>true</td><td>红点模式，只表示有更新</td></tr><tr><td><code>data-text</code></td><td>.zh-bdg-mark</td><td>字符串，如 NEW</td><td>文字徽标</td></tr><tr><td><code>data-tone</code></td><td>.zh-bdg-mark</td><td>danger | primary | success | warning | info | neutral</td><td>颜色</td></tr><tr><td><code>data-label</code></td><td>.zh-bdg-mark</td><td>字符串，如「条未读消息」</td><td>读屏时跟在数字后面，务必填写</td></tr><tr><td><code>data-pos</code></td><td>.zh-bdg（外层）</td><td>top-left | bottom-left | bottom-right（默认右上）</td><td>徽标相对被包裹元素的位置，默认右上</td></tr><tr><td><code>data-show-zero</code></td><td>.zh-bdg-mark</td><td>true</td><td>数量为 0 也显示</td></tr></tbody></table></div>
+        <ul class="check" style="margin-top:12px"><li><span><code>ZhaoUI.badge.paint(el)</code>：修改 data-count 等属性后调用，重新渲染</span></li><li><span><code>ZhaoUI.badge.pop(el)</code>：播放一次弹跳动画（开启「减少动态效果」时不播放）</span></li></ul>
+        
+        <h3>面包屑</h3>
+        <p class="desc" style="margin-bottom:12px">纯样式组件：不需要 JS，写好标记即可。页面层级路径。当前页用 aria-current=&quot;page&quot;；手机宽度只保留最后两级。</p>
+        <pre class="tokens">&lt;nav aria-label=&quot;面包屑&quot;&gt;
+  &lt;ol class=&quot;zh-crumb&quot;&gt;
+    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;首页&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;内容管理&lt;/a&gt;&lt;/li&gt;
+    &lt;li aria-current=&quot;page&quot;&gt;文章管理&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/nav&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>zh-crumb</code></td><td>&lt;ol&gt;（class）</td><td>每一级一个 &lt;li&gt;，前面的用 &lt;a&gt;，最后一级用 aria-current=&quot;page&quot;</td><td>分隔符由样式画出，不用自己写 /</td></tr><tr><td><code>aria-current=&quot;page&quot;</code></td><td>最后一个 &lt;li&gt;</td><td>page</td><td>当前页，样式加深，读屏读作「当前页」</td></tr></tbody></table></div>
+        
+        
+        <h3>按钮组</h3>
+        <p class="desc" style="margin-bottom:12px">纯样式组件：不需要 JS，写好标记即可。把几个相关按钮连成一组：共用边框，只有两端有圆角。常用来做视图切换或分段筛选；选中项用 is-active 或 aria-pressed=&quot;true&quot;。</p>
+        <pre class="tokens">&lt;div class=&quot;zh-btn-group&quot; role=&quot;group&quot; aria-label=&quot;视图&quot;&gt;
+  &lt;button class=&quot;zh-btn&quot; aria-pressed=&quot;true&quot;&gt;列表&lt;/button&gt;
+  &lt;button class=&quot;zh-btn&quot; aria-pressed=&quot;false&quot;&gt;卡片&lt;/button&gt;
+  &lt;button class=&quot;zh-btn&quot; aria-pressed=&quot;false&quot;&gt;看板&lt;/button&gt;
+&lt;/div&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>zh-btn-group</code></td><td>容器（class）</td><td>里面放多个 zh-btn</td><td>横向连接的一组按钮</td></tr><tr><td><code>zh-btn-group--vertical</code></td><td>.zh-btn-group</td><td></td><td>竖向排列</td></tr><tr><td><code>is-active / aria-pressed=&quot;true&quot;</code></td><td>组内的按钮</td><td></td><td>选中状态；切换时由你的代码更新</td></tr></tbody></table></div>
+        
+        
+        <h3>内嵌日历</h3>
+        <p class="desc" style="margin-bottom:12px">一直显示在页面里的月历（不是弹出的选择器）：点选一天、键盘切换、月年快速跳转，可禁用日期，还能给某些天加小圆点或热力底色（如日程、签到）。</p>
+        <pre class="tokens">&lt;div id=&quot;cal-demo&quot; style=&quot;max-width:22rem&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+  var cal = ZhaoUI.calendar('#cal-demo', {
+    value: new Date(),
+    disabledDate: function (d) { return d.getDay() === 0 ? '周日休息' : ''; },
+    marks: function (d) { return d.getDate() % 5 === 0 ? { dots: [1, 3], label: '2 项日程' } : null; }
+  });
+&lt;/script&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-zh-calendar</code></td><td>&lt;div&gt;</td><td></td><td>声明为内嵌日历</td></tr><tr><td><code>data-value</code></td><td>&lt;div&gt;</td><td>YYYY-MM-DD</td><td>默认选中的日期，也决定初始显示的月份</td></tr><tr><td><code>data-min / data-max</code></td><td>&lt;div&gt;</td><td>YYYY-MM-DD</td><td>可选范围</td></tr><tr><td><code>data-disable-weekends</code></td><td>&lt;div&gt;</td><td></td><td>周末不可选</td></tr><tr><td><code>data-disabled-dates</code></td><td>&lt;div&gt;</td><td>逗号分隔的日期</td><td>指定不可选的日期</td></tr></tbody></table></div>
+        <ul class="check" style="margin-top:12px"><li><span><code>ZhaoUI.calendar(host, config)</code>：命令式创建。config：value、min、max、disabledDate(d)（返回原因文字即禁用，返回空则可选）、marks(d)</span></li><li><span><code>marks(d)</code>：返回 null，或 { dots: [1 到 8], label }（最多 3 个小圆点，数字是图表色序号）或 { heat: 1 到 3, label }（热力底色深浅）；label 会写进该日的无障碍名称</span></li><li><span><code>host.zhCalendar.get() / set(v) / refresh()</code>：读取选中日期、设置选中日期（字符串或 Date）、数据变化后重画标记</span></li></ul>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:calendar-change</code></td><td>&lt;div&gt;</td><td>undefined</td><td>选中了某一天</td></tr></tbody></table></div>
+        <h3>卡片</h3>
+        <p class="desc" style="margin-bottom:12px">纯样式组件：不需要 JS，写好标记即可。带边框、圆角、阴影的内容容器。可只放一个标题和内容，也可用 zh-card--flush 配头部、正文、底部、封面图；整张卡片可点时用 zh-card--hover。</p>
+        <pre class="tokens">&lt;div class=&quot;zh-stack&quot;&gt;
+  &lt;div class=&quot;zh-card&quot;&gt;
+    &lt;h4&gt;基础卡片&lt;/h4&gt;
+    &lt;p&gt;容器负责边界与留白，内容由业务决定。&lt;/p&gt;
+    &lt;div class=&quot;zh-cardx-meta&quot;&gt;&lt;span class=&quot;zh-tag primary&quot;&gt;品牌&lt;/span&gt;&lt;span class=&quot;zh-tag&quot;&gt;默认&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;zh-card zh-card--flush&quot; style=&quot;max-width:22rem&quot;&gt;
+    &lt;div class=&quot;zh-cardx-cover&quot;&gt;&lt;img src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'%3E%3Crect width='16' height='9' fill='%23c7d2fe'/%3E%3C/svg%3E&quot; alt=&quot;设计语言 2.0 的封面&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;zh-cardx-head&quot;&gt;&lt;h4 class=&quot;zh-cardx-title&quot;&gt;发布确认&lt;/h4&gt;&lt;div class=&quot;zh-cardx-extra&quot;&gt;&lt;button class=&quot;zh-btn sm text&quot;&gt;全部&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;zh-cardx-body&quot;&gt;确认后文章将立即对外可见。&lt;/div&gt;
+    &lt;div class=&quot;zh-cardx-foot&quot;&gt;&lt;button class=&quot;zh-btn sm&quot;&gt;取消&lt;/button&gt;&lt;button class=&quot;zh-btn sm primary&quot;&gt;发布&lt;/button&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;zh-card&quot;&gt;
+    &lt;div class=&quot;zh-cardx-stat-label&quot;&gt;活跃用户&lt;/div&gt;
+    &lt;strong&gt;12.4 万&lt;/strong&gt;
+    &lt;div class=&quot;zh-cardx-stat-foot&quot;&gt;&lt;span style=&quot;color:var(--zh-trend-up)&quot;&gt;+8.2%&lt;/span&gt;&lt;span class=&quot;zh-hint&quot;&gt;较上周&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;a class=&quot;zh-card zh-card--hover&quot; href=&quot;#&quot;&gt;&lt;h4&gt;进入项目&lt;/h4&gt;&lt;p&gt;查看成员、进度与最近动态。&lt;/p&gt;&lt;/a&gt;
+&lt;/div&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>zh-card</code></td><td>&lt;div&gt;（class）</td><td>内部可放 &lt;h4&gt; 作标题</td><td>基础卡片：内边距、边框、圆角、阴影随受众与密度变化</td></tr><tr><td><code>zh-card--flush</code></td><td>与 zh-card 一起</td><td>配合下面的 zh-cardx-* 分区</td><td>去掉内边距，由 head / body / foot 各自控制；溢出裁切，封面图贴边</td></tr><tr><td><code>zh-cardx-head / -title / -extra</code></td><td>flush 卡片内</td><td>标题在左，-extra 里放右侧操作按钮</td><td>卡片头部</td></tr><tr><td><code>zh-cardx-body / -foot</code></td><td>flush 卡片内</td><td>-foot 里放右对齐的按钮</td><td>正文与底部操作区</td></tr><tr><td><code>zh-cardx-cover</code></td><td>flush 卡片内</td><td>里面放一张 &lt;img alt=&quot;…&quot;&gt; 或一个 &lt;svg&gt;</td><td>封面区域：16:9 比例、浅色底，里面的图片或 SVG 撑满并裁切；放在卡片最上面</td></tr><tr><td><code>zh-cardx-meta</code></td><td>卡片内</td><td>里面放 zh-tag</td><td>一行标签或元信息</td></tr><tr><td><code>zh-cardx-stat-label / -stat-foot</code></td><td>基础卡片内</td><td>label 是指标名，foot 放趋势与说明</td><td>指标卡的两端；中间的数字自己写（用 --zh-text 等变量），库不提供数字样式</td></tr><tr><td><code>zh-card--hover</code></td><td>写在 &lt;a&gt; 上，与 zh-card 一起</td><td>href 指向目标</td><td>整张卡片是链接：悬停上浮并描边，键盘聚焦有聚焦环</td></tr></tbody></table></div>
+        
+        
+        <h3>轮播</h3>
+        <p class="desc" style="margin-bottom:12px">一组幻灯片：左右箭头、圆点、键盘方向键、触屏滑动（基于 CSS 滚动吸附）；可自动播放。</p>
+        <pre class="tokens">&lt;div data-zh-carousel data-autoplay=&quot;6000&quot; aria-label=&quot;精选内容&quot; style=&quot;max-width:28rem&quot;&gt;
+  &lt;div class=&quot;zh-carousel-track&quot;&gt;
+    &lt;div class=&quot;zh-carousel-slide&quot; style=&quot;aspect-ratio:16/9;display:grid;place-items:center;background:var(--zh-color-primary-subtle)&quot;&gt;第一张&lt;/div&gt;
+    &lt;div class=&quot;zh-carousel-slide&quot; style=&quot;aspect-ratio:16/9;display:grid;place-items:center;background:var(--zh-bg-subtle)&quot;&gt;第二张&lt;/div&gt;
+    &lt;div class=&quot;zh-carousel-slide&quot; style=&quot;aspect-ratio:16/9;display:grid;place-items:center;background:var(--zh-info-bg)&quot;&gt;第三张&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-zh-carousel</code></td><td>容器</td><td>里面放 .zh-carousel-track，轨道里放多个 .zh-carousel-slide</td><td>声明为轮播；箭头和圆点由库生成</td></tr><tr><td><code>data-autoplay</code></td><td>容器</td><td>毫秒，如 5000</td><td>自动播放间隔；悬停、聚焦、页面不可见或系统开启“减少动态效果”时暂停</td></tr><tr><td><code>data-loop</code></td><td>容器</td><td></td><td>在首尾循环，否则到头时箭头禁用</td></tr></tbody></table></div>
+        <ul class="check" style="margin-top:12px"><li><span><code>ZhaoUI.carousel.go(el, index)</code>：切换到第 index 张（从 0 开始）</span></li></ul>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:carousel-change</code></td><td>容器</td><td>{ index, slide }</td><td>切换到另一张后触发</td></tr></tbody></table></div>
+        <h3>级联选择</h3>
+        <p class="desc" style="margin-bottom:12px">多级联动选择（省市区、分类树）。数据写成页面里的嵌套列表，或用 ZhaoUI.cascader 传一棵树。支持搜索、悬停展开，窄屏自动变成逐级下钻。</p>
+        <pre class="tokens">&lt;div data-zh-cascader data-name=&quot;region&quot; data-searchable data-value=&quot;浙江/杭州/西湖区&quot; data-placeholder=&quot;请选择地区&quot; aria-label=&quot;地区&quot;&gt;
+  &lt;ul hidden&gt;
+    &lt;li&gt;浙江
+      &lt;ul&gt;
+        &lt;li&gt;杭州&lt;ul&gt;&lt;li&gt;西湖区&lt;/li&gt;&lt;li&gt;余杭区&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;
+        &lt;li&gt;宁波&lt;ul&gt;&lt;li&gt;海曙区&lt;/li&gt;&lt;li&gt;鄞州区&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;江苏&lt;ul&gt;&lt;li&gt;南京&lt;ul&gt;&lt;li&gt;玄武区&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;
+    &lt;li data-disabled&gt;海南&lt;ul&gt;&lt;li&gt;海口&lt;ul&gt;&lt;li&gt;龙华区&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;div id=&quot;cas2&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+document.querySelector('[data-zh-cascader]').addEventListener('zh:cascader-change', function (e) {
+  console.log(e.detail.text);   // 浙江 / 杭州 / 西湖区
+});
+
+ZhaoUI.cascader('#cas2', {
+  expandTrigger: 'hover',
+  data: [{ label: '前端', value: 'fe', children: [{ label: 'Vue', value: 'vue' }, { label: 'React', value: 'react' }] }],
+  onChange: function (labels, text, nodes) { console.log(nodes.map(function (n) { return n.value; })); }
+});
+&lt;/script&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-zh-cascader</code></td><td>容器 &lt;div&gt;</td><td>无</td><td>声明这是一个级联选择；容器里的第一个 &lt;ul&gt; 是数据，读取后会被替换成控件</td></tr><tr><td><code>data-name</code></td><td>容器</td><td>字段名</td><td>生成一个隐藏 &lt;input name=…&gt; 参与表单提交，值是用 / 连接的路径（如 浙江/杭州/西湖区）；如果路径上每个节点都写了 data-value，则用 data-value 连接</td></tr><tr><td><code>data-value</code></td><td>容器</td><td>用 / 连接的标签路径，如 浙江/杭州/西湖区</td><td>初始选中的路径；标签里含有 / 时请改用命令式</td></tr><tr><td><code>data-placeholder</code></td><td>容器</td><td>字符串</td><td>占位文字，默认「请选择」</td></tr><tr><td><code>data-searchable</code></td><td>容器</td><td>布尔属性</td><td>可输入搜索，匹配完整路径文字，只搜到叶子节点</td></tr><tr><td><code>data-clearable</code></td><td>容器</td><td>false 表示关闭</td><td>默认有清除按钮</td></tr><tr><td><code>data-expand-trigger</code></td><td>容器</td><td>click（默认）| hover</td><td>悬停展开下一级；触屏和窄屏始终是点击</td></tr><tr><td><code>data-size</code></td><td>容器</td><td>sm | md（默认）| lg</td><td>尺寸</td></tr><tr><td><code>data-sep</code></td><td>容器</td><td>字符串，默认「 / 」</td><td>输入框里各级之间的分隔文字</td></tr><tr><td><code>data-labelledby</code></td><td>容器</td><td>标签元素的 id</td><td>无障碍名称；也可以直接写 aria-label</td></tr><tr><td><code>data-disabled / data-value</code></td><td>&lt;li&gt;</td><td>布尔属性 / 字符串</td><td>禁用该节点及其子树 / 该节点的值（用于表单）</td></tr><tr><td><code>&lt;label for=&quot;容器 id&quot;&gt;</code></td><td>容器所在页面的 &lt;label&gt;</td><td>for 指向容器的 id</td><td>label 会成为输入框的无障碍名称，点击 label 会聚焦输入框；容器是空 &lt;div&gt;，label 的 for 指向它的 id 即可</td></tr></tbody></table></div>
+        <ul class="check" style="margin-top:12px"><li><span><code>ZhaoUI.cascader(host, { data, value, searchable, clearable, expandTrigger, size, placeholder, sep, labelledby, onChange })</code>：命令式创建。data 是节点树 [{ label, children?, disabled?, …你的字段 }]；value 是标签数组；onChange(labels, text, nodes)</span></li><li><span><code>el.zhCascader.get() / .getNodes()</code>：读取当前路径的标签数组 / 节点对象数组</span></li><li><span><code>el.zhCascader.set(labels) / .setData(tree) / .open() / .close()</code>：设置路径（不触发 change，并同步隐藏字段）、更换数据、打开、关闭</span></li></ul>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:cascader-change</code></td><td>容器</td><td>{ path, text, nodes }</td><td>选中或清除后触发（冒泡）。path 是标签数组，text 是拼好的文字，nodes 是节点对象数组（能读到你自己加的字段，如 value）；清除时都是空的</td></tr></tbody></table></div>
+        <h3>图表</h3>
+        <p class="desc" style="margin-bottom:12px">基础图表：折线、面积、柱状、环形、迷你趋势。颜色用主题固定的 8 色分类色板（随亮暗主题变化），只有一条纵轴（不做双纵轴），图例可点击隐藏某个系列，鼠标悬停或键盘左右键查看每个点的数值，并附带给读屏用的数据表。需要堆叠、散点、地图、动画等复杂图表时请用专门的图表库。</p>
+        <pre class="tokens">&lt;div class=&quot;zh-stack&quot;&gt;
+  &lt;div data-zh-chart data-type=&quot;line&quot; data-title=&quot;近 7 天访问量&quot;&gt;
+    &lt;script type=&quot;application/json&quot;&gt;{ &quot;labels&quot;: [&quot;周一&quot;,&quot;周二&quot;,&quot;周三&quot;,&quot;周四&quot;,&quot;周五&quot;,&quot;周六&quot;,&quot;周日&quot;], &quot;series&quot;: [ { &quot;name&quot;: &quot;访问&quot;, &quot;data&quot;: [1200, 1800, 1500, 2300, 2100, 2900, 3200] }, { &quot;name&quot;: &quot;下单&quot;, &quot;data&quot;: [120, 190, 150, 260, 210, 330, 380] } ] }&lt;/script&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;zh-row&quot;&gt;
+    &lt;div style=&quot;width:12rem&quot; data-zh-chart data-type=&quot;donut&quot; data-height=&quot;180&quot; data-title=&quot;渠道占比&quot;&gt;&lt;script type=&quot;application/json&quot;&gt;{ &quot;series&quot;: [ { &quot;name&quot;: &quot;自然&quot;, &quot;data&quot;: [520] }, { &quot;name&quot;: &quot;广告&quot;, &quot;data&quot;: [310] }, { &quot;name&quot;: &quot;推荐&quot;, &quot;data&quot;: [170] } ] }&lt;/script&gt;&lt;/div&gt;
+    &lt;div style=&quot;width:10rem&quot; data-zh-chart data-type=&quot;spark&quot; data-title=&quot;趋势&quot;&gt;&lt;script type=&quot;application/json&quot;&gt;{ &quot;labels&quot;: [&quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,&quot;5&quot;,&quot;6&quot;], &quot;series&quot;: [ { &quot;name&quot;: &quot;值&quot;, &quot;data&quot;: [3, 5, 4, 7, 6, 9] } ] }&lt;/script&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div data-zh-chart data-type=&quot;bar&quot; data-title=&quot;季度销售额&quot;&gt;&lt;script type=&quot;application/json&quot;&gt;{ &quot;labels&quot;: [&quot;Q1&quot;,&quot;Q2&quot;,&quot;Q3&quot;,&quot;Q4&quot;], &quot;series&quot;: [ { &quot;name&quot;: &quot;华东&quot;, &quot;data&quot;: [320, 410, 380, 520] }, { &quot;name&quot;: &quot;华南&quot;, &quot;data&quot;: [280, 350, 400, 460] } ] }&lt;/script&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-zh-chart</code></td><td>&lt;div&gt;</td><td>里面放 &lt;script type=&quot;application/json&quot;&gt;{…}&lt;/script&gt;</td><td>声明为图表；JSON 就是下面的配置</td></tr><tr><td><code>data-type</code></td><td>&lt;div&gt;</td><td>line | area | bar | donut | spark</td><td>图表类型，默认 line</td></tr><tr><td><code>data-height</code></td><td>&lt;div&gt;</td><td>像素，默认 240</td><td>图表高度；spark 默认 40；宽度跟随容器</td></tr><tr><td><code>data-title</code></td><td>&lt;div&gt;</td><td>文字</td><td>图表标题，用于无障碍名称和数据表标题</td></tr><tr><td><code>data-no-legend</code></td><td>&lt;div&gt;</td><td></td><td>不显示图例</td></tr></tbody></table></div>
+        <ul class="check" style="margin-top:12px"><li><span><code>ZhaoUI.chart(host, config)</code>：命令式创建，返回 { update(partialConfig), toggle(seriesIndex, visible) }。config：type、labels（横轴标签数组）、series（[{ name, data: [数字或 null] }]，null 表示断开）、height、title、legend、points（折线是否画点，默认 true）、format(value)（数值格式化，默认大数显示“万”“亿”）、inner（环形内圈比例，默认 0.62）、centerLabel（环形中心下方文字，默认“合计”）</span></li><li><span><code>环形图的数据</code>：每个系列只取第一个数，一个系列就是一块扇区；中心显示合计</span></li><li><span><code>柱状与折线</code>：柱状图从 0 开始；折线与面积图的纵轴自动取合适的刻度</span></li></ul>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:chart-hover</code></td><td>图表容器</td><td>undefined</td><td>指针或键盘移到某个数据点</td></tr><tr><td><code>zh:chart-toggle</code></td><td>图表容器</td><td>undefined</td><td>点击图例显示或隐藏某个系列</td></tr></tbody></table></div>
+        <h3>代码块</h3>
+        <p class="desc" style="margin-bottom:12px">纯样式组件：不需要 JS，写好标记即可。展示代码：zh-code 用在 &lt;pre&gt; 上（等宽字体，过宽时横向滚动），zh-code-inline 用在行内的 &lt;code&gt; 上。不含语法高亮。</p>
+        <pre class="tokens">&lt;p&gt;调用 &lt;code class=&quot;zh-code-inline&quot;&gt;ZhaoUI.message('已保存')&lt;/code&gt; 显示提示。&lt;/p&gt;
+&lt;pre class=&quot;zh-code&quot;&gt;&lt;code&gt;ZhaoUI.message('已保存');
+ZhaoUI.dialog({ title: '确认' });&lt;/code&gt;&lt;/pre&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>zh-code</code></td><td>&lt;pre&gt;（class）</td><td>里面放 &lt;code&gt;</td><td>代码块，带底色和边框，长行横向滚动</td></tr><tr><td><code>zh-code-inline</code></td><td>&lt;code&gt;（class）</td><td></td><td>行内代码</td></tr></tbody></table></div>
+        
+        
+        <h3>折叠面板</h3>
+        <p class="desc" style="margin-bottom:12px">手风琴或多开的折叠列表。展开状态用 .is-open 表示，库负责切换、无障碍属性和键盘。</p>
+        <pre class="tokens">&lt;div class=&quot;zh-collapse&quot; data-mode=&quot;single&quot;&gt;
+  &lt;div class=&quot;zh-collapse-item is-open&quot;&gt;
+    &lt;h4 class=&quot;zh-collapse-h&quot;&gt;&lt;button class=&quot;zh-collapse-trigger&quot; type=&quot;button&quot;&gt;&lt;span class=&quot;lead&quot;&gt;第一项&lt;/span&gt;&lt;i data-i=&quot;chevron-right&quot; class=&quot;zh-collapse-chev&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;/h4&gt;
+    &lt;div class=&quot;zh-collapse-panel&quot;&gt;&lt;div class=&quot;zh-collapse-inner&quot;&gt;&lt;div class=&quot;zh-collapse-content&quot;&gt;内容一&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;zh-collapse-item&quot;&gt;
+    &lt;h4 class=&quot;zh-collapse-h&quot;&gt;&lt;button class=&quot;zh-collapse-trigger&quot; type=&quot;button&quot;&gt;&lt;span class=&quot;lead&quot;&gt;第二项&lt;/span&gt;&lt;i data-i=&quot;chevron-right&quot; class=&quot;zh-collapse-chev&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;/h4&gt;
+    &lt;div class=&quot;zh-collapse-panel&quot;&gt;&lt;div class=&quot;zh-collapse-inner&quot;&gt;&lt;div class=&quot;zh-collapse-content&quot;&gt;内容二&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-mode</code></td><td>.zh-collapse</td><td>single | multiple（默认）</td><td>single：同时只展开一项；multiple：各项独立</td></tr><tr><td><code>is-open</code></td><td>.zh-collapse-item</td><td>class</td><td>初始展开的项加上这个类</td></tr><tr><td><code>disabled</code></td><td>.zh-collapse-trigger</td><td>布尔</td><td>禁用某一项，不可点击也不参与方向键</td></tr></tbody></table></div>
+        
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:collapse-toggle</code></td><td>.zh-collapse</td><td>{ item, open }</td><td>某一项展开或收起时触发（冒泡）</td></tr></tbody></table></div>
+        <h3>命令面板</h3>
+        <p class="desc" style="margin-bottom:12px">按快捷键或点按钮弹出的搜索框：输入几个字就能跳到某个页面或执行某个操作。支持模糊匹配（含关键词）、按分组显示、最近使用、键盘上下选择、回车执行。命令用一个数组描述。</p>
+        <pre class="tokens">&lt;button class=&quot;zh-btn&quot; id=&quot;cmd-open&quot;&gt;&lt;i data-i=&quot;search&quot;&gt;&lt;/i&gt;搜索 &lt;span class=&quot;zh-kbd&quot;&gt;Ctrl&lt;/span&gt;&lt;span class=&quot;zh-kbd&quot;&gt;K&lt;/span&gt;&lt;/button&gt;
+&lt;script&gt;
+  var palette = ZhaoUI.commandPalette({
+    hotkey: true,
+    commands: [
+      { id: 'home', group: '页面', label: '概览', icon: 'layout-dashboard', keywords: 'home dashboard 首页' },
+      { id: 'set', group: '页面', label: '系统设置', icon: 'settings', keywords: 'settings 偏好' },
+      { id: 'new', group: '操作', label: '新建文章', icon: 'file-text', hint: 'N', run: function () { ZhaoUI.message('新建文章'); } }
+    ]
+  });
+  document.getElementById('cmd-open').addEventListener('click', function (e) { palette.open(e.currentTarget); });
+&lt;/script&gt;</pre>
+        
+        <ul class="check" style="margin-top:12px"><li><span><code>ZhaoUI.commandPalette(options)</code>：创建面板，返回 { open(from), close(), setCommands(list), el }。open 的参数是触发元素，关闭后焦点回到它</span></li><li><span><code>options</code>：hotkey 为 true 时 Ctrl/⌘+K 打开或关闭（默认不开，避免和你的页面快捷键冲突）；recent 是“最近”分组的条数，0 则不显示；onRun(command) 在命令执行后调用</span></li><li><span><code>命令 command</code>：label 参与匹配并高亮命中的字；keywords 是额外的搜索词（可写拼音、英文、同义词）；group 是分组标题；hint 显示快捷键提示；run(command) 是要执行的函数</span></li></ul>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:command-run</code></td><td>面板元素（冒泡）</td><td>undefined</td><td>执行了某个命令</td></tr></tbody></table></div>
+        <h3>评论</h3>
+        <p class="desc" style="margin-bottom:12px">纯样式组件：不需要 JS，写好标记即可。评论列表项：头像、昵称、时间、正文、操作，回复缩进显示。头像用 zh-avatar。</p>
+        <pre class="tokens">&lt;article class=&quot;zh-comment&quot;&gt;
+  &lt;span class=&quot;zh-avatar&quot; data-name=&quot;李明&quot; data-size=&quot;sm&quot;&gt;&lt;/span&gt;
+  &lt;div class=&quot;zh-comment-body&quot;&gt;
+    &lt;div class=&quot;zh-comment-head&quot;&gt;&lt;span class=&quot;zh-comment-name&quot;&gt;李明&lt;/span&gt;&lt;time class=&quot;zh-comment-time&quot; datetime=&quot;2026-10-04T15:20&quot;&gt;2 小时前&lt;/time&gt;&lt;/div&gt;
+    &lt;p class=&quot;zh-comment-text&quot;&gt;这次的发布流程比上次清楚多了。&lt;/p&gt;
+    &lt;div class=&quot;zh-comment-actions&quot;&gt;&lt;button class=&quot;zh-btn sm text&quot;&gt;回复&lt;/button&gt;&lt;button class=&quot;zh-btn sm text&quot;&gt;赞&lt;/button&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/article&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>zh-comment</code></td><td>&lt;article&gt;（class）</td><td>里面放头像和 zh-comment-body</td><td>一条评论</td></tr><tr><td><code>zh-comment-head</code></td><td>body 里的容器</td><td>昵称 zh-comment-name 与时间 zh-comment-time</td><td>标题行</td></tr><tr><td><code>zh-comment-actions</code></td><td>body 里的容器</td><td>里面放按钮或链接</td><td>回复、点赞等操作</td></tr><tr><td><code>zh-comment-replies</code></td><td>body 里的容器</td><td>里面放嵌套的 zh-comment</td><td>回复列表，左侧有竖线并缩进</td></tr></tbody></table></div>
+        
+        
+        <h3>日期选择</h3>
+        <p class="desc" style="margin-bottom:12px">点击输入框弹出日历，也可以直接键入日期。支持最早 / 最晚日期、禁用周末、禁用指定日期，键盘完整可用。声明式写一个空 &lt;div data-zh-date&gt;，命令式用 ZhaoUI.datePicker。周从周一开始。</p>
+        <pre class="tokens">&lt;div data-zh-date data-name=&quot;birthday&quot; data-value=&quot;2026-10-15&quot; data-min=&quot;2026-10-05&quot; data-max=&quot;2026-10-25&quot; data-msg=&quot;#birthdayMsg&quot; aria-label=&quot;日期&quot;&gt;&lt;/div&gt;
+&lt;div id=&quot;birthdayMsg&quot; aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
+
+&lt;div data-zh-date data-disable-weekends data-disabled-dates=&quot;2026-10-14&quot; aria-label=&quot;工作日&quot;&gt;&lt;/div&gt;
+
+&lt;div id=&quot;custom&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+document.querySelector('[data-zh-date]').addEventListener('zh:date-change', function (e) {
+  console.log(e.detail.value);   // 2026-10-20
+});
+
+ZhaoUI.datePicker('#custom', {
+  size: 'lg',
+  disabledDate: function (d) { return d.getDate() === 1 ? '每月 1 号不开放' : ''; },
+  onChange: function (d) { console.log(d); }
+});
+&lt;/script&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-zh-date</code></td><td>&lt;div&gt;</td><td>无</td><td>声明这是日期选择；控件会构建在这个 div 里</td></tr><tr><td><code>data-value</code></td><td>容器</td><td>YYYY-MM-DD</td><td>初始日期</td></tr><tr><td><code>data-min / data-max</code></td><td>容器</td><td>YYYY-MM-DD</td><td>最早 / 最晚可选日期，范围外的日子禁用</td></tr><tr><td><code>data-disable-weekends</code></td><td>容器</td><td>布尔属性</td><td>周六周日不可选</td></tr><tr><td><code>data-disabled-dates</code></td><td>容器</td><td>逗号分隔的日期，如 2026-10-01,2026-10-02</td><td>指定日期不可选</td></tr><tr><td><code>data-placeholder</code></td><td>容器</td><td>字符串，默认 YYYY-MM-DD</td><td>占位文字</td></tr><tr><td><code>data-name</code></td><td>容器</td><td>字段名</td><td>生成隐藏 &lt;input name=…&gt; 参与表单提交</td></tr><tr><td><code>data-size</code></td><td>容器</td><td>sm | md（默认）| lg</td><td>尺寸</td></tr><tr><td><code>aria-label / data-labelledby / data-label</code></td><td>容器</td><td>字符串 / 标签元素 id / 弹层标题</td><td>输入框的无障碍名称；data-label 是弹出面板的标题</td></tr><tr><td><code>data-msg</code></td><td>容器</td><td>一个元素的选择器，如 #status</td><td>可选的状态提示元素：选择、报错时会把文字写进去（读屏可以朗读），元素上可预先写好默认文字</td></tr><tr><td><code>&lt;label for=&quot;容器 id&quot;&gt;</code></td><td>容器所在页面的 &lt;label&gt;</td><td>for 指向容器的 id</td><td>label 会成为输入框的无障碍名称，点击 label 会聚焦输入框；容器是空 &lt;div&gt;，label 的 for 指向它的 id 即可</td></tr></tbody></table></div>
+        <ul class="check" style="margin-top:12px"><li><span><code>ZhaoUI.datePicker(host, { value, min, max, disabledDate, size, placeholder, label, labelledby, msg, onChange })</code>：命令式创建。value / min / max 可以是 'YYYY-MM-DD' 字符串或 Date；disabledDate(date) 返回空串表示可选，返回文字表示不可选并作为原因；onChange(date)</span></li><li><span><code>el.zhDate.get() / .set(value) / .open() / .close()</code>：get 返回 Date 或 null；set 接受字符串或 Date，不触发事件</span></li></ul>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:date-change</code></td><td>容器</td><td>{ value: 'YYYY-MM-DD' | '', date: Date | null }</td><td>用户选择、键入确认或清除后触发（冒泡）；用 set() 设置不触发</td></tr></tbody></table></div>
+        <h3>日期范围选择</h3>
+        <p class="desc" style="margin-bottom:12px">两个输入框加一个双月日历，选开始和结束两次点击；带「近 7 天 / 近 30 天 / 本月 / 上月」快捷项。窄屏变为单月。</p>
+        <pre class="tokens">&lt;div data-zh-daterange data-name-start=&quot;from&quot; data-name-end=&quot;to&quot; data-start=&quot;2026-10-01&quot; data-end=&quot;2026-10-07&quot; data-max=&quot;2026-12-31&quot; aria-label=&quot;统计周期&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+document.querySelector('[data-zh-daterange]').addEventListener('zh:daterange-change', function (e) {
+  console.log(e.detail.start, '→', e.detail.end);
+});
+&lt;/script&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-zh-daterange</code></td><td>&lt;div&gt;</td><td>无</td><td>声明这是日期范围选择</td></tr><tr><td><code>data-start / data-end</code></td><td>容器</td><td>YYYY-MM-DD</td><td>初始的开始与结束日期</td></tr><tr><td><code>data-min / data-max</code></td><td>容器</td><td>YYYY-MM-DD</td><td>可选范围</td></tr><tr><td><code>data-presets</code></td><td>容器</td><td>false 表示关闭</td><td>默认显示快捷项</td></tr><tr><td><code>data-name-start / data-name-end</code></td><td>容器</td><td>字段名</td><td>分别生成开始、结束两个隐藏 input</td></tr><tr><td><code>data-size</code></td><td>容器</td><td>sm | md（默认）| lg</td><td>尺寸</td></tr><tr><td><code>aria-label / data-labelledby / data-label</code></td><td>容器</td><td>字符串 / 标签元素 id / 弹层标题</td><td>输入框的无障碍名称；data-label 是弹出面板的标题</td></tr><tr><td><code>data-msg</code></td><td>容器</td><td>一个元素的选择器，如 #status</td><td>可选的状态提示元素：选择、报错时会把文字写进去（读屏可以朗读），元素上可预先写好默认文字</td></tr><tr><td><code>&lt;label for=&quot;容器 id&quot;&gt;</code></td><td>容器所在页面的 &lt;label&gt;</td><td>for 指向容器的 id</td><td>label 会成为输入框的无障碍名称，点击 label 会聚焦输入框；容器是空 &lt;div&gt;，label 的 for 指向它的 id 即可</td></tr></tbody></table></div>
+        <ul class="check" style="margin-top:12px"><li><span><code>ZhaoUI.dateRangePicker(host, { start, end, min, max, presets, size, label, msg, onChange })</code>：命令式创建；onChange(start, end)</span></li><li><span><code>el.zhDateRange.get() / .set(start, end) / .open() / .close()</code>：get 返回 [Date|null, Date|null]；set 接受字符串或 Date</span></li></ul>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:daterange-change</code></td><td>容器</td><td>{ start, end, dates: [Date|null, Date|null] }</td><td>范围确定、键入确认或清除后触发（冒泡）；start / end 是 YYYY-MM-DD 字符串或空串</td></tr></tbody></table></div>
+        <h3>日期时间选择</h3>
+        <p class="desc" style="margin-bottom:12px">左边日历、右边时间列的组合面板，一次选定日期和时间，点「确定」提交。窄屏上下排列。</p>
+        <pre class="tokens">&lt;div data-zh-datetime data-name=&quot;when&quot; data-value=&quot;2026-10-15 09:30&quot; data-min=&quot;2026-10-05&quot; data-msg=&quot;#whenMsg&quot; aria-label=&quot;预约时间&quot;&gt;&lt;/div&gt;
+&lt;div id=&quot;whenMsg&quot; aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+document.querySelector('[data-zh-datetime]').addEventListener('zh:datetime-change', function (e) {
+  console.log(e.detail.value);
+});
+&lt;/script&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-zh-datetime</code></td><td>&lt;div&gt;</td><td>无</td><td>声明这是日期时间选择</td></tr><tr><td><code>data-value</code></td><td>容器</td><td>YYYY-MM-DD HH:mm</td><td>初始值</td></tr><tr><td><code>data-min / data-max</code></td><td>容器</td><td>YYYY-MM-DD</td><td>可选日期范围</td></tr><tr><td><code>data-disable-weekends / data-disabled-dates</code></td><td>容器</td><td>布尔属性 / 逗号分隔日期</td><td>禁用周末 / 指定日期</td></tr><tr><td><code>data-name</code></td><td>容器</td><td>字段名</td><td>生成隐藏 &lt;input name=…&gt; 参与表单提交</td></tr><tr><td><code>data-size</code></td><td>容器</td><td>sm | md（默认）| lg</td><td>尺寸</td></tr><tr><td><code>aria-label / data-labelledby / data-label</code></td><td>容器</td><td>字符串 / 标签元素 id / 弹层标题</td><td>输入框的无障碍名称；data-label 是弹出面板的标题</td></tr><tr><td><code>data-msg</code></td><td>容器</td><td>一个元素的选择器，如 #status</td><td>可选的状态提示元素：选择、报错时会把文字写进去（读屏可以朗读），元素上可预先写好默认文字</td></tr><tr><td><code>&lt;label for=&quot;容器 id&quot;&gt;</code></td><td>容器所在页面的 &lt;label&gt;</td><td>for 指向容器的 id</td><td>label 会成为输入框的无障碍名称，点击 label 会聚焦输入框；容器是空 &lt;div&gt;，label 的 for 指向它的 id 即可</td></tr></tbody></table></div>
+        <ul class="check" style="margin-top:12px"><li><span><code>ZhaoUI.dateTimePicker(host, { value: { date, time }, min, max, disabledDate, size, msg, onChange })</code>：命令式创建；也接受 'YYYY-MM-DD HH:mm' 字符串作为 value；onChange({ date, time } | null)</span></li><li><span><code>el.zhDateTime.get() / .set(value) / .open() / .close()</code>：get 返回 { date, time } 或 null；set 接受对象或字符串，不触发事件</span></li></ul>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:datetime-change</code></td><td>容器</td><td>{ value: 'YYYY-MM-DD HH:mm' | '', date, time }</td><td>日期或时间变化、键入确认、清除后触发（冒泡）；面板里选日期或调时间时输入框会实时更新，也会触发</td></tr></tbody></table></div>
+        <h3>描述列表</h3>
+        <p class="desc" style="margin-bottom:12px">纯样式组件：不需要 JS。用 &lt;dl&gt; 展示一组「名称：值」，如订单详情、项目信息。有两种外观：plain（无框）、bordered（带框表格式）；列数 1 到 3 可选，窄屏自动降列。</p>
+        <pre class="tokens">&lt;div class=&quot;zh-stack&quot;&gt;
+  &lt;div class=&quot;zh-descr-wrap&quot;&gt;
+    &lt;dl class=&quot;zh-descr&quot; data-cols=&quot;3&quot; data-variant=&quot;bordered&quot; aria-label=&quot;订单信息&quot;&gt;
+      &lt;div class=&quot;zh-descr-item&quot;&gt;&lt;dt&gt;订单号&lt;/dt&gt;&lt;dd&gt;20260929-0086&lt;/dd&gt;&lt;/div&gt;
+      &lt;div class=&quot;zh-descr-item&quot;&gt;&lt;dt&gt;状态&lt;/dt&gt;&lt;dd&gt;&lt;span class=&quot;zh-tag success&quot;&gt;已发货&lt;/span&gt;&lt;/dd&gt;&lt;/div&gt;
+      &lt;div class=&quot;zh-descr-item&quot;&gt;&lt;dt&gt;金额&lt;/dt&gt;&lt;dd&gt;¥ 1,286.00&lt;/dd&gt;&lt;/div&gt;
+      &lt;div class=&quot;zh-descr-item&quot;&gt;&lt;dt&gt;收货人&lt;/dt&gt;&lt;dd&gt;张三&lt;/dd&gt;&lt;/div&gt;
+      &lt;div class=&quot;zh-descr-item&quot;&gt;&lt;dt&gt;电话&lt;/dt&gt;&lt;dd&gt;138 **** 0086&lt;/dd&gt;&lt;/div&gt;
+      &lt;div class=&quot;zh-descr-item&quot;&gt;&lt;dt&gt;物流&lt;/dt&gt;&lt;dd&gt;&lt;a class=&quot;zh-descr-link&quot; href=&quot;#&quot;&gt;SF1234567890&lt;/a&gt;&lt;/dd&gt;&lt;/div&gt;
+      &lt;div class=&quot;zh-descr-item&quot; data-span=&quot;3&quot;&gt;&lt;dt&gt;地址&lt;/dt&gt;&lt;dd&gt;上海市浦东新区世纪大道 100 号&lt;/dd&gt;&lt;/div&gt;
+    &lt;/dl&gt;
+  &lt;/div&gt;
+  &lt;dl class=&quot;zh-descr&quot; data-cols=&quot;2&quot; data-variant=&quot;plain&quot; aria-label=&quot;项目信息&quot;&gt;
+    &lt;div class=&quot;zh-descr-item&quot;&gt;&lt;dt&gt;负责人&lt;/dt&gt;&lt;dd&gt;李四&lt;/dd&gt;&lt;/div&gt;
+    &lt;div class=&quot;zh-descr-item&quot;&gt;&lt;dt&gt;创建时间&lt;/dt&gt;&lt;dd&gt;2026-09-01 09:30&lt;/dd&gt;&lt;/div&gt;
+  &lt;/dl&gt;
+&lt;/div&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>zh-descr</code></td><td>&lt;dl&gt;（class）</td><td>里面每组放一个 &lt;div class=&quot;zh-descr-item&quot;&gt;&lt;dt&gt;名称&lt;/dt&gt;&lt;dd&gt;值&lt;/dd&gt;&lt;/div&gt;</td><td>网格容器，默认 3 列</td></tr><tr><td><code>data-cols</code></td><td>.zh-descr</td><td>1 | 2 | 3（默认 3）</td><td>列数；平板宽度 3 列降为 2 列，手机宽度全部降为 1 列</td></tr><tr><td><code>data-variant</code></td><td>.zh-descr</td><td>plain | bordered</td><td>plain 无框，名称在上、值在下；bordered 是带线框的表格式，名称在左侧的灰底格里</td></tr><tr><td><code>data-span</code></td><td>.zh-descr-item</td><td>2 | 3</td><td>该项横跨的列数，适合地址、备注等长内容；手机宽度忽略；各项加起来填不满一行时，末尾会留空格</td></tr><tr><td><code>zh-descr-wrap</code></td><td>外层 &lt;div&gt;（class）</td><td>仅 bordered 时使用</td><td>给 bordered 的列表加圆角外框并裁掉最外层多余的线</td></tr><tr><td><code>zh-descr-link</code></td><td>&lt;dd&gt; 里的 &lt;a&gt;</td><td></td><td>值里的链接样式</td></tr></tbody></table></div>
+        
+        
+        <h3>模态框与抽屉</h3>
+        <p class="desc" style="margin-bottom:12px">模态框基于原生 &lt;dialog&gt;，抽屉是右侧滑出的面板。用 data-zh-open / data-zh-close 声明即可，也可用 ZhaoUI.open / close / dialog 调用。</p>
+        <pre class="tokens">&lt;button class=&quot;zh-btn&quot; data-zh-open=&quot;#dlg&quot;&gt;打开&lt;/button&gt;
+&lt;dialog class=&quot;zh-modal&quot; id=&quot;dlg&quot; aria-labelledby=&quot;dlgT&quot; data-zh-backdrop-close&gt;
+  &lt;header id=&quot;dlgT&quot;&gt;确认删除&lt;/header&gt;
+  &lt;div class=&quot;body&quot;&gt;删除后无法恢复。&lt;/div&gt;
+  &lt;footer&gt;
+    &lt;button class=&quot;zh-btn&quot; data-zh-close&gt;取消&lt;/button&gt;
+    &lt;button class=&quot;zh-btn primary&quot; data-zh-close&gt;确定&lt;/button&gt;
+  &lt;/footer&gt;
+&lt;/dialog&gt;
+
+&lt;button class=&quot;zh-btn&quot; data-zh-open=&quot;#drw&quot;&gt;打开抽屉&lt;/button&gt;
+&lt;aside class=&quot;zh-drawer&quot; id=&quot;drw&quot; aria-label=&quot;详情&quot;&gt;
+  &lt;button class=&quot;zh-btn text&quot; data-zh-close&gt;关闭&lt;/button&gt;
+  &lt;p&gt;抽屉内容&lt;/p&gt;
+&lt;/aside&gt;
+
+&lt;script&gt;
+ZhaoUI.dialog({ title: '删除文章？', content: '删除后无法恢复', danger: true })
+  .then(function (ok) { if (ok) { /* 执行删除 */ } });
+&lt;/script&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-zh-open</code></td><td>按钮或链接</td><td>目标的 CSS 选择器，如 #dlg</td><td>点击后打开目标对话框或抽屉，并记住触发元素，关闭后焦点回到它</td></tr><tr><td><code>data-zh-close</code></td><td>对话框或抽屉内的按钮</td><td>留空，或目标选择器</td><td>点击后关闭所在的对话框或抽屉；写了选择器则关闭那个目标</td></tr><tr><td><code>data-zh-backdrop-close</code></td><td>dialog.zh-modal</td><td>无</td><td>点击遮罩（对话框以外的区域）关闭</td></tr></tbody></table></div>
+        <ul class="check" style="margin-top:12px"><li><span><code>ZhaoUI.open(target, opener?)</code>：打开对话框或抽屉。target 是元素或选择器；opener 是关闭后要聚焦回去的元素（可选）</span></li><li><span><code>ZhaoUI.close(target)</code>：关闭对话框或抽屉</span></li><li><span><code>ZhaoUI.dialog({ title, content, ok, cancel, danger, backdropClose })</code>：弹出确认框，返回 Promise：点确定为 true，取消、Esc 为 false。选项：title 标题；content 正文（纯文本，要放标签请传 DOM 节点）；ok 确定按钮文字（默认「确定」）；cancel 取消按钮文字（默认「取消」，传 false 则不显示取消）；danger 为 true 时确定按钮用危险样式（红色），否则是主色；backdropClose 为 true 时点遮罩也算取消。例：ZhaoUI.dialog({ title: '删除文章？', content: '删除后无法恢复', ok: '删除', cancel: '再想想', danger: true }).then(function (yes) { if (yes) remove(); })</span></li></ul>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:open</code></td><td>抽屉</td><td>无</td><td>抽屉打开后触发（冒泡）</td></tr><tr><td><code>zh:close</code></td><td>抽屉</td><td>无</td><td>抽屉关闭后触发（冒泡）。模态框用原生 close 事件</td></tr></tbody></table></div>
+        <h3>下拉菜单</h3>
+        <p class="desc" style="margin-bottom:12px">点击按钮弹出菜单。菜单内容写在页面里的一个隐藏列表中，选中后触发 zh:select。一个菜单可以被多个按钮共用（比如表格每一行一个「操作」按钮，都指向同一个 #menu）。</p>
+        <pre class="tokens">&lt;button class=&quot;zh-btn&quot; data-zh-dropdown=&quot;#menu&quot;&gt;操作 &lt;i data-i=&quot;chevron-down&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+&lt;ul class=&quot;zh-menu&quot; id=&quot;menu&quot; hidden&gt;
+  &lt;li&gt;&lt;a href=&quot;#&quot; data-value=&quot;edit&quot;&gt;编辑&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#&quot; data-value=&quot;copy&quot;&gt;复制&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#&quot; data-value=&quot;del&quot;&gt;删除&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;script&gt;
+document.querySelector('[data-zh-dropdown]').addEventListener('zh:select', function (e) {
+  console.log(e.detail.value);
+});
+&lt;/script&gt;
+
+&lt;!-- 表格行菜单：每行一个按钮，共用同一个菜单 --&gt;
+&lt;table&gt;
+  &lt;tr data-id=&quot;1&quot;&gt;&lt;td&gt;文章一&lt;/td&gt;&lt;td&gt;&lt;button class=&quot;zh-btn text&quot; data-zh-dropdown=&quot;#rowMenu&quot;&gt;操作&lt;/button&gt;&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr data-id=&quot;2&quot;&gt;&lt;td&gt;文章二&lt;/td&gt;&lt;td&gt;&lt;button class=&quot;zh-btn text&quot; data-zh-dropdown=&quot;#rowMenu&quot;&gt;操作&lt;/button&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;ul class=&quot;zh-menu&quot; id=&quot;rowMenu&quot; hidden&gt;
+  &lt;li&gt;&lt;a href=&quot;#&quot; data-value=&quot;edit&quot;&gt;编辑&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;#&quot; data-value=&quot;del&quot;&gt;删除&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;script&gt;
+document.addEventListener('zh:select', function (e) {
+  var btn = e.target.closest('[data-zh-dropdown=&quot;#rowMenu&quot;]'), id = btn.closest('tr').dataset.id;
+  console.log(e.detail.value, '第', id, '行');
+});
+&lt;/script&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-zh-dropdown</code></td><td>按钮</td><td>菜单元素的选择器，如 #menu</td><td>声明这个按钮控制哪个菜单</td></tr><tr><td><code>data-zh-placement</code></td><td>按钮</td><td>bottom-start（默认）、bottom-end、top-start、top-end、left、right 等</td><td>菜单出现的位置，空间不足时自动翻转</td></tr><tr><td><code>hidden</code></td><td>菜单 &lt;ul class=&quot;zh-menu&quot;&gt;</td><td>布尔</td><td>菜单源元素保持隐藏；库会克隆它来显示</td></tr><tr><td><code>data-value</code></td><td>菜单项 &lt;a&gt; 或 &lt;button&gt;</td><td>字符串</td><td>选中时作为 detail.value；不写则取文字</td></tr><tr><td><code>aria-disabled</code></td><td>菜单项</td><td>true</td><td>禁用某一项</td></tr></tbody></table></div>
+        
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:select</code></td><td>触发按钮</td><td>{ value, item }</td><td>选中某项后在被点击的那个按钮上触发（冒泡），随后菜单关闭。多个按钮共用一个菜单时，用 e.target.closest('[data-zh-dropdown]') 就能知道是哪一行的按钮</td></tr></tbody></table></div>
+        <h3>警告条、空状态、骨架屏</h3>
+        <p class="desc" style="margin-bottom:12px">纯样式组件：不需要 JS，写好标记即可。页面内的提示条（信息、成功、警告、危险）、没有数据时的空状态、加载中的骨架屏。会自动消失的轻提示用 ZhaoUI.message。</p>
+        <pre class="tokens">&lt;div class=&quot;zh-stack&quot;&gt;
+  &lt;div class=&quot;zh-alert info&quot; role=&quot;status&quot;&gt;&lt;i data-i=&quot;info&quot;&gt;&lt;/i&gt;&lt;span&gt;系统将在今晚 23:00 进行维护。&lt;/span&gt;&lt;/div&gt;
+  &lt;div class=&quot;zh-alert success&quot; role=&quot;status&quot;&gt;&lt;i data-i=&quot;circle-check&quot;&gt;&lt;/i&gt;&lt;span&gt;保存成功。&lt;/span&gt;&lt;/div&gt;
+  &lt;div class=&quot;zh-alert warning&quot; role=&quot;alert&quot;&gt;&lt;i data-i=&quot;triangle-alert&quot;&gt;&lt;/i&gt;&lt;span&gt;存在 3 台设备离线，请及时处理。&lt;/span&gt;&lt;/div&gt;
+  &lt;div class=&quot;zh-alert danger&quot; role=&quot;alert&quot;&gt;&lt;i data-i=&quot;circle-x&quot;&gt;&lt;/i&gt;&lt;span&gt;发布失败，请重试。&lt;/span&gt;&lt;/div&gt;
+
+  &lt;div class=&quot;zh-empty&quot;&gt;
+    &lt;i data-i=&quot;search-x&quot; data-s=&quot;48&quot;&gt;&lt;/i&gt;
+    &lt;div&gt;没有匹配的数据&lt;/div&gt;
+    &lt;button class=&quot;zh-btn sm&quot;&gt;清除筛选&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;zh-card&quot; role=&quot;status&quot; aria-busy=&quot;true&quot; aria-label=&quot;加载中&quot;&gt;
+    &lt;div class=&quot;zh-skeleton&quot; style=&quot;width:60%&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;zh-skeleton&quot; style=&quot;margin-top:12px&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;zh-skeleton&quot; style=&quot;margin-top:12px;width:80%&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>zh-alert + info | success | warning | danger</code></td><td>&lt;div&gt;（class）</td><td>里面放一个图标 &lt;i data-i=&quot;info&quot;&gt; 和一个 &lt;span&gt; 文字</td><td>页面内提示条。图标颜色跟随类型。信息用 role=&quot;status&quot;，警告和危险用 role=&quot;alert&quot;</td></tr><tr><td><code>zh-empty</code></td><td>&lt;div&gt;（class）</td><td>图标、说明文字、可选的操作按钮，居中</td><td>空状态：没有数据、搜索无结果时用</td></tr><tr><td><code>zh-skeleton</code></td><td>&lt;div&gt;（class）</td><td>用 style=&quot;width:60%&quot; 控制长度，高度默认 12px</td><td>加载中的灰色条，带流光动画；开启「减少动态效果」时流光停止</td></tr></tbody></table></div>
+        
+        
+        <h3>页脚</h3>
+        <p class="desc" style="margin-bottom:12px">纯样式组件：不需要 JS，写好标记即可。页面底部：版权文字在一侧，链接在另一侧，窄屏自动换行。</p>
+        <pre class="tokens">&lt;footer class=&quot;zh-footer&quot;&gt;
+  &lt;span&gt;© 2026 ZhaoUI. 保留所有权利。&lt;/span&gt;
+  &lt;ul class=&quot;zh-footer-links&quot;&gt;&lt;li&gt;&lt;a href=&quot;#&quot;&gt;隐私政策&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;#&quot;&gt;服务条款&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;#&quot;&gt;联系我们&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+&lt;/footer&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>zh-footer</code></td><td>&lt;footer&gt;（class）</td><td></td><td>顶部分隔线，两端对齐，可换行</td></tr><tr><td><code>zh-footer-links</code></td><td>&lt;ul&gt;（class）</td><td>里面放 &lt;li&gt;&lt;a&gt;</td><td>链接列表，横向排列</td></tr></tbody></table></div>
+        
+        
+        <h3>表单控件与字段</h3>
+        <p class="desc" style="margin-bottom:12px">纯样式组件：不需要 JS，写好标记即可。字段（标签、控件、提示）、文本输入、下拉、多行文本、复选框、单选、开关。带搜索、清除、校验等行为的输入框见「输入框」「下拉选择」等组件。</p>
+        <pre class="tokens">&lt;div class=&quot;zh-stack&quot;&gt;
+  &lt;div class=&quot;zh-field&quot;&gt;
+    &lt;label for=&quot;f-name&quot; class=&quot;zh-req&quot;&gt;名称&lt;/label&gt;
+    &lt;input id=&quot;f-name&quot; class=&quot;zh-input&quot; placeholder=&quot;请输入名称&quot; required aria-describedby=&quot;f-name-h&quot;&gt;
+    &lt;span class=&quot;zh-hint&quot; id=&quot;f-name-h&quot;&gt;2 到 20 个字&lt;/span&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;zh-field&quot;&gt;
+    &lt;label for=&quot;f-mail&quot;&gt;邮箱&lt;/label&gt;
+    &lt;input id=&quot;f-mail&quot; class=&quot;zh-input&quot; value=&quot;abc&quot; aria-invalid=&quot;true&quot; aria-describedby=&quot;f-mail-h&quot;&gt;
+    &lt;span class=&quot;zh-hint err&quot; id=&quot;f-mail-h&quot;&gt;邮箱格式不正确&lt;/span&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;zh-field&quot;&gt;
+    &lt;label for=&quot;f-city&quot;&gt;城市&lt;/label&gt;
+    &lt;div class=&quot;zh-select&quot;&gt;&lt;select id=&quot;f-city&quot;&gt;&lt;option&gt;北京&lt;/option&gt;&lt;option&gt;上海&lt;/option&gt;&lt;/select&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;zh-field&quot;&gt;
+    &lt;label for=&quot;f-note&quot;&gt;备注&lt;/label&gt;
+    &lt;textarea id=&quot;f-note&quot; class=&quot;zh-textarea&quot;&gt;&lt;/textarea&gt;
+  &lt;/div&gt;
+
+  &lt;label class=&quot;zh-check&quot;&gt;&lt;input type=&quot;checkbox&quot; checked&gt; 记住我&lt;/label&gt;
+  &lt;label class=&quot;zh-check&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;r&quot; checked&gt; 选项一&lt;/label&gt;
+  &lt;label class=&quot;zh-check&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;r&quot;&gt; 选项二&lt;/label&gt;
+  &lt;label class=&quot;zh-check&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;zh-switch&quot; role=&quot;switch&quot; checked&gt; 启用通知&lt;/label&gt;
+&lt;/div&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>zh-field</code></td><td>&lt;div&gt;（class）</td><td>里面放 &lt;label for&gt; 与控件，再放 zh-hint</td><td>纵向排列的字段：标签在上、控件、提示。多个字段用布局里的 zh-stack 或 zh-grid 排</td></tr><tr><td><code>zh-req</code></td><td>&lt;label&gt;（class）</td><td>必填字段的标签</td><td>在标签后加红色星号；仍然要给控件加 required 或 aria-required</td></tr><tr><td><code>zh-hint / zh-hint err</code></td><td>字段内（class）</td><td>提示文字；错误用 class=&quot;zh-hint err&quot;</td><td>次要说明与错误提示。错误时同时给控件加 aria-invalid=&quot;true&quot;</td></tr><tr><td><code>zh-input</code></td><td>&lt;input&gt;（class）</td><td>可加 sm | lg 改高度</td><td>文本输入。aria-invalid=&quot;true&quot; 时边框变危险色；聚焦时有主色描边</td></tr><tr><td><code>zh-textarea</code></td><td>&lt;textarea&gt;（class）</td><td></td><td>多行文本，最小高度两行。自动增高与计数用「多行文本」组件</td></tr><tr><td><code>zh-select</code></td><td>包着 &lt;select&gt; 的 &lt;span&gt; 或 &lt;div&gt;（class）</td><td>&lt;div class=&quot;zh-select&quot;&gt;&lt;select&gt;…&lt;/select&gt;&lt;/div&gt;</td><td>原生下拉的样式；需要搜索、多选时用「下拉选择」组件</td></tr><tr><td><code>zh-check</code></td><td>&lt;label&gt;（class）</td><td>里面放 &lt;input type=&quot;checkbox&quot;&gt; 或 &lt;input type=&quot;radio&quot;&gt; 再放文字</td><td>复选框与单选：主色，大小随字号，整行可点</td></tr><tr><td><code>zh-switch</code></td><td>&lt;input type=&quot;checkbox&quot;&gt;（class）</td><td>同时写 role=&quot;switch&quot;</td><td>开关；放在 zh-check 里，文字是它的标签</td></tr></tbody></table></div>
+        
+        
+        <h3>图片</h3>
+        <p class="desc" style="margin-bottom:12px">纯样式组件：不需要 JS，写好标记即可。图片的响应式与外观：zh-img 让图片不超出容器、保持比例；--rounded 圆角，--circle 正圆（头像），--thumb 带边框的缩略图。配图说明用 &lt;figure&gt; 加 zh-figure。</p>
+        <pre class="tokens">&lt;figure class=&quot;zh-figure&quot; style=&quot;max-width:16rem&quot;&gt;
+  &lt;img class=&quot;zh-img zh-img--rounded&quot; alt=&quot;示例配图&quot; width=&quot;320&quot; height=&quot;180&quot; src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'%3E%3Crect width='16' height='9' fill='%23c7d2fe'/%3E%3C/svg%3E&quot;&gt;
+  &lt;figcaption&gt;图 1 示例配图&lt;/figcaption&gt;
+&lt;/figure&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>zh-img</code></td><td>&lt;img&gt;（class）</td><td></td><td>宽度不超过容器，高度按比例</td></tr><tr><td><code>zh-img--rounded / --circle / --thumb</code></td><td>.zh-img</td><td></td><td>圆角 / 正圆裁切 / 带边框内边距的缩略图</td></tr><tr><td><code>zh-figure</code></td><td>&lt;figure&gt;（class）</td><td>里面放图片和 &lt;figcaption&gt;</td><td>说明文字居中显示在图片下方</td></tr></tbody></table></div>
+        
+        
+        <h3>行内编辑</h3>
+        <p class="desc" style="margin-bottom:12px">点击文字原地变成输入框，Enter 或失焦保存，Esc 取消。空内容不会被保存。</p>
+        <pre class="tokens">&lt;div class=&quot;zh-edit&quot; id=&quot;ed&quot; data-label=&quot;名称&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;zh-edit-view&quot; aria-label=&quot;编辑名称：中控系统&quot;&gt;&lt;span class=&quot;zh-edit-text&quot;&gt;中控系统&lt;/span&gt;&lt;i data-i=&quot;pencil&quot; data-s=&quot;16&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+document.getElementById('ed').addEventListener('zh:edit-save', function (e) {
+  console.log(e.detail.previous, '→', e.detail.value);
+});
+&lt;/script&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-label</code></td><td>.zh-edit</td><td>字符串，默认「名称」</td><td>给屏幕阅读器用的字段名，用于输入框与按钮的 aria-label</td></tr></tbody></table></div>
+        
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:edit-save</code></td><td>.zh-edit</td><td>{ value, previous }</td><td>内容有变化并保存时触发（冒泡）；内容没变化不触发</td></tr><tr><td><code>zh:edit-cancel</code></td><td>.zh-edit</td><td>无</td><td>按 Esc 取消，或在空内容上失焦还原旧值时触发</td></tr></tbody></table></div>
+        <h3>输入框</h3>
+        <p class="desc" style="margin-bottom:12px">带前置图标、清除按钮、密码显示开关、搜索快捷键的文本输入。结构是 .zh-inp 包着 .zh-inp-box 和原生 input，按钮按需添加。</p>
+        <pre class="tokens">&lt;div class=&quot;zh-inp&quot;&gt;&lt;span class=&quot;zh-inp-box&quot;&gt;&lt;i data-i=&quot;search&quot; data-s=&quot;18&quot; class=&quot;zh-inp-pre&quot;&gt;&lt;/i&gt;&lt;input class=&quot;zh-inp-el&quot; type=&quot;text&quot; placeholder=&quot;邮箱&quot; aria-label=&quot;邮箱&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;zh-inp-btn zh-inp-clear&quot; aria-label=&quot;清除&quot; hidden&gt;&lt;i data-i=&quot;x&quot; data-s=&quot;16&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;/span&gt;&lt;/div&gt;
+
+&lt;div class=&quot;zh-inp&quot;&gt;&lt;span class=&quot;zh-inp-box&quot;&gt;&lt;input class=&quot;zh-inp-el&quot; type=&quot;password&quot; value=&quot;hunter2&quot; aria-label=&quot;密码&quot; autocomplete=&quot;new-password&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;zh-inp-btn zh-inp-eye&quot; aria-label=&quot;显示密码&quot; aria-pressed=&quot;false&quot;&gt;&lt;i data-i=&quot;eye&quot; data-s=&quot;18&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;/span&gt;&lt;/div&gt;
+
+&lt;div class=&quot;zh-inp zh-inp-search&quot; data-search&gt;&lt;span class=&quot;zh-inp-box&quot;&gt;&lt;i data-i=&quot;search&quot; data-s=&quot;18&quot; class=&quot;zh-inp-pre&quot;&gt;&lt;/i&gt;&lt;input class=&quot;zh-inp-el&quot; type=&quot;search&quot; placeholder=&quot;搜索文章&quot; aria-label=&quot;搜索&quot; enterkeyhint=&quot;search&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;zh-inp-btn zh-inp-clear&quot; aria-label=&quot;清除搜索&quot; hidden&gt;&lt;i data-i=&quot;x&quot; data-s=&quot;16&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;/span&gt;&lt;/div&gt;
+
+&lt;script&gt;
+document.querySelector('[data-search]').addEventListener('zh:search', function (e) {
+  console.log('搜索：', e.detail.query);
+});
+&lt;/script&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>zh-inp-clear</code></td><td>输入框内的按钮（class）</td><td>加 hidden 作为初始状态</td><td>有内容时自动显示，点击清空并让输入框获得焦点</td></tr><tr><td><code>zh-inp-eye</code></td><td>password 输入框旁的按钮（class）</td><td>aria-pressed=&quot;false&quot;</td><td>点击在密码与明文之间切换，并同步 aria-label</td></tr><tr><td><code>data-search</code></td><td>.zh-inp</td><td>无</td><td>搜索模式：Enter 触发搜索，Esc 清空内容</td></tr><tr><td><code>is-error / is-success</code></td><td>.zh-inp</td><td>class</td><td>错误与成功状态的外观；校验逻辑由你来写</td></tr></tbody></table></div>
+        
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:search</code></td><td>.zh-inp[data-search]</td><td>{ query }</td><td>在搜索框按 Enter 时触发（冒泡），query 已去掉首尾空格</td></tr><tr><td><code>zh:search-clear</code></td><td>.zh-inp[data-search]</td><td>无</td><td>在有内容的搜索框按 Esc 清空后触发</td></tr></tbody></table></div>
+        <h3>键位</h3>
+        <p class="desc" style="margin-bottom:12px">纯样式组件：不需要 JS。用 &lt;kbd class=&quot;zh-kbd&quot;&gt; 显示键盘按键，如快捷键提示。</p>
+        <pre class="tokens">&lt;p&gt;按 &lt;kbd class=&quot;zh-kbd&quot;&gt;Ctrl&lt;/kbd&gt; + &lt;kbd class=&quot;zh-kbd&quot;&gt;K&lt;/kbd&gt; 打开搜索，&lt;kbd class=&quot;zh-kbd&quot;&gt;Esc&lt;/kbd&gt; 关闭。&lt;/p&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>zh-kbd</code></td><td>&lt;kbd&gt;（class）</td><td>按键名</td><td>一个按键一个元素；组合键用多个并排</td></tr></tbody></table></div>
+        
+        
+        <h3>布局</h3>
+        <p class="desc" style="margin-bottom:12px">纯样式组件：不需要 JS，写好标记即可。响应式栅格（桌面 12 列、平板 8 列、手机 4 列）、自适应卡片网格、主内容加侧栏、垂直堆叠、水平排列、两端对齐。间距来自 Token，不要自己写死。</p>
+        <pre class="tokens">&lt;div class=&quot;zh-grid&quot;&gt;
+  &lt;div class=&quot;zh-col&quot; style=&quot;--d:3;--t:4;--p:4&quot;&gt;&lt;div class=&quot;zh-card&quot;&gt;访客&lt;/div&gt;&lt;/div&gt;
+  &lt;div class=&quot;zh-col&quot; style=&quot;--d:3;--t:4;--p:4&quot;&gt;&lt;div class=&quot;zh-card&quot;&gt;订单&lt;/div&gt;&lt;/div&gt;
+  &lt;div class=&quot;zh-col&quot; style=&quot;--d:6;--t:8;--p:4&quot;&gt;&lt;div class=&quot;zh-card&quot;&gt;趋势（桌面占一半，手机占满）&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;zh-auto-grid&quot;&gt;
+  &lt;div class=&quot;zh-card&quot;&gt;一&lt;/div&gt;&lt;div class=&quot;zh-card&quot;&gt;二&lt;/div&gt;&lt;div class=&quot;zh-card&quot;&gt;三&lt;/div&gt;&lt;div class=&quot;zh-card&quot;&gt;四&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;zh-with-aside&quot;&gt;
+  &lt;main class=&quot;zh-card&quot;&gt;主内容&lt;/main&gt;
+  &lt;aside class=&quot;zh-card&quot;&gt;侧栏&lt;/aside&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;zh-split&quot;&gt;&lt;h4&gt;文章管理&lt;/h4&gt;&lt;button class=&quot;zh-btn primary&quot;&gt;新建&lt;/button&gt;&lt;/div&gt;
+&lt;div class=&quot;zh-row&quot; style=&quot;--g:8px&quot;&gt;&lt;button class=&quot;zh-btn&quot;&gt;甲&lt;/button&gt;&lt;button class=&quot;zh-btn&quot;&gt;乙&lt;/button&gt;&lt;/div&gt;
+&lt;div class=&quot;zh-stack&quot; style=&quot;--g:8px&quot;&gt;&lt;div&gt;第一行&lt;/div&gt;&lt;div&gt;第二行&lt;/div&gt;&lt;/div&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>zh-grid + zh-col</code></td><td>容器与子元素（class）</td><td>在 zh-col 上用 style=&quot;--d:6;--t:8;--p:4&quot;</td><td>12 / 8 / 4 列栅格。--d 是桌面（≥ 1200px）占几列，--t 是平板（768 到 1199px），--p 是手机（≤ 767px）；不写则桌面占 3、平板占 4、手机占 4。列间距随断点变化</td></tr><tr><td><code>zh-auto-grid</code></td><td>容器（class）</td><td>直接放卡片等子元素</td><td>按宽度自动排：每列至少 220px，放得下几列就几列，不需要写列数</td></tr><tr><td><code>zh-with-aside</code></td><td>容器（class）</td><td>两个子元素：主内容、侧栏</td><td>主内容加 320px 侧栏；宽度 ≤ 1199px 时侧栏掉到下面</td></tr><tr><td><code>zh-stack</code></td><td>容器（class）</td><td>可用 style=&quot;--g:8px&quot; 改间距，默认 12px</td><td>垂直堆叠</td></tr><tr><td><code>zh-row</code></td><td>容器（class）</td><td>可用 style=&quot;--g:8px&quot;</td><td>水平排列，放不下自动换行，垂直居中</td></tr><tr><td><code>zh-split</code></td><td>容器（class）</td><td>两个子元素</td><td>两端对齐：标题在左，操作在右，窄屏自动换行</td></tr></tbody></table></div>
+        
+        
+        <h3>列表</h3>
+        <p class="desc" style="margin-bottom:12px">纯样式组件：不需要 JS，写好标记即可。一行一项的列表：主文字、说明、右侧附加内容（标签、时间、按钮），行之间有分隔线。zh-list--bordered 加外框，zh-list--hover 悬停高亮，zh-list--plain 是带圆点的普通列表。</p>
+        <pre class="tokens">&lt;ul class=&quot;zh-list zh-list--bordered&quot;&gt;
+  &lt;li&gt;&lt;div class=&quot;zh-list-main&quot;&gt;&lt;p class=&quot;zh-list-title&quot;&gt;产品发布会回顾&lt;/p&gt;&lt;p class=&quot;zh-list-desc&quot;&gt;李明 · 2026-10-04&lt;/p&gt;&lt;/div&gt;&lt;div class=&quot;zh-list-extra&quot;&gt;&lt;span class=&quot;zh-tag success&quot;&gt;已发布&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;div class=&quot;zh-list-main&quot;&gt;&lt;p class=&quot;zh-list-title&quot;&gt;季度运营复盘&lt;/p&gt;&lt;p class=&quot;zh-list-desc&quot;&gt;王芳 · 2026-10-04&lt;/p&gt;&lt;/div&gt;&lt;div class=&quot;zh-list-extra&quot;&gt;&lt;span class=&quot;zh-tag warning&quot;&gt;待审核&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>zh-list</code></td><td>&lt;ul&gt;（class）</td><td>每个 &lt;li&gt; 里放 zh-list-main，可再放 zh-list-extra</td><td>列表容器</td></tr><tr><td><code>zh-list-title / zh-list-desc</code></td><td>&lt;li&gt; 里的 &lt;p&gt;</td><td></td><td>主文字（加粗，单行省略）与说明</td></tr><tr><td><code>zh-list-extra</code></td><td>&lt;li&gt; 里的容器</td><td></td><td>右侧附加内容，不会被挤压</td></tr><tr><td><code>zh-list--bordered</code></td><td>.zh-list</td><td></td><td>圆角外框和底色</td></tr><tr><td><code>zh-list--hover</code></td><td>.zh-list</td><td></td><td>悬停整行高亮；整行可点时请把内容放进 &lt;a&gt;</td></tr><tr><td><code>zh-list--plain</code></td><td>.zh-list</td><td></td><td>普通圆点列表，用于文章里的要点</td></tr></tbody></table></div>
+        
+        
+        <h3>营销页区块</h3>
+        <p class="desc" style="margin-bottom:12px">可选的 zhaoui-marketing.css：搭一个落地页用的整块样式，页宽与区块间距、hero（左文右卡）、区块标题、特性卡、价格卡、品牌渐变横幅、带品牌色发光的主按钮，以及可选的渐变文字、数据条、极光光斑和玻璃标签。极光、渐变文字、玻璃标签只是装饰，默认不用：普通页面直接用 zh-hero 的浅色渐变；只有深色、发布会式的首屏才考虑加 zh-aurora（并在该区块写 data-mode=&quot;dark&quot;）。下面的示例为了演示全部类才把它们放在一起，不是推荐的搭配。全部读主题变量，跟着品牌色、亮暗和 B/C 端走。需要额外引入 zhaoui-marketing.css，放在 zhaoui.css 之后。</p>
+        <pre class="tokens">&lt;section class=&quot;zh-hero zh-aurora zh-aurora--grid&quot; data-mode=&quot;dark&quot;&gt;
+  &lt;div class=&quot;zh-wrap zh-hero-grid&quot;&gt;
+    &lt;div&gt;
+      &lt;span class=&quot;zh-tag zh-tag--lg primary&quot;&gt;2026 全新服务&lt;/span&gt;
+      &lt;h2 class=&quot;zh-display&quot; style=&quot;margin-top:16px&quot;&gt;一句话讲清&lt;span class=&quot;zh-gradient-text&quot;&gt;你的价值&lt;/span&gt;&lt;/h2&gt;
+      &lt;p class=&quot;zh-section-sub&quot; style=&quot;margin-bottom:24px&quot;&gt;一个副标题，补充说明。主操作用 xl 按钮，次操作用默认按钮。&lt;/p&gt;
+      &lt;div class=&quot;zh-hero-actions&quot;&gt;&lt;a class=&quot;zh-btn gradient xl&quot; href=&quot;#mk-features&quot;&gt;主要操作&lt;/a&gt;&lt;a class=&quot;zh-btn xl&quot; href=&quot;#mk-price&quot;&gt;次要操作&lt;/a&gt;&lt;/div&gt;
+      &lt;ul class=&quot;zh-stats&quot;&gt;&lt;li&gt;&lt;b&gt;500+&lt;/b&gt;&lt;span&gt;合作伙伴&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;b&gt;98%&lt;/b&gt;&lt;span&gt;满意度&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;zh-card zh-float-card&quot;&gt;&lt;span class=&quot;zh-tag zh-tag--filled primary zh-float-flag&quot;&gt;进行中&lt;/span&gt;&lt;h3&gt;产品卡片&lt;/h3&gt;&lt;p&gt;放一张展示产品实际样子的卡片。&lt;/p&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+&lt;section class=&quot;zh-section zh-section--subtle&quot; id=&quot;mk-features&quot;&gt;
+  &lt;div class=&quot;zh-wrap&quot;&gt;
+    &lt;ol class=&quot;zh-stats-bar&quot; style=&quot;list-style:none;margin:0 0 32px&quot;&gt;&lt;li class=&quot;zh-stat&quot;&gt;&lt;b class=&quot;zh-gradient-text&quot;&gt;60+&lt;/b&gt;&lt;span&gt;个组件&lt;/span&gt;&lt;/li&gt;&lt;li class=&quot;zh-stat&quot;&gt;&lt;b class=&quot;zh-gradient-text&quot;&gt;0&lt;/b&gt;&lt;span&gt;运行时依赖&lt;/span&gt;&lt;/li&gt;&lt;/ol&gt;
+    &lt;p class=&quot;zh-eyebrow&quot;&gt;特性&lt;/p&gt;
+    &lt;h2 class=&quot;zh-section-title&quot;&gt;区块标题&lt;/h2&gt;
+    &lt;p class=&quot;zh-section-sub&quot;&gt;一段说明文字，宽度自动限制在舒适的行长内。&lt;/p&gt;
+    &lt;div class=&quot;zh-feature-grid&quot;&gt;
+      &lt;div class=&quot;zh-card zh-feature zh-feature--brand&quot;&gt;&lt;span class=&quot;zh-tile&quot;&gt;&lt;i data-i=&quot;sparkles&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;h3&gt;主推特性&lt;/h3&gt;&lt;p&gt;品牌渐变底的特性卡，白字。&lt;/p&gt;&lt;div class=&quot;zh-feature-tags&quot;&gt;&lt;span class=&quot;zh-tag&quot;&gt;标签一&lt;/span&gt;&lt;span class=&quot;zh-tag&quot;&gt;标签二&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;zh-card zh-feature&quot;&gt;&lt;span class=&quot;zh-index&quot;&gt;01&lt;/span&gt;&lt;h3&gt;普通特性&lt;/h3&gt;&lt;p&gt;悬停时上浮并带品牌色的柔和阴影。&lt;/p&gt;&lt;div class=&quot;zh-feature-tags&quot;&gt;&lt;span class=&quot;zh-tag primary&quot;&gt;标签一&lt;/span&gt;&lt;span class=&quot;zh-tag primary&quot;&gt;标签二&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+&lt;section class=&quot;zh-section zh-section--center&quot; id=&quot;mk-price&quot;&gt;
+  &lt;div class=&quot;zh-wrap&quot;&gt;
+    &lt;h2 class=&quot;zh-section-title&quot;&gt;价格卡&lt;/h2&gt;
+    &lt;div class=&quot;zh-feature-grid&quot; style=&quot;max-width:40rem;margin-inline:auto&quot;&gt;
+      &lt;div class=&quot;zh-card zh-price&quot;&gt;&lt;p class=&quot;zh-price-name&quot;&gt;基础版&lt;/p&gt;&lt;div class=&quot;zh-price-amount&quot;&gt;¥99&lt;small&gt;/月&lt;/small&gt;&lt;/div&gt;&lt;p class=&quot;zh-price-desc&quot;&gt;适合个人&lt;/p&gt;&lt;ul class=&quot;zh-price-list&quot;&gt;&lt;li&gt;&lt;i data-i=&quot;check&quot;&gt;&lt;/i&gt;功能一&lt;/li&gt;&lt;li&gt;&lt;i data-i=&quot;check&quot;&gt;&lt;/i&gt;功能二&lt;/li&gt;&lt;/ul&gt;&lt;a class=&quot;zh-btn lg&quot; href=&quot;#&quot;&gt;选择&lt;/a&gt;&lt;/div&gt;
+      &lt;div class=&quot;zh-card zh-price zh-price--popular&quot;&gt;&lt;span class=&quot;zh-tag zh-tag--filled primary zh-price-flag&quot;&gt;最受欢迎&lt;/span&gt;&lt;p class=&quot;zh-price-name&quot;&gt;专业版&lt;/p&gt;&lt;div class=&quot;zh-price-amount&quot;&gt;¥299&lt;small&gt;/月&lt;/small&gt;&lt;/div&gt;&lt;p class=&quot;zh-price-desc&quot;&gt;适合团队&lt;/p&gt;&lt;ul class=&quot;zh-price-list&quot;&gt;&lt;li&gt;&lt;i data-i=&quot;check&quot;&gt;&lt;/i&gt;功能一&lt;/li&gt;&lt;li&gt;&lt;i data-i=&quot;check&quot;&gt;&lt;/i&gt;功能二&lt;/li&gt;&lt;li&gt;&lt;i data-i=&quot;check&quot;&gt;&lt;/i&gt;功能三&lt;/li&gt;&lt;/ul&gt;&lt;a class=&quot;zh-btn primary lg&quot; href=&quot;#&quot;&gt;选择&lt;/a&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+&lt;section class=&quot;zh-section zh-section--brand&quot;&gt;
+  &lt;div class=&quot;zh-wrap&quot;&gt;&lt;h2 class=&quot;zh-section-title&quot;&gt;行动号召&lt;/h2&gt;&lt;p class=&quot;zh-section-sub&quot; style=&quot;margin:0 auto 24px&quot;&gt;品牌渐变底的整行区块，字用 on-primary。&lt;/p&gt;&lt;a class=&quot;zh-btn xl&quot; href=&quot;#&quot;&gt;立即开始&lt;/a&gt;&lt;/div&gt;
+&lt;/section&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>zh-wrap</code></td><td>容器（class）</td><td></td><td>页面内容宽度：最宽 --zh-page-max（80rem），两侧留白随屏幕在 16 到 64px 之间变化</td></tr><tr><td><code>zh-section</code></td><td>&lt;section&gt;（class）</td><td>加 --subtle（浅灰底）、--brand（品牌渐变底、白字）、--center（标题居中）</td><td>一个区块；上下留白用 --zh-section-gap（64 到 96px，随屏幕）。给区块加 data-mode=&quot;dark&quot; 就是一整块深色区</td></tr><tr><td><code>zh-eyebrow / zh-display / zh-section-title / zh-section-sub</code></td><td>文字（class）</td><td></td><td>小标题、展示级大标题（--zh-font-display，em 部分用品牌色）、区块标题（--zh-font-title）、区块说明（限制行宽）</td></tr><tr><td><code>zh-hero + zh-hero-grid</code></td><td>区块与容器</td><td></td><td>首屏：柔和渐变底，左边文字、右边产品卡片，900px 以下上下排</td></tr><tr><td><code>zh-float-card + zh-float-flag</code></td><td>卡片与标签</td><td></td><td>带大阴影的产品展示卡，标签浮在右上角并带品牌色发光</td></tr><tr><td><code>zh-feature-grid + zh-feature</code></td><td>网格与卡片</td><td>加 zh-feature--brand 做主推卡</td><td>自动按宽度分列的特性卡；zh-feature-grid--4 每列更窄；悬停上浮</td></tr><tr><td><code>zh-feature-tags / zh-tags</code></td><td>标签组</td><td></td><td>卡片里的多个标签：比单个状态标签更高、更松，间距 8px</td></tr><tr><td><code>zh-tile</code></td><td>图标块</td><td>里面放 &lt;i data-i&gt;</td><td>52px 的圆角图标底块，品牌浅色底</td></tr><tr><td><code>zh-price 系列</code></td><td>价格卡</td><td>zh-price-name、zh-price-amount、zh-price-desc、zh-price-list、zh-price-flag</td><td>价格卡；zh-price--popular 加品牌边框和发光</td></tr><tr><td><code>zh-nav--contained</code></td><td>导航条（class）</td><td></td><td>让导航内容和页面内容对齐在同一条线上</td></tr><tr><td><code>zh-glow</code></td><td>按钮等（class）</td><td></td><td>品牌色发光阴影；hero 里的主按钮已自带</td></tr><tr><td><code>zh-btn xl</code></td><td>按钮（class）</td><td></td><td>超大按钮，落地页的主操作用；比 lg 再大 8px 高度</td></tr><tr><td><code>zh-gradient-text / zh-index</code></td><td>文字（class）</td><td></td><td>渐变文字 / 渐变编号（01、02…）。渐变取自品牌派生的三个强调色 --zh-accent-a/b/c，只用在大字号上（强调色在白底和近黑底上都有 3:1，是大字的下限，不适合小字）</td></tr><tr><td><code>--zh-accent-a / b / c</code></td><td>品牌令牌</td><td>颜色</td><td>三个强调色，换品牌色会一起变；想固定成指定的三色（如珊瑚、橙、紫），在 CSS 里直接覆盖这三个变量。--zh-gradient-accent 是用它们画的渐变</td></tr><tr><td><code>zh-stats-bar + zh-stat</code></td><td>容器与项</td><td>项里放 &lt;b&gt;数字&lt;/b&gt;&lt;span&gt;说明&lt;/span&gt;</td><td>一排关键数据放在一张柔和的大圆角卡里，竖线分隔；数字上加 zh-gradient-text 得到渐变数字；给它负的上外边距可以压在上面的 hero 上</td></tr><tr><td><code>zh-aurora（+ zh-aurora--grid）</code></td><td>区块（class）</td><td>需同时加 data-mode=&quot;dark&quot;</td><td>可选装饰：深色底上用强调色画的静态光斑，加 --grid 再叠一层淡网格；没有模糊滤镜也没有动画，几乎没有绘制成本</td></tr><tr><td><code>zh-aurora-stage + zh-glass-tag</code></td><td>展示卡与标签</td><td>glass-tag 用 style 的 left/top 定位</td><td>深色展示卡，上面浮动的玻璃标签（半透明加模糊；不支持模糊的浏览器只是半透明）；只在深色或图片背景上使用</td></tr><tr><td><code>zh-btn gradient</code></td><td>按钮（class）</td><td></td><td>主操作的渐变按钮：从主色渐变到深一档的主色，白字对比度达标；原站那种“白字压鲜艳渐变”约 3.2:1，不达标，库里不提供</td></tr></tbody></table></div>
+        
+        
+        <h3>滚动公告</h3>
+        <p class="desc" style="margin-bottom:12px">一行向左滚动的公告文字，首尾无缝衔接；悬停或聚焦时暂停；系统开启“减少动态效果”时不滚动，改为可横向拖动。</p>
+        <pre class="tokens">&lt;div data-zh-marquee data-speed=&quot;50&quot; aria-label=&quot;公告&quot;&gt;系统将在今晚 23:00 进行维护，预计 30 分钟。 &lt;a href=&quot;#&quot;&gt;查看详情&lt;/a&gt;&lt;/div&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-zh-marquee</code></td><td>容器</td><td>里面放文字或链接</td><td>声明为滚动公告；库会复制一份内容（对读屏隐藏）做无缝循环</td></tr><tr><td><code>data-speed</code></td><td>容器</td><td>像素每秒，默认 60</td><td>滚动速度</td></tr></tbody></table></div>
+        
+        
+        <h3>遮罩条</h3>
+        <p class="desc" style="margin-bottom:12px">纯样式组件：不需要 JS，写好标记即可。盖在图片或卡片底部的说明条：渐变深色底配白字，在任何图片上都能读。zh-maskbar--solid 是纯色条，zh-maskbar--hover 平时隐藏、悬停或聚焦时出现。</p>
+        <pre class="tokens">&lt;div class=&quot;zh-mask-wrap&quot; style=&quot;max-width:16rem;aspect-ratio:16/9;background:var(--zh-color-primary-subtle)&quot;&gt;
+  &lt;div class=&quot;zh-maskbar&quot;&gt;产品发布会现场&lt;/div&gt;
+&lt;/div&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>zh-mask-wrap</code></td><td>容器（class）</td><td></td><td>相对定位并裁切，里面放图片和遮罩条</td></tr><tr><td><code>zh-maskbar</code></td><td>容器里的元素</td><td>文字</td><td>底部渐变遮罩条；颜色固定为深底白字，不随主题变</td></tr><tr><td><code>zh-maskbar--solid / --hover</code></td><td>.zh-maskbar</td><td></td><td>纯色底 / 悬停才出现</td></tr></tbody></table></div>
+        
+        
+        <h3>配置式菜单与右键菜单</h3>
+        <p class="desc" style="margin-bottom:12px">用一个数组描述菜单，再挂到按钮或区域上：分组标题、分隔线、图标、快捷键提示、复选项、单选项、危险项、禁用项、多级子菜单。同一份数组也能做右键菜单。固定写在 HTML 里的简单菜单用「下拉菜单」（data-zh-dropdown）更省事。</p>
+        <pre class="tokens">&lt;div class=&quot;zh-row&quot;&gt;
+  &lt;button class=&quot;zh-btn&quot; id=&quot;mn-btn&quot;&gt;文件 &lt;i data-i=&quot;chevron-down&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+  &lt;div id=&quot;mn-area&quot; class=&quot;zh-card&quot; style=&quot;padding:16px&quot;&gt;在这里点右键&lt;/div&gt;
+&lt;/div&gt;
+&lt;script&gt;
+  var items = [
+    { type: 'group', label: '文件' },
+    { label: '重命名', icon: 'pencil', shortcut: 'F2' },
+    { label: '移动到', icon: 'folder-open', sub: [{ label: '我的文档' }, { label: '项目归档' }] },
+    { type: 'sep' },
+    { type: 'check', label: '显示隐藏文件', checked: true },
+    { type: 'sep' },
+    { label: '删除', icon: 'trash-2', danger: true }
+  ];
+  ZhaoUI.menu(document.getElementById('mn-btn'), items, { label: '文件操作', onSelect: function (it) { ZhaoUI.message('选择了：' + it.label); } });
+  ZhaoUI.contextMenu(document.getElementById('mn-area'), items);
+&lt;/script&gt;</pre>
+        
+        <ul class="check" style="margin-top:12px"><li><span><code>ZhaoUI.menu(button, items, options)</code>：点击按钮打开菜单，返回弹出层句柄（open、close、toggle、isOpen）。options：placement（默认 bottom-start）、label（菜单的 aria-label）、onSelect(item)、onClose()、trigger（click 默认，manual 则自己调用 open）</span></li><li><span><code>ZhaoUI.contextMenu(area, items, options)</code>：在区域上右键、按 Shift+F10 或菜单键时，在鼠标处（或区域中心）打开菜单。区域会自动可聚焦。options：label、onSelect(item)</span></li><li><span><code>菜单项 item</code>：type 取 'sep'（分隔线）、'group'（分组标题，label 为标题）、'check'（复选，点击切换 checked，菜单保持打开）、'radio'（同一 name 的单选，菜单保持打开）；普通项点击后触发 onSelect 并关闭；sub 是子菜单数组</span></li></ul>
+        
+        <h3>消息提示</h3>
+        <p class="desc" style="margin-bottom:12px">顶部居中的轻量提示，自动消失。只提供方法调用，不需要写标记。</p>
+        <pre class="tokens">&lt;script&gt;
+ZhaoUI.message('保存成功');
+ZhaoUI.message('网络异常，请重试', { type: 'error', duration: 4000 });
+
+var close = ZhaoUI.message('正在上传…', { type: 'info', duration: 0 });
+// 完成后
+close();
+&lt;/script&gt;</pre>
+        
+        <ul class="check" style="margin-top:12px"><li><span><code>ZhaoUI.message(text, { type, duration })</code>：显示一条消息。type：success（默认）、info、warning、error；duration 为毫秒，默认 2400，传 0 则不自动消失。返回一个函数，调用即提前关闭。text 按纯文本处理</span></li></ul>
+        
+        <h3>顶部导航条</h3>
+        <p class="desc" style="margin-bottom:12px">网站或应用顶部的导航：左侧标志，中间链接（当前页下方有滑动的下划线），右侧放搜索、通知、头像等你自己的内容。有嵌套 &lt;ul&gt; 的链接自动成为下拉菜单；宽度小于 768px 时链接收进汉堡按钮打开的侧滑抽屉。</p>
+        <pre class="tokens">&lt;header class=&quot;zh-nav&quot; data-zh-nav aria-label=&quot;主导航&quot;&gt;
+  &lt;a class=&quot;zh-nav-logo&quot; href=&quot;#&quot;&gt;&lt;i aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;span&gt;ZhaoUI&lt;/span&gt;&lt;/a&gt;
+  &lt;ul class=&quot;zh-nav-links&quot;&gt;
+    &lt;li&gt;&lt;a class=&quot;zh-nav-link&quot; href=&quot;#&quot; aria-current=&quot;page&quot; data-icon=&quot;layout-dashboard&quot;&gt;概览&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;button class=&quot;zh-nav-link&quot; type=&quot;button&quot; data-icon=&quot;file-text&quot;&gt;产品&lt;i data-i=&quot;chevron-down&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+      &lt;ul&gt;&lt;li&gt;&lt;a href=&quot;#&quot;&gt;中控台&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;#&quot;&gt;数据分析&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a class=&quot;zh-nav-link&quot; href=&quot;#&quot;&gt;价格&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;div class=&quot;zh-nav-right&quot;&gt;&lt;button class=&quot;zh-nav-avatar&quot; type=&quot;button&quot; aria-label=&quot;账户&quot;&gt;ZW&lt;/button&gt;&lt;/div&gt;
+&lt;/header&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-zh-nav</code></td><td>&lt;header class=&quot;zh-nav&quot;&gt; 或 &lt;nav&gt;</td><td></td><td>声明为导航条；直接子元素按顺序放 .zh-nav-logo、ul.zh-nav-links、.zh-nav-right</td></tr><tr><td><code>zh-nav-link</code></td><td>&lt;a&gt; 或 &lt;button&gt;（class）</td><td></td><td>一个导航项；当前页加 aria-current=&quot;page&quot;</td></tr><tr><td><code>嵌套 &lt;ul&gt;</code></td><td>含子链接的 &lt;li&gt; 里</td><td>里面放 &lt;a href&gt;</td><td>把外层的 zh-nav-link 变成下拉菜单触发器；手机抽屉里变成可展开的二级</td></tr><tr><td><code>data-icon</code></td><td>&lt;a&gt; / 顶层 zh-nav-link</td><td>图标名</td><td>抽屉里该项前的图标（桌面端不显示）</td></tr><tr><td><code>zh-nav-iconbtn</code></td><td>&lt;button&gt;（class）</td><td>里面放 &lt;i data-i&gt;</td><td>右侧的图标按钮，如通知；必须有 aria-label</td></tr><tr><td><code>zh-nav-avatar</code></td><td>&lt;button&gt;（class）</td><td>缩写文字</td><td>圆形头像按钮，可配合 data-zh-dropdown 做账户菜单</td></tr><tr><td><code>zh-nav-search</code></td><td>&lt;button&gt;（class）</td><td>图标、提示文字和 zh-kbd</td><td>外观像搜索框的按钮，点击后打开你自己的搜索；手机宽度自动隐藏</td></tr></tbody></table></div>
+        
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:nav-select</code></td><td>导航条</td><td>undefined</td><td>点击链接（桌面或抽屉里）。href 为 # 或为空时库不跳转，只切换当前页</td></tr></tbody></table></div>
+        <h3>数字步进器</h3>
+        <p class="desc" style="margin-bottom:12px">带加减按钮的数字输入，支持范围、步长、小数位数，键盘可操作，按住按钮连续加减。</p>
+        <pre class="tokens">&lt;div class=&quot;zh-inp zh-num&quot; id=&quot;qty&quot; data-min=&quot;1&quot; data-max=&quot;10&quot; data-step=&quot;1&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;zh-num-btn&quot; data-dir=&quot;-1&quot; aria-label=&quot;减少&quot; tabindex=&quot;-1&quot;&gt;&lt;i data-i=&quot;minus&quot; data-s=&quot;16&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+  &lt;input class=&quot;zh-inp-el&quot; role=&quot;spinbutton&quot; inputmode=&quot;numeric&quot; value=&quot;3&quot; aria-label=&quot;数量&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;zh-num-btn&quot; data-dir=&quot;1&quot; aria-label=&quot;增加&quot; tabindex=&quot;-1&quot;&gt;&lt;i data-i=&quot;plus&quot; data-s=&quot;16&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;zh-inp zh-num&quot; data-min=&quot;0&quot; data-max=&quot;9999&quot; data-step=&quot;0.5&quot; data-precision=&quot;2&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;zh-num-btn&quot; data-dir=&quot;-1&quot; aria-label=&quot;减少&quot; tabindex=&quot;-1&quot;&gt;&lt;i data-i=&quot;minus&quot; data-s=&quot;16&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+  &lt;input class=&quot;zh-inp-el&quot; role=&quot;spinbutton&quot; inputmode=&quot;decimal&quot; value=&quot;12.50&quot; aria-label=&quot;金额&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;zh-num-btn&quot; data-dir=&quot;1&quot; aria-label=&quot;增加&quot; tabindex=&quot;-1&quot;&gt;&lt;i data-i=&quot;plus&quot; data-s=&quot;16&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+document.getElementById('qty').addEventListener('zh:number', function (e) {
+  console.log(e.detail.value);
+});
+&lt;/script&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-min</code></td><td>.zh-num</td><td>数字</td><td>最小值，不写则不限</td></tr><tr><td><code>data-max</code></td><td>.zh-num</td><td>数字</td><td>最大值，不写则不限</td></tr><tr><td><code>data-step</code></td><td>.zh-num</td><td>数字，默认 1</td><td>每次加减的步长</td></tr><tr><td><code>data-precision</code></td><td>.zh-num</td><td>整数</td><td>小数位数；不写则按步长推断（步长 0.5 → 1 位）</td></tr><tr><td><code>data-dir</code></td><td>.zh-num-btn</td><td>1 或 -1</td><td>按钮的方向：1 增加，-1 减少</td></tr></tbody></table></div>
+        
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:number</code></td><td>.zh-num</td><td>{ value }</td><td>值被步进、回车或失焦后规范化时触发（冒泡），value 是数字</td></tr></tbody></table></div>
+        <h3>验证码输入</h3>
+        <p class="desc" style="margin-bottom:12px">分格的一次性验证码输入。只写一个空的容器，格子由库生成；支持粘贴、退格回退、方向键。校验由你来做，用 ZhaoUI.otp 把结果显示出来。</p>
+        <pre class="tokens">&lt;div id=&quot;otpLabel&quot;&gt;输入 6 位验证码&lt;/div&gt;
+&lt;div class=&quot;zh-otp&quot; id=&quot;otp&quot; data-length=&quot;6&quot; aria-labelledby=&quot;otpLabel&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+document.getElementById('otp').addEventListener('zh:otp-complete', function (e) {
+  // 换成你自己的校验
+  if (e.detail.value === '123456') ZhaoUI.otp.ok('#otp'); else ZhaoUI.otp.error('#otp');
+});
+&lt;/script&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-length</code></td><td>.zh-otp</td><td>整数，默认 6</td><td>验证码位数</td></tr><tr><td><code>aria-labelledby</code></td><td>.zh-otp</td><td>标签元素的 id</td><td>容器会自动加 role=&quot;group&quot;，用它给整组命名</td></tr><tr><td><code>is-error / is-ok</code></td><td>.zh-otp</td><td>class</td><td>由 ZhaoUI.otp.error / ok 设置，也会在用户再次输入时自动清除</td></tr></tbody></table></div>
+        <ul class="check" style="margin-top:12px"><li><span><code>ZhaoUI.otp.value(el)</code>：读取当前已输入的内容</span></li><li><span><code>ZhaoUI.otp.error(el)</code>：标记为错误并播放抖动动画</span></li><li><span><code>ZhaoUI.otp.ok(el)</code>：标记为通过</span></li><li><span><code>ZhaoUI.otp.clear(el)</code>：清空所有格子并把焦点放回第一格</span></li></ul>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:otp-complete</code></td><td>.zh-otp</td><td>{ value }</td><td>所有格子填满时触发（冒泡），value 是完整的验证码字符串</td></tr></tbody></table></div>
+        <h3>页头</h3>
+        <p class="desc" style="margin-bottom:12px">纯样式组件：不需要 JS。后台内容区顶部的标题区：返回按钮、标题、说明、操作按钮和一行元信息。</p>
+        <pre class="tokens">&lt;header class=&quot;zh-ph&quot;&gt;
+  &lt;nav aria-label=&quot;当前位置&quot;&gt;&lt;ol class=&quot;zh-crumb&quot;&gt;&lt;li&gt;&lt;a href=&quot;#&quot;&gt;首页&lt;/a&gt;&lt;/li&gt;&lt;li aria-current=&quot;page&quot;&gt;文章详情&lt;/li&gt;&lt;/ol&gt;&lt;/nav&gt;
+  &lt;div class=&quot;zh-ph-main&quot;&gt;
+    &lt;div class=&quot;zh-ph-title&quot;&gt;&lt;button class=&quot;zh-ph-back&quot; aria-label=&quot;返回&quot;&gt;&lt;i data-i=&quot;chevron-left&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;h4&gt;产品发布会回顾&lt;/h4&gt;&lt;span class=&quot;zh-tag success&quot;&gt;已发布&lt;/span&gt;&lt;/div&gt;
+    &lt;div class=&quot;zh-ph-actions&quot;&gt;&lt;button class=&quot;zh-btn&quot;&gt;预览&lt;/button&gt;&lt;button class=&quot;zh-btn primary&quot;&gt;编辑&lt;/button&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;dl class=&quot;zh-ph-meta&quot;&gt;&lt;div&gt;&lt;dt&gt;作者&lt;/dt&gt;&lt;dd&gt;李明&lt;/dd&gt;&lt;/div&gt;&lt;div&gt;&lt;dt&gt;更新&lt;/dt&gt;&lt;dd&gt;2026-10-04&lt;/dd&gt;&lt;/div&gt;&lt;/dl&gt;
+&lt;/header&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>zh-ph</code></td><td>&lt;header&gt;（class）</td><td></td><td>页头容器，上方一般放面包屑</td></tr><tr><td><code>zh-ph-main</code></td><td>容器</td><td></td><td>标题和操作按钮所在的一行，空间不够会换行</td></tr><tr><td><code>zh-ph-title</code></td><td>容器</td><td>里面放 &lt;h4&gt;，可带 zh-ph-back 返回按钮与 zh-ph-sec 副标题</td><td>手机宽度隐藏副标题</td></tr><tr><td><code>zh-ph-actions</code></td><td>容器</td><td>里面放 zh-btn</td><td>右侧操作区</td></tr><tr><td><code>zh-ph-meta</code></td><td>&lt;dl&gt;</td><td>多个 &lt;div&gt;&lt;dt&gt;…&lt;/dt&gt;&lt;dd&gt;…&lt;/dd&gt;&lt;/div&gt;</td><td>标题下面的一行元信息</td></tr><tr><td><code>zh-ph--compact</code></td><td>.zh-ph</td><td></td><td>紧凑版：标题、标签页、操作排在一行</td></tr></tbody></table></div>
+        
+        
+        <h3>分页</h3>
+        <p class="desc" style="margin-bottom:12px">分页器，页码数量恒定不跳动，支持每页条数、跳转框、简洁模式、多种尺寸。声明式写 data-zh-pager，或用 ZhaoUI.pager 创建。库不管数据，只管页码，翻页后你自己取数据。</p>
+        <pre class="tokens">&lt;nav class=&quot;zh-pg&quot; id=&quot;pg1&quot; data-zh-pager data-total=&quot;486&quot; data-size=&quot;10&quot; data-show-size-changer data-show-jumper aria-label=&quot;文章分页&quot;&gt;&lt;/nav&gt;
+&lt;nav class=&quot;zh-pg&quot; data-zh-pager data-total=&quot;200&quot; data-simple aria-label=&quot;简洁分页&quot;&gt;&lt;/nav&gt;
+
+&lt;script&gt;
+document.getElementById('pg1').addEventListener('zh:page-change', function (e) {
+  console.log('第', e.detail.page, '页，每页', e.detail.size, '条');
+});
+&lt;/script&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-zh-pager</code></td><td>.zh-pg 或任意容器</td><td>无</td><td>声明这是一个分页器，用下面的 data-* 配置</td></tr><tr><td><code>data-total / data-page / data-page-size（等同 data-size）</code></td><td>容器</td><td>整数</td><td>总条数 / 当前页（默认 1）/ 每页条数（默认 10）。注意：data-size 和 data-page-size 是每页多少条，不是控件大小；控件大小用 data-size-name</td></tr><tr><td><code>data-sizes</code></td><td>容器</td><td>逗号分隔，如 10,20,50</td><td>每页条数的可选项，配合 data-show-size-changer</td></tr><tr><td><code>data-show-total / data-show-size-changer / data-show-jumper</code></td><td>容器</td><td>布尔属性</td><td>显示总数（默认开）/ 每页条数选择 / 跳转输入框</td></tr><tr><td><code>data-simple / data-bordered / data-disabled / data-hide-on-single-page</code></td><td>容器</td><td>布尔属性</td><td>简洁模式 / 带边框 / 禁用 / 只有一页时隐藏</td></tr><tr><td><code>data-size-name</code></td><td>容器</td><td>sm | md（默认）| lg</td><td>控件的大小，不是每页条数（每页条数用 data-page-size）</td></tr><tr><td><code>data-siblings / data-boundary</code></td><td>容器</td><td>整数，默认 1</td><td>当前页两侧与首尾各保留几个页码</td></tr></tbody></table></div>
+        <ul class="check" style="margin-top:12px"><li><span><code>ZhaoUI.pager(el, { total, page, size, ..., onChange })</code>：命令式创建，返回 { get(), set(partial), go(page) }。选项与上面的 data-* 一一对应（驼峰写法）</span></li><li><span><code>el.__zhPager.set({ total })</code>：数据条数变化后更新（例如筛选后），页码会自动收敛到有效范围</span></li></ul>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:page-change</code></td><td>容器</td><td>{ page, size }</td><td>页码或每页条数变化时触发（冒泡）</td></tr></tbody></table></div>
+        <h3>气泡确认</h3>
+        <p class="desc" style="margin-bottom:12px">挂在触发按钮旁的小确认框，用于轻量的二次确认（删除一行、下线一篇）。比模态框轻；破坏性很大的操作仍用确认对话框。</p>
+        <pre class="tokens">&lt;button class=&quot;zh-btn&quot; data-zh-popconfirm=&quot;删除这个文件？&quot; data-desc=&quot;删除后 30 天内可在回收站找回。&quot; data-ok=&quot;删除&quot; data-danger id=&quot;pc-del&quot;&gt;删除&lt;/button&gt;
+&lt;script&gt;
+  document.getElementById('pc-del').addEventListener('zh:popconfirm', function (e) {
+    if (e.detail.action === 'ok') ZhaoUI.message('已删除');
+  });
+&lt;/script&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-zh-popconfirm</code></td><td>触发按钮</td><td>确认问题，如“删除这个文件？”</td><td>声明气泡确认，值是标题</td></tr><tr><td><code>data-desc</code></td><td>同上</td><td>补充说明</td><td>可选</td></tr><tr><td><code>data-ok / data-cancel</code></td><td>同上</td><td>按钮文字，默认“确定”“取消”</td><td>确认按钮写动作，如“删除”</td></tr><tr><td><code>data-danger</code></td><td>同上</td><td></td><td>破坏性操作：图标和确认按钮用危险色</td></tr><tr><td><code>data-kind</code></td><td>同上</td><td>warning（默认）| info</td><td>图标语气</td></tr><tr><td><code>data-placement</code></td><td>同上</td><td>top（默认）| bottom | left | right</td><td>位置</td></tr></tbody></table></div>
+        <ul class="check" style="margin-top:12px"><li><span><code>ZhaoUI.popconfirm(anchor, options)</code>：命令式用法。options：title、desc、okText、cancelText、kind、danger、placement、onConfirm()。onConfirm 返回 Promise 时，确认按钮显示加载中，成功后关闭，失败则保持打开</span></li></ul>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:popconfirm</code></td><td>触发按钮</td><td>{ action: 'ok' | 'cancel' }</td><td>用户点了确认或取消。在 ok 时执行真正的操作</td></tr></tbody></table></div>
+        <h3>气泡卡片</h3>
+        <p class="desc" style="margin-bottom:12px">点击（或悬停、聚焦）触发的浮层，里面可以放任意内容：说明、小表单、操作列表。内容写在页面里的一个隐藏元素中，库会复制进浮层。</p>
+        <pre class="tokens">&lt;button class=&quot;zh-btn&quot; data-zh-popover=&quot;#pv-card&quot; data-arrow&gt;查看详情&lt;/button&gt;
+&lt;div id=&quot;pv-card&quot; hidden&gt;
+  &lt;p&gt;&lt;strong&gt;李明&lt;/strong&gt;&lt;/p&gt;
+  &lt;p&gt;内容组 · 最近更新 2 小时前&lt;/p&gt;
+&lt;/div&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-zh-popover</code></td><td>触发按钮</td><td>内容元素的选择器，如 #panel</td><td>该元素会被隐藏，打开时把它的内容复制进浮层</td></tr><tr><td><code>data-placement</code></td><td>同上</td><td>top | bottom | left | right，可加 -start / -end，默认 bottom-start</td><td>位置，空间不够自动翻转</td></tr><tr><td><code>data-trigger</code></td><td>同上</td><td>click（默认）| hover | focus</td><td>触发方式</td></tr><tr><td><code>data-arrow</code></td><td>同上</td><td></td><td>显示指向触发元素的小箭头</td></tr></tbody></table></div>
+        
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:popover-open</code></td><td>触发按钮</td><td>{ popover }</td><td>浮层打开后，popover 是浮层元素</td></tr><tr><td><code>zh:popover-close</code></td><td>触发按钮</td><td>无</td><td>浮层关闭</td></tr></tbody></table></div>
+        <h3>进度条</h3>
+        <p class="desc" style="margin-bottom:12px">线性进度条，支持标签位置、状态、分步、缓冲、目标线和不确定进度。只写一个带 data-* 的空元素，内容由库生成。</p>
+        <pre class="tokens">&lt;div class=&quot;zh-progress&quot; id=&quot;pg&quot; data-value=&quot;36&quot; data-name=&quot;导入数据&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;zh-progress&quot; data-label=&quot;top&quot; data-title=&quot;存储空间&quot; data-value=&quot;62&quot; data-name=&quot;存储空间&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;zh-progress&quot; data-status=&quot;exception&quot; data-value=&quot;42&quot; data-name=&quot;上传失败&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;zh-progress&quot; data-steps=&quot;10&quot; data-value=&quot;60&quot; data-name=&quot;完成步骤&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;zh-progress&quot; data-indeterminate=&quot;true&quot; data-label=&quot;none&quot; data-name=&quot;加载中&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+ZhaoUI.progress.set('#pg', 80);
+&lt;/script&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-value</code></td><td>.zh-progress</td><td>0 到 100</td><td>当前进度</td></tr><tr><td><code>data-label</code></td><td>.zh-progress</td><td>outside（默认）| inside | top | none</td><td>百分比文字的位置；top 时用 data-title 作标题</td></tr><tr><td><code>data-name</code></td><td>.zh-progress</td><td>字符串</td><td>无障碍名称（aria-label），务必填写</td></tr><tr><td><code>data-status</code></td><td>.zh-progress</td><td>normal | success | warning | exception</td><td>状态色；进度到 100 且未指定状态时自动变为 success，data-auto=&quot;off&quot; 可关闭</td></tr><tr><td><code>data-steps</code></td><td>.zh-progress</td><td>整数</td><td>分步显示，如 10 表示十格</td></tr><tr><td><code>data-buffer</code></td><td>.zh-progress</td><td>0 到 100</td><td>缓冲进度（比如视频缓冲），画在主进度之下</td></tr><tr><td><code>data-target / data-target-label</code></td><td>.zh-progress</td><td>0 到 1 / 字符串</td><td>目标线位置（0.8 表示 80%）与它的文字</td></tr><tr><td><code>data-indeterminate</code></td><td>.zh-progress</td><td>true</td><td>不确定进度：显示循环动画，无数值</td></tr><tr><td><code>data-size</code></td><td>.zh-progress</td><td>sm | lg</td><td>尺寸</td></tr><tr><td><code>is-active / is-striped</code></td><td>.zh-progress</td><td>class</td><td>进行中的流光 / 条纹效果</td></tr></tbody></table></div>
+        <ul class="check" style="margin-top:12px"><li><span><code>ZhaoUI.progress.set(el, value)</code>：更新进度（0 到 100），同步更新文字、状态色和 aria-valuenow。el 可以是元素或选择器</span></li></ul>
+        
+        <h3>评分</h3>
+        <p class="desc" style="margin-bottom:12px">星形或心形评分，支持半星、只读、清除、文字标签。交互版本是一组 radio，键盘与读屏都可用。</p>
+        <pre class="tokens">&lt;div class=&quot;zh-rating&quot; id=&quot;rt&quot; data-value=&quot;3&quot; data-label=&quot;服务评分&quot; data-labels=&quot;很差,较差,一般,满意,很好&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;zh-rating&quot; data-value=&quot;3.5&quot; data-half data-show-value data-label=&quot;口味评分&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;zh-rating&quot; data-readonly data-value=&quot;4.27&quot; data-show-value data-label=&quot;综合评分&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+document.getElementById('rt').addEventListener('zh:rating', function (e) {
+  console.log(e.detail.value);
+});
+&lt;/script&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-value</code></td><td>.zh-rating</td><td>数字</td><td>当前评分；只读时可以是小数（如 4.27），会按比例填充</td></tr><tr><td><code>data-count</code></td><td>.zh-rating</td><td>整数，默认 5</td><td>总数</td></tr><tr><td><code>data-half</code></td><td>.zh-rating</td><td>布尔属性</td><td>允许半星</td></tr><tr><td><code>data-readonly / data-disabled</code></td><td>.zh-rating</td><td>布尔属性</td><td>只读展示 / 禁用</td></tr><tr><td><code>data-clear</code></td><td>.zh-rating</td><td>布尔属性</td><td>再次点击同一个分数、或按 Delete / Backspace 清除评分</td></tr><tr><td><code>data-icon</code></td><td>.zh-rating</td><td>star（默认）| heart</td><td>图标</td></tr><tr><td><code>data-labels</code></td><td>.zh-rating</td><td>逗号分隔的文字，如 很差,较差,一般,满意,很好</td><td>每一档的文字，选中时显示在旁边</td></tr><tr><td><code>data-show-value</code></td><td>.zh-rating</td><td>布尔属性</td><td>在旁边显示数字</td></tr><tr><td><code>data-label</code></td><td>.zh-rating</td><td>字符串</td><td>无障碍名称，默认「评分」</td></tr></tbody></table></div>
+        <ul class="check" style="margin-top:12px"><li><span><code>el.zhRating.get()</code>：读取当前评分</span></li></ul>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:rating</code></td><td>.zh-rating</td><td>{ value }</td><td>评分变化时触发（冒泡）</td></tr></tbody></table></div>
+        <h3>结果页</h3>
+        <p class="desc" style="margin-bottom:12px">纯样式组件：不需要 JS。操作完成、失败或页面不存在时的反馈块：图标（或大号错误码）、标题、说明、补充信息、操作按钮，居中排列。用 data-tone 选语气。</p>
+        <pre class="tokens">&lt;div class=&quot;zh-card&quot; style=&quot;padding:0&quot;&gt;
+  &lt;div class=&quot;zh-result&quot; data-tone=&quot;success&quot; aria-live=&quot;polite&quot;&gt;
+    &lt;div class=&quot;zh-result-icon&quot;&gt;&lt;i data-i=&quot;circle-check&quot;&gt;&lt;/i&gt;&lt;/div&gt;
+    &lt;h4 class=&quot;zh-result-title&quot;&gt;提交成功&lt;/h4&gt;
+    &lt;p class=&quot;zh-result-desc&quot;&gt;审批单已提交，预计 1 个工作日内处理。&lt;/p&gt;
+    &lt;div class=&quot;zh-result-actions&quot;&gt;
+      &lt;button class=&quot;zh-btn primary&quot;&gt;查看详情&lt;/button&gt;
+      &lt;button class=&quot;zh-btn&quot;&gt;返回列表&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>zh-result</code></td><td>容器（class）</td><td></td><td>居中的结果块，通常放在 .zh-card 里</td></tr><tr><td><code>data-tone</code></td><td>.zh-result</td><td>success | error | info | warning（默认中性灰）</td><td>决定图标圆底和图标的颜色</td></tr><tr><td><code>zh-result-icon</code></td><td>图标容器</td><td>里面放 &lt;i data-i=&quot;...&quot;&gt;</td><td>圆形底色图标</td></tr><tr><td><code>zh-result-code</code></td><td>大号文字</td><td>如 404</td><td>错误页用，装饰性，加 aria-hidden=&quot;true&quot;</td></tr><tr><td><code>zh-result-title / zh-result-desc</code></td><td>&lt;h4&gt; / &lt;p&gt;</td><td></td><td>标题和说明，说明最宽约 46 个字符</td></tr><tr><td><code>zh-result-extra</code></td><td>补充块</td><td>里面放 &lt;ul&gt;</td><td>失败原因、后续步骤等，左对齐的灰底块</td></tr><tr><td><code>zh-result-actions</code></td><td>按钮容器</td><td>里面放 zh-btn</td><td>居中排列；手机宽度按钮各占一行</td></tr><tr><td><code>is-in</code></td><td>.zh-result</td><td></td><td>可选：加上后播放入场动画（图标弹出，其余依次升起）</td></tr></tbody></table></div>
+        
+        
+        <h3>环形进度</h3>
+        <p class="desc" style="margin-bottom:12px">圆环、仪表盘（270°）、半圆三种形状的进度，中心显示百分比或自定义内容。</p>
+        <pre class="tokens">&lt;div class=&quot;zh-ring&quot; id=&quot;ring&quot; data-value=&quot;65&quot; data-name=&quot;完成率&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;zh-ring&quot; data-size=&quot;lg&quot; data-value=&quot;88&quot; data-name=&quot;目标&quot; data-caption=&quot;完成率&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;zh-ring&quot; data-shape=&quot;gauge&quot; data-value=&quot;72&quot; data-name=&quot;仪表&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;zh-ring&quot; data-value=&quot;42&quot; data-status=&quot;exception&quot; data-name=&quot;失败&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+ZhaoUI.ring.set('#ring', 90);
+&lt;/script&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-value</code></td><td>.zh-ring</td><td>0 到 100</td><td>当前进度；必须写，库据此初始化</td></tr><tr><td><code>data-shape</code></td><td>.zh-ring</td><td>full（默认）| gauge | semi</td><td>圆环 / 仪表盘 / 半圆</td></tr><tr><td><code>data-size</code></td><td>.zh-ring</td><td>sm | lg</td><td>尺寸，默认中号</td></tr><tr><td><code>data-caption</code></td><td>.zh-ring</td><td>字符串</td><td>百分比下方的小字</td></tr><tr><td><code>data-status</code></td><td>.zh-ring</td><td>normal | success | warning | exception</td><td>状态色；到 100 自动变为 success，中心换成对勾</td></tr><tr><td><code>data-name</code></td><td>.zh-ring</td><td>字符串</td><td>无障碍名称</td></tr></tbody></table></div>
+        <ul class="check" style="margin-top:12px"><li><span><code>ZhaoUI.ring.set(el, value, centerHtml?)</code>：更新进度；centerHtml 可选，传入则替换中心内容。centerHtml 按 HTML 处理，不要放用户输入</span></li></ul>
+        
+        <h3>下拉选择</h3>
+        <p class="desc" style="margin-bottom:12px">增强原生 &lt;select&gt;：单选、多选、搜索、分组、清除、选项描述，选中值同步回原生 select 并触发原生 change，表单提交、name、required 照常工作。也可用 ZhaoUI.select 命令式创建，支持远程搜索和自动完成。</p>
+        <pre class="tokens">&lt;label for=&quot;region&quot;&gt;区域&lt;/label&gt;
+&lt;select id=&quot;region&quot; name=&quot;region&quot; data-zh-select data-clearable required&gt;
+  &lt;option value=&quot;&quot;&gt;请选择区域&lt;/option&gt;
+  &lt;option value=&quot;east&quot;&gt;华东&lt;/option&gt;
+  &lt;option value=&quot;south&quot;&gt;华南&lt;/option&gt;
+  &lt;option value=&quot;north&quot;&gt;华北&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;label for=&quot;city&quot;&gt;城市&lt;/label&gt;
+&lt;select id=&quot;city&quot; name=&quot;city&quot; data-zh-select data-searchable data-empty-text=&quot;没有这个城市&quot;&gt;
+  &lt;option value=&quot;&quot;&gt;请选择城市&lt;/option&gt;
+  &lt;optgroup label=&quot;直辖市&quot;&gt;
+    &lt;option value=&quot;bj&quot; data-keys=&quot;beijing bj&quot; data-desc=&quot;首都&quot;&gt;北京&lt;/option&gt;
+    &lt;option value=&quot;sh&quot; data-keys=&quot;shanghai sh&quot;&gt;上海&lt;/option&gt;
+  &lt;/optgroup&gt;
+  &lt;optgroup label=&quot;广东省&quot;&gt;
+    &lt;option value=&quot;gz&quot; data-keys=&quot;guangzhou gz&quot;&gt;广州&lt;/option&gt;
+    &lt;option value=&quot;sz&quot; data-keys=&quot;shenzhen sz&quot; disabled&gt;深圳&lt;/option&gt;
+  &lt;/optgroup&gt;
+&lt;/select&gt;
+
+&lt;label for=&quot;tags&quot;&gt;标签&lt;/label&gt;
+&lt;select id=&quot;tags&quot; name=&quot;tags&quot; multiple data-zh-select data-searchable data-clearable data-max-tags=&quot;2&quot;&gt;
+  &lt;option value=&quot;fe&quot; selected&gt;前端&lt;/option&gt;
+  &lt;option value=&quot;be&quot; selected&gt;后端&lt;/option&gt;
+  &lt;option value=&quot;ux&quot;&gt;设计&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;div id=&quot;remote&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+document.getElementById('region').addEventListener('change', function (e) {
+  console.log(e.target.value);
+});
+
+// 远程搜索
+ZhaoUI.select('#remote', {
+  searchable: true, clearable: true, placeholder: '搜索技术',
+  source: function (q) {
+    return fetch('/api/tech?q=' + encodeURIComponent(q)).then(function (r) { return r.json(); });   // 返回 [{ value, label }, …]
+  }
+});
+&lt;/script&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-zh-select</code></td><td>&lt;select&gt;</td><td>无</td><td>声明要增强这个 select；选项、optgroup、disabled、multiple、selected 都从它读取</td></tr><tr><td><code>multiple</code></td><td>&lt;select&gt;</td><td>布尔属性</td><td>多选：选中项显示为标签，列表保持打开</td></tr><tr><td><code>data-searchable</code></td><td>&lt;select&gt;</td><td>布尔属性</td><td>可输入搜索；按选项文字、data-desc、data-keys 匹配并高亮</td></tr><tr><td><code>data-clearable</code></td><td>&lt;select&gt;</td><td>布尔属性</td><td>有值时显示清除按钮</td></tr><tr><td><code>data-size</code></td><td>&lt;select&gt;</td><td>sm | md（默认）| lg</td><td>尺寸</td></tr><tr><td><code>data-placeholder</code></td><td>&lt;select&gt;</td><td>字符串</td><td>占位文字；不写则取值为空的那个 &lt;option&gt; 的文字，再没有则是「请选择」</td></tr><tr><td><code>data-empty-text</code></td><td>&lt;select&gt;</td><td>字符串</td><td>搜索无结果时的提示，默认「无匹配项」</td></tr><tr><td><code>data-max-tags</code></td><td>&lt;select multiple&gt;</td><td>整数</td><td>最多显示几个标签，其余折叠为「+N」</td></tr><tr><td><code>data-prefix-icon</code></td><td>&lt;select&gt;</td><td>图标名</td><td>输入框前的图标</td></tr><tr><td><code>data-desc / data-icon / data-keys</code></td><td>&lt;option&gt;</td><td>字符串</td><td>选项的第二行说明 / 图标 / 额外的搜索关键词（如拼音）</td></tr><tr><td><code>value=&quot;&quot;</code></td><td>&lt;option&gt;</td><td>空值</td><td>放一个空值的 option 作为占位；它不会出现在选项列表里，清除后 select 会回到它</td></tr><tr><td><code>aria-invalid=&quot;true&quot;</code></td><td>&lt;select&gt;</td><td>true</td><td>错误状态外观</td></tr></tbody></table></div>
+        <ul class="check" style="margin-top:12px"><li><span><code>selectEl.zhSelect.get() / .set(value)</code>：读取或设置值（多选传数组）。set 会同步原生 select，但不触发 change</span></li><li><span><code>selectEl.zhSelect.setOptions([{ value, label, desc?, icon?, disabled? }, …])</code>：更换选项（支持分组：{ label, options: [...] }）。原生 &lt;select&gt; 里的 &lt;option&gt; 会一起重建，已选且仍存在的值会保留，不再存在的会被移除</span></li><li><span><code>selectEl.zhSelect.setDisabled(bool) / .setInvalid(bool) / .open() / .close()</code>：禁用、错误状态、打开、关闭</span></li><li><span><code>ZhaoUI.select(host, config)</code>：命令式创建。host 是一个空 &lt;div&gt; 或选择器；config：options、value、multiple、searchable、clearable、size、placeholder、emptyText、maxTags、prefixIcon、disabled、invalid、labelledby、onChange(value, labels)。
+远程搜索：source(query) 返回 Promise&lt;选项数组&gt;，可配 debounce（毫秒，默认 250）和 loading。
+自动完成：freeText: true，输入的文字本身就是值，chevron: false 可隐藏箭头。返回同一套方法（get / set / setOptions / setDisabled / setInvalid / open / close）</span></li></ul>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>change / input</code></td><td>原生 &lt;select&gt;</td><td>原生事件</td><td>选中值变化时在原生 select 上触发（冒泡），已有的表单代码不用改</td></tr><tr><td><code>zh:select-change</code></td><td>生成的控件（select 后面的 .zh-sel）</td><td>{ value, labels }</td><td>单选时 value 是字符串，多选时是数组；labels 是对应的文字数组</td></tr></tbody></table></div>
+        <h3>侧边菜单</h3>
+        <p class="desc" style="margin-bottom:12px">后台常见的左侧导航：多级分组、当前页标记、可折叠成 64px 图标栏，支持键盘（方向键、Home/End、字母）。用嵌套的 &lt;ul&gt; 写，库会补齐 ARIA 树结构。</p>
+        <pre class="tokens">&lt;nav class=&quot;zh-side&quot; data-zh-side aria-label=&quot;站点导航&quot; style=&quot;height:420px&quot;&gt;
+  &lt;div class=&quot;zh-side-head&quot;&gt;&lt;i aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;span&gt;ZhaoUI&lt;/span&gt;&lt;/div&gt;
+  &lt;ul&gt;
+    &lt;li class=&quot;zh-side-group&quot;&gt;工作台&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;#&quot; data-icon=&quot;layout-dashboard&quot;&gt;概览&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;#&quot; data-icon=&quot;file-text&quot;&gt;内容管理&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot; aria-current=&quot;page&quot; data-badge=&quot;12&quot; data-badge-tone=&quot;soft&quot;&gt;文章&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;媒体库&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;#&quot; data-icon=&quot;settings&quot;&gt;系统设置&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-zh-side</code></td><td>&lt;nav class=&quot;zh-side&quot;&gt;</td><td></td><td>声明为侧边菜单；里面放一个嵌套 &lt;ul&gt;</td></tr><tr><td><code>data-icon</code></td><td>每个 &lt;a&gt;</td><td>图标名</td><td>可选，菜单项前的图标</td></tr><tr><td><code>data-num</code></td><td>每个 &lt;a&gt;</td><td>序号文字，如 1</td><td>可选，在名称前显示序号（文档导航常用）；读屏读名称时忽略序号，折叠成图标栏时隐藏</td></tr><tr><td><code>data-badge</code></td><td>&lt;a&gt;</td><td>文字 | dot</td><td>可选，右侧角标；dot 是小红点</td></tr><tr><td><code>data-badge-tone</code></td><td>&lt;a&gt;</td><td>soft</td><td>角标用淡色底而不是红底</td></tr><tr><td><code>aria-current=&quot;page&quot;</code></td><td>当前页的 &lt;a&gt;</td><td>page</td><td>当前页；它所在的分组会默认展开</td></tr><tr><td><code>aria-disabled=&quot;true&quot;</code></td><td>&lt;a&gt;</td><td>true</td><td>禁用的菜单项，不可点、不可跳转</td></tr><tr><td><code>data-open</code></td><td>含子菜单的 &lt;li&gt;</td><td></td><td>该分组默认展开</td></tr><tr><td><code>data-collapsed</code></td><td>&lt;nav&gt;</td><td></td><td>初始为折叠的图标栏</td></tr><tr><td><code>data-collapsible</code></td><td>&lt;nav&gt;</td><td>false</td><td>不显示折叠按钮</td></tr><tr><td><code>zh-side-group</code></td><td>&lt;li&gt;（class）</td><td>分组标题文字</td><td>菜单里的分组小标题，不可点</td></tr></tbody></table></div>
+        <ul class="check" style="margin-top:12px"><li><span><code>ZhaoUI.side.setActive(nav, hrefOrElement)</code>：按链接地址或元素设置当前页，并展开它的祖先；找不到返回 false</span></li><li><span><code>ZhaoUI.side.collapse(nav, collapsed?)</code>：折叠（默认）或展开图标栏</span></li></ul>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:side-select</code></td><td>nav.zh-side</td><td>{ item, href, label, path }</td><td>点击叶子项时触发，可 preventDefault 取消；path 是从顶层到该项的名称数组。href 为 # 或为空时库不会跳转，只切换当前页</td></tr><tr><td><code>zh:side-collapse</code></td><td>nav.zh-side</td><td>{ collapsed }</td><td>折叠或展开图标栏</td></tr></tbody></table></div>
+        <h3>滑块</h3>
+        <p class="desc" style="margin-bottom:12px">单值或范围滑块，支持刻度、步进、竖直、颜色分档，键盘与指针都可操作。只写一个带 data-* 的空元素。</p>
+        <pre class="tokens">&lt;div class=&quot;zh-slider&quot; id=&quot;vol&quot; data-value=&quot;40&quot; data-label=&quot;音量&quot; data-fmt=&quot;{v}%&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;zh-slider&quot; data-value=&quot;50&quot; data-step=&quot;25&quot; data-label=&quot;清晰度&quot; data-marks=&quot;0:流畅,25:标清,50:高清,75:超清,100:蓝光&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;zh-slider&quot; data-value=&quot;800,3200&quot; data-min=&quot;0&quot; data-max=&quot;5000&quot; data-step=&quot;50&quot; data-gap=&quot;200&quot; data-label=&quot;价格&quot; data-fmt=&quot;¥{v}&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;zh-slider&quot; data-value=&quot;78&quot; data-label=&quot;存储用量&quot; data-fmt=&quot;{v}%&quot; data-colors=&quot;0:primary,70:warning,90:danger&quot; data-status=&quot;0:正常,70:偏高,90:危险&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+document.getElementById('vol').addEventListener('zh:slider', function (e) {
+  if (e.detail.type === 'change') console.log(e.detail.values[0]);
+});
+&lt;/script&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-value</code></td><td>.zh-slider</td><td>数字，或「下限,上限」</td><td>写两个值即为范围滑块，如 800,3200</td></tr><tr><td><code>data-min / data-max / data-step</code></td><td>.zh-slider</td><td>数字，默认 0 / 100 / 1</td><td>范围与步长，值会吸附到步长上</td></tr><tr><td><code>data-label</code></td><td>.zh-slider</td><td>字符串</td><td>无障碍名称；范围滑块会自动加「最小值 / 最大值」</td></tr><tr><td><code>data-fmt</code></td><td>.zh-slider</td><td>含 {v} 的模板，如 {v}%</td><td>显示与朗读时的数值格式</td></tr><tr><td><code>data-marks</code></td><td>.zh-slider</td><td>值:文字 逗号分隔，如 0:低,50:中,100:高</td><td>刻度；点击刻度可直接跳到该值</td></tr><tr><td><code>data-colors / data-status</code></td><td>.zh-slider</td><td>值:颜色 或 值:文字 逗号分隔</td><td>按数值分档变色（primary、warning、danger 等）或附加状态文字</td></tr><tr><td><code>data-gap</code></td><td>.zh-slider</td><td>数字</td><td>范围滑块两个滑块之间的最小间隔</td></tr><tr><td><code>data-vertical / data-disabled</code></td><td>.zh-slider</td><td>布尔属性</td><td>竖直 / 禁用；竖直滑块用 --zh-slider-len 设定长度</td></tr><tr><td><code>data-out</code></td><td>.zh-slider</td><td>&lt;output&gt; 的选择器</td><td>把当前值写到这个元素里</td></tr><tr><td><code>data-link</code></td><td>.zh-slider</td><td>数字输入框的选择器，逗号分隔</td><td>与输入框双向同步</td></tr></tbody></table></div>
+        <ul class="check" style="margin-top:12px"><li><span><code>el.zhSlider.get() / el.zhSlider.set([values])</code>：读取或设置当前值（数组）</span></li></ul>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:slider</code></td><td>.zh-slider</td><td>{ type: 'input' | 'change', values }</td><td>拖动中触发 input，松手或按键后触发 change（冒泡）</td></tr></tbody></table></div>
+        <h3>加载中</h3>
+        <p class="desc" style="margin-bottom:12px">纯样式组件：不需要 JS，写好标记即可。一个转动的圆圈，表示正在加载。三个大小：sm、默认、lg。系统开启“减少动态效果”时圈会静止，所以旁边请同时写“加载中”之类的文字。</p>
+        <pre class="tokens">&lt;div class=&quot;zh-row&quot; role=&quot;status&quot;&gt;&lt;span class=&quot;zh-spinner&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;&lt;span&gt;加载中…&lt;/span&gt;&lt;/div&gt;
+&lt;span class=&quot;zh-spinner sm&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt; &lt;span class=&quot;zh-spinner lg&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>zh-spinner</code></td><td>&lt;span&gt;（class）</td><td></td><td>转动的圆圈；可加 sm 或 lg</td></tr><tr><td><code>role=&quot;status&quot;</code></td><td>外层容器</td><td></td><td>读屏会读出里面的文字</td></tr></tbody></table></div>
+        
+        
+        <h3>步骤条</h3>
+        <p class="desc" style="margin-bottom:12px">表示多步流程走到了哪一步：数字或图标标记、连接线、当前步骤、出错步骤。你只写每步的标题，库生成标记并按当前步骤算出完成、进行中、未开始。容器放不下时自动改成纵向。</p>
+        <pre class="tokens">&lt;div class=&quot;zh-stack&quot;&gt;
+  &lt;ol data-zh-steps data-current=&quot;1&quot; aria-label=&quot;开通流程&quot;&gt;
+    &lt;li data-title=&quot;填写信息&quot; data-desc=&quot;企业与联系人&quot;&gt;&lt;/li&gt;
+    &lt;li data-title=&quot;资质审核&quot; data-desc=&quot;约 1 个工作日&quot;&gt;&lt;/li&gt;
+    &lt;li data-title=&quot;开通完成&quot;&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+  &lt;ol data-zh-steps data-mode=&quot;icon&quot; data-current=&quot;2&quot; data-error=&quot;1&quot; data-error-text=&quot;文件过大&quot; aria-label=&quot;上传流程&quot;&gt;
+    &lt;li data-title=&quot;选择文件&quot; data-icon=&quot;file-text&quot;&gt;&lt;/li&gt;
+    &lt;li data-title=&quot;上传&quot; data-icon=&quot;settings&quot;&gt;&lt;/li&gt;
+    &lt;li data-title=&quot;完成&quot; data-icon=&quot;check&quot;&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-zh-steps</code></td><td>&lt;ol&gt;</td><td>里面放 &lt;li data-title=&quot;…&quot;&gt;</td><td>声明为步骤条；&lt;li&gt; 里的内容会被替换</td></tr><tr><td><code>data-title / data-desc</code></td><td>&lt;li&gt;</td><td>文字</td><td>步骤标题与说明（图标模式不显示说明）</td></tr><tr><td><code>data-icon</code></td><td>&lt;li&gt;</td><td>图标名</td><td>图标模式下该步的图标；完成变成对勾，出错变成叉</td></tr><tr><td><code>data-current</code></td><td>&lt;ol&gt;</td><td>从 0 开始的序号，默认 0</td><td>当前步骤；之前的算已完成，之后的未开始</td></tr><tr><td><code>data-error</code></td><td>&lt;ol&gt;</td><td>出错步骤的序号</td><td>该步显示为错误；可配 data-error-text 写出错说明</td></tr><tr><td><code>data-done</code></td><td>&lt;ol&gt;</td><td></td><td>全部完成</td></tr><tr><td><code>data-mode</code></td><td>&lt;ol&gt;</td><td>icon</td><td>用图标代替数字</td></tr><tr><td><code>data-clickable</code></td><td>&lt;ol&gt;</td><td></td><td>每一步变成按钮，点击触发 zh:step-click；data-reach 指定最远可点到哪一步，默认只到当前步</td></tr><tr><td><code>zh-steps--v / --sm / --lg / --dot</code></td><td>&lt;ol&gt;（class）</td><td></td><td>纵向 / 小尺寸 / 大尺寸 / 极简圆点；默认是横向</td></tr></tbody></table></div>
+        <ul class="check" style="margin-top:12px"><li><span><code>ZhaoUI.steps.set(el, { current, error, done })</code>：更新状态并重绘；设置 current 会清除错误态</span></li><li><span><code>ZhaoUI.steps.get(el)</code>：返回 { current, error, done }</span></li></ul>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:step-click</code></td><td>&lt;ol&gt;</td><td>undefined</td><td>可点击模式下点了某一步。是否真的跳转由你决定（比如先校验表单），然后调用 ZhaoUI.steps.set</td></tr></tbody></table></div>
+        <h3>表格</h3>
+        <p class="desc" style="margin-bottom:12px">带圆角边框的数据表：表头底色、行悬停高亮、数字列右对齐。窄屏（≤ 767px）默认变成卡片列表，也可以改成横向滚动。样式部分不需要 JS；加 data-zh-table 后可以点表头排序、用复选框选择行。分页用 data-zh-pager。</p>
+        <pre class="tokens">&lt;div class=&quot;zh-table-wrap&quot;&gt;
+  &lt;table class=&quot;zh-table&quot;&gt;
+    &lt;thead&gt;&lt;tr&gt;&lt;th scope=&quot;col&quot;&gt;标题&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;状态&lt;/th&gt;&lt;th scope=&quot;col&quot; class=&quot;num&quot;&gt;阅读&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;操作&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;td data-label=&quot;标题&quot;&gt;产品发布会回顾&lt;/td&gt;&lt;td data-label=&quot;状态&quot;&gt;&lt;span class=&quot;zh-tag success&quot;&gt;已发布&lt;/span&gt;&lt;/td&gt;&lt;td data-label=&quot;阅读&quot; class=&quot;num&quot;&gt;12,480&lt;/td&gt;&lt;td data-label=&quot;操作&quot;&gt;&lt;button class=&quot;zh-btn sm text&quot;&gt;编辑&lt;/button&gt;&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;td data-label=&quot;标题&quot;&gt;季度运营复盘&lt;/td&gt;&lt;td data-label=&quot;状态&quot;&gt;&lt;span class=&quot;zh-tag warning&quot;&gt;待审核&lt;/span&gt;&lt;/td&gt;&lt;td data-label=&quot;阅读&quot; class=&quot;num&quot;&gt;980&lt;/td&gt;&lt;td data-label=&quot;操作&quot;&gt;&lt;button class=&quot;zh-btn sm text&quot;&gt;编辑&lt;/button&gt;&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;!-- 列很多、窄屏也想保持表格：加 zh-table-wrap--scroll --&gt;
+&lt;div class=&quot;zh-table-wrap zh-table-wrap--scroll&quot; tabindex=&quot;0&quot; role=&quot;region&quot; aria-label=&quot;订单列表（可横向滚动）&quot;&gt;
+  &lt;table class=&quot;zh-table&quot;&gt;
+    &lt;thead&gt;&lt;tr&gt;&lt;th scope=&quot;col&quot;&gt;订单号&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;客户&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;地区&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;渠道&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;状态&lt;/th&gt;&lt;th scope=&quot;col&quot; class=&quot;num&quot;&gt;金额&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;下单时间&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;td&gt;20261004-0086&lt;/td&gt;&lt;td&gt;张三&lt;/td&gt;&lt;td&gt;上海&lt;/td&gt;&lt;td&gt;官网&lt;/td&gt;&lt;td&gt;已发货&lt;/td&gt;&lt;td class=&quot;num&quot;&gt;1,286.00&lt;/td&gt;&lt;td&gt;2026-10-04 15:20&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;td&gt;20261004-0087&lt;/td&gt;&lt;td&gt;李四&lt;/td&gt;&lt;td&gt;北京&lt;/td&gt;&lt;td&gt;小程序&lt;/td&gt;&lt;td&gt;待发货&lt;/td&gt;&lt;td class=&quot;num&quot;&gt;329.00&lt;/td&gt;&lt;td&gt;2026-10-04 15:42&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;zh-table-wrap&quot;&gt;
+&lt;table class=&quot;zh-table&quot; data-zh-table id=&quot;tbl-sel&quot;&gt;
+  &lt;thead&gt;&lt;tr&gt;&lt;th class=&quot;zh-col-check&quot;&gt;&lt;input type=&quot;checkbox&quot; data-zh-all aria-label=&quot;全选&quot;&gt;&lt;/th&gt;&lt;th data-sort=&quot;text&quot;&gt;标题&lt;/th&gt;&lt;th data-sort=&quot;number&quot; class=&quot;num&quot;&gt;阅读量&lt;/th&gt;&lt;th data-sort=&quot;text&quot;&gt;更新时间&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td class=&quot;zh-col-check&quot;&gt;&lt;input type=&quot;checkbox&quot; data-zh-row aria-label=&quot;选择产品发布会回顾&quot;&gt;&lt;/td&gt;&lt;td&gt;产品发布会回顾&lt;/td&gt;&lt;td class=&quot;num&quot;&gt;12,480&lt;/td&gt;&lt;td data-sort-value=&quot;2026-10-04T15:20&quot;&gt;2 小时前&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td class=&quot;zh-col-check&quot;&gt;&lt;input type=&quot;checkbox&quot; data-zh-row aria-label=&quot;选择季度运营复盘&quot;&gt;&lt;/td&gt;&lt;td&gt;季度运营复盘&lt;/td&gt;&lt;td class=&quot;num&quot;&gt;980&lt;/td&gt;&lt;td data-sort-value=&quot;2026-10-04T11:02&quot;&gt;6 小时前&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td class=&quot;zh-col-check&quot;&gt;&lt;input type=&quot;checkbox&quot; data-zh-row aria-label=&quot;选择新版设计规范说明&quot;&gt;&lt;/td&gt;&lt;td&gt;新版设计规范说明&lt;/td&gt;&lt;td class=&quot;num&quot;&gt;8,326&lt;/td&gt;&lt;td data-sort-value=&quot;2026-10-03T18:45&quot;&gt;昨天&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>zh-table-wrap</code></td><td>外层 &lt;div&gt;（class）</td><td>里面放 &lt;table class=&quot;zh-table&quot;&gt;</td><td>圆角边框与裁切；必须有，圆角靠它</td></tr><tr><td><code>zh-table</code></td><td>&lt;table&gt;（class）</td><td>正常的 thead / tbody / tr / th / td</td><td>表格样式</td></tr><tr><td><code>num</code></td><td>&lt;th&gt; / &lt;td&gt;（class）</td><td>数字、金额</td><td>右对齐</td></tr><tr><td><code>data-label</code></td><td>每个 &lt;td&gt;</td><td>该列的名称，如 data-label=&quot;状态&quot;</td><td>窄屏变卡片列表时显示在值的左侧；不写则左侧为空</td></tr><tr><td><code>zh-table-wrap--scroll</code></td><td>外层 wrap 上（class）</td><td>加在 zh-table-wrap 上</td><td>窄屏不变卡片，保持表格并允许横向滚动，适合列很多的后台表格</td></tr><tr><td><code>data-zh-table</code></td><td>&lt;table&gt;</td><td></td><td>开启排序和行选择的行为</td></tr><tr><td><code>data-sort</code></td><td>表头 &lt;th&gt;</td><td>text | number</td><td>该列可排序：表头变成按钮，点击在升序、降序、恢复原顺序之间切换。number 会忽略逗号、百分号和货币符号；空值始终排在最后</td></tr><tr><td><code>data-sort-value</code></td><td>单元格 &lt;td&gt;</td><td>用于排序的值</td><td>单元格显示的文字不适合排序时（如“2 小时前”）用它指定排序值，如 ISO 时间</td></tr><tr><td><code>data-sort-mode</code></td><td>&lt;table&gt;</td><td>server</td><td>只触发事件、不在页面里重排，用于服务端排序；你在事件里请求新数据</td></tr><tr><td><code>data-zh-all</code></td><td>表头里的 &lt;input type=&quot;checkbox&quot;&gt;</td><td></td><td>全选框；部分行选中时显示半选状态</td></tr><tr><td><code>data-zh-row</code></td><td>每行里的 &lt;input type=&quot;checkbox&quot;&gt;</td><td></td><td>行选择框；选中的行会加上 is-selected 高亮；加 disabled 的行不参与全选</td></tr><tr><td><code>zh-col-check</code></td><td>选择框所在的 &lt;th&gt;/&lt;td&gt;</td><td></td><td>把该列收窄到刚好放下复选框</td></tr></tbody></table></div>
+        <ul class="check" style="margin-top:12px"><li><span><code>ZhaoUI.table.selected(table)</code>：返回当前选中的 &lt;tr&gt; 数组</span></li><li><span><code>ZhaoUI.table.clear(table)</code>：取消全部选择</span></li></ul>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:table-sort</code></td><td>&lt;table&gt;</td><td>{ index, key, direction }</td><td>排序变化。direction 为 ascending、descending 或 none；key 取 th 的 data-key，没有就用表头文字</td></tr><tr><td><code>zh:table-select</code></td><td>&lt;table&gt;</td><td>{ rows, count, all }</td><td>选择变化。rows 是选中的 &lt;tr&gt; 数组</td></tr></tbody></table></div>
+        <h3>标签页</h3>
+        <p class="desc" style="margin-bottom:12px">横向或纵向标签页。标签用 aria-controls 关联面板，面板的显示隐藏由库处理。也可以当「分段开关」用：几个标签指向同一个面板，在 zh:tab-change 里换内容。</p>
+        <pre class="tokens">&lt;div class=&quot;zh-tabs&quot; role=&quot;tablist&quot; aria-label=&quot;分区&quot;&gt;
+  &lt;button role=&quot;tab&quot; aria-selected=&quot;true&quot; aria-controls=&quot;p1&quot;&gt;概览&lt;/button&gt;
+  &lt;button role=&quot;tab&quot; aria-selected=&quot;false&quot; aria-controls=&quot;p2&quot;&gt;正文&lt;/button&gt;
+&lt;/div&gt;
+&lt;div id=&quot;p1&quot;&gt;概览内容&lt;/div&gt;
+&lt;div id=&quot;p2&quot;&gt;正文内容&lt;/div&gt;
+
+&lt;!-- 分段开关：三个标签共用一个面板，由事件换内容 --&gt;
+&lt;div class=&quot;zh-tabs&quot; role=&quot;tablist&quot; id=&quot;range&quot; aria-label=&quot;统计周期&quot;&gt;
+  &lt;button role=&quot;tab&quot; aria-selected=&quot;true&quot; aria-controls=&quot;kpi&quot;&gt;今日&lt;/button&gt;
+  &lt;button role=&quot;tab&quot; aria-selected=&quot;false&quot; aria-controls=&quot;kpi&quot;&gt;近 7 天&lt;/button&gt;
+  &lt;button role=&quot;tab&quot; aria-selected=&quot;false&quot; aria-controls=&quot;kpi&quot;&gt;近 30 天&lt;/button&gt;
+&lt;/div&gt;
+&lt;section id=&quot;kpi&quot; aria-live=&quot;polite&quot;&gt;…&lt;/section&gt;
+&lt;script&gt;
+function render(i) { document.getElementById('kpi').textContent = ['今日数据', '近 7 天数据', '近 30 天数据'][i]; }
+// 初始化时也会触发一次 zh:tab-change，所以第一次进来就会按当前选中的标签渲染
+document.getElementById('range').addEventListener('zh:tab-change', function (e) { render(e.detail.index); });
+&lt;/script&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>role=&quot;tablist&quot;</code></td><td>.zh-tabs</td><td>必填</td><td>标识这是标签列表，库据此初始化</td></tr><tr><td><code>aria-orientation</code></td><td>.zh-tabs</td><td>vertical</td><td>纵向标签页：方向键改为上下</td></tr><tr><td><code>aria-controls</code></td><td>每个 [role=tab]</td><td>对应面板的 id</td><td>对应面板的 id。多个标签可以指向同一个面板：只要当前选中的标签指向它，它就是显示的；不写则只切换选中状态，不管理面板</td></tr><tr><td><code>aria-selected</code></td><td>每个 [role=tab]</td><td>true | false</td><td>初始选中项；都没写则选中第一个</td></tr></tbody></table></div>
+        
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:tab-change</code></td><td>.zh-tabs</td><td>{ index, tab }</td><td>选中项变化时触发（冒泡），初始化时也会触发一次</td></tr></tbody></table></div>
+        <h3>标签</h3>
+        <p class="desc" style="margin-bottom:12px">标签：普通的彩色标签、可关闭的标签，以及可选中的标签（单选组、多选）。普通标签只要 class=&quot;zh-tag&quot; 加颜色类，不需要 zh-tag--x；zh-tag--x 才表示可关闭或可选。新增标签的输入框不在库里，按你的业务自己做。</p>
+        <pre class="tokens">&lt;span class=&quot;zh-tag success&quot;&gt;已发布&lt;/span&gt;
+&lt;span class=&quot;zh-tag warning&quot;&gt;待审核&lt;/span&gt;
+&lt;span class=&quot;zh-tag&quot;&gt;草稿&lt;/span&gt;
+
+&lt;div id=&quot;tag-demo&quot;&gt;
+  &lt;span class=&quot;zh-tag zh-tag--x primary&quot;&gt;&lt;span&gt;设计&lt;/span&gt;&lt;button type=&quot;button&quot; class=&quot;zh-tag-close&quot; aria-label=&quot;移除 设计&quot;&gt;&lt;i data-i=&quot;x&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;/span&gt;
+  &lt;span class=&quot;zh-tag zh-tag--x&quot;&gt;&lt;span&gt;研发&lt;/span&gt;&lt;button type=&quot;button&quot; class=&quot;zh-tag-close&quot; aria-label=&quot;移除 研发&quot;&gt;&lt;i data-i=&quot;x&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;zh-tag-group&quot; id=&quot;period&quot; role=&quot;radiogroup&quot; aria-label=&quot;选择周期&quot;&gt;
+  &lt;button class=&quot;zh-tag zh-tag--x zh-tag--check&quot; role=&quot;radio&quot; aria-checked=&quot;true&quot; tabindex=&quot;0&quot;&gt;&lt;i data-i=&quot;check&quot; data-s=&quot;12&quot; class=&quot;zh-tag-tick&quot;&gt;&lt;/i&gt;今天&lt;/button&gt;
+  &lt;button class=&quot;zh-tag zh-tag--x zh-tag--check&quot; role=&quot;radio&quot; aria-checked=&quot;false&quot; tabindex=&quot;-1&quot;&gt;&lt;i data-i=&quot;check&quot; data-s=&quot;12&quot; class=&quot;zh-tag-tick&quot;&gt;&lt;/i&gt;近 7 天&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+document.getElementById('period').addEventListener('zh:tag-change', function (e) {
+  console.log(e.detail.value);
+});
+&lt;/script&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>zh-tag</code></td><td>&lt;span&gt;（class）</td><td>可加 primary | success | warning | danger</td><td>普通标签。不加颜色类就是中性灰（适合「草稿」「默认」这类状态）；加 zh-tag--x 才有关闭按钮或选中行为</td></tr><tr><td><code>zh-tag-close</code></td><td>.zh-tag--x 内的按钮（class）</td><td>无</td><td>点击后移除所在标签；按钮必须有 aria-label（如「移除 设计」）</td></tr><tr><td><code>role=&quot;radio&quot;</code></td><td>.zh-tag--check</td><td>放在 role=&quot;radiogroup&quot; 里</td><td>单选：点击或方向键切换，roving tabindex</td></tr><tr><td><code>role=&quot;checkbox&quot;</code></td><td>.zh-tag--check</td><td>aria-checked=&quot;true|false&quot;</td><td>多选：点击切换</td></tr><tr><td><code>primary / success / warning / danger / info</code></td><td>.zh-tag</td><td>class</td><td>颜色</td></tr><tr><td><code>zh-tag--filled / zh-tag--outline / zh-tag--sm / zh-tag--lg</code></td><td>.zh-tag</td><td>class</td><td>填充或描边外观、小或大尺寸，可与颜色类组合</td></tr></tbody></table></div>
+        
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:tag-remove</code></td><td>被点击的 .zh-tag</td><td>{ label, tag }</td><td>移除前触发（冒泡，可取消）；调用 preventDefault() 则保留标签</td></tr><tr><td><code>zh:tag-change</code></td><td>单选：radiogroup；多选：被点击的标签</td><td>单选 { value, values }；多选 { value, checked, values }</td><td>选中状态变化时触发（冒泡）</td></tr></tbody></table></div>
+        <h3>多行文本</h3>
+        <p class="desc" style="margin-bottom:12px">随内容增高的文本域，带字数统计。硬上限用 maxlength，软上限 data-soft-max 允许继续输入但提示超出。</p>
+        <pre class="tokens">&lt;div class=&quot;zh-ta&quot; data-max-rows=&quot;6&quot;&gt;
+  &lt;textarea class=&quot;zh-textarea&quot; rows=&quot;2&quot; maxlength=&quot;80&quot; placeholder=&quot;输入内容，最多 80 字&quot; aria-label=&quot;简介&quot;&gt;&lt;/textarea&gt;
+  &lt;span class=&quot;zh-ta-count&quot; aria-hidden=&quot;true&quot;&gt;0 / 80&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;zh-ta&quot; data-soft-max=&quot;30&quot; data-max-rows=&quot;6&quot;&gt;
+  &lt;textarea class=&quot;zh-textarea&quot; rows=&quot;2&quot; placeholder=&quot;超过 30 字会标红，仍可继续输入&quot; aria-label=&quot;备注&quot;&gt;这段文字已经超过了三十个字的软上限，计数会变红并提示超出多少字。&lt;/textarea&gt;
+  &lt;span class=&quot;zh-ta-count&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+&lt;/div&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-max-rows</code></td><td>.zh-ta</td><td>整数，默认 6</td><td>最多增高到几行，超过后出现滚动条</td></tr><tr><td><code>data-soft-max</code></td><td>.zh-ta</td><td>整数</td><td>软上限：超过后计数变红、textarea 设 aria-invalid，但仍可输入</td></tr><tr><td><code>maxlength</code></td><td>textarea</td><td>整数</td><td>硬上限：浏览器阻止继续输入，计数显示「当前 / 上限」</td></tr><tr><td><code>data-ta-msg</code></td><td>.zh-ta 的兄弟元素</td><td>带 hidden 的提示容器，内含一个 &lt;span&gt;</td><td>可选：超出软上限时显示「超出 N 字」</td></tr></tbody></table></div>
+        
+        
+        <h3>时间选择</h3>
+        <p class="desc" style="margin-bottom:12px">时、分（可选秒）三列滚动选择，也可以直接键入。分钟可按步长取整。</p>
+        <pre class="tokens">&lt;div data-zh-time data-name=&quot;at&quot; data-value=&quot;09:30&quot; aria-label=&quot;提醒时间&quot;&gt;&lt;/div&gt;
+&lt;div data-zh-time data-seconds data-step-minutes=&quot;15&quot; data-value=&quot;14:15:10&quot; aria-label=&quot;精确时间&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+document.querySelector('[data-zh-time]').addEventListener('zh:time-change', function (e) {
+  console.log(e.detail.value);   // 09:45
+});
+&lt;/script&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-zh-time</code></td><td>&lt;div&gt;</td><td>无</td><td>声明这是时间选择</td></tr><tr><td><code>data-value</code></td><td>容器</td><td>HH:mm 或 HH:mm:ss</td><td>初始时间</td></tr><tr><td><code>data-seconds</code></td><td>容器</td><td>布尔属性</td><td>显示并允许选择秒</td></tr><tr><td><code>data-step-minutes</code></td><td>容器</td><td>整数，默认 1</td><td>分钟的步长，如 15；键入的分钟会四舍五入到最近的步长</td></tr><tr><td><code>data-name</code></td><td>容器</td><td>字段名</td><td>生成隐藏 &lt;input name=…&gt; 参与表单提交</td></tr><tr><td><code>data-size</code></td><td>容器</td><td>sm | md（默认）| lg</td><td>尺寸</td></tr><tr><td><code>aria-label / data-labelledby / data-label</code></td><td>容器</td><td>字符串 / 标签元素 id / 弹层标题</td><td>输入框的无障碍名称；data-label 是弹出面板的标题</td></tr><tr><td><code>&lt;label for=&quot;容器 id&quot;&gt;</code></td><td>容器所在页面的 &lt;label&gt;</td><td>for 指向容器的 id</td><td>label 会成为输入框的无障碍名称，点击 label 会聚焦输入框；容器是空 &lt;div&gt;，label 的 for 指向它的 id 即可</td></tr></tbody></table></div>
+        <ul class="check" style="margin-top:12px"><li><span><code>ZhaoUI.timePicker(host, { value: { h, m, s }, seconds, stepM, size, label, onChange })</code>：命令式创建；value 是 { h, m, s } 对象</span></li><li><span><code>el.zhTime.get() / .set(value) / .open() / .close()</code>：get 返回 { h, m, s } 或 null；set 接受对象或 HH:mm 字符串，不触发事件</span></li></ul>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:time-change</code></td><td>容器</td><td>{ value: 'HH:mm' | 'HH:mm:ss' | '', time: { h, m, s } | null }</td><td>选择、键入确认、点「此刻」或清除后触发（冒泡）</td></tr></tbody></table></div>
+        <h3>时间线</h3>
+        <p class="desc" style="margin-bottom:12px">按时间顺序展示事件：左侧一条轨道和圆点，右侧是标题、时间、说明。圆点颜色表示状态（primary、success、warning、danger、info），进行中的项显示转圈。可以带头像、引用、附件，以及点击展开的详情。</p>
+        <pre class="tokens">&lt;ol class=&quot;zh-tl&quot;&gt;
+  &lt;li class=&quot;zh-tl-item zh-tl-item--success&quot;&gt;&lt;div class=&quot;zh-tl-rail&quot;&gt;&lt;span class=&quot;zh-tl-dot&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;div class=&quot;zh-tl-body&quot;&gt;&lt;div class=&quot;zh-tl-head&quot;&gt;&lt;span class=&quot;zh-tl-title&quot;&gt;订单已创建&lt;/span&gt;&lt;time class=&quot;zh-tl-time&quot; datetime=&quot;2026-10-04T09:00&quot;&gt;09:00&lt;/time&gt;&lt;/div&gt;&lt;div class=&quot;zh-tl-desc&quot;&gt;订单 #20261004&lt;/div&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;li class=&quot;zh-tl-item zh-tl-item--primary&quot;&gt;&lt;div class=&quot;zh-tl-rail&quot;&gt;&lt;span class=&quot;zh-tl-dot&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;div class=&quot;zh-tl-body&quot;&gt;&lt;div class=&quot;zh-tl-head&quot;&gt;&lt;span class=&quot;zh-tl-title&quot;&gt;仓库已接单&lt;/span&gt;&lt;time class=&quot;zh-tl-time&quot; datetime=&quot;2026-10-04T09:12&quot;&gt;09:12&lt;/time&gt;&lt;/div&gt;
+      &lt;button type=&quot;button&quot; class=&quot;zh-tl-toggle&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;tl-d1&quot;&gt;&lt;i data-i=&quot;chevron-right&quot; data-s=&quot;14&quot;&gt;&lt;/i&gt;&lt;span&gt;展开详情&lt;/span&gt;&lt;/button&gt;
+      &lt;div class=&quot;zh-tl-detail&quot; id=&quot;tl-d1&quot;&gt;&lt;div class=&quot;zh-tl-detail-wrap&quot;&gt;&lt;div class=&quot;zh-tl-detail-in&quot;&gt;上海仓 · 拣货员 A12 已接单，预计 20 分钟内出库。&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;li class=&quot;zh-tl-item zh-tl-item--pending&quot; aria-label=&quot;进行中：派送中&quot;&gt;&lt;div class=&quot;zh-tl-rail&quot;&gt;&lt;span class=&quot;zh-tl-dot zh-tl-dot--icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;i data-i=&quot;loader-circle&quot; data-s=&quot;14&quot; class=&quot;zh-tl-spin&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;div class=&quot;zh-tl-body&quot;&gt;&lt;div class=&quot;zh-tl-head&quot;&gt;&lt;span class=&quot;zh-tl-title&quot;&gt;派送中&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>zh-tl</code></td><td>&lt;ol&gt;（class）</td><td>里面放 zh-tl-item</td><td>时间线容器</td></tr><tr><td><code>zh-tl-item--primary|success|warning|danger|info|pending</code></td><td>&lt;li&gt;（class）</td><td></td><td>圆点和轨道的状态色；pending 表示进行中，圆点换成转圈</td></tr><tr><td><code>zh-tl-dot--hollow</code></td><td>圆点（class）</td><td></td><td>空心点；zh-tl-dot--icon 放图标，再加 zh-tl-dot--lg 变大</td></tr><tr><td><code>zh-tl-quote</code></td><td>正文里的容器</td><td></td><td>引用块，如审批意见</td></tr><tr><td><code>zh-tl-toggle + zh-tl-detail</code></td><td>展开按钮与详情容器</td><td></td><td>点击按钮展开详情，库负责切换 aria-expanded 与文字；按钮上可用 data-open / data-close 自定义文字</td></tr><tr><td><code>zh-tl--alt / --right / --compact / --feed</code></td><td>&lt;ol&gt;（class）</td><td></td><td>左右交替 / 靠右 / 紧凑 / 动态流（带头像）</td></tr></tbody></table></div>
+        
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:timeline-toggle</code></td><td>&lt;ol&gt;</td><td>undefined</td><td>详情展开或收起</td></tr></tbody></table></div>
+        <h3>文字提示</h3>
+        <p class="desc" style="margin-bottom:12px">悬停或键盘聚焦时显示的小气泡，自动避让屏幕边缘，带箭头。适合解释图标按钮或被禁用的按钮。不用 JS 的简易版见「样式类」里的 zh-tip。</p>
+        <pre class="tokens">&lt;div class=&quot;zh-row&quot;&gt;
+  &lt;button class=&quot;zh-btn&quot; data-zh-tt=&quot;保存当前草稿&quot;&gt;保存&lt;/button&gt;
+  &lt;span data-zh-tt=&quot;没有编辑权限，请联系管理员开通&quot; data-zh-tt-placement=&quot;bottom&quot;&gt;&lt;button class=&quot;zh-btn primary&quot; disabled aria-disabled=&quot;true&quot;&gt;提交审核&lt;/button&gt;&lt;/span&gt;
+&lt;/div&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-zh-tt</code></td><td>任意元素</td><td>提示文字</td><td>声明提示；元素不可聚焦时库会补 tabindex=0，使键盘也能看到</td></tr><tr><td><code>data-zh-tt-placement</code></td><td>同上</td><td>top | bottom | left | right（可加 -start / -end），默认 top</td><td>出现的位置，空间不够会自动翻转</td></tr><tr><td><code>data-zh-tt-delay</code></td><td>同上</td><td>毫秒，默认 80</td><td>悬停多久后出现</td></tr></tbody></table></div>
+        
+        
+        <h3>树</h3>
+        <p class="desc" style="margin-bottom:12px">可展开的层级列表：文件目录、组织架构、分类。写一个嵌套的 &lt;ul&gt;，库渲染成带展开箭头的行；可选复选框（父级根据子级显示全选、半选、未选）、单选高亮和完整的键盘操作。</p>
+        <pre class="tokens">&lt;div class=&quot;zh-tree&quot; data-zh-tree data-checkable aria-label=&quot;文件&quot; style=&quot;max-width:20rem&quot;&gt;
+  &lt;ul&gt;
+    &lt;li data-id=&quot;src&quot; data-open data-icon=&quot;file-text&quot;&gt;src
+      &lt;ul&gt;
+        &lt;li data-id=&quot;a&quot; data-checked&gt;index.js&lt;/li&gt;
+        &lt;li data-id=&quot;b&quot;&gt;style.css&lt;/li&gt;
+        &lt;li data-id=&quot;c&quot; data-disabled&gt;locked.txt&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li data-id=&quot;docs&quot; data-icon=&quot;file-text&quot;&gt;docs
+      &lt;ul&gt;&lt;li data-id=&quot;d&quot;&gt;readme.md&lt;/li&gt;&lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-zh-tree</code></td><td>&lt;div class=&quot;zh-tree&quot;&gt;</td><td>里面放一个嵌套的 &lt;ul&gt;</td><td>声明为树；&lt;li&gt; 的文字是节点名称，子级写在它里面的 &lt;ul&gt; 里</td></tr><tr><td><code>data-id</code></td><td>&lt;li&gt;</td><td>唯一标识</td><td>事件和方法里用它指代节点；不写会自动生成</td></tr><tr><td><code>data-icon</code></td><td>&lt;li&gt;</td><td>图标名</td><td>节点前的图标</td></tr><tr><td><code>data-open</code></td><td>&lt;li&gt;</td><td></td><td>该节点默认展开</td></tr><tr><td><code>data-checked</code></td><td>&lt;li&gt;</td><td></td><td>默认选中（仅复选模式；父级的状态由子级算出）</td></tr><tr><td><code>data-disabled</code></td><td>&lt;li&gt;</td><td></td><td>禁用，不可选择、不可勾选</td></tr><tr><td><code>data-checkable</code></td><td>容器</td><td></td><td>显示复选框</td></tr><tr><td><code>data-no-select</code></td><td>容器</td><td></td><td>不要点击高亮（只做展开或勾选时用）</td></tr><tr><td><code>data-toggle-on-click</code></td><td>容器</td><td></td><td>点击整行也展开或收起，不只是点箭头</td></tr><tr><td><code>zh-tree--guides</code></td><td>容器（class）</td><td></td><td>显示缩进参考线</td></tr></tbody></table></div>
+        <ul class="check" style="margin-top:12px"><li><span><code>ZhaoUI.tree.checked(el)</code>：返回选中的叶子节点 id 数组</span></li><li><span><code>ZhaoUI.tree.expandAll(el) / collapseAll(el)</code>：全部展开 / 收起</span></li><li><span><code>ZhaoUI.tree.select(el, id)</code>：选中某个节点并展开它的祖先；找不到返回 false</span></li></ul>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:tree-select</code></td><td>容器</td><td>undefined</td><td>点击或回车选中某个节点</td></tr><tr><td><code>zh:tree-check</code></td><td>容器</td><td>undefined</td><td>勾选变化；ids 是当前全部选中的叶子节点的 data-id</td></tr><tr><td><code>zh:tree-toggle</code></td><td>容器</td><td>undefined</td><td>展开或收起</td></tr></tbody></table></div>
+        <h3>文件上传</h3>
+        <p class="desc" style="margin-bottom:12px">拖拽或点击选择文件，带文件列表、进度条、类型与大小校验、数量限制，失败可重试，上传中可取消。可以用 data-action 直接 POST 到接口，也可以用自己的函数上传；两者都不给时只收集文件，由你在提交表单时取。只有列表模式；头像上传和图片卡片墙没有做。</p>
+        <pre class="tokens">&lt;div class=&quot;zh-upload&quot; data-zh-upload data-accept=&quot;.pdf,.png,.jpg&quot; data-max=&quot;3&quot; data-max-mb=&quot;5&quot; data-hint=&quot;PDF、PNG、JPG · 单个不超过 5 MB · 最多 3 个&quot; style=&quot;max-width:32rem&quot;&gt;
+  &lt;div class=&quot;zh-upload-foot&quot;&gt;&lt;span class=&quot;zh-upload-count zh-hint&quot;&gt;已添加 0 / 3 个&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>属性</th><th>用在</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td><code>data-zh-upload</code></td><td>&lt;div class=&quot;zh-upload&quot;&gt;</td><td></td><td>声明为上传；没有写 zh-upload-drop 时库会生成默认的拖拽区</td></tr><tr><td><code>data-accept</code></td><td>容器</td><td>如 .pdf,.png,image/*</td><td>允许的类型：扩展名或 MIME；也会传给系统的文件选择窗口</td></tr><tr><td><code>data-max-mb</code></td><td>容器</td><td>数字</td><td>单个文件大小上限（MB）</td></tr><tr><td><code>data-max</code></td><td>容器</td><td>数字</td><td>最多文件数；设为 1 时选新文件会替换旧的</td></tr><tr><td><code>data-action</code></td><td>容器</td><td>接口地址</td><td>用 XHR 以 multipart/form-data 上传到这里，文件字段名由 data-field 指定（默认 file）；返回 2xx 算成功</td></tr><tr><td><code>data-credentials</code></td><td>容器</td><td></td><td>跨域上传时带上 Cookie</td></tr><tr><td><code>data-hint</code></td><td>容器</td><td>提示文字</td><td>生成默认拖拽区时显示的限制说明</td></tr><tr><td><code>is-disabled</code></td><td>容器（class）</td><td></td><td>禁用，不能选择也不能拖入</td></tr></tbody></table></div>
+        <ul class="check" style="margin-top:12px"><li><span><code>ZhaoUI.upload.files(el)</code>：返回列表里的 File 数组，可自己放进 FormData 提交</span></li><li><span><code>ZhaoUI.upload.uploader(el, fn)</code>：设置自己的上传函数 fn(file, { onProgress(百分比), onAbort(回调) })，返回 Promise；会替代 data-action</span></li><li><span><code>ZhaoUI.upload.add(el, files)</code>：以代码方式加入文件（同样会校验）</span></li><li><span><code>ZhaoUI.upload.clear(el)</code>：清空列表</span></li></ul>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px"><thead><tr><th>事件</th><th>触发于</th><th>detail</th><th>说明</th></tr></thead><tbody><tr><td><code>zh:upload-add</code></td><td>容器</td><td>undefined</td><td>文件通过校验并加入列表</td></tr><tr><td><code>zh:upload-reject</code></td><td>容器</td><td>undefined</td><td>文件没通过校验（类型、大小、数量）</td></tr><tr><td><code>zh:upload-done</code></td><td>容器</td><td>undefined</td><td>上传成功；result 是服务器返回的文本或你的函数的返回值</td></tr><tr><td><code>zh:upload-error</code></td><td>容器</td><td>undefined</td><td>上传失败</td></tr><tr><td><code>zh:upload-remove</code></td><td>容器</td><td>undefined</td><td>从列表移除（含上传中取消）</td></tr></tbody></table></div>
+      </section>

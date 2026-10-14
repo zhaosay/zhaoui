@@ -1,0 +1,90 @@
+{
+  "name": "datetime",
+  "title": "日期时间选择",
+  "summary": "左边日历、右边时间列的组合面板，一次选定日期和时间，点「确定」提交。窄屏上下排列。",
+  "classes": [
+    "zh-dp",
+    "zh-dp-panel",
+    "zh-dp-side"
+  ],
+  "attributes": [
+    {
+      "name": "data-zh-datetime",
+      "on": "<div>",
+      "value": "无",
+      "desc": "声明这是日期时间选择"
+    },
+    {
+      "name": "data-value",
+      "on": "容器",
+      "value": "YYYY-MM-DD HH:mm",
+      "desc": "初始值"
+    },
+    {
+      "name": "data-min / data-max",
+      "on": "容器",
+      "value": "YYYY-MM-DD",
+      "desc": "可选日期范围"
+    },
+    {
+      "name": "data-disable-weekends / data-disabled-dates",
+      "on": "容器",
+      "value": "布尔属性 / 逗号分隔日期",
+      "desc": "禁用周末 / 指定日期"
+    },
+    {
+      "name": "data-name",
+      "on": "容器",
+      "value": "字段名",
+      "desc": "生成隐藏 <input name=…> 参与表单提交"
+    },
+    {
+      "name": "data-size",
+      "on": "容器",
+      "value": "sm | md（默认）| lg",
+      "desc": "尺寸"
+    },
+    {
+      "name": "aria-label / data-labelledby / data-label",
+      "on": "容器",
+      "value": "字符串 / 标签元素 id / 弹层标题",
+      "desc": "输入框的无障碍名称；data-label 是弹出面板的标题"
+    },
+    {
+      "name": "data-msg",
+      "on": "容器",
+      "value": "一个元素的选择器，如 #status",
+      "desc": "可选的状态提示元素：选择、报错时会把文字写进去（读屏可以朗读），元素上可预先写好默认文字"
+    },
+    {
+      "name": "<label for=\"容器 id\">",
+      "on": "容器所在页面的 <label>",
+      "value": "for 指向容器的 id",
+      "desc": "label 会成为输入框的无障碍名称，点击 label 会聚焦输入框；容器是空 <div>，label 的 for 指向它的 id 即可"
+    }
+  ],
+  "events": [
+    {
+      "name": "zh:datetime-change",
+      "on": "容器",
+      "detail": "{ value: 'YYYY-MM-DD HH:mm' | '', date, time }",
+      "desc": "日期或时间变化、键入确认、清除后触发（冒泡）；面板里选日期或调时间时输入框会实时更新，也会触发"
+    }
+  ],
+  "methods": [
+    {
+      "name": "ZhaoUI.dateTimePicker(host, { value: { date, time }, min, max, disabledDate, size, msg, onChange })",
+      "desc": "命令式创建；也接受 'YYYY-MM-DD HH:mm' 字符串作为 value；onChange({ date, time } | null)"
+    },
+    {
+      "name": "el.zhDateTime.get() / .set(value) / .open() / .close()",
+      "desc": "get 返回 { date, time } 或 null；set 接受对象或字符串，不触发事件"
+    }
+  ],
+  "a11y": [
+    "日历与时间列的键盘操作同单独的日期、时间选择",
+    "底部显示当前选中的「2026-10-15 09:30」，还没选日期时提示「请先选择日期」",
+    "键入格式为 YYYY-MM-DD HH:mm，不合法或不可选时标记 aria-invalid 并写入 data-msg 元素"
+  ],
+  "example": "<div data-zh-datetime data-name=\"when\" data-value=\"2026-10-15 09:30\" data-min=\"2026-10-05\" data-msg=\"#whenMsg\" aria-label=\"预约时间\"></div>\n<div id=\"whenMsg\" aria-live=\"polite\"></div>\n\n<script>\ndocument.querySelector('[data-zh-datetime]').addEventListener('zh:datetime-change', function (e) {\n  console.log(e.detail.value);\n});\n</script>"
+}

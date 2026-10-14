@@ -1,0 +1,14 @@
+/* Auto-fill layout. A grid of cards shows as many columns as fit (each cell is at least --zh-cell wide) instead of
+   one or two per row. Cards that need room (charts, tables, playgrounds) span two cells on wide stages, and content that
+   is inherently wide takes the whole row. Below ~620px everything falls back to a single flowing column. */
+.stage { --zh-cell: 264px; }
+.stage .zh-grid:has(> .zh-card) { grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--zh-cell)), 1fr)); }
+.stage .zh-grid:has(> .zh-card) > .zh-col { grid-column: auto; }
+@container stage (min-width: 621px) {
+  .stage .zh-grid:has(> .zh-card) > .zh-col:has(.viz, .zh-mo-arena, .zh-table-wrap, .zh-tabs, .zh-pat-batch, .zh-bm-matrix, .zh-pg, .zh-pgx-foot) { grid-column: auto / span 2; }
+  .stage .zh-grid:has(> .zh-card) > .zh-col[style*="--d:12"],
+  .stage .zh-grid:has(> .zh-card) > .zh-col:has(> .matrix-wrap, > pre, > .zh-tiles, > .zh-mo-play) { grid-column: 1 / -1; }
+}
+/* token showcase grids */
+.stage .grid.cols-2, .stage .grid.cols-3, .stage .grid.cols-4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); }  /* auto-fit: two cards fill the row instead of leaving an empty track */
+.stage .zh-mo-grid.two, .stage .zh-gv-dd { grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }

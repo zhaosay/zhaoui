@@ -1,0 +1,75 @@
+{
+  "name": "form",
+  "title": "表单控件与字段",
+  "summary": "纯样式组件：不需要 JS，写好标记即可。字段（标签、控件、提示）、文本输入、下拉、多行文本、复选框、单选、开关。带搜索、清除、校验等行为的输入框见「输入框」「下拉选择」等组件。",
+  "classes": [
+    "zh-field",
+    "zh-hint",
+    "zh-req",
+    "zh-input",
+    "zh-textarea",
+    "zh-select",
+    "zh-check",
+    "zh-switch"
+  ],
+  "attributes": [
+    {
+      "name": "zh-field",
+      "on": "<div>（class）",
+      "value": "里面放 <label for> 与控件，再放 zh-hint",
+      "desc": "纵向排列的字段：标签在上、控件、提示。多个字段用布局里的 zh-stack 或 zh-grid 排"
+    },
+    {
+      "name": "zh-req",
+      "on": "<label>（class）",
+      "value": "必填字段的标签",
+      "desc": "在标签后加红色星号；仍然要给控件加 required 或 aria-required"
+    },
+    {
+      "name": "zh-hint / zh-hint err",
+      "on": "字段内（class）",
+      "value": "提示文字；错误用 class=\"zh-hint err\"",
+      "desc": "次要说明与错误提示。错误时同时给控件加 aria-invalid=\"true\""
+    },
+    {
+      "name": "zh-input",
+      "on": "<input>（class）",
+      "value": "可加 sm | lg 改高度",
+      "desc": "文本输入。aria-invalid=\"true\" 时边框变危险色；聚焦时有主色描边"
+    },
+    {
+      "name": "zh-textarea",
+      "on": "<textarea>（class）",
+      "value": "",
+      "desc": "多行文本，最小高度两行。自动增高与计数用「多行文本」组件"
+    },
+    {
+      "name": "zh-select",
+      "on": "包着 <select> 的 <span> 或 <div>（class）",
+      "value": "<div class=\"zh-select\"><select>…</select></div>",
+      "desc": "原生下拉的样式；需要搜索、多选时用「下拉选择」组件"
+    },
+    {
+      "name": "zh-check",
+      "on": "<label>（class）",
+      "value": "里面放 <input type=\"checkbox\"> 或 <input type=\"radio\"> 再放文字",
+      "desc": "复选框与单选：主色，大小随字号，整行可点"
+    },
+    {
+      "name": "zh-switch",
+      "on": "<input type=\"checkbox\">（class）",
+      "value": "同时写 role=\"switch\"",
+      "desc": "开关；放在 zh-check 里，文字是它的标签"
+    }
+  ],
+  "events": [],
+  "methods": [],
+  "a11y": [
+    "每个控件都要有可访问的名称：<label for> 指向控件的 id，或 aria-label",
+    "开关要写 role=\"switch\"，它的开关状态就是 checked",
+    "错误信息用 zh-hint err，并让控件 aria-invalid=\"true\"；需要读屏朗读时用 aria-describedby 指向提示",
+    "必填用 zh-req 只是视觉标记，仍要加 required / aria-required",
+    "复选框与单选请把文字放在同一个 <label> 里，扩大点击区域"
+  ],
+  "example": "<div class=\"zh-stack\">\n  <div class=\"zh-field\">\n    <label for=\"f-name\" class=\"zh-req\">名称</label>\n    <input id=\"f-name\" class=\"zh-input\" placeholder=\"请输入名称\" required aria-describedby=\"f-name-h\">\n    <span class=\"zh-hint\" id=\"f-name-h\">2 到 20 个字</span>\n  </div>\n\n  <div class=\"zh-field\">\n    <label for=\"f-mail\">邮箱</label>\n    <input id=\"f-mail\" class=\"zh-input\" value=\"abc\" aria-invalid=\"true\" aria-describedby=\"f-mail-h\">\n    <span class=\"zh-hint err\" id=\"f-mail-h\">邮箱格式不正确</span>\n  </div>\n\n  <div class=\"zh-field\">\n    <label for=\"f-city\">城市</label>\n    <div class=\"zh-select\"><select id=\"f-city\"><option>北京</option><option>上海</option></select></div>\n  </div>\n\n  <div class=\"zh-field\">\n    <label for=\"f-note\">备注</label>\n    <textarea id=\"f-note\" class=\"zh-textarea\"></textarea>\n  </div>\n\n  <label class=\"zh-check\"><input type=\"checkbox\" checked> 记住我</label>\n  <label class=\"zh-check\"><input type=\"radio\" name=\"r\" checked> 选项一</label>\n  <label class=\"zh-check\"><input type=\"radio\" name=\"r\"> 选项二</label>\n  <label class=\"zh-check\"><input type=\"checkbox\" class=\"zh-switch\" role=\"switch\" checked> 启用通知</label>\n</div>"
+}

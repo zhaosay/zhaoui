@@ -1,0 +1,1 @@
+{ "layer": "last", "note": "style only: chapter headers, description text, token tiles. Sits after base rules so it can override h2::before etc." }

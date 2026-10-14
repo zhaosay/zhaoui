@@ -1,0 +1,72 @@
+      <section class="block" id="spec">
+        <h2>按钮矩阵与状态</h2>
+        <p class="desc">把按钮的「层级、尺寸、状态」和表单的「校验时机与文案」写成表，做设计和开发时直接对照，不需要再猜。</p>
+
+        <h3>按钮层级 × 尺寸</h3>
+        <div class="matrix-wrap"><table class="matrix zh-bm-matrix" style="min-width:640px">
+          <thead><tr><th>层级</th><th>sm</th><th>md</th><th>lg</th><th>什么时候用</th></tr></thead>
+          <tbody id="bmBody"></tbody>
+        </table></div>
+        <ul class="check" style="margin-top:12px">
+          <li>一个区域只放一个「主按钮」；其余用次按钮或文字按钮</li>
+          <li>危险操作用红色，但不要默认高亮；需要二次确认时，确认框里的确认按钮才用满色</li>
+          <li>图标按钮必须有 <code>aria-label</code>；文字按钮用在表格行内、卡片角落</li>
+        </ul>
+
+        <h3>按钮组 · 分裂按钮</h3>
+        <div class="zh-row" style="--g:20px;align-items:flex-start">
+          <div><p class="zh-hint" style="margin:0 0 6px">按钮组（互斥选择）</p>
+            <div class="zh-bm-group" role="radiogroup" aria-label="导出格式" id="bmGroup"><button type="button" role="radio" aria-checked="true">EPUB</button><button type="button" role="radio" aria-checked="false">TXT</button><button type="button" role="radio" aria-checked="false">DOCX</button></div></div>
+          <div><p class="zh-hint" style="margin:0 0 6px">分裂按钮（主动作 + 更多动作）</p>
+            <div class="zh-bm-split"><button type="button" class="zh-btn primary" id="bmSplitMain">导出</button><button type="button" class="zh-btn primary icon" id="bmSplitCaret" aria-label="更多导出方式"><i data-i="chevron-down"></i></button></div></div>
+          <div><p class="zh-hint" style="margin:0 0 6px">带计数</p>
+            <div class="zh-row" style="--g:8px"><button type="button" class="zh-btn">消息<span class="zh-bm-count">5</span></button><button type="button" class="zh-btn primary">待办<span class="zh-bm-count on">12</span></button></div></div>
+        </div>
+        <p class="zh-hint" style="margin-top:8px">分裂按钮只用于「动作菜单」（导出、更多操作），不用于选择一个值。</p>
+
+        <h3>交互状态矩阵</h3>
+        <div class="matrix-wrap"><table class="matrix zh-bm-matrix" style="min-width:720px">
+          <thead><tr><th>组件</th><th>默认</th><th>悬停</th><th>按下</th><th>聚焦</th><th>禁用</th><th>加载</th></tr></thead>
+          <tbody id="stBody"></tbody>
+        </table></div>
+        <p class="zh-hint" style="margin-top:8px">上表每一格都是真实组件，用「强制状态」类固定，方便截图和评审。聚焦状态用键盘 Tab 也能看到同样的焦点环。</p>
+        <div class="zh-card" style="margin-top:14px"><h4>状态规则</h4>
+          <div class="matrix-wrap"><table class="matrix" style="min-width:560px">
+            <thead><tr><th>状态</th><th>视觉</th><th>时长</th></tr></thead>
+            <tbody>
+              <tr><td>悬停</td><td>背景或边框加深一档；卡片可上浮 2px 并加深阴影；触屏不出现悬停态</td><td><code>--zh-dur-fast</code></td></tr>
+              <tr><td>按下</td><td>缩到 98%，或颜色再深一档</td><td><code>--zh-dur-instant</code></td></tr>
+              <tr><td>聚焦</td><td>2px 品牌色焦点环，与元素之间留 2px 间隙；只在键盘操作时显示</td><td>无过渡</td></tr>
+              <tr><td>禁用</td><td>透明度 45%，光标为禁止；需要告诉用户原因时改用「禁用 + 提示」</td><td>—</td></tr>
+              <tr><td>加载</td><td>按钮内显示旋转图标，文字保留，宽度不变，不可重复点击</td><td>持续</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+
+        <h3>表单校验规范</h3>
+        <div class="zh-grid">
+          <div class="zh-col" style="--d:6;--t:8;--p:4">
+            <div class="matrix-wrap"><table class="matrix" style="min-width:420px">
+              <thead><tr><th>项</th><th>规范</th></tr></thead>
+              <tbody>
+                <tr><td>校验时机</td><td>失焦时校验；出错后改为输入时实时校验；提交时再整体校验一次</td></tr>
+                <tr><td>提示位置</td><td>输入框正下方，红色文字加图标；不用弹窗</td></tr>
+                <tr><td>提示文案</td><td>说清楚怎么改：「手机号应为 11 位数字」，而不是「格式错误」</td></tr>
+                <tr><td>必填标记</td><td>标签后加红色 *；全部必填时，改为标记「选填」</td></tr>
+                <tr><td>提交失败</td><td>焦点移到第一个出错的字段，并在顶部汇总数量</td></tr>
+                <tr><td>成功反馈</td><td>不必给每个字段打勾；提交成功用消息提示</td></tr>
+              </tbody>
+            </table></div>
+          </div>
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4">
+            <h4>试一试</h4>
+            <form id="bmForm" novalidate class="zh-stack" style="--g:12px">
+              <div class="zh-bm-err-sum" id="bmSum" role="alert" hidden></div>
+              <div class="zh-field"><label for="bmPhone" class="zh-req">手机号</label><input class="zh-input" id="bmPhone" inputmode="numeric" autocomplete="off" aria-describedby="bmPhoneMsg"><span class="zh-hint" id="bmPhoneMsg">11 位数字</span></div>
+              <div class="zh-field"><label for="bmMail" class="zh-req">邮箱</label><input class="zh-input" id="bmMail" autocomplete="off" aria-describedby="bmMailMsg"><span class="zh-hint" id="bmMailMsg">例如 name@example.com</span></div>
+              <div class="zh-field"><label for="bmNick">昵称（选填）</label><input class="zh-input" id="bmNick" autocomplete="off"></div>
+              <div class="zh-row" style="--g:8px"><button type="submit" class="zh-btn primary" id="bmSubmit"><span class="zh-bm-spin" hidden></span><span>提交</span></button><button type="button" class="zh-btn text" id="bmReset">重置</button></div>
+            </form>
+          </div>
+        </div>
+      </section>

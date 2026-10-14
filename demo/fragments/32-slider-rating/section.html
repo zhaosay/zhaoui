@@ -1,0 +1,154 @@
+      <section class="block" id="slider">
+        <h2>滑块</h2>
+        <p class="desc">在一段连续或离散的范围里选值。需要精确值时，旁边配一个数字输入框；只关心大致档位时，用刻度标记。拖动、点击轨道、键盘方向键三种方式都能操作。</p>
+
+        <h3>基础与步进</h3>
+        <div class="zh-grid">
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4">
+            <div class="zh-split"><span class="panel-label">基础 · 悬停或聚焦时显示数值</span><output class="zh-slider-out" id="sl-o1"></output></div>
+            <div class="zh-slider" data-value="40" data-label="音量" data-fmt="{v}%" data-out="#sl-o1"></div>
+          </div>
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4">
+            <div class="zh-split"><span class="panel-label">步进 + 刻度 · 只能停在档位上</span><output class="zh-slider-out" id="sl-o2"></output></div>
+            <div class="zh-slider" data-value="50" data-step="25" data-label="清晰度" data-marks="0:流畅,25:标清,50:高清,75:超清,100:蓝光" data-out="#sl-o2"></div>
+          </div>
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4">
+            <div class="panel-label">数值联动 · 拖动与输入互相同步</div>
+            <div class="zh-slider-row">
+              <div class="zh-slider" data-value="60" data-min="0" data-max="200" data-label="每页条数" data-link="#sl-n1"></div>
+              <input class="zh-input zh-slider-num" id="sl-n1" type="number" aria-label="每页条数（数值）">
+            </div>
+          </div>
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4">
+            <div class="zh-split"><span class="panel-label">按值变色 · 颜色之外还有文字状态</span><output class="zh-slider-out" id="sl-o4"></output></div>
+            <div class="zh-slider" data-value="78" data-label="存储用量" data-fmt="{v}%" data-colors="0:primary,70:warning,90:danger" data-status="0:正常,70:偏高,90:危险" data-out="#sl-o4"></div>
+          </div>
+        </div>
+
+        <h3>范围（双滑块）</h3>
+        <div class="zh-grid">
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4">
+            <div class="zh-split"><span class="panel-label">价格区间 · 两端最小间隔 200</span><output class="zh-slider-out" id="sl-o5"></output></div>
+            <div class="zh-slider" data-value="800,3200" data-min="0" data-max="5000" data-step="50" data-gap="200" data-label="价格" data-fmt="¥{v}" data-out="#sl-o5" data-link="#sl-min,#sl-max"></div>
+            <div class="zh-slider-row" style="margin-top:12px">
+              <input class="zh-input zh-slider-num" id="sl-min" type="number" aria-label="最低价（数值）">
+              <span class="t-tertiary">至</span>
+              <input class="zh-input zh-slider-num" id="sl-max" type="number" aria-label="最高价（数值）">
+            </div>
+          </div>
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4">
+            <div class="zh-split"><span class="panel-label">时间段 · 带刻度</span><output class="zh-slider-out" id="sl-o6"></output></div>
+            <div class="zh-slider" data-value="9,18" data-min="0" data-max="24" data-step="1" data-label="营业时间" data-marks="0:0:00,6:6:00,12:12:00,18:18:00,24:24:00" data-fmt="{v}:00" data-out="#sl-o6"></div>
+          </div>
+        </div>
+
+        <h3>垂直、尺寸与禁用</h3>
+        <div class="zh-grid">
+          <div class="zh-col zh-card" style="--d:4;--t:8;--p:4">
+            <div class="panel-label">垂直 · 均衡器</div>
+            <div class="zh-slider-vgroup">
+              <div class="zh-slider-vitem"><div class="zh-slider" data-vertical data-value="30" data-label="低音" data-fmt="{v}" style="--zh-slider-len:150px"></div><span class="zh-hint">低音</span></div>
+              <div class="zh-slider-vitem"><div class="zh-slider" data-vertical data-value="60" data-label="中音" data-fmt="{v}" style="--zh-slider-len:150px"></div><span class="zh-hint">中音</span></div>
+              <div class="zh-slider-vitem"><div class="zh-slider" data-vertical data-value="45" data-label="高音" data-fmt="{v}" style="--zh-slider-len:150px"></div><span class="zh-hint">高音</span></div>
+            </div>
+          </div>
+          <div class="zh-col zh-card" style="--d:4;--t:4;--p:4">
+            <div class="panel-label">尺寸 · sm / md / lg</div>
+            <div class="zh-stack" style="--g:6px">
+              <div class="zh-slider sm" data-value="30" data-label="小尺寸"></div>
+              <div class="zh-slider" data-value="55" data-label="中尺寸"></div>
+              <div class="zh-slider lg" data-value="80" data-label="大尺寸"></div>
+            </div>
+          </div>
+          <div class="zh-col zh-card" style="--d:4;--t:4;--p:4">
+            <div class="panel-label">禁用</div>
+            <div class="zh-stack" style="--g:6px">
+              <div class="zh-slider" data-value="35" data-disabled data-label="禁用的滑块"></div>
+              <div class="zh-slider" data-value="20,70" data-disabled data-label="禁用的范围"></div>
+            </div>
+          </div>
+        </div>
+
+        <h3>规范</h3>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px">
+          <thead><tr><th>项</th><th>规则</th></tr></thead>
+          <tbody>
+            <tr><td>键盘</td><td>方向键 ±步长；PageUp / PageDown ±10%；Home / End 跳到两端。双滑块的两个把手可分别聚焦，且不会越过对方</td></tr>
+            <tr><td>命中区</td><td>整条滑块高度都可点击；把手最小 14px，触屏 24px 以上；点击轨道会把最近的把手移过去</td></tr>
+            <tr><td>数值显示</td><td>拖动、聚焦、悬停时在把手上方显示数值；需要精确值时配数字输入框，两者双向同步</td></tr>
+            <tr><td>颜色</td><td>变色只表示严重程度，同时必须有文字状态（正常 / 偏高 / 危险），不靠颜色单独表达</td></tr>
+            <tr><td>无障碍</td><td>每个把手是 <code>role="slider"</code>，带 <code>aria-valuemin / max / now / valuetext</code> 与 <code>aria-orientation</code>；禁用时 <code>aria-disabled</code></td></tr>
+            <tr><td>RTL</td><td>根据文字方向自动镜像，方向键含义同步互换</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section class="block" id="rating">
+        <h2>评分</h2>
+        <p class="desc">让用户给一个 1 到 N 的等级，或展示一个平均分。互动评分用单选组（方向键切换、Backspace 清除）；纯展示的分数只读，可以带小数。</p>
+
+        <h3>互动评分</h3>
+        <div class="zh-grid">
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4">
+            <div class="panel-label">基础 · 悬停预览，点击确认，文字随分数变化</div>
+            <div class="zh-rating" data-value="3" data-label="服务评分" data-labels="很差,较差,一般,满意,很好"></div>
+          </div>
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4">
+            <div class="panel-label">半星 · 点星星左半边或右半边</div>
+            <div class="zh-rating" data-value="3.5" data-half data-show-value data-label="口味评分"></div>
+          </div>
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4">
+            <div class="panel-label">允许清除 · 再点一次当前分数，或按 Backspace</div>
+            <div class="zh-rating" data-value="4" data-clear data-label="可清除的评分" data-labels="很差,较差,一般,满意,很好"></div>
+          </div>
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4">
+            <div class="panel-label">其他图标与数量 · 心形 / 10 分制</div>
+            <div class="zh-stack" style="--g:12px">
+              <div class="zh-rating" data-icon="heart" data-value="4" data-label="喜欢程度"></div>
+              <div class="zh-rating sm" data-count="10" data-value="7" data-show-value data-label="推荐指数（满分 10）"></div>
+            </div>
+          </div>
+        </div>
+
+        <h3>展示、尺寸与禁用</h3>
+        <div class="zh-grid">
+          <div class="zh-col zh-card" style="--d:4;--t:4;--p:4">
+            <div class="panel-label">只读 · 支持小数</div>
+            <div class="zh-stack" style="--g:8px">
+              <div class="zh-rating" data-readonly data-value="4.3" data-show-value data-label="平均分"></div>
+              <div class="zh-rating" data-readonly data-value="3.7" data-show-value data-label="平均分"></div>
+              <div class="zh-rating" data-readonly data-value="2.1" data-show-value data-label="平均分"></div>
+            </div>
+          </div>
+          <div class="zh-col zh-card" style="--d:4;--t:4;--p:4">
+            <div class="panel-label">尺寸 · sm / md / lg</div>
+            <div class="zh-stack" style="--g:8px">
+              <div class="zh-rating sm" data-value="4" data-label="小尺寸评分"></div>
+              <div class="zh-rating" data-value="4" data-label="中尺寸评分"></div>
+              <div class="zh-rating lg" data-value="4" data-label="大尺寸评分"></div>
+            </div>
+          </div>
+          <div class="zh-col zh-card" style="--d:4;--t:8;--p:4">
+            <div class="panel-label">禁用</div>
+            <div class="zh-rating" data-value="3" data-disabled data-label="禁用的评分"></div>
+          </div>
+        </div>
+
+        <h3>评价汇总</h3>
+        <div class="zh-card">
+          <div class="zh-rate-sum" id="rateSummary" aria-label="评价汇总"></div>
+        </div>
+        <p class="zh-hint">分布条只用一种品牌色，长短即数量；不给每个星级配一种颜色（图表规范：单系列一色）。百分比在右侧，具体条数在悬停提示和无障碍文本里。</p>
+
+        <h3>规范</h3>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px">
+          <thead><tr><th>项</th><th>规则</th></tr></thead>
+          <tbody>
+            <tr><td>交互</td><td>悬停预览、点击确认；半星时左右半边各算一档；再点当前分数可清除（需开启）</td></tr>
+            <tr><td>键盘</td><td>单选组：方向键切换，Backspace / Delete 清除；焦点环画在被聚焦的那颗星上</td></tr>
+            <tr><td>无障碍</td><td>互动评分是原生单选组，每个选项标注「N 星 · 文案」；只读评分是 <code>role="img"</code>，读出「4.3 分，满分 5 分」</td></tr>
+            <tr><td>颜色</td><td>选中为琥珀色（心形为红色），未选中为中性描边；满分不要靠颜色判断好坏，配文案</td></tr>
+            <tr><td>展示分数</td><td>小数按比例填充：4.3 分是 4 颗满星 + 第 5 颗填 30%</td></tr>
+          </tbody>
+        </table></div>
+      </section>

@@ -1,0 +1,37 @@
+{
+  "name": "tooltip",
+  "title": "文字提示",
+  "summary": "悬停或键盘聚焦时显示的小气泡，自动避让屏幕边缘，带箭头。适合解释图标按钮或被禁用的按钮。不用 JS 的简易版见「样式类」里的 zh-tip。",
+  "classes": [
+    "zh-pop",
+    "zh-pop--tooltip"
+  ],
+  "attributes": [
+    {
+      "name": "data-zh-tt",
+      "on": "任意元素",
+      "value": "提示文字",
+      "desc": "声明提示；元素不可聚焦时库会补 tabindex=0，使键盘也能看到"
+    },
+    {
+      "name": "data-zh-tt-placement",
+      "on": "同上",
+      "value": "top | bottom | left | right（可加 -start / -end），默认 top",
+      "desc": "出现的位置，空间不够会自动翻转"
+    },
+    {
+      "name": "data-zh-tt-delay",
+      "on": "同上",
+      "value": "毫秒，默认 80",
+      "desc": "悬停多久后出现"
+    }
+  ],
+  "events": [],
+  "methods": [],
+  "a11y": [
+    "提示内容通过 aria-describedby 关联到元素，读屏会读出",
+    "被禁用的按钮不能聚焦也收不到悬停：外面包一层 <span data-zh-tt=\"…\">，把提示放在 span 上",
+    "提示只放补充说明，关键信息不要只写在提示里"
+  ],
+  "example": "<div class=\"zh-row\">\n  <button class=\"zh-btn\" data-zh-tt=\"保存当前草稿\">保存</button>\n  <span data-zh-tt=\"没有编辑权限，请联系管理员开通\" data-zh-tt-placement=\"bottom\"><button class=\"zh-btn primary\" disabled aria-disabled=\"true\">提交审核</button></span>\n</div>"
+}

@@ -1,0 +1,51 @@
+{
+  "name": "command",
+  "title": "命令面板",
+  "summary": "按快捷键或点按钮弹出的搜索框：输入几个字就能跳到某个页面或执行某个操作。支持模糊匹配（含关键词）、按分组显示、最近使用、键盘上下选择、回车执行。命令用一个数组描述。",
+  "classes": [
+    "zh-cmd",
+    "zh-cmd-input",
+    "zh-cmd-list",
+    "zh-cmd-item",
+    "zh-cmd-gl",
+    "zh-cmd-hint",
+    "zh-cmd-empty",
+    "zh-cmd-foot"
+  ],
+  "attributes": [],
+  "events": [
+    {
+      "name": "zh:command-run",
+      "on": "面板元素（冒泡）",
+      "value": "{ id, command }",
+      "desc": "执行了某个命令"
+    }
+  ],
+  "methods": [
+    {
+      "name": "ZhaoUI.commandPalette(options)",
+      "on": "",
+      "value": "",
+      "desc": "创建面板，返回 { open(from), close(), setCommands(list), el }。open 的参数是触发元素，关闭后焦点回到它"
+    },
+    {
+      "name": "options",
+      "on": "",
+      "value": "commands、placeholder、label、emptyText、recent、hotkey、onRun",
+      "desc": "hotkey 为 true 时 Ctrl/⌘+K 打开或关闭（默认不开，避免和你的页面快捷键冲突）；recent 是“最近”分组的条数，0 则不显示；onRun(command) 在命令执行后调用"
+    },
+    {
+      "name": "命令 command",
+      "on": "",
+      "value": "{ id, label, group, icon, keywords, hint, run }",
+      "desc": "label 参与匹配并高亮命中的字；keywords 是额外的搜索词（可写拼音、英文、同义词）；group 是分组标题；hint 显示快捷键提示；run(command) 是要执行的函数"
+    }
+  ],
+  "a11y": [
+    "面板是模态 <dialog>，焦点被限制在里面，Esc 或点击外部关闭，关闭后焦点回到触发元素",
+    "输入框是 combobox，列表是 listbox，当前项用 aria-activedescendant 指示",
+    "结果数量通过 role=status 区域读出",
+    "搜索框按钮的 aria-label 里写明快捷键，如“搜索，快捷键 Ctrl K”"
+  ],
+  "example": "<button class=\"zh-btn\" id=\"cmd-open\"><i data-i=\"search\"></i>搜索 <span class=\"zh-kbd\">Ctrl</span><span class=\"zh-kbd\">K</span></button>\n<script>\n  var palette = ZhaoUI.commandPalette({\n    hotkey: true,\n    commands: [\n      { id: 'home', group: '页面', label: '概览', icon: 'layout-dashboard', keywords: 'home dashboard 首页' },\n      { id: 'set', group: '页面', label: '系统设置', icon: 'settings', keywords: 'settings 偏好' },\n      { id: 'new', group: '操作', label: '新建文章', icon: 'file-text', hint: 'N', run: function () { ZhaoUI.message('新建文章'); } }\n    ]\n  });\n  document.getElementById('cmd-open').addEventListener('click', function (e) { palette.open(e.currentTarget); });\n</script>"
+}

@@ -1,0 +1,57 @@
+{
+  "name": "descr",
+  "title": "描述列表",
+  "summary": "纯样式组件：不需要 JS。用 <dl> 展示一组「名称：值」，如订单详情、项目信息。有两种外观：plain（无框）、bordered（带框表格式）；列数 1 到 3 可选，窄屏自动降列。",
+  "classes": [
+    "zh-descr",
+    "zh-descr-item",
+    "zh-descr-wrap",
+    "zh-descr-link"
+  ],
+  "attributes": [
+    {
+      "name": "zh-descr",
+      "on": "<dl>（class）",
+      "value": "里面每组放一个 <div class=\"zh-descr-item\"><dt>名称</dt><dd>值</dd></div>",
+      "desc": "网格容器，默认 3 列"
+    },
+    {
+      "name": "data-cols",
+      "on": ".zh-descr",
+      "value": "1 | 2 | 3（默认 3）",
+      "desc": "列数；平板宽度 3 列降为 2 列，手机宽度全部降为 1 列"
+    },
+    {
+      "name": "data-variant",
+      "on": ".zh-descr",
+      "value": "plain | bordered",
+      "desc": "plain 无框，名称在上、值在下；bordered 是带线框的表格式，名称在左侧的灰底格里"
+    },
+    {
+      "name": "data-span",
+      "on": ".zh-descr-item",
+      "value": "2 | 3",
+      "desc": "该项横跨的列数，适合地址、备注等长内容；手机宽度忽略；各项加起来填不满一行时，末尾会留空格"
+    },
+    {
+      "name": "zh-descr-wrap",
+      "on": "外层 <div>（class）",
+      "value": "仅 bordered 时使用",
+      "desc": "给 bordered 的列表加圆角外框并裁掉最外层多余的线"
+    },
+    {
+      "name": "zh-descr-link",
+      "on": "<dd> 里的 <a>",
+      "value": "",
+      "desc": "值里的链接样式"
+    }
+  ],
+  "events": [],
+  "methods": [],
+  "a11y": [
+    "用语义化的 <dl>/<dt>/<dd>，读屏会读成「名称，值」",
+    "给 <dl> 加 aria-label 说明这组信息是什么",
+    "<dt>/<dd> 要成对，放在 .zh-descr-item 里"
+  ],
+  "example": "<div class=\"zh-stack\">\n  <div class=\"zh-descr-wrap\">\n    <dl class=\"zh-descr\" data-cols=\"3\" data-variant=\"bordered\" aria-label=\"订单信息\">\n      <div class=\"zh-descr-item\"><dt>订单号</dt><dd>20260929-0086</dd></div>\n      <div class=\"zh-descr-item\"><dt>状态</dt><dd><span class=\"zh-tag success\">已发货</span></dd></div>\n      <div class=\"zh-descr-item\"><dt>金额</dt><dd>¥ 1,286.00</dd></div>\n      <div class=\"zh-descr-item\"><dt>收货人</dt><dd>张三</dd></div>\n      <div class=\"zh-descr-item\"><dt>电话</dt><dd>138 **** 0086</dd></div>\n      <div class=\"zh-descr-item\"><dt>物流</dt><dd><a class=\"zh-descr-link\" href=\"#\">SF1234567890</a></dd></div>\n      <div class=\"zh-descr-item\" data-span=\"3\"><dt>地址</dt><dd>上海市浦东新区世纪大道 100 号</dd></div>\n    </dl>\n  </div>\n  <dl class=\"zh-descr\" data-cols=\"2\" data-variant=\"plain\" aria-label=\"项目信息\">\n    <div class=\"zh-descr-item\"><dt>负责人</dt><dd>李四</dd></div>\n    <div class=\"zh-descr-item\"><dt>创建时间</dt><dd>2026-09-01 09:30</dd></div>\n  </dl>\n</div>"
+}

@@ -1,0 +1,98 @@
+<section class="block" id="preview">
+  <h2>预览</h2>
+  <p class="desc">图片的加载与失败状态、点击放大的图片查看器、轮播。所有图片都是页面里现场生成的矢量图，不依赖网络。</p>
+
+  <h3>图片</h3>
+  <div class="matrix-wrap"><table class="matrix" style="min-width:640px">
+    <thead><tr><th>状态</th><th>表现</th></tr></thead>
+    <tbody>
+      <tr><td>加载中</td><td>骨架闪烁，并按宽高比预留位置，图片出来时版面不跳动</td></tr>
+      <tr><td>加载完成</td><td>淡入 200ms</td></tr>
+      <tr><td>加载失败</td><td>图标 + 「图片加载失败」+ 重试按钮；alt 文字保留，读屏软件仍能读到</td></tr>
+      <tr><td>暂无图片</td><td>品牌浅色底 + 图标，用于还没上传的位置</td></tr>
+      <tr><td>适配方式</td><td><code>cover</code> 裁切铺满（默认）· <code>contain</code> 完整显示 · <code>fill</code> 拉伸（慎用，会变形）</td></tr>
+      <tr><td>圆角</td><td>sm / md / lg / full，跟随 B 端与 C 端预设；头像和圆形封面用 full</td></tr>
+      <tr><td>无障碍</td><td>内容图必须有 alt；纯装饰图 <code>alt=""</code>；加载中容器带 <code>aria-busy</code></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="zh-grid" style="margin-top:16px">
+    <div class="zh-col" style="--d:3;--t:4;--p:4"><figure class="zh-img" data-zh-img="ok" data-art="0">
+      <div class="zh-img-frame"><img alt="晨雾中的山脉插画" width="600" height="450"><i class="zh-img-skel" aria-hidden="true"></i>
+        <div class="zh-img-msg zh-img-err" role="img" aria-label="图片加载失败"><i data-i="image-off" data-s="28"></i><span>图片加载失败</span><button type="button" class="zh-btn sm" data-retry><i data-i="refresh-cw"></i>重试</button></div>
+        <div class="zh-img-msg zh-img-ph"><i data-i="image" data-s="28"></i><span>暂无图片</span></div></div>
+      <figcaption>已加载</figcaption></figure></div>
+    <div class="zh-col" style="--d:3;--t:4;--p:4"><figure class="zh-img" data-zh-img="slow" data-art="1">
+      <div class="zh-img-frame"><img alt="深海渐变插画" width="600" height="450"><i class="zh-img-skel" aria-hidden="true"></i>
+        <div class="zh-img-msg zh-img-err" role="img" aria-label="图片加载失败"><i data-i="image-off" data-s="28"></i><span>图片加载失败</span><button type="button" class="zh-btn sm" data-retry><i data-i="refresh-cw"></i>重试</button></div>
+        <div class="zh-img-msg zh-img-ph"><i data-i="image" data-s="28"></i><span>暂无图片</span></div></div>
+      <figcaption>加载中（约 2 秒）</figcaption></figure></div>
+    <div class="zh-col" style="--d:3;--t:4;--p:4"><figure class="zh-img" data-zh-img="broken" data-art="2">
+      <div class="zh-img-frame"><img alt="蔷薇色渐变插画" width="600" height="450"><i class="zh-img-skel" aria-hidden="true"></i>
+        <div class="zh-img-msg zh-img-err" role="img" aria-label="图片加载失败"><i data-i="image-off" data-s="28"></i><span>图片加载失败</span><button type="button" class="zh-btn sm" data-retry><i data-i="refresh-cw"></i>重试</button></div>
+        <div class="zh-img-msg zh-img-ph"><i data-i="image" data-s="28"></i><span>暂无图片</span></div></div>
+      <figcaption>加载失败，可重试</figcaption></figure></div>
+    <div class="zh-col" style="--d:3;--t:4;--p:4"><figure class="zh-img" data-zh-img="none" data-art="3">
+      <div class="zh-img-frame"><img alt="" width="600" height="450"><i class="zh-img-skel" aria-hidden="true"></i>
+        <div class="zh-img-msg zh-img-err" role="img" aria-label="图片加载失败"><i data-i="image-off" data-s="28"></i><span>图片加载失败</span><button type="button" class="zh-btn sm" data-retry><i data-i="refresh-cw"></i>重试</button></div>
+        <div class="zh-img-msg zh-img-ph"><i data-i="image" data-s="28"></i><span>暂无图片</span></div></div>
+      <figcaption>暂无图片</figcaption></figure></div>
+  </div>
+  <div class="zh-row" style="margin-top:12px;--g:8px">
+    <button class="zh-btn sm" id="zhImgReload"><i data-i="refresh-cw"></i>重新演示「加载中」</button>
+    <button class="zh-btn sm" id="zhImgBreak"><i data-i="image-off"></i>重新演示「加载失败」</button>
+  </div>
+
+  <div class="zh-grid" style="margin-top:20px">
+    <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><h4>适配方式（同一张 16:9 图放进方框）</h4>
+      <div class="zh-row" style="--g:12px;flex-wrap:nowrap;align-items:flex-start">
+        <figure class="zh-img" style="flex:1" data-zh-fit="cover"><div class="zh-img-frame" style="--zh-img-ratio:1"><img alt="裁切铺满示例"></div><figcaption><code>cover</code></figcaption></figure>
+        <figure class="zh-img" style="flex:1" data-zh-fit="contain"><div class="zh-img-frame" style="--zh-img-ratio:1"><img alt="完整显示示例"></div><figcaption><code>contain</code></figcaption></figure>
+        <figure class="zh-img" style="flex:1" data-zh-fit="fill"><div class="zh-img-frame" style="--zh-img-ratio:1"><img alt="拉伸示例"></div><figcaption><code>fill</code></figcaption></figure>
+      </div></div>
+    <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><h4>圆角</h4>
+      <div class="zh-row" style="--g:12px;flex-wrap:nowrap;align-items:flex-start">
+        <figure class="zh-img zh-img--r-sm" style="flex:1" data-zh-fit="cover" data-art="4"><div class="zh-img-frame" style="--zh-img-ratio:1"><img alt="小圆角"></div><figcaption>sm</figcaption></figure>
+        <figure class="zh-img zh-img--r-md" style="flex:1" data-zh-fit="cover" data-art="5"><div class="zh-img-frame" style="--zh-img-ratio:1"><img alt="中圆角"></div><figcaption>md</figcaption></figure>
+        <figure class="zh-img zh-img--r-lg" style="flex:1" data-zh-fit="cover" data-art="6"><div class="zh-img-frame" style="--zh-img-ratio:1"><img alt="大圆角"></div><figcaption>lg</figcaption></figure>
+        <figure class="zh-img zh-img--r-full" style="flex:1" data-zh-fit="cover" data-art="7"><div class="zh-img-frame" style="--zh-img-ratio:1"><img alt="圆形"></div><figcaption>full</figcaption></figure>
+      </div></div>
+  </div>
+
+  <h3>图片查看器</h3>
+  <div class="matrix-wrap"><table class="matrix" style="min-width:640px">
+    <thead><tr><th>操作</th><th>鼠标 / 触屏</th><th>键盘</th></tr></thead>
+    <tbody>
+      <tr><td>放大 / 缩小</td><td>工具栏按钮 · 滚轮（以指针位置为中心）· 双击 · 双指捏合</td><td><kbd class="zh-kbd">+</kbd> <kbd class="zh-kbd">-</kbd></td></tr>
+      <tr><td>复位</td><td>点击工具栏中的缩放比例</td><td><kbd class="zh-kbd">0</kbd></td></tr>
+      <tr><td>拖动</td><td>放大后按住拖动</td><td>—</td></tr>
+      <tr><td>旋转 / 翻转</td><td>工具栏按钮</td><td><kbd class="zh-kbd">R</kbd> 顺时针 · <kbd class="zh-kbd">Shift</kbd>+<kbd class="zh-kbd">R</kbd> 逆时针 · <kbd class="zh-kbd">H</kbd> 水平 · <kbd class="zh-kbd">V</kbd> 垂直</td></tr>
+      <tr><td>切换图片</td><td>两侧箭头 · 缩略图 · 触屏左右滑动</td><td><kbd class="zh-kbd">←</kbd> <kbd class="zh-kbd">→</kbd></td></tr>
+      <tr><td>关闭</td><td>关闭按钮 · 点击图片外的空白</td><td><kbd class="zh-kbd">Esc</kbd></td></tr>
+      <tr><td>下载 / 全屏</td><td>工具栏按钮（浏览器不支持全屏时该按钮不显示）</td><td>—</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="check" style="margin-top:12px">
+    <li>打开后焦点进入查看器并被限制在里面，关闭后回到点击的缩略图；背景页面不能滚动</li>
+    <li>读屏软件会朗读「第 3 张，共 8 张：标题」；到第一张或最后一张时对应箭头禁用</li>
+    <li>缩放到 100% 之外时，才允许拖动；100% 时横向拖动是「切换上一张 / 下一张」</li>
+  </ul>
+  <p class="zh-hint">点击任意缩略图打开。</p>
+  <div class="zh-gal" id="zhGal" role="list" aria-label="示例图库"></div>
+
+  <h3>轮播</h3>
+  <div class="matrix-wrap"><table class="matrix" style="min-width:640px">
+    <thead><tr><th>项</th><th>规范</th></tr></thead>
+    <tbody>
+      <tr><td>效果</td><td>滑动（默认，方向感强）· 渐变（图片内容差异大、不想有位移时）</td></tr>
+      <tr><td>自动播放</td><td>默认 4 秒一张；鼠标悬停、键盘聚焦、拖动、标签页在后台时暂停；必须提供暂停按钮；用户开启了「减少动态效果」时不自动播放</td></tr>
+      <tr><td>导航</td><td>左右箭头、圆点（当前项拉长成胶囊）；可循环；不循环时到头的箭头禁用</td></tr>
+      <tr><td>手势与键盘</td><td>触屏与鼠标左右拖动切换；聚焦后 <kbd class="zh-kbd">←</kbd> <kbd class="zh-kbd">→</kbd> 切换，<kbd class="zh-kbd">Home</kbd> <kbd class="zh-kbd">End</kbd> 跳到首尾</td></tr>
+      <tr><td>无障碍</td><td><code>role="region"</code> + <code>aria-roledescription="carousel"</code>；每张 <code>role="group"</code> + <code>aria-roledescription="slide"</code>，标签为「第 n 张，共 m 张」；圆点是 tablist；自动播放时 <code>aria-live="off"</code>，停止后改为 <code>polite</code></td></tr>
+    </tbody>
+  </table></div>
+  <div class="zh-stack" style="--g:20px;margin-top:16px">
+    <div><p class="zh-hint" style="margin-top:0">滑动效果 · 自动播放 · 循环</p><div id="zhCarA"></div></div>
+    <div><p class="zh-hint" style="margin-top:0">渐变效果 · 手动切换 · 不循环</p><div id="zhCarB"></div></div>
+  </div>
+</section>

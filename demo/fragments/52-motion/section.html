@@ -1,0 +1,187 @@
+      <section class="block" id="animation">
+        <h2>动画与动态</h2>
+        <p class="desc">动效的目的是解释变化、给出反馈、引导注意，而不是装饰。本规范只给出一套很小的词汇：5 档时长、4 条曲线、一批可复用的关键帧类，并规定了什么时候用、怎么退化。所有取值都来自 Token，B 端偏快偏克制，C 端偏柔和。</p>
+        <div class="zh-mo-tools">
+          <label class="zh-check"><input type="checkbox" class="zh-switch" role="switch" id="zhMoReduce"> 模拟「减少动态效果」</label>
+          <span class="zh-hint" style="margin:0">打开后，本节所有示例都会切换成「只保留淡入淡出」的降级版本。</span>
+        </div>
+
+        <h3>时长阶梯</h3>
+        <div class="zh-grid">
+          <div class="zh-col" style="--d:7;--t:8;--p:4">
+            <div class="matrix-wrap"><table class="matrix" style="min-width:540px" id="zhMoDurTable">
+              <thead><tr><th>档位</th><th>Token</th><th>取值</th><th>用在哪里</th></tr></thead>
+              <tbody>
+                <tr class="zh-mo-tokrow"><td>instant</td><td><code>--zh-dur-instant</code></td><td data-tok="--zh-dur-instant"></td><td>按下反馈、复选框勾选、开关</td></tr>
+                <tr class="zh-mo-tokrow"><td>fast</td><td><code>--zh-dur-fast</code></td><td data-tok="--zh-dur-fast"></td><td>悬停、聚焦、提示气泡；<strong>B 端默认</strong></td></tr>
+                <tr class="zh-mo-tokrow"><td>base</td><td><code>--zh-dur-base</code></td><td data-tok="--zh-dur-base"></td><td>下拉、展开、切换、消息；<strong>C 端默认</strong></td></tr>
+                <tr class="zh-mo-tokrow"><td>slow</td><td><code>--zh-dur-slow</code></td><td data-tok="--zh-dur-slow"></td><td>抽屉、模态框、翻转、进度条</td></tr>
+                <tr class="zh-mo-tokrow"><td>slower</td><td><code>--zh-dur-slower</code></td><td data-tok="--zh-dur-slower"></td><td>大面积转场、强调、成功反馈</td></tr>
+                <tr class="zh-mo-tokrow"><td>stagger</td><td><code>--zh-stagger</code></td><td data-tok="--zh-stagger"></td><td>列表逐项错开，每项延后一个步长</td></tr>
+              </tbody>
+            </table></div>
+          </div>
+          <div class="zh-col zh-card" style="--d:5;--t:8;--p:4">
+            <div class="zh-mo-cardhead"><h4>赛跑：同一起点，看差距</h4><button type="button" class="zh-btn sm" id="zhMoRaceGo"><i data-i="rotate-ccw"></i>重播</button></div>
+            <div class="zh-mo-race" id="zhMoRace"></div>
+            <div class="zh-row" style="--g:10px"><span class="zh-hint" style="margin:0">stagger ×5</span><div class="zh-mo-stag" id="zhMoStag"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i></div></div>
+          </div>
+        </div>
+
+        <h3>B 端与 C 端的默认节奏</h3>
+        <div class="zh-mo-grid two">
+          <div class="zh-mo-aud" data-audience="b">
+            <div class="zh-mo-cardhead"><h4>B 端 · 快而克制</h4><span class="zh-tag primary">默认 dur-fast</span></div>
+            <button type="button" class="zh-btn primary zh-mo-press" data-mo-aud>切换内容</button>
+            <div class="zh-mo-abox zh-mo-box2"></div>
+            <span class="zh-mo-note" data-mo-aud-note></span>
+          </div>
+          <div class="zh-mo-aud" data-audience="c">
+            <div class="zh-mo-cardhead"><h4>C 端 · 柔和有呼吸</h4><span class="zh-tag primary">默认 dur-base</span></div>
+            <button type="button" class="zh-btn primary zh-mo-press" data-mo-aud>切换内容</button>
+            <div class="zh-mo-abox zh-mo-box2"></div>
+            <span class="zh-mo-note" data-mo-aud-note></span>
+          </div>
+        </div>
+        <p class="zh-hint">现有组件的默认过渡读取的是 <code>--zh-motion</code>（B 端 120ms，C 端 260ms）；新增的动效请直接用 <code>--zh-dur-*</code>，不要写死毫秒。</p>
+
+        <h3>缓动曲线</h3>
+        <div class="zh-row" style="margin-bottom:12px"><button type="button" class="zh-btn sm" id="zhMoCurvesGo"><i data-i="rotate-ccw"></i>全部重播</button><span class="zh-hint" style="margin:0">左图是曲线，右下圆点用同一条曲线移动。</span></div>
+        <div class="zh-mo-grid cv" id="zhMoCurves"></div>
+
+        <h3>试验场</h3>
+        <div class="zh-mo-play">
+          <div class="zh-mo-ctl">
+            <div><label for="zhMoDur">时长 <output id="zhMoDurOut">200ms</output></label><input type="range" id="zhMoDur" min="40" max="1000" step="10" value="200">
+              <div class="zh-row" style="--g:6px;margin-top:6px" id="zhMoDurQuick"><button type="button" class="zh-btn sm" data-v="80">instant</button><button type="button" class="zh-btn sm" data-v="120">fast</button><button type="button" class="zh-btn sm" data-v="200">base</button><button type="button" class="zh-btn sm" data-v="320">slow</button><button type="button" class="zh-btn sm" data-v="480">slower</button></div></div>
+            <div class="zh-field"><label for="zhMoEase">缓动</label><div class="zh-select"><select id="zhMoEase">
+              <option value="standard">standard · 通用</option><option value="enter">enter · 进入（减速）</option><option value="exit">exit · 退出（加速）</option><option value="spring">spring · 回弹</option><option value="linear">linear · 匀速</option></select></div></div>
+            <div class="zh-field"><label for="zhMoProp">属性</label><div class="zh-select"><select id="zhMoProp">
+              <option value="tx">transform: translateX</option><option value="scale">transform: scale</option><option value="rotate">transform: rotate</option><option value="opacity">opacity</option>
+              <option value="bg">background-color</option><option value="width">width（触发布局）</option><option value="left">left（触发布局）</option></select></div></div>
+            <div class="zh-row" style="--g:8px"><button type="button" class="zh-btn primary" id="zhMoPlay"><i data-i="play"></i>播放</button><span id="zhMoPerf" class="zh-tag success"></span></div>
+          </div>
+          <div>
+            <div class="zh-mo-arena" id="zhMoArena"><div class="zh-mo-box" id="zhMoBox"></div></div>
+            <pre class="zh-mo-code" id="zhMoCode"></pre>
+          </div>
+        </div>
+
+        <h3>规则</h3>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:640px">
+          <thead><tr><th>规则</th><th>具体做法</th><th>Token / 数值</th></tr></thead>
+          <tbody>
+            <tr><td>进入减速，退出加速</td><td>元素进入时先快后慢，退出时先慢后快，像自然的物体</td><td><code>--zh-ease-enter</code> / <code>--zh-ease-exit</code></td></tr>
+            <tr><td>退出比进入快约 30%</td><td>用户已经看过它了，别让他等；退出时长取进入的 0.7 倍</td><td><code>calc(var(--zh-dur-base) * .7)</code></td></tr>
+            <tr><td>只动 transform 和 opacity</td><td>它们不触发布局和重绘，低端设备也流畅。<strong>唯一例外</strong>：折叠面板的高度，用 <code>grid-template-rows</code></td><td>不要动 width / height / top / left / margin</td></tr>
+            <tr><td>位移要小</td><td>入场位移 8–16px，大面板不超过 24px；缩放从 0.94–0.98 起步。只有全屏转场才用大位移</td><td><code>--zh-anim-dist: 12px</code></td></tr>
+            <tr><td>一次只有一个焦点动画</td><td>同一时刻不要让多个东西同时抢眼。列表错开进入，每项延后 30ms，最多 8 项</td><td><code>--zh-stagger</code>，总长 ≤ 240ms</td></tr>
+            <tr><td>不阻塞操作</td><td>动画期间输入框、按钮仍可点击；常规反馈不超过 500ms；无限循环只用于「加载中」</td><td>&gt; 500ms 的动画需要有理由</td></tr>
+            <tr><td>时长随距离和面积变化</td><td>小控件短，大面积长：控件 80–120ms，弹层 200ms，抽屉与模态框 320ms，全屏 480ms</td><td>见上方「时长阶梯」</td></tr>
+            <tr><td>尊重「减少动态效果」</td><td>位移、缩放、旋转全部降级为淡入淡出；无限循环停掉或改成静态</td><td><code>.zh-reduce-motion</code> / <code>prefers-reduced-motion</code></td></tr>
+          </tbody>
+        </table></div>
+
+        <h3>过渡配方</h3>
+        <div class="zh-mo-grid" id="zhMoRecipes">
+          <div class="zh-card"><div class="zh-mo-cardhead"><h4>淡入淡出</h4><button type="button" class="zh-btn sm" data-mo-cycle="fade"><i data-i="rotate-ccw"></i>重播</button></div>
+            <div class="zh-mo-stage"><div class="zh-mo-chip zh-mo-t" data-mo="fade">Aa</div></div><span class="zh-mo-note">进入 base · enter；退出 ×0.7 · exit</span></div>
+          <div class="zh-card"><div class="zh-mo-cardhead"><h4>滑动 · 四个方向</h4><button type="button" class="zh-btn sm" data-mo-cycle="slide"><i data-i="rotate-ccw"></i>重播</button></div>
+            <div class="zh-mo-stage"><div class="zh-mo-dirs">
+              <div><div class="zh-mo-chip zh-mo-t" data-mo="slide" style="--zh-mo-ty:12px">上滑入</div></div>
+              <div><div class="zh-mo-chip zh-mo-t" data-mo="slide" style="--zh-mo-ty:-12px">下滑入</div></div>
+              <div><div class="zh-mo-chip zh-mo-t" data-mo="slide" style="--zh-mo-tx:12px">左滑入</div></div>
+              <div><div class="zh-mo-chip zh-mo-t" data-mo="slide" style="--zh-mo-tx:-12px">右滑入</div></div></div></div><span class="zh-mo-note">位移 12px · 淡入同时进行</span></div>
+          <div class="zh-card"><div class="zh-mo-cardhead"><h4>缩放进入</h4><button type="button" class="zh-btn sm" data-mo-cycle="scale"><i data-i="rotate-ccw"></i>重播</button></div>
+            <div class="zh-mo-stage" style="display:flex;gap:14px;justify-content:center;align-items:center"><div class="zh-mo-chip zh-mo-t" data-mo="scale" style="--zh-mo-ts:.94">中心</div><div class="zh-mo-chip zh-mo-t" data-mo="scale" style="--zh-mo-ts:.94;transform-origin:left top">左上</div></div><span class="zh-mo-note">scale .94 → 1，弹层从触发点展开</span></div>
+          <div class="zh-card"><div class="zh-mo-cardhead"><h4>折叠展开</h4><button type="button" class="zh-btn sm" id="zhMoCollapseBtn" aria-expanded="true" aria-controls="zhMoCollapse"><i data-i="chevrons-up-down"></i>切换</button></div>
+            <div class="zh-mo-stage" style="align-content:start;place-items:stretch"><div class="zh-mo-collapse" id="zhMoCollapse"><div><div class="in">折叠内容。高度通过 grid-template-rows 在 0fr 与 1fr 之间过渡，内容自身只做淡入淡出。</div></div></div></div><span class="zh-mo-note">唯一允许动高度的配方</span></div>
+          <div class="zh-card"><div class="zh-mo-cardhead"><h4>翻转</h4><button type="button" class="zh-btn sm" id="zhMoFlipBtn"><i data-i="flip-horizontal"></i>翻转</button></div>
+            <div class="zh-mo-stage"><div class="zh-mo-flip" id="zhMoFlip"><div class="zh-mo-flip-in"><div class="zh-mo-face front">正面</div><div class="zh-mo-face back">背面</div></div></div></div><span class="zh-mo-note">rotateY 180°，slow · standard</span></div>
+          <div class="zh-card"><div class="zh-mo-cardhead"><h4>共享轴</h4></div>
+            <div class="zh-mo-pages" id="zhMoPages"><div class="zh-mo-page is-active">第 1 步</div><div class="zh-mo-page is-after">第 2 步</div><div class="zh-mo-page is-after">第 3 步</div></div>
+            <div class="zh-mo-nav"><button type="button" class="zh-btn sm" data-mo-step="-1"><i data-i="arrow-left"></i>上一步</button><button type="button" class="zh-btn sm primary" data-mo-step="1">下一步<i data-i="arrow-right"></i></button></div>
+            <span class="zh-mo-note">同方向的步骤沿同一水平轴移动</span></div>
+          <div class="zh-card"><div class="zh-mo-cardhead"><h4>页面切换 · 交叉淡入</h4></div>
+            <div class="zh-mo-tabs" id="zhMoRouteTabs"><button type="button" class="zh-btn sm primary" data-r="0">概览</button><button type="button" class="zh-btn sm" data-r="1">设备</button><button type="button" class="zh-btn sm" data-r="2">设置</button></div>
+            <div class="zh-mo-xfade" id="zhMoXfade"></div><span class="zh-mo-note">旧页面 ×0.7 淡出，新页面稍后淡入，没有位移</span></div>
+          <div class="zh-card zh-mo-span2"><div class="zh-mo-cardhead"><h4>列表：错开进入 · 离开 · 重排</h4>
+            <div class="zh-row" style="--g:6px"><button type="button" class="zh-btn sm" data-mo-list="add"><i data-i="plus"></i>添加</button><button type="button" class="zh-btn sm" data-mo-list="remove"><i data-i="trash-2"></i>移除</button><button type="button" class="zh-btn sm" data-mo-list="shuffle"><i data-i="arrow-up-down"></i>打乱</button><button type="button" class="zh-btn sm" data-mo-list="replay"><i data-i="rotate-ccw"></i>重播</button></div></div>
+            <ul class="zh-mo-list" id="zhMoList" aria-live="polite"></ul><span class="zh-mo-note">进入逐项延后 30ms；离开淡出 + 位移；重排用 FLIP（只用 transform）</span></div>
+        </div>
+
+        <h3>关键帧库</h3>
+        <p class="zh-hint" style="margin-top:-6px">点击类名复制；循环类默认暂停，点「播放」或把鼠标移上去查看。</p>
+        <div class="zh-mo-grid sm" id="zhMoTiles"></div>
+        <p class="zh-hint">可用变量：<code>--zh-anim-dur</code>（时长）、<code>--zh-anim-delay</code>（延迟）、<code>--zh-anim-dist</code>（滑动距离）。在「减少动态效果」下，位移和缩放会退化成淡入，循环动画会停止。</p>
+
+        <h3>微交互</h3>
+        <div class="zh-mo-grid">
+          <div class="zh-card"><h4>按压 · 悬浮 · 波纹</h4>
+            <div class="zh-row" style="--g:10px">
+              <button type="button" class="zh-btn zh-mo-press">按压缩放</button>
+              <button type="button" class="zh-btn zh-mo-press zh-mo-lift">悬浮上抬</button>
+              <button type="button" class="zh-btn primary zh-mo-ripple">波纹</button>
+            </div><span class="zh-mo-note">按下 instant；波纹纯 CSS，从中心扩散</span></div>
+          <div class="zh-card"><h4>点赞 · 粒子迸发</h4>
+            <div class="zh-row" style="--g:14px"><button type="button" class="zh-mo-like" id="zhMoLike" aria-pressed="false" aria-label="点赞"><i data-i="heart"></i>
+              <svg class="burst" viewBox="-30 -30 60 60" aria-hidden="true"><circle cx="0" cy="0" r="2.2" style="--a:0deg"/><circle cx="0" cy="0" r="2.2" style="--a:45deg"/><circle cx="0" cy="0" r="2.2" style="--a:90deg"/><circle cx="0" cy="0" r="2.2" style="--a:135deg"/><circle cx="0" cy="0" r="2.2" style="--a:180deg"/><circle cx="0" cy="0" r="2.2" style="--a:225deg"/><circle cx="0" cy="0" r="2.2" style="--a:270deg"/><circle cx="0" cy="0" r="2.2" style="--a:315deg"/></svg></button>
+              <span class="metric metric-md" id="zhMoLikeN">128</span></div><span class="zh-mo-note">图标弹起 + 8 个粒子向外散开</span></div>
+          <div class="zh-card"><h4>开关 · 复选框</h4>
+            <div class="zh-stack" style="--g:14px">
+              <label class="zh-mo-sw"><input type="checkbox" role="switch" class="zh-mo-vh" checked><span class="zh-mo-sw-track"><i></i></span>按下时滑块拉长</label>
+              <label class="zh-mo-cb"><input type="checkbox" class="zh-mo-vh"><span class="box"><svg viewBox="0 0 24 24" aria-hidden="true"><path pathLength="30" d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>勾选时一笔画出对勾</label>
+            </div></div>
+          <div class="zh-card"><h4>输入框 · 焦点线</h4>
+            <div class="zh-mo-field"><input id="zhMoInput" placeholder=" " autocomplete="off"><label for="zhMoInput">邮箱</label></div>
+            <span class="zh-mo-note">标签上浮，底部线条从左展开</span></div>
+          <div class="zh-card"><div class="zh-mo-cardhead"><h4>数字滚动</h4><button type="button" class="zh-btn sm" id="zhMoCountGo"><i data-i="rotate-ccw"></i>重播</button></div>
+            <div class="zh-mo-counts">
+              <div><div class="zh-hint" style="margin:0">访问量</div><div class="metric metric-lg"><span data-mo-count="12480" aria-hidden="true">0</span><span class="zh-mo-vh">12,480</span></div></div>
+              <div><div class="zh-hint" style="margin:0">转化率</div><div class="metric metric-lg"><span data-mo-count="42.6" data-dec="1" aria-hidden="true">0</span><span class="unit" aria-hidden="true">%</span><span class="zh-mo-vh">42.6%</span></div></div>
+            </div><span class="zh-mo-note">easeOut 900ms，只更新文字</span></div>
+          <div class="zh-card"><h4>进度条填充</h4>
+            <div class="zh-mo-prog" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="示例进度" id="zhMoProg"><i></i></div>
+            <div class="zh-row" style="--g:6px;margin-top:10px"><button type="button" class="zh-btn sm" data-mo-prog="0">0%</button><button type="button" class="zh-btn sm" data-mo-prog="40">40%</button><button type="button" class="zh-btn sm" data-mo-prog="75">75%</button><button type="button" class="zh-btn sm primary" data-mo-prog="100">100%</button><span class="metric metric-sm" id="zhMoProgN" style="margin-left:auto">0%</span></div>
+            <span class="zh-mo-note">用 scaleX 而不是 width</span></div>
+        </div>
+
+        <h3>滚动显现 · 骨架屏</h3>
+        <div class="zh-mo-grid">
+          <div class="zh-card"><div class="zh-mo-cardhead"><h4>滚动显现（错开 30ms）</h4><button type="button" class="zh-btn sm" id="zhMoRevealGo"><i data-i="rotate-ccw"></i>重播</button></div>
+            <div class="zh-mo-scroller" id="zhMoScroller" tabindex="0" aria-label="滚动显现示例"></div></div>
+          <div class="zh-card"><div class="zh-mo-cardhead"><h4>骨架屏 → 内容</h4><button type="button" class="zh-btn sm" id="zhMoSkelGo"><i data-i="refresh-cw"></i>切换</button></div>
+            <div class="zh-mo-swap" id="zhMoSwap" aria-busy="true" style="min-height:104px">
+              <div class="skel"><div class="zh-mo-skel"><div class="av zh-anim-shimmer"></div><div class="zh-stack" style="--g:8px"><div class="ln zh-anim-shimmer" style="width:60%"></div><div class="ln zh-anim-shimmer"></div><div class="ln zh-anim-shimmer" style="width:82%"></div></div></div></div>
+              <div class="real"><div class="av">赵</div><div><b>赵伟</b><div class="zh-hint" style="margin:2px 0 0">内容加载完成，骨架屏淡出，真实内容淡入，没有布局跳动。</div></div></div>
+            </div><span class="zh-mo-note">骨架与内容同尺寸叠放，只切换透明度</span></div>
+        </div>
+
+        <h3>减少动态效果</h3>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:600px">
+          <thead><tr><th>动效</th><th>常规</th><th>减少动态效果</th></tr></thead>
+          <tbody>
+            <tr><td>滑动 / 缩放 / 弹出</td><td>位移 + 淡入</td><td>只淡入</td></tr>
+            <tr><td>翻转</td><td>rotateY 180°</td><td>两面交叉淡入淡出</td></tr>
+            <tr><td>共享轴 / 页面切换</td><td>沿轴位移 + 淡入淡出</td><td>只交叉淡入淡出</td></tr>
+            <tr><td>折叠展开</td><td>高度过渡</td><td>立即展开 / 收起</td></tr>
+            <tr><td>列表进入 / 离开 / 重排</td><td>逐项错开 + FLIP 位移</td><td>同时淡入，不做位移</td></tr>
+            <tr><td>抖动（错误提示）</td><td>左右抖动</td><td>闪烁两次</td></tr>
+            <tr><td>加载旋转</td><td>持续旋转</td><td>缓慢明暗变化</td></tr>
+            <tr><td>脉冲 / 涟漪 / 弹跳 / 漂浮 / 心跳 / 波形 / 输入中</td><td>无限循环</td><td>静止，保留静态形态</td></tr>
+            <tr><td>骨架屏光带</td><td>光带扫过</td><td>静态底色</td></tr>
+            <tr><td>对勾描边 / 数字滚动</td><td>逐步绘制 / 滚动</td><td>直接显示 / 直接显示最终值</td></tr>
+          </tbody>
+        </table></div>
+        <pre class="zh-mo-code">@media (prefers-reduced-motion: reduce) {
+  .zh-anim-slide-up, .zh-anim-scale-in, .zh-anim-pop { animation-name: zh-kf-fade-in; }
+  .zh-anim-pulse, .zh-anim-bounce, .zh-anim-float { animation: none; }
+}
+/* JS：动画前先判断 */
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;</pre>
+        <ul class="check" style="margin-top:12px">
+          <li>「减少动态效果」不等于「没有动画」：淡入淡出仍然保留，用来告诉用户状态发生了变化</li>
+          <li>本节的开关加的是 <code>.zh-reduce-motion</code> 类；真实系统设置命中 <code>prefers-reduced-motion</code> 时，本页的基础样式会更保守，直接停用全部过渡与动画</li>
+          <li>无限循环的动画（加载、光带）必须能被系统设置停掉，并且不要超过页面上必要的数量</li>
+        </ul>
+      </section>

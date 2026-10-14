@@ -1,0 +1,72 @@
+{
+  "name": "result",
+  "title": "结果页",
+  "summary": "纯样式组件：不需要 JS。操作完成、失败或页面不存在时的反馈块：图标（或大号错误码）、标题、说明、补充信息、操作按钮，居中排列。用 data-tone 选语气。",
+  "classes": [
+    "zh-result",
+    "zh-result-icon",
+    "zh-result-code",
+    "zh-result-title",
+    "zh-result-desc",
+    "zh-result-extra",
+    "zh-result-actions"
+  ],
+  "attributes": [
+    {
+      "name": "zh-result",
+      "on": "容器（class）",
+      "value": "",
+      "desc": "居中的结果块，通常放在 .zh-card 里"
+    },
+    {
+      "name": "data-tone",
+      "on": ".zh-result",
+      "value": "success | error | info | warning（默认中性灰）",
+      "desc": "决定图标圆底和图标的颜色"
+    },
+    {
+      "name": "zh-result-icon",
+      "on": "图标容器",
+      "value": "里面放 <i data-i=\"...\">",
+      "desc": "圆形底色图标"
+    },
+    {
+      "name": "zh-result-code",
+      "on": "大号文字",
+      "value": "如 404",
+      "desc": "错误页用，装饰性，加 aria-hidden=\"true\""
+    },
+    {
+      "name": "zh-result-title / zh-result-desc",
+      "on": "<h4> / <p>",
+      "value": "",
+      "desc": "标题和说明，说明最宽约 46 个字符"
+    },
+    {
+      "name": "zh-result-extra",
+      "on": "补充块",
+      "value": "里面放 <ul>",
+      "desc": "失败原因、后续步骤等，左对齐的灰底块"
+    },
+    {
+      "name": "zh-result-actions",
+      "on": "按钮容器",
+      "value": "里面放 zh-btn",
+      "desc": "居中排列；手机宽度按钮各占一行"
+    },
+    {
+      "name": "is-in",
+      "on": ".zh-result",
+      "value": "",
+      "desc": "可选：加上后播放入场动画（图标弹出，其余依次升起）"
+    }
+  ],
+  "events": [],
+  "methods": [],
+  "a11y": [
+    "结果出现在已有页面里（不是整页跳转）时，给 .zh-result 加 aria-live=\"polite\"",
+    "只靠颜色不够：标题要写明成功还是失败",
+    "大号错误码是装饰，加 aria-hidden=\"true\"，意思放在标题里"
+  ],
+  "example": "<div class=\"zh-card\" style=\"padding:0\">\n  <div class=\"zh-result\" data-tone=\"success\" aria-live=\"polite\">\n    <div class=\"zh-result-icon\"><i data-i=\"circle-check\"></i></div>\n    <h4 class=\"zh-result-title\">提交成功</h4>\n    <p class=\"zh-result-desc\">审批单已提交，预计 1 个工作日内处理。</p>\n    <div class=\"zh-result-actions\">\n      <button class=\"zh-btn primary\">查看详情</button>\n      <button class=\"zh-btn\">返回列表</button>\n    </div>\n  </div>\n</div>"
+}

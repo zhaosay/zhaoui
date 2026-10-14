@@ -1,0 +1,84 @@
+/* ===== Tree ===== */
+.zh-tree { --zh-tree-row: calc(var(--zh-control-h) - 2px); --zh-tree-indent: 20px; position: relative; overflow: auto; overscroll-behavior: contain; border-radius: var(--zh-radius-md); }
+.zh-tree-live { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.zh-tree-row {
+  position: relative; display: flex; align-items: center; gap: 6px; height: var(--zh-tree-row); padding: 0 8px 0 calc((var(--zh-tree-lvl) - 1) * var(--zh-tree-indent) + 4px);
+  border-radius: var(--zh-radius-md); color: var(--zh-text); cursor: pointer; user-select: none; -webkit-user-select: none; white-space: nowrap;
+  transition: background var(--zh-dur-fast) var(--zh-ease-standard), color var(--zh-dur-fast) var(--zh-ease-standard);
+}
+.zh-tree-row:hover { background: var(--zh-bg-subtle); }
+.zh-tree-row:focus { outline: none; }
+.zh-tree-row:focus-visible { box-shadow: inset 0 0 0 2px var(--zh-color-primary); }
+.zh-tree-row.is-selected { background: var(--zh-color-primary-subtle); color: var(--zh-color-primary-text); }
+.zh-tree-row[aria-disabled="true"]:not(.zh-tree-row--status) { color: var(--zh-text-disabled); cursor: not-allowed; }
+.zh-tree-row--status { cursor: default; color: var(--zh-text-secondary); font-size: .93em; }
+.zh-tree-row--status:hover { background: transparent; }
+.zh-tree-row.is-error { color: var(--zh-text-danger); }
+.zh-tree--guides .zh-tree-row::before {
+  content: ""; position: absolute; left: 4px; top: 0; bottom: 0; width: calc((var(--zh-tree-lvl) - 1) * var(--zh-tree-indent)); pointer-events: none;
+  background-image: repeating-linear-gradient(90deg, var(--zh-border) 0 1px, transparent 1px var(--zh-tree-indent)); background-position: 9px 0;
+}
+.zh-tree-toggle { flex: none; width: 20px; height: 20px; display: grid; place-items: center; color: var(--zh-text-tertiary); border-radius: var(--zh-radius-sm); }
+.zh-tree-toggle .ico { width: 14px; height: 14px; transition: transform var(--zh-dur-base) var(--zh-ease-standard); }
+.zh-tree-row.is-open > .zh-tree-toggle .ico:not(.zh-tree-spin) { transform: rotate(90deg); }
+.zh-tree-toggle:hover { background: var(--zh-border); color: var(--zh-text); }
+.zh-tree-toggle--leaf { visibility: hidden; }
+.zh-tree-spin { animation: zh-tree-rot 900ms linear infinite; }
+@keyframes zh-tree-rot { to { transform: rotate(360deg); } }
+.zh-tree-check {
+  flex: none; width: 16px; height: 16px; display: grid; place-items: center; border: 1.5px solid var(--zh-border-strong); border-radius: var(--zh-radius-sm); background: var(--zh-bg); color: var(--zh-on-primary);
+  transition: background var(--zh-dur-fast) var(--zh-ease-standard), border-color var(--zh-dur-fast) var(--zh-ease-standard);
+}
+.zh-tree-check .ico { width: 12px; height: 12px; stroke-width: 3; }
+.zh-tree-row:hover > .zh-tree-check { border-color: var(--zh-color-primary); }
+.zh-tree-row[aria-checked="true"] > .zh-tree-check, .zh-tree-row[aria-checked="mixed"] > .zh-tree-check { background: var(--zh-color-primary); border-color: var(--zh-color-primary); }
+.zh-tree-row[aria-disabled="true"] > .zh-tree-check { opacity: var(--zh-opacity-disabled); }
+.zh-tree-icon { flex: none; display: grid; place-items: center; color: var(--zh-text-tertiary); }
+.zh-tree-icon .ico { width: 16px; height: 16px; }
+.zh-tree-row.is-selected > .zh-tree-icon { color: inherit; }
+.zh-tree-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.zh-tree-edit { width: 100%; height: calc(var(--zh-tree-row) - 8px); padding: 0 8px; font: inherit; color: var(--zh-text); background: var(--zh-bg); border: 1px solid var(--zh-color-primary); border-radius: var(--zh-radius-sm); box-shadow: 0 0 0 3px var(--zh-color-primary-subtle); outline: none; }
+.zh-tree-actions { flex: none; display: none; gap: 2px; }
+.zh-tree-row:hover .zh-tree-actions, .zh-tree-row:focus-within .zh-tree-actions, .zh-tree-row.is-selected .zh-tree-actions { display: inline-flex; }
+@media (hover: none) { .zh-tree-actions { display: inline-flex; } }
+.zh-tree-act { width: 24px; height: 24px; display: grid; place-items: center; padding: 0; color: var(--zh-text-secondary); background: none; border: 0; border-radius: var(--zh-radius-sm); cursor: pointer; }
+.zh-tree-act .ico { width: 14px; height: 14px; }
+.zh-tree-act:hover { background: var(--zh-border); color: var(--zh-text); }
+.zh-tree-act[data-act="remove"]:hover { background: var(--zh-danger-bg); color: var(--zh-text-danger); }
+.zh-tree-act:focus-visible, .zh-tree-retry:focus-visible { outline: none; box-shadow: var(--zh-focus-ring); }
+.zh-tree-retry { margin-left: 4px; padding: 0 8px; height: 22px; font: inherit; font-size: .86em; color: var(--zh-color-primary-text); background: var(--zh-color-primary-subtle); border: 0; border-radius: var(--zh-radius-sm); cursor: pointer; }
+.zh-tree-empty { padding: 24px 12px; text-align: center; color: var(--zh-text-tertiary); }
+.zh-tree-row.is-enter { animation: zh-tree-in var(--zh-dur-base) var(--zh-ease-enter) both; animation-delay: calc(min(var(--zh-i, 0), 8) * var(--zh-stagger)); }
+.zh-tree-row.is-leave { animation: zh-tree-out var(--zh-dur-fast) var(--zh-ease-exit) both; }
+@keyframes zh-tree-in { from { opacity: 0; transform: translateY(-6px); } }
+@keyframes zh-tree-out { to { opacity: 0; transform: translateY(-4px); } }
+.zh-tree-row.is-dragging { opacity: .4; }
+.zh-tree-row.is-drop-before::after, .zh-tree-row.is-drop-after::after { content: ""; position: absolute; left: 8px; right: 8px; height: 2px; border-radius: 1px; background: var(--zh-color-primary); pointer-events: none; }
+.zh-tree-row.is-drop-before::after { top: -1px; } .zh-tree-row.is-drop-after::after { bottom: -1px; }
+.zh-tree-row.is-drop-inside { background: var(--zh-color-primary-subtle); box-shadow: inset 0 0 0 1.5px var(--zh-color-primary); }
+.zh-tree-ghost { position: fixed; z-index: var(--zh-z-tooltip); pointer-events: none; display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; font-size: .93em; color: var(--zh-text); background: var(--zh-bg-elevated); border: 1px solid var(--zh-color-primary); border-radius: var(--zh-radius-md); box-shadow: var(--zh-shadow-md); }
+body.zh-tree-dragging { user-select: none; -webkit-user-select: none; cursor: grabbing; }
+body.zh-tree-dragging * { cursor: grabbing !important; }
+.zh-tree-log { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: .9em; max-height: 300px; overflow: auto; }
+.zh-tree-log li { display: flex; gap: 8px; align-items: baseline; padding-bottom: 6px; border-bottom: 1px dashed var(--zh-border); }
+.zh-tree-log li b { flex: none; min-width: 5.5em; font: 600 .86em var(--zh-font-mono); color: var(--zh-color-primary-text); }
+.zh-tree-log li:first-child { animation: zh-tree-in var(--zh-dur-base) var(--zh-ease-enter) both; }
+
+/* TreeSelect */
+.zh-tselect { display: flex; align-items: center; justify-content: space-between; gap: 8px; height: auto; min-height: var(--zh-control-h); padding-top: 3px; padding-bottom: 3px; cursor: pointer; text-align: left; }
+.zh-tselect .zh-tselect-val { flex: 1; min-width: 0; display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.zh-tselect .zh-tselect-ph { color: var(--zh-text-tertiary); }
+.zh-tselect .ico.zh-tselect-caret { color: var(--zh-text-tertiary); transition: transform var(--zh-dur-base) var(--zh-ease-standard); }
+.zh-tselect[aria-expanded="true"] { border-color: var(--zh-color-primary); box-shadow: 0 0 0 3px var(--zh-color-primary-subtle); }
+.zh-tselect[aria-expanded="true"] .zh-tselect-caret { transform: rotate(180deg); }
+.zh-tselect:focus-visible { outline: none; border-color: var(--zh-color-primary); box-shadow: 0 0 0 3px var(--zh-color-primary-subtle); }
+.zh-tselect-chip { display: inline-flex; align-items: center; gap: 2px; height: calc(var(--zh-control-h) - 12px); padding: 0 4px 0 8px; font-size: .86em; color: var(--zh-color-primary-text); background: var(--zh-color-primary-subtle); border-radius: var(--zh-radius-sm); }
+.zh-tselect-x { display: grid; place-items: center; width: 18px; height: 18px; padding: 0; color: inherit; background: none; border: 0; border-radius: var(--zh-radius-sm); cursor: pointer; }
+.zh-tselect-x:hover { background: var(--zh-primary-a14); }
+.zh-tselect-x .ico { width: 12px; height: 12px; }
+.zh-tselect-pop { padding: 6px; min-width: 240px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .zh-tree-row.is-enter, .zh-tree-row.is-leave, .zh-tree-log li:first-child { animation: none; }
+  .zh-tree-toggle .ico { transition: none; }
+}

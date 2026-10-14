@@ -1,0 +1,48 @@
+{
+  "name": "comment",
+  "title": "评论",
+  "summary": "纯样式组件：不需要 JS，写好标记即可。评论列表项：头像、昵称、时间、正文、操作，回复缩进显示。头像用 zh-avatar。",
+  "classes": [
+    "zh-comment",
+    "zh-comment-body",
+    "zh-comment-head",
+    "zh-comment-name",
+    "zh-comment-time",
+    "zh-comment-text",
+    "zh-comment-actions",
+    "zh-comment-replies"
+  ],
+  "attributes": [
+    {
+      "name": "zh-comment",
+      "on": "<article>（class）",
+      "value": "里面放头像和 zh-comment-body",
+      "desc": "一条评论"
+    },
+    {
+      "name": "zh-comment-head",
+      "on": "body 里的容器",
+      "value": "昵称 zh-comment-name 与时间 zh-comment-time",
+      "desc": "标题行"
+    },
+    {
+      "name": "zh-comment-actions",
+      "on": "body 里的容器",
+      "value": "里面放按钮或链接",
+      "desc": "回复、点赞等操作"
+    },
+    {
+      "name": "zh-comment-replies",
+      "on": "body 里的容器",
+      "value": "里面放嵌套的 zh-comment",
+      "desc": "回复列表，左侧有竖线并缩进"
+    }
+  ],
+  "events": [],
+  "methods": [],
+  "a11y": [
+    "用 <article> 表示一条评论，时间用 <time datetime>",
+    "回复嵌套在 zh-comment-replies 里，层级不要超过两层"
+  ],
+  "example": "<article class=\"zh-comment\">\n  <span class=\"zh-avatar\" data-name=\"李明\" data-size=\"sm\"></span>\n  <div class=\"zh-comment-body\">\n    <div class=\"zh-comment-head\"><span class=\"zh-comment-name\">李明</span><time class=\"zh-comment-time\" datetime=\"2026-10-04T15:20\">2 小时前</time></div>\n    <p class=\"zh-comment-text\">这次的发布流程比上次清楚多了。</p>\n    <div class=\"zh-comment-actions\"><button class=\"zh-btn sm text\">回复</button><button class=\"zh-btn sm text\">赞</button></div>\n  </div>\n</article>"
+}

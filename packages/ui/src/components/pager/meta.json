@@ -1,0 +1,79 @@
+{
+  "name": "pager",
+  "title": "分页",
+  "summary": "分页器，页码数量恒定不跳动，支持每页条数、跳转框、简洁模式、多种尺寸。声明式写 data-zh-pager，或用 ZhaoUI.pager 创建。库不管数据，只管页码，翻页后你自己取数据。",
+  "classes": [
+    "zh-pg"
+  ],
+  "attributes": [
+    {
+      "name": "data-zh-pager",
+      "on": ".zh-pg 或任意容器",
+      "value": "无",
+      "desc": "声明这是一个分页器，用下面的 data-* 配置"
+    },
+    {
+      "name": "data-total / data-page / data-page-size（等同 data-size）",
+      "on": "容器",
+      "value": "整数",
+      "desc": "总条数 / 当前页（默认 1）/ 每页条数（默认 10）。注意：data-size 和 data-page-size 是每页多少条，不是控件大小；控件大小用 data-size-name"
+    },
+    {
+      "name": "data-sizes",
+      "on": "容器",
+      "value": "逗号分隔，如 10,20,50",
+      "desc": "每页条数的可选项，配合 data-show-size-changer"
+    },
+    {
+      "name": "data-show-total / data-show-size-changer / data-show-jumper",
+      "on": "容器",
+      "value": "布尔属性",
+      "desc": "显示总数（默认开）/ 每页条数选择 / 跳转输入框"
+    },
+    {
+      "name": "data-simple / data-bordered / data-disabled / data-hide-on-single-page",
+      "on": "容器",
+      "value": "布尔属性",
+      "desc": "简洁模式 / 带边框 / 禁用 / 只有一页时隐藏"
+    },
+    {
+      "name": "data-size-name",
+      "on": "容器",
+      "value": "sm | md（默认）| lg",
+      "desc": "控件的大小，不是每页条数（每页条数用 data-page-size）"
+    },
+    {
+      "name": "data-siblings / data-boundary",
+      "on": "容器",
+      "value": "整数，默认 1",
+      "desc": "当前页两侧与首尾各保留几个页码"
+    }
+  ],
+  "events": [
+    {
+      "name": "zh:page-change",
+      "on": "容器",
+      "detail": "{ page, size }",
+      "desc": "页码或每页条数变化时触发（冒泡）"
+    }
+  ],
+  "methods": [
+    {
+      "name": "ZhaoUI.pager(el, { total, page, size, ..., onChange })",
+      "desc": "命令式创建，返回 { get(), set(partial), go(page) }。选项与上面的 data-* 一一对应（驼峰写法）"
+    },
+    {
+      "name": "el.__zhPager.set({ total })",
+      "desc": "数据条数变化后更新（例如筛选后），页码会自动收敛到有效范围"
+    }
+  ],
+  "a11y": [
+    "当前页带 aria-current=\"page\"，每个页码按钮有「第 N 页」的 aria-label",
+    "翻页后通过 aria-live 朗读「第 3 页，共 49 页」",
+    "上一页 / 下一页在首尾时用 aria-disabled，不会丢失焦点",
+    "页码过多时用「…」按钮，可以一次向前 / 向后跳多页",
+    "跳转框输入非法页码时标记 aria-invalid 并朗读提示",
+    "翻页后表格内容要你自己换：库只管页码，监听 zh:page-change 取数据，再用 el.__zhPager.set({ total }) 更新总数"
+  ],
+  "example": "<nav class=\"zh-pg\" id=\"pg1\" data-zh-pager data-total=\"486\" data-size=\"10\" data-show-size-changer data-show-jumper aria-label=\"文章分页\"></nav>\n<nav class=\"zh-pg\" data-zh-pager data-total=\"200\" data-simple aria-label=\"简洁分页\"></nav>\n\n<script>\ndocument.getElementById('pg1').addEventListener('zh:page-change', function (e) {\n  console.log('第', e.detail.page, '页，每页', e.detail.size, '条');\n});\n</script>"
+}

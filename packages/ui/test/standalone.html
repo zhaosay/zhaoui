@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="zh-CN" data-audience="b" data-mode="light" data-density="standard">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ZhaoUI standalone</title>
+<!-- The whole point of this page: nothing but these two files. -->
+<link rel="stylesheet" href="../dist/zhaoui.css">
+<script src="../dist/zhaoui.js" defer></script>
+<style>body{margin:0;padding:24px;background:var(--zh-bg);color:var(--zh-text);font:14px/1.57 var(--zh-font-sans)} section{margin:0 0 28px}</style>
+</head>
+<body>
+<section id="s-btn">
+  <button class="zh-btn primary" id="b-primary">主要按钮</button>
+  <button class="zh-btn" id="b-default">默认按钮</button>
+  <button class="zh-btn zh-tip" data-tip="提示信息" id="b-tip">悬停</button>
+  <button class="zh-btn text" id="b-text">文字</button>
+  <button class="zh-btn danger" id="b-danger">危险</button>
+  <button class="zh-btn" id="b-disabled" aria-disabled="true">禁用</button>
+</section>
+
+<section id="s-modal">
+  <button class="zh-btn" id="o-modal" data-zh-open="#dlg">打开模态框</button>
+  <dialog class="zh-modal" id="dlg" aria-labelledby="dlgT" data-zh-backdrop-close>
+    <header id="dlgT">确认删除</header>
+    <div class="body">删除后无法恢复。</div>
+    <footer><button class="zh-btn" data-zh-close>取消</button><button class="zh-btn primary" data-zh-close id="dlg-ok">确定</button></footer>
+  </dialog>
+</section>
+
+<section id="s-drawer">
+  <button class="zh-btn" id="o-drawer" data-zh-open="#drw">打开抽屉</button>
+  <aside class="zh-drawer" id="drw" aria-label="详情"><button class="zh-btn text" data-zh-close id="drw-close">关闭</button><p>抽屉内容</p></aside>
+</section>
+
+<section id="s-tabs">
+  <div class="zh-tabs" role="tablist" id="tabs" aria-label="分区">
+    <button role="tab" aria-selected="true" aria-controls="p1" id="t1">概览</button>
+    <button role="tab" aria-selected="false" aria-controls="p2" id="t2">正文</button>
+    <button role="tab" aria-selected="false" aria-controls="p3" id="t3">评论</button>
+  </div>
+  <div id="p1">概览内容</div><div id="p2">正文内容</div><div id="p3">评论内容</div>
+</section>
+
+<section id="s-collapse">
+  <div class="zh-collapse" data-mode="single" id="col">
+    <div class="zh-collapse-item is-open" id="ci1"><h4 class="zh-collapse-h"><button class="zh-collapse-trigger" type="button"><span class="lead">第一项</span><i data-i="chevron-right" class="zh-collapse-chev"></i></button></h4><div class="zh-collapse-panel"><div class="zh-collapse-inner"><div class="zh-collapse-content">内容一</div></div></div></div>
+    <div class="zh-collapse-item" id="ci2"><h4 class="zh-collapse-h"><button class="zh-collapse-trigger" type="button"><span class="lead">第二项</span><i data-i="chevron-right" class="zh-collapse-chev"></i></button></h4><div class="zh-collapse-panel"><div class="zh-collapse-inner"><div class="zh-collapse-content">内容二</div></div></div></div>
+  </div>
+</section>
+
+<section id="s-dd">
+  <button class="zh-btn" id="dd-btn" data-zh-dropdown="#dd-menu">操作 <i data-i="chevron-down"></i></button>
+  <ul class="zh-menu" id="dd-menu" hidden>
+    <li><a href="#" data-value="edit">编辑</a></li><li><a href="#" data-value="copy">复制</a></li><li><a href="#" data-value="del">删除</a></li>
+  </ul>
+</section>
+
+<section id="s-msg"><button class="zh-btn" id="msg-btn" onclick="ZhaoUI.message('保存成功',{duration:400})">显示消息</button></section>
+
+<section id="s-input">
+  <div class="zh-inp" id="i-clear"><span class="zh-inp-box"><input class="zh-inp-el" type="text" id="i-clear-el" aria-label="邮箱" value=""><button type="button" class="zh-inp-btn zh-inp-clear" aria-label="清除" hidden><i data-i="x" data-s="16"></i></button></span></div>
+  <div class="zh-inp" id="i-pw"><span class="zh-inp-box"><input class="zh-inp-el" type="password" id="i-pw-el" value="hunter2" aria-label="密码"><button type="button" class="zh-inp-btn zh-inp-eye" aria-label="显示密码" aria-pressed="false"><i data-i="eye" data-s="18"></i></button></span></div>
+  <div class="zh-inp zh-inp-search" id="i-search" data-search><span class="zh-inp-box"><input class="zh-inp-el" type="search" id="i-search-el" aria-label="搜索"><button type="button" class="zh-inp-btn zh-inp-clear" aria-label="清除搜索" hidden><i data-i="x" data-s="16"></i></button></span></div>
+  <div class="zh-inp zh-num" id="n1" data-min="1" data-max="10" data-step="1"><button type="button" class="zh-num-btn" data-dir="-1" aria-label="减少" tabindex="-1"><i data-i="minus" data-s="16"></i></button><input class="zh-inp-el" id="n1-el" role="spinbutton" inputmode="numeric" value="3" aria-label="数量"><button type="button" class="zh-num-btn" data-dir="1" aria-label="增加" tabindex="-1"><i data-i="plus" data-s="16"></i></button></div>
+  <div class="zh-inp zh-num" id="n2" data-min="0" data-max="9999" data-step="0.5" data-precision="2"><button type="button" class="zh-num-btn" data-dir="-1" aria-label="减少" tabindex="-1"><i data-i="minus" data-s="16"></i></button><input class="zh-inp-el" id="n2-el" role="spinbutton" inputmode="decimal" value="12.50" aria-label="金额"><button type="button" class="zh-num-btn" data-dir="1" aria-label="增加" tabindex="-1"><i data-i="plus" data-s="16"></i></button></div>
+  <div id="otpL">验证码</div><div class="zh-otp" id="otp" data-length="6" aria-labelledby="otpL"></div>
+  <div class="zh-ta" id="ta1" data-max-rows="4"><textarea class="zh-textarea" id="ta1-el" rows="2" maxlength="20" aria-label="简介"></textarea><span class="zh-ta-count" aria-hidden="true">0 / 20</span></div>
+  <div><div class="zh-ta" id="ta2" data-soft-max="10" data-max-rows="4"><textarea class="zh-textarea" id="ta2-el" rows="2" aria-label="备注"></textarea><span class="zh-ta-count" aria-hidden="true"></span></div></div>
+  <div class="zh-edit" id="ed" data-label="名称"><button type="button" class="zh-edit-view" id="ed-view" aria-label="编辑名称：中控系统"><span class="zh-edit-text">中控系统</span><i data-i="pencil" data-s="16"></i></button></div>
+</section>
+
+<section id="s-display">
+  <div class="zh-progress" id="pg1" data-value="36" data-name="导入数据"></div>
+  <div class="zh-progress" id="pg-top" data-label="top" data-title="存储空间" data-value="62" data-name="存储空间"></div>
+  <div class="zh-progress" id="pg-steps" data-steps="10" data-value="60" data-name="步骤"></div>
+  <div class="zh-progress" id="pg-ex" data-status="exception" data-value="42" data-name="失败"></div>
+  <div class="zh-progress" id="pg-ind" data-indeterminate="true" data-label="none" data-name="加载中"></div>
+  <div class="zh-progress" id="pg-tg" data-target="0.8" data-target-label="目标 80%" data-value="64" data-name="季度目标"></div>
+  <div class="zh-ring" id="rg1" data-value="65" data-name="完成率"></div>
+  <div class="zh-ring" id="rg-g" data-shape="gauge" data-value="72" data-name="仪表"></div>
+  <div class="zh-ring" id="rg-ex" data-value="42" data-status="exception" data-name="失败"></div>
+
+  <span class="zh-bdg"><button class="zh-btn">消息</button><span class="zh-bdg-mark" id="bm1" data-count="5" data-tone="danger" data-label="条未读"></span></span>
+  <span class="zh-bdg"><button class="zh-btn">待办</button><span class="zh-bdg-mark" id="bm2" data-count="128" data-tone="primary" data-label="项待办"></span></span>
+  <span class="zh-bdg"><button class="zh-btn">零</button><span class="zh-bdg-mark" id="bm0" data-count="0" data-tone="danger" data-label="条"></span></span>
+  <span class="zh-bdg"><button class="zh-btn">点</button><span class="zh-bdg-mark" id="bmd" data-dot="true" data-tone="danger" data-label="有更新"></span></span>
+  <span class="zh-bdg"><button class="zh-btn">新</button><span class="zh-bdg-mark" id="bmt" data-text="NEW" data-tone="success"></span></span>
+
+  <span class="zh-avatar" id="av1" data-name="张三" data-size="md"></span>
+  <span class="zh-avatar" id="av2" data-name="Ada Lovelace" data-size="md"></span>
+  <span class="zh-avatar" id="av3" data-name="在线" data-size="lg" data-status="success"></span>
+  <span class="zh-avatar" id="av4" data-name="王五" data-src="data:image/png;base64,broken" data-size="md"></span>
+
+  <div id="tags">
+    <span class="zh-tag zh-tag--x primary" id="tg-a"><span>设计</span><button type="button" class="zh-tag-close" aria-label="移除 设计"><i data-i="x"></i></button></span>
+    <span class="zh-tag zh-tag--x" id="tg-b"><span>研发</span><button type="button" class="zh-tag-close" aria-label="移除 研发"><i data-i="x"></i></button></span>
+    <span class="zh-tag zh-tag--x" id="tg-c"><span>运营</span><button type="button" class="zh-tag-close" aria-label="移除 运营"><i data-i="x"></i></button></span>
+  </div>
+  <div class="zh-tag-group" id="period" role="radiogroup" aria-label="选择周期">
+    <button class="zh-tag zh-tag--x zh-tag--check" role="radio" aria-checked="true" tabindex="0"><i data-i="check" data-s="12" class="zh-tag-tick"></i>今天</button>
+    <button class="zh-tag zh-tag--x zh-tag--check" role="radio" aria-checked="false" tabindex="-1"><i data-i="check" data-s="12" class="zh-tag-tick"></i>近 7 天</button>
+    <button class="zh-tag zh-tag--x zh-tag--check" role="radio" aria-checked="false" tabindex="-1"><i data-i="check" data-s="12" class="zh-tag-tick"></i>近 30 天</button>
+  </div>
+  <div class="zh-tag-group" id="chan" role="group" aria-label="选择渠道">
+    <button class="zh-tag zh-tag--x zh-tag--check" role="checkbox" aria-checked="true"><i data-i="check" data-s="12" class="zh-tag-tick"></i>短信</button>
+    <button class="zh-tag zh-tag--x zh-tag--check" role="checkbox" aria-checked="false"><i data-i="check" data-s="12" class="zh-tag-tick"></i>邮件</button>
+  </div>
+</section>
+
+<section id="s-slider" style="max-width:420px">
+  <div class="zh-slider" id="sl1" data-value="40" data-label="音量" data-fmt="{v}%" data-out="#sl1o"></div><output id="sl1o"></output>
+  <div class="zh-slider" id="sl2" data-value="50" data-step="25" data-label="清晰度" data-marks="0:流畅,25:标清,50:高清,75:超清,100:蓝光"></div>
+  <div class="zh-slider" id="sl3" data-value="800,3200" data-min="0" data-max="5000" data-step="50" data-gap="200" data-label="价格" data-fmt="¥{v}" data-link="#sl3a,#sl3b"></div>
+  <input id="sl3a" type="number" aria-label="最低价"><input id="sl3b" type="number" aria-label="最高价">
+  <div class="zh-slider" id="sl4" data-value="78" data-label="用量" data-fmt="{v}%" data-colors="0:primary,70:warning,90:danger" data-status="0:正常,70:偏高,90:危险"></div>
+  <div class="zh-slider" id="sl5" data-value="30" data-label="锁定" data-disabled></div>
+  <div class="zh-rating" id="rt1" data-value="3" data-label="服务评分" data-labels="很差,较差,一般,满意,很好"></div>
+  <div class="zh-rating" id="rt2" data-value="3.5" data-half data-show-value data-label="口味评分"></div>
+  <div class="zh-rating" id="rt3" data-readonly data-value="4.27" data-show-value data-label="综合评分"></div>
+  <div class="zh-rating" id="rt4" data-value="2" data-clear data-label="可清除"></div>
+</section>
+
+<section id="s-pager">
+  <nav class="zh-pg" id="pgA" data-zh-pager data-total="486" data-size="10" data-show-size-changer data-show-jumper aria-label="分页"></nav>
+  <nav class="zh-pg" id="pgS" data-zh-pager data-total="200" data-size="10" data-simple aria-label="简洁分页"></nav>
+  <nav class="zh-pg" id="pgD" data-zh-pager data-total="300" data-size="10" data-page="3" data-disabled aria-label="禁用分页"></nav>
+  <nav class="zh-pg" id="pgH" data-zh-pager data-total="5" data-size="10" data-hide-on-single-page aria-label="单页"></nav>
+  <nav class="zh-pg" id="pgI" aria-label="命令式"></nav>
+</section>
+
+<section id="s-select">
+  <form id="frm">
+    <label for="rg">区域</label>
+    <select id="rg" name="region" data-zh-select data-clearable required>
+      <option value="">请选择区域</option><option value="east" selected>华东</option><option value="south">华南</option><option value="north">华北</option>
+    </select>
+    <label for="ct">城市</label>
+    <select id="ct" name="city" data-zh-select data-searchable data-empty-text="没有这个城市">
+      <option value="">请选择城市</option>
+      <optgroup label="直辖市"><option value="bj" data-keys="beijing bj" data-desc="首都">北京</option><option value="sh" data-keys="shanghai sh">上海</option></optgroup>
+      <optgroup label="广东省"><option value="gz" data-keys="guangzhou gz">广州</option><option value="sz" data-keys="shenzhen sz" disabled>深圳</option></optgroup>
+    </select>
+    <label for="tg">标签</label>
+    <select id="tg" name="tags" multiple data-zh-select data-searchable data-clearable data-max-tags="2">
+      <option value="fe" selected>前端</option><option value="be" selected>后端</option><option value="ux">设计</option><option value="qa">测试</option>
+    </select>
+    <select id="lt" name="lt" data-zh-select aria-label="字母"><option value="a">Alpha</option><option value="b">Beta</option><option value="g">Gamma</option></select>
+    <select id="off" name="off" data-zh-select disabled aria-label="禁用"><option value="a" selected>A</option></select>
+    <button type="reset" id="frm-reset">重置</button>
+  </form>
+  <div id="imp"></div>
+  <div id="ac"></div>
+</section>
+
+<section id="s-cas">
+  <form id="frm2">
+    <div id="cas1" data-zh-cascader data-name="region" data-searchable data-value="浙江/杭州/西湖区" data-placeholder="请选择地区" aria-label="地区">
+      <ul hidden>
+        <li>浙江<ul><li>杭州<ul><li>西湖区</li><li>余杭区</li></ul></li><li>宁波<ul><li>海曙区</li><li>鄞州区</li></ul></li></ul></li>
+        <li>江苏<ul><li>南京<ul><li>玄武区</li></ul></li></ul></li>
+        <li data-disabled>海南<ul><li>海口<ul><li>龙华区</li></ul></li></ul></li>
+      </ul>
+    </div>
+    <div id="cas2" data-zh-cascader data-name="tech" data-expand-trigger="hover" data-clearable="false" data-placeholder="技术栈" aria-label="技术栈">
+      <ul hidden><li data-value="fe">前端<ul><li data-value="vue">Vue</li><li data-value="react">React</li></ul></li><li data-value="be">后端<ul><li data-value="node">Node</li></ul></li></ul>
+    </div>
+  </form>
+  <div id="cas3"></div>
+</section>
+
+<section id="s-date">
+  <form id="frm3">
+    <div id="d1" data-zh-date data-name="birthday" data-value="2026-10-15" data-min="2026-10-05" data-max="2026-10-25" data-msg="#d1msg" aria-label="日期"></div><div id="d1msg" aria-live="polite">未选择</div>
+    <div id="d2" data-zh-date data-disable-weekends data-disabled-dates="2026-10-14" data-value="2026-10-13" aria-label="工作日"></div>
+    <div id="r1" data-zh-daterange data-name-start="from" data-name-end="to" data-start="2026-10-01" data-end="2026-10-07" data-max="2026-12-31" data-msg="#r1msg" aria-label="统计周期"></div><div id="r1msg" aria-live="polite">—</div>
+    <div id="tm1" data-zh-time data-name="at" data-value="09:30" aria-label="提醒时间"></div>
+    <div id="tm2" data-zh-time data-seconds data-step-minutes="15" data-value="14:15:10" aria-label="精确时间"></div>
+    <div id="dt1" data-zh-datetime data-name="when" data-value="2026-10-15 09:30" data-min="2026-10-05" data-msg="#dt1msg" aria-label="预约时间"></div><div id="dt1msg" aria-live="polite">—</div>
+  </form>
+  <div id="dpi"></div>
+</section>
+
+<section id="s-trial">
+  <!-- found by the skill trial: several tabs share ONE panel -->
+  <div class="zh-tabs" role="tablist" id="seg" aria-label="周期"><button role="tab" aria-selected="true" aria-controls="segPanel" id="seg1">今日</button><button role="tab" aria-selected="false" aria-controls="segPanel" id="seg2">近 7 天</button><button role="tab" aria-selected="false" aria-controls="segPanel" id="seg3">近 30 天</button></div>
+  <section id="segPanel" aria-live="polite">面板</section>
+  <div class="zh-tabs" role="tablist" id="mix" aria-label="混合"><button role="tab" aria-selected="true" aria-controls="mixA" id="mix1">甲</button><button role="tab" aria-selected="false" aria-controls="mixB" id="mix2">乙</button></div>
+  <div id="mixA">A</div><div id="mixB">B</div>
+  <!-- range picker with an explicit narrow width, like the page in the trial -->
+  <div id="r2" data-zh-daterange style="width:12rem" aria-label="窄"></div>
+  <nav class="zh-pg" id="pgAlias" data-zh-pager data-total="95" data-page-size="20" aria-label="别名"></nav>
+  <label for="d3" id="d3lab">日期</label><div id="d3" data-zh-date></div>
+  <label for="c9">地区</label><div id="c9" data-zh-cascader><ul hidden><li>浙江<ul><li>杭州</li></ul></li></ul></div>
+  <table id="rowsT"><tr data-id="1"><td>一</td><td><button class="zh-btn text" id="rb1" data-zh-dropdown="#rowMenu">操作</button></td></tr><tr data-id="2"><td>二</td><td><button class="zh-btn text" id="rb2" data-zh-dropdown="#rowMenu">操作</button></td></tr><tr data-id="3"><td>三</td><td><button class="zh-btn text" id="rb3" data-zh-dropdown="#rowMenu">操作</button></td></tr></table>
+  <ul class="zh-menu" id="rowMenu" hidden><li><a href="#" data-value="edit">编辑</a></li><li><a href="#" data-value="del">删除</a></li></ul>
+</section>
+</body>
+</html>

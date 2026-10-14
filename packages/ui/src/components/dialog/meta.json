@@ -1,0 +1,64 @@
+{
+  "name": "dialog",
+  "title": "模态框与抽屉",
+  "summary": "模态框基于原生 <dialog>，抽屉是右侧滑出的面板。用 data-zh-open / data-zh-close 声明即可，也可用 ZhaoUI.open / close / dialog 调用。",
+  "classes": [
+    "zh-modal",
+    "zh-drawer"
+  ],
+  "attributes": [
+    {
+      "name": "data-zh-open",
+      "on": "按钮或链接",
+      "value": "目标的 CSS 选择器，如 #dlg",
+      "desc": "点击后打开目标对话框或抽屉，并记住触发元素，关闭后焦点回到它"
+    },
+    {
+      "name": "data-zh-close",
+      "on": "对话框或抽屉内的按钮",
+      "value": "留空，或目标选择器",
+      "desc": "点击后关闭所在的对话框或抽屉；写了选择器则关闭那个目标"
+    },
+    {
+      "name": "data-zh-backdrop-close",
+      "on": "dialog.zh-modal",
+      "value": "无",
+      "desc": "点击遮罩（对话框以外的区域）关闭"
+    }
+  ],
+  "events": [
+    {
+      "name": "zh:open",
+      "on": "抽屉",
+      "detail": "无",
+      "desc": "抽屉打开后触发（冒泡）"
+    },
+    {
+      "name": "zh:close",
+      "on": "抽屉",
+      "detail": "无",
+      "desc": "抽屉关闭后触发（冒泡）。模态框用原生 close 事件"
+    }
+  ],
+  "methods": [
+    {
+      "name": "ZhaoUI.open(target, opener?)",
+      "desc": "打开对话框或抽屉。target 是元素或选择器；opener 是关闭后要聚焦回去的元素（可选）"
+    },
+    {
+      "name": "ZhaoUI.close(target)",
+      "desc": "关闭对话框或抽屉"
+    },
+    {
+      "name": "ZhaoUI.dialog({ title, content, ok, cancel, danger, backdropClose })",
+      "desc": "弹出确认框，返回 Promise：点确定为 true，取消、Esc 为 false。选项：title 标题；content 正文（纯文本，要放标签请传 DOM 节点）；ok 确定按钮文字（默认「确定」）；cancel 取消按钮文字（默认「取消」，传 false 则不显示取消）；danger 为 true 时确定按钮用危险样式（红色），否则是主色；backdropClose 为 true 时点遮罩也算取消。例：ZhaoUI.dialog({ title: '删除文章？', content: '删除后无法恢复', ok: '删除', cancel: '再想想', danger: true }).then(function (yes) { if (yes) remove(); })"
+    }
+  ],
+  "a11y": [
+    "模态框使用原生 <dialog>.showModal()：浏览器负责焦点限制、Esc 关闭与背景不可交互",
+    "抽屉打开时限制 Tab 焦点在抽屉内，Esc 关闭；关闭后带 inert 与 aria-hidden，不会被键盘聚焦到",
+    "关闭后焦点回到触发元素（包括 Safari，它点击按钮时不会给按钮焦点，所以库自己记住了触发元素）",
+    "对话框请用 aria-labelledby 指向标题；ZhaoUI.dialog 已自动处理"
+  ],
+  "example": "<button class=\"zh-btn\" data-zh-open=\"#dlg\">打开</button>\n<dialog class=\"zh-modal\" id=\"dlg\" aria-labelledby=\"dlgT\" data-zh-backdrop-close>\n  <header id=\"dlgT\">确认删除</header>\n  <div class=\"body\">删除后无法恢复。</div>\n  <footer>\n    <button class=\"zh-btn\" data-zh-close>取消</button>\n    <button class=\"zh-btn primary\" data-zh-close>确定</button>\n  </footer>\n</dialog>\n\n<button class=\"zh-btn\" data-zh-open=\"#drw\">打开抽屉</button>\n<aside class=\"zh-drawer\" id=\"drw\" aria-label=\"详情\">\n  <button class=\"zh-btn text\" data-zh-close>关闭</button>\n  <p>抽屉内容</p>\n</aside>\n\n<script>\nZhaoUI.dialog({ title: '删除文章？', content: '删除后无法恢复', danger: true })\n  .then(function (ok) { if (ok) { /* 执行删除 */ } });\n</script>"
+}

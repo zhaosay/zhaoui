@@ -1,0 +1,93 @@
+{
+  "name": "daterange",
+  "title": "日期范围选择",
+  "summary": "两个输入框加一个双月日历，选开始和结束两次点击；带「近 7 天 / 近 30 天 / 本月 / 上月」快捷项。窄屏变为单月。",
+  "classes": [
+    "zh-dp",
+    "zh-dp-panel",
+    "zh-dp-presets"
+  ],
+  "attributes": [
+    {
+      "name": "data-zh-daterange",
+      "on": "<div>",
+      "value": "无",
+      "desc": "声明这是日期范围选择"
+    },
+    {
+      "name": "data-start / data-end",
+      "on": "容器",
+      "value": "YYYY-MM-DD",
+      "desc": "初始的开始与结束日期"
+    },
+    {
+      "name": "data-min / data-max",
+      "on": "容器",
+      "value": "YYYY-MM-DD",
+      "desc": "可选范围"
+    },
+    {
+      "name": "data-presets",
+      "on": "容器",
+      "value": "false 表示关闭",
+      "desc": "默认显示快捷项"
+    },
+    {
+      "name": "data-name-start / data-name-end",
+      "on": "容器",
+      "value": "字段名",
+      "desc": "分别生成开始、结束两个隐藏 input"
+    },
+    {
+      "name": "data-size",
+      "on": "容器",
+      "value": "sm | md（默认）| lg",
+      "desc": "尺寸"
+    },
+    {
+      "name": "aria-label / data-labelledby / data-label",
+      "on": "容器",
+      "value": "字符串 / 标签元素 id / 弹层标题",
+      "desc": "输入框的无障碍名称；data-label 是弹出面板的标题"
+    },
+    {
+      "name": "data-msg",
+      "on": "容器",
+      "value": "一个元素的选择器，如 #status",
+      "desc": "可选的状态提示元素：选择、报错时会把文字写进去（读屏可以朗读），元素上可预先写好默认文字"
+    },
+    {
+      "name": "<label for=\"容器 id\">",
+      "on": "容器所在页面的 <label>",
+      "value": "for 指向容器的 id",
+      "desc": "label 会成为输入框的无障碍名称，点击 label 会聚焦输入框；容器是空 <div>，label 的 for 指向它的 id 即可"
+    }
+  ],
+  "events": [
+    {
+      "name": "zh:daterange-change",
+      "on": "容器",
+      "detail": "{ start, end, dates: [Date|null, Date|null] }",
+      "desc": "范围确定、键入确认或清除后触发（冒泡）；start / end 是 YYYY-MM-DD 字符串或空串"
+    }
+  ],
+  "methods": [
+    {
+      "name": "ZhaoUI.dateRangePicker(host, { start, end, min, max, presets, size, label, msg, onChange })",
+      "desc": "命令式创建；onChange(start, end)"
+    },
+    {
+      "name": "el.zhDateRange.get() / .set(start, end) / .open() / .close()",
+      "desc": "get 返回 [Date|null, Date|null]；set 接受字符串或 Date"
+    }
+  ],
+  "a11y": [
+    "两个输入框在一个 role=\"group\" 里，分别叫「开始日期」「结束日期」",
+    "第一次点击选开始，第二次选结束；先点了较晚的日期再点较早的，会自动对调",
+    "悬停时预览范围；已选中的天数会朗读（如「共 7 天」）",
+    "键入时结束日期早于开始日期会被拒绝并提示；键盘操作与单日期相同",
+    "窄屏（≤ 767px）时日历只显示一个月",
+    "需要的宽度：范围选择器至少 17.5rem（约 280px，样式里是 min-width），放进更窄的容器会溢出容器而不是截断日期。筛选栏里请给它留足位置，不要给它或它的父元素设更窄的宽度"
+  ],
+  "example": "<div data-zh-daterange data-name-start=\"from\" data-name-end=\"to\" data-start=\"2026-10-01\" data-end=\"2026-10-07\" data-max=\"2026-12-31\" aria-label=\"统计周期\"></div>\n\n<script>\ndocument.querySelector('[data-zh-daterange]').addEventListener('zh:daterange-change', function (e) {\n  console.log(e.detail.start, '→', e.detail.end);\n});\n</script>"
+}

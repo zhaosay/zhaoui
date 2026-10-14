@@ -1,0 +1,23 @@
+{
+  "name": "@zhaoui/tokens",
+  "version": "0.1.0",
+  "description": "ZhaoUI design tokens: single source of truth compiled to CSS variables, JSON and JS.",
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    ".": { "types": "./src/index.d.ts", "default": "./src/index.mjs" },
+    "./css": "./dist/zhaoui.css",
+    "./tokens.json": "./dist/tokens.json",
+    "./runtime": "./dist/zhaoui.runtime.js",
+    "./figma": "./dist/tokens.figma.json",
+    "./style-glass": "./dist/zhaoui-style-glass.css"
+  },
+  "files": ["src", "dist", "styles"],
+  "sideEffects": ["./dist/zhaoui.css"],
+  "engines": { "node": ">=20" },
+  "browserslist": ["chrome >= 111", "edge >= 111", "safari >= 16.4", "firefox >= 113", "ios_saf >= 16.4", "not dead"],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node scripts/build.mjs && node --test test/*.test.mjs"
+  }
+}

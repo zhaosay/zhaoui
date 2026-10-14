@@ -1,0 +1,62 @@
+{
+  "name": "avatar",
+  "title": "头像",
+  "summary": "图片头像；图片缺失或加载失败时，用姓名首字（中文取第一个字，英文取首字母）和由姓名决定的颜色代替。",
+  "classes": [
+    "zh-avatar",
+    "zh-avatar-face",
+    "zh-avatar-status",
+    "zh-avatar-group"
+  ],
+  "attributes": [
+    {
+      "name": "data-name",
+      "on": ".zh-avatar",
+      "value": "字符串",
+      "desc": "姓名；必填，库据此初始化，也是无障碍名称"
+    },
+    {
+      "name": "data-src",
+      "on": ".zh-avatar",
+      "value": "图片地址",
+      "desc": "头像图片；加载失败自动退回首字"
+    },
+    {
+      "name": "data-size",
+      "on": ".zh-avatar",
+      "value": "xs | sm | md | lg | xl",
+      "desc": "尺寸"
+    },
+    {
+      "name": "data-shape",
+      "on": ".zh-avatar",
+      "value": "square | circle（默认）",
+      "desc": "方形头像，默认圆形"
+    },
+    {
+      "name": "data-icon",
+      "on": ".zh-avatar",
+      "value": "图标名",
+      "desc": "用图标代替首字"
+    },
+    {
+      "name": "data-status",
+      "on": ".zh-avatar",
+      "value": "success | warning | danger | primary",
+      "desc": "右下角的在线状态点"
+    },
+    {
+      "name": "data-tone",
+      "on": "头像",
+      "value": "brand",
+      "desc": "用品牌色代替按名字挑选的 8 种分类色，适合一个品牌页里所有头像颜色一致"
+    }
+  ],
+  "events": [],
+  "methods": [],
+  "a11y": [
+    "元素带 role=\"img\" 与 aria-label（取姓名）",
+    "状态点只是装饰，需要传达状态时请在旁边写文字"
+  ],
+  "example": "<span class=\"zh-avatar\" data-name=\"张三\" data-size=\"md\"></span>\n<span class=\"zh-avatar\" data-name=\"Ada Lovelace\" data-size=\"md\"></span>\n<span class=\"zh-avatar\" data-name=\"设计\" data-size=\"md\" data-shape=\"square\"></span>\n<span class=\"zh-avatar\" data-name=\"在线\" data-size=\"lg\" data-status=\"success\"></span>"
+}

@@ -1,0 +1,58 @@
+{
+  "name": "ring",
+  "title": "环形进度",
+  "summary": "圆环、仪表盘（270°）、半圆三种形状的进度，中心显示百分比或自定义内容。",
+  "classes": [
+    "zh-ring"
+  ],
+  "attributes": [
+    {
+      "name": "data-value",
+      "on": ".zh-ring",
+      "value": "0 到 100",
+      "desc": "当前进度；必须写，库据此初始化"
+    },
+    {
+      "name": "data-shape",
+      "on": ".zh-ring",
+      "value": "full（默认）| gauge | semi",
+      "desc": "圆环 / 仪表盘 / 半圆"
+    },
+    {
+      "name": "data-size",
+      "on": ".zh-ring",
+      "value": "sm | lg",
+      "desc": "尺寸，默认中号"
+    },
+    {
+      "name": "data-caption",
+      "on": ".zh-ring",
+      "value": "字符串",
+      "desc": "百分比下方的小字"
+    },
+    {
+      "name": "data-status",
+      "on": ".zh-ring",
+      "value": "normal | success | warning | exception",
+      "desc": "状态色；到 100 自动变为 success，中心换成对勾"
+    },
+    {
+      "name": "data-name",
+      "on": ".zh-ring",
+      "value": "字符串",
+      "desc": "无障碍名称"
+    }
+  ],
+  "events": [],
+  "methods": [
+    {
+      "name": "ZhaoUI.ring.set(el, value, centerHtml?)",
+      "desc": "更新进度；centerHtml 可选，传入则替换中心内容。centerHtml 按 HTML 处理，不要放用户输入"
+    }
+  ],
+  "a11y": [
+    "自动带 role=\"progressbar\" 与 aria-valuenow",
+    "到 100 时中心显示对勾，失败时显示叉，不只靠颜色区分"
+  ],
+  "example": "<div class=\"zh-ring\" id=\"ring\" data-value=\"65\" data-name=\"完成率\"></div>\n<div class=\"zh-ring\" data-size=\"lg\" data-value=\"88\" data-name=\"目标\" data-caption=\"完成率\"></div>\n<div class=\"zh-ring\" data-shape=\"gauge\" data-value=\"72\" data-name=\"仪表\"></div>\n<div class=\"zh-ring\" data-value=\"42\" data-status=\"exception\" data-name=\"失败\"></div>\n\n<script>\nZhaoUI.ring.set('#ring', 90);\n</script>"
+}

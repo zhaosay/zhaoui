@@ -1,0 +1,62 @@
+{
+  "name": "otp",
+  "title": "验证码输入",
+  "summary": "分格的一次性验证码输入。只写一个空的容器，格子由库生成；支持粘贴、退格回退、方向键。校验由你来做，用 ZhaoUI.otp 把结果显示出来。",
+  "classes": [
+    "zh-otp",
+    "zh-otp-cell"
+  ],
+  "attributes": [
+    {
+      "name": "data-length",
+      "on": ".zh-otp",
+      "value": "整数，默认 6",
+      "desc": "验证码位数"
+    },
+    {
+      "name": "aria-labelledby",
+      "on": ".zh-otp",
+      "value": "标签元素的 id",
+      "desc": "容器会自动加 role=\"group\"，用它给整组命名"
+    },
+    {
+      "name": "is-error / is-ok",
+      "on": ".zh-otp",
+      "value": "class",
+      "desc": "由 ZhaoUI.otp.error / ok 设置，也会在用户再次输入时自动清除"
+    }
+  ],
+  "events": [
+    {
+      "name": "zh:otp-complete",
+      "on": ".zh-otp",
+      "detail": "{ value }",
+      "desc": "所有格子填满时触发（冒泡），value 是完整的验证码字符串"
+    }
+  ],
+  "methods": [
+    {
+      "name": "ZhaoUI.otp.value(el)",
+      "desc": "读取当前已输入的内容"
+    },
+    {
+      "name": "ZhaoUI.otp.error(el)",
+      "desc": "标记为错误并播放抖动动画"
+    },
+    {
+      "name": "ZhaoUI.otp.ok(el)",
+      "desc": "标记为通过"
+    },
+    {
+      "name": "ZhaoUI.otp.clear(el)",
+      "desc": "清空所有格子并把焦点放回第一格"
+    }
+  ],
+  "a11y": [
+    "每一格都有「第 N 位，共 M 位」的 aria-label；第一格带 autocomplete=\"one-time-code\"，手机可以自动填入短信验证码",
+    "只接受数字，粘贴一串数字会从当前格开始依次填入",
+    "← → 在格子间移动，Home / End 到首尾，空格子里按退格会回到上一格并清空它",
+    "el 参数可以是元素，也可以是选择器"
+  ],
+  "example": "<div id=\"otpLabel\">输入 6 位验证码</div>\n<div class=\"zh-otp\" id=\"otp\" data-length=\"6\" aria-labelledby=\"otpLabel\"></div>\n\n<script>\ndocument.getElementById('otp').addEventListener('zh:otp-complete', function (e) {\n  // 换成你自己的校验\n  if (e.detail.value === '123456') ZhaoUI.otp.ok('#otp'); else ZhaoUI.otp.error('#otp');\n});\n</script>"
+}

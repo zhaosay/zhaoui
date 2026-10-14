@@ -1,0 +1,66 @@
+{
+  "name": "@zhaoui/ui",
+  "version": "0.1.0",
+  "description": "ZhaoUI is a dependency-free UI component library: one CSS file and one JS file, components driven by data-zh-* attributes. Dozens of accessible components (tables, date pickers, selects, dialogs, charts, tree, upload) with light/dark themes. 中文 UI 组件库，原生 HTML/CSS/JS，无需框架。",
+  "private": true,
+  "license": "MIT",
+  "homepage": "https://ui.352m.com/",
+  "repository": { "type": "git", "url": "git+https://github.com/zhaosay/zhaoui.git", "directory": "packages/ui" },
+  "author": "zhaosay",
+  "keywords": ["ui","ui-library","component-library","design-system","design-tokens","components","css","vanilla-js","no-framework","dependency-free","data-attributes","accessibility","a11y","aria","dark-mode","theming","datepicker","select","data-table","dialog","modal","tree","upload","chart","admin-dashboard","zh-cn","chinese"],
+  "main": "./dist/zhaoui.js",
+  "style": "./dist/zhaoui.min.css",
+  "unpkg": "./dist/zhaoui.min.js",
+  "jsdelivr": "./dist/zhaoui.min.js",
+  "types": "./types/index.d.ts",
+  "sideEffects": true,
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "default": "./dist/zhaoui.js"
+    },
+    "./zhaoui.css": "./dist/zhaoui.css",
+    "./zhaoui.min.css": "./dist/zhaoui.min.css",
+    "./zhaoui.js": "./dist/zhaoui.js",
+    "./zhaoui.min.js": "./dist/zhaoui.min.js",
+    "./icons": "./dist/zhaoui-icons.js",
+    "./marketing.css": "./dist/zhaoui-marketing.css",
+    "./marketing.min.css": "./dist/zhaoui-marketing.min.css",
+    "./utilities.css": "./dist/zhaoui-utilities.css",
+    "./utilities.min.css": "./dist/zhaoui-utilities.min.css",
+    "./glass": "./dist/zhaoui-style-glass.css",
+    "./modular/*": "./dist/modular/*",
+    "./docs/*": "./docs/*",
+    "./skills/*": "./skills/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "docs",
+    "skills",
+    "types/index.d.ts",
+    "README.md",
+    "CHANGELOG.md",
+    "THIRD_PARTY_NOTICES.md",
+    "LICENSE",
+    "RELEASING.md"
+  ],
+  "browserslist": [
+    "chrome >= 111",
+    "edge >= 111",
+    "safari >= 16.4",
+    "firefox >= 113"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit --strict --target es2020 --lib es2020,dom types/index.d.ts types/usage.test.ts",
+    "test": "node scripts/build.mjs && npm run typecheck && node test/smoke.mjs && node test/modular.mjs",
+    "test:matrix": "node test/matrix.mjs",
+    "verify-pack": "node scripts/verify-pack.mjs",
+    "prepublishOnly": "node scripts/prepublish-check.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2"
+  }
+}

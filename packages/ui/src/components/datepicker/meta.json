@@ -1,0 +1,105 @@
+{
+  "name": "date",
+  "title": "日期选择",
+  "summary": "点击输入框弹出日历，也可以直接键入日期。支持最早 / 最晚日期、禁用周末、禁用指定日期，键盘完整可用。声明式写一个空 <div data-zh-date>，命令式用 ZhaoUI.datePicker。周从周一开始。",
+  "classes": [
+    "zh-dp",
+    "zh-dp-panel",
+    "zh-dp-cal",
+    "zh-dp-day"
+  ],
+  "attributes": [
+    {
+      "name": "data-zh-date",
+      "on": "<div>",
+      "value": "无",
+      "desc": "声明这是日期选择；控件会构建在这个 div 里"
+    },
+    {
+      "name": "data-value",
+      "on": "容器",
+      "value": "YYYY-MM-DD",
+      "desc": "初始日期"
+    },
+    {
+      "name": "data-min / data-max",
+      "on": "容器",
+      "value": "YYYY-MM-DD",
+      "desc": "最早 / 最晚可选日期，范围外的日子禁用"
+    },
+    {
+      "name": "data-disable-weekends",
+      "on": "容器",
+      "value": "布尔属性",
+      "desc": "周六周日不可选"
+    },
+    {
+      "name": "data-disabled-dates",
+      "on": "容器",
+      "value": "逗号分隔的日期，如 2026-10-01,2026-10-02",
+      "desc": "指定日期不可选"
+    },
+    {
+      "name": "data-placeholder",
+      "on": "容器",
+      "value": "字符串，默认 YYYY-MM-DD",
+      "desc": "占位文字"
+    },
+    {
+      "name": "data-name",
+      "on": "容器",
+      "value": "字段名",
+      "desc": "生成隐藏 <input name=…> 参与表单提交"
+    },
+    {
+      "name": "data-size",
+      "on": "容器",
+      "value": "sm | md（默认）| lg",
+      "desc": "尺寸"
+    },
+    {
+      "name": "aria-label / data-labelledby / data-label",
+      "on": "容器",
+      "value": "字符串 / 标签元素 id / 弹层标题",
+      "desc": "输入框的无障碍名称；data-label 是弹出面板的标题"
+    },
+    {
+      "name": "data-msg",
+      "on": "容器",
+      "value": "一个元素的选择器，如 #status",
+      "desc": "可选的状态提示元素：选择、报错时会把文字写进去（读屏可以朗读），元素上可预先写好默认文字"
+    },
+    {
+      "name": "<label for=\"容器 id\">",
+      "on": "容器所在页面的 <label>",
+      "value": "for 指向容器的 id",
+      "desc": "label 会成为输入框的无障碍名称，点击 label 会聚焦输入框；容器是空 <div>，label 的 for 指向它的 id 即可"
+    }
+  ],
+  "events": [
+    {
+      "name": "zh:date-change",
+      "on": "容器",
+      "detail": "{ value: 'YYYY-MM-DD' | '', date: Date | null }",
+      "desc": "用户选择、键入确认或清除后触发（冒泡）；用 set() 设置不触发"
+    }
+  ],
+  "methods": [
+    {
+      "name": "ZhaoUI.datePicker(host, { value, min, max, disabledDate, size, placeholder, label, labelledby, msg, onChange })",
+      "desc": "命令式创建。value / min / max 可以是 'YYYY-MM-DD' 字符串或 Date；disabledDate(date) 返回空串表示可选，返回文字表示不可选并作为原因；onChange(date)"
+    },
+    {
+      "name": "el.zhDate.get() / .set(value) / .open() / .close()",
+      "desc": "get 返回 Date 或 null；set 接受字符串或 Date，不触发事件"
+    }
+  ],
+  "a11y": [
+    "输入框是 role=\"combobox\"，弹层是 role=\"dialog\"；日格是按钮，aria-label 为「2026年10月15日 星期四」，今天带 aria-current=\"date\"，不可选的带 aria-disabled",
+    "日格上：← → 前后一天，↑ ↓ 前后一周，Home / End 到本周首尾，PageUp / PageDown 前后一个月，加 Shift 则一年；Enter 或空格选中；Esc 关闭",
+    "输入框里可直接键入，支持 2026-10-15、2026/10/15、2026年10月15日；不合法或不可选时标记 aria-invalid，并把原因写入 data-msg 元素",
+    "点击月份标题可切到月份 / 年份选择",
+    "按「今天」时如果今天不可选，会弹出说明"
+  ],
+  "example": "<div data-zh-date data-name=\"birthday\" data-value=\"2026-10-15\" data-min=\"2026-10-05\" data-max=\"2026-10-25\" data-msg=\"#birthdayMsg\" aria-label=\"日期\"></div>\n<div id=\"birthdayMsg\" aria-live=\"polite\"></div>\n\n<div data-zh-date data-disable-weekends data-disabled-dates=\"2026-10-14\" aria-label=\"工作日\"></div>\n\n<div id=\"custom\"></div>\n\n<script>\ndocument.querySelector('[data-zh-date]').addEventListener('zh:date-change', function (e) {\n  console.log(e.detail.value);   // 2026-10-20\n});\n\nZhaoUI.datePicker('#custom', {\n  size: 'lg',\n  disabledDate: function (d) { return d.getDate() === 1 ? '每月 1 号不开放' : ''; },\n  onChange: function (d) { console.log(d); }\n});\n</script>"
+}

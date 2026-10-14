@@ -1,0 +1,120 @@
+{
+  "name": "table",
+  "title": "表格",
+  "summary": "带圆角边框的数据表：表头底色、行悬停高亮、数字列右对齐。窄屏（≤ 767px）默认变成卡片列表，也可以改成横向滚动。样式部分不需要 JS；加 data-zh-table 后可以点表头排序、用复选框选择行。分页用 data-zh-pager。",
+  "classes": [
+    "zh-table-wrap",
+    "zh-table",
+    "zh-table-wrap--scroll"
+  ],
+  "attributes": [
+    {
+      "name": "zh-table-wrap",
+      "on": "外层 <div>（class）",
+      "value": "里面放 <table class=\"zh-table\">",
+      "desc": "圆角边框与裁切；必须有，圆角靠它"
+    },
+    {
+      "name": "zh-table",
+      "on": "<table>（class）",
+      "value": "正常的 thead / tbody / tr / th / td",
+      "desc": "表格样式"
+    },
+    {
+      "name": "num",
+      "on": "<th> / <td>（class）",
+      "value": "数字、金额",
+      "desc": "右对齐"
+    },
+    {
+      "name": "data-label",
+      "on": "每个 <td>",
+      "value": "该列的名称，如 data-label=\"状态\"",
+      "desc": "窄屏变卡片列表时显示在值的左侧；不写则左侧为空"
+    },
+    {
+      "name": "zh-table-wrap--scroll",
+      "on": "外层 wrap 上（class）",
+      "value": "加在 zh-table-wrap 上",
+      "desc": "窄屏不变卡片，保持表格并允许横向滚动，适合列很多的后台表格"
+    },
+    {
+      "name": "data-zh-table",
+      "on": "<table>",
+      "value": "",
+      "desc": "开启排序和行选择的行为"
+    },
+    {
+      "name": "data-sort",
+      "on": "表头 <th>",
+      "value": "text | number",
+      "desc": "该列可排序：表头变成按钮，点击在升序、降序、恢复原顺序之间切换。number 会忽略逗号、百分号和货币符号；空值始终排在最后"
+    },
+    {
+      "name": "data-sort-value",
+      "on": "单元格 <td>",
+      "value": "用于排序的值",
+      "desc": "单元格显示的文字不适合排序时（如“2 小时前”）用它指定排序值，如 ISO 时间"
+    },
+    {
+      "name": "data-sort-mode",
+      "on": "<table>",
+      "value": "server",
+      "desc": "只触发事件、不在页面里重排，用于服务端排序；你在事件里请求新数据"
+    },
+    {
+      "name": "data-zh-all",
+      "on": "表头里的 <input type=\"checkbox\">",
+      "value": "",
+      "desc": "全选框；部分行选中时显示半选状态"
+    },
+    {
+      "name": "data-zh-row",
+      "on": "每行里的 <input type=\"checkbox\">",
+      "value": "",
+      "desc": "行选择框；选中的行会加上 is-selected 高亮；加 disabled 的行不参与全选"
+    },
+    {
+      "name": "zh-col-check",
+      "on": "选择框所在的 <th>/<td>",
+      "value": "",
+      "desc": "把该列收窄到刚好放下复选框"
+    }
+  ],
+  "events": [
+    {
+      "name": "zh:table-sort",
+      "on": "<table>",
+      "detail": "{ index, key, direction }",
+      "desc": "排序变化。direction 为 ascending、descending 或 none；key 取 th 的 data-key，没有就用表头文字"
+    },
+    {
+      "name": "zh:table-select",
+      "on": "<table>",
+      "detail": "{ rows, count, all }",
+      "desc": "选择变化。rows 是选中的 <tr> 数组"
+    }
+  ],
+  "methods": [
+    {
+      "name": "ZhaoUI.table.selected(table)",
+      "desc": "返回当前选中的 <tr> 数组"
+    },
+    {
+      "name": "ZhaoUI.table.clear(table)",
+      "desc": "取消全部选择"
+    }
+  ],
+  "a11y": [
+    "请保留 <thead> 与 <th scope=\"col\">，读屏靠它们读出列名",
+    "窄屏卡片模式下表头被移出屏幕但仍可被读屏读到；每个 td 的 data-label 同时给视觉用户字段名",
+    "行内操作按钮（编辑、删除）要有文字或 aria-label",
+    "行悬停高亮只是辅助，不要把信息只放在悬停上",
+    "排序与选择需要自己实现：排序列的 <th> 请加 aria-sort，选择框请有 aria-label",
+    "可排序的表头里是真正的 <button>，键盘可聚焦、回车切换；当前排序列带 aria-sort",
+    "每个行选择框都要有 aria-label，如“选择《产品发布会回顾》”；全选框写“全选”",
+    "排序后读屏不会自动朗读结果；需要时在事件里用 ZhaoUI.message 或 aria-live 区域告知",
+    "横向滚动的容器（zh-table-wrap--scroll）必须加 tabindex=\"0\"、role=\"region\" 和 aria-label，键盘用户才能用方向键左右滚动"
+  ],
+  "example": "<div class=\"zh-table-wrap\">\n  <table class=\"zh-table\">\n    <thead><tr><th scope=\"col\">标题</th><th scope=\"col\">状态</th><th scope=\"col\" class=\"num\">阅读</th><th scope=\"col\">操作</th></tr></thead>\n    <tbody>\n      <tr><td data-label=\"标题\">产品发布会回顾</td><td data-label=\"状态\"><span class=\"zh-tag success\">已发布</span></td><td data-label=\"阅读\" class=\"num\">12,480</td><td data-label=\"操作\"><button class=\"zh-btn sm text\">编辑</button></td></tr>\n      <tr><td data-label=\"标题\">季度运营复盘</td><td data-label=\"状态\"><span class=\"zh-tag warning\">待审核</span></td><td data-label=\"阅读\" class=\"num\">980</td><td data-label=\"操作\"><button class=\"zh-btn sm text\">编辑</button></td></tr>\n    </tbody>\n  </table>\n</div>\n\n<!-- 列很多、窄屏也想保持表格：加 zh-table-wrap--scroll -->\n<div class=\"zh-table-wrap zh-table-wrap--scroll\" tabindex=\"0\" role=\"region\" aria-label=\"订单列表（可横向滚动）\">\n  <table class=\"zh-table\">\n    <thead><tr><th scope=\"col\">订单号</th><th scope=\"col\">客户</th><th scope=\"col\">地区</th><th scope=\"col\">渠道</th><th scope=\"col\">状态</th><th scope=\"col\" class=\"num\">金额</th><th scope=\"col\">下单时间</th></tr></thead>\n    <tbody>\n      <tr><td>20261004-0086</td><td>张三</td><td>上海</td><td>官网</td><td>已发货</td><td class=\"num\">1,286.00</td><td>2026-10-04 15:20</td></tr>\n      <tr><td>20261004-0087</td><td>李四</td><td>北京</td><td>小程序</td><td>待发货</td><td class=\"num\">329.00</td><td>2026-10-04 15:42</td></tr>\n    </tbody>\n  </table>\n</div>\n\n<div class=\"zh-table-wrap\">\n<table class=\"zh-table\" data-zh-table id=\"tbl-sel\">\n  <thead><tr><th class=\"zh-col-check\"><input type=\"checkbox\" data-zh-all aria-label=\"全选\"></th><th data-sort=\"text\">标题</th><th data-sort=\"number\" class=\"num\">阅读量</th><th data-sort=\"text\">更新时间</th></tr></thead>\n  <tbody>\n    <tr><td class=\"zh-col-check\"><input type=\"checkbox\" data-zh-row aria-label=\"选择产品发布会回顾\"></td><td>产品发布会回顾</td><td class=\"num\">12,480</td><td data-sort-value=\"2026-10-04T15:20\">2 小时前</td></tr>\n    <tr><td class=\"zh-col-check\"><input type=\"checkbox\" data-zh-row aria-label=\"选择季度运营复盘\"></td><td>季度运营复盘</td><td class=\"num\">980</td><td data-sort-value=\"2026-10-04T11:02\">6 小时前</td></tr>\n    <tr><td class=\"zh-col-check\"><input type=\"checkbox\" data-zh-row aria-label=\"选择新版设计规范说明\"></td><td>新版设计规范说明</td><td class=\"num\">8,326</td><td data-sort-value=\"2026-10-03T18:45\">昨天</td></tr>\n  </tbody>\n</table>\n</div>"
+}

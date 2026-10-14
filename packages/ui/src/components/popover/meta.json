@@ -1,0 +1,56 @@
+{
+  "name": "popover",
+  "title": "气泡卡片",
+  "summary": "点击（或悬停、聚焦）触发的浮层，里面可以放任意内容：说明、小表单、操作列表。内容写在页面里的一个隐藏元素中，库会复制进浮层。",
+  "classes": [
+    "zh-pop",
+    "zh-pop--popover"
+  ],
+  "attributes": [
+    {
+      "name": "data-zh-popover",
+      "on": "触发按钮",
+      "value": "内容元素的选择器，如 #panel",
+      "desc": "该元素会被隐藏，打开时把它的内容复制进浮层"
+    },
+    {
+      "name": "data-placement",
+      "on": "同上",
+      "value": "top | bottom | left | right，可加 -start / -end，默认 bottom-start",
+      "desc": "位置，空间不够自动翻转"
+    },
+    {
+      "name": "data-trigger",
+      "on": "同上",
+      "value": "click（默认）| hover | focus",
+      "desc": "触发方式"
+    },
+    {
+      "name": "data-arrow",
+      "on": "同上",
+      "value": "",
+      "desc": "显示指向触发元素的小箭头"
+    }
+  ],
+  "events": [
+    {
+      "name": "zh:popover-open",
+      "on": "触发按钮",
+      "detail": "{ popover }",
+      "desc": "浮层打开后，popover 是浮层元素"
+    },
+    {
+      "name": "zh:popover-close",
+      "on": "触发按钮",
+      "detail": "无",
+      "desc": "浮层关闭"
+    }
+  ],
+  "methods": [],
+  "a11y": [
+    "点击触发时焦点被限制在浮层里，按 Esc 或点击外部关闭，焦点回到触发按钮",
+    "触发按钮会自动带 aria-expanded 和 aria-controls",
+    "浮层里的元素是复制品：事件请用事件委托或监听 zh:popover-open，不要给原元素绑定"
+  ],
+  "example": "<button class=\"zh-btn\" data-zh-popover=\"#pv-card\" data-arrow>查看详情</button>\n<div id=\"pv-card\" hidden>\n  <p><strong>李明</strong></p>\n  <p>内容组 · 最近更新 2 小时前</p>\n</div>"
+}

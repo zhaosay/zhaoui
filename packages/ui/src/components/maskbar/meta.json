@@ -1,0 +1,37 @@
+{
+  "name": "maskbar",
+  "title": "遮罩条",
+  "summary": "纯样式组件：不需要 JS，写好标记即可。盖在图片或卡片底部的说明条：渐变深色底配白字，在任何图片上都能读。zh-maskbar--solid 是纯色条，zh-maskbar--hover 平时隐藏、悬停或聚焦时出现。",
+  "classes": [
+    "zh-mask-wrap",
+    "zh-maskbar",
+    "zh-maskbar--solid",
+    "zh-maskbar--hover"
+  ],
+  "attributes": [
+    {
+      "name": "zh-mask-wrap",
+      "on": "容器（class）",
+      "value": "",
+      "desc": "相对定位并裁切，里面放图片和遮罩条"
+    },
+    {
+      "name": "zh-maskbar",
+      "on": "容器里的元素",
+      "value": "文字",
+      "desc": "底部渐变遮罩条；颜色固定为深底白字，不随主题变"
+    },
+    {
+      "name": "zh-maskbar--solid / --hover",
+      "on": ".zh-maskbar",
+      "value": "",
+      "desc": "纯色底 / 悬停才出现"
+    }
+  ],
+  "events": [],
+  "methods": [],
+  "a11y": [
+    "悬停才出现的遮罩条，内容在触屏设备上看不到，重要信息不要只放在里面（库在触屏设备上不做特殊处理）"
+  ],
+  "example": "<div class=\"zh-mask-wrap\" style=\"max-width:16rem;aspect-ratio:16/9;background:var(--zh-color-primary-subtle)\">\n  <div class=\"zh-maskbar\">产品发布会现场</div>\n</div>"
+}

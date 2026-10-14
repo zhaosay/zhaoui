@@ -1,0 +1,114 @@
+/* ===== 输入框：一个框装下前后缀、清除、开关 ===== */
+.zh-inp {
+  display: flex; align-items: stretch; width: 100%; min-width: 0; height: var(--zh-control-h);
+  border: 1px solid var(--zh-border-strong); border-radius: var(--zh-radius-md); background: var(--zh-bg); color: var(--zh-text);
+  box-shadow: inset 0 1px 2px rgba(16, 24, 40, .05); overflow: hidden;
+  transition: border-color var(--zh-dur-fast) var(--zh-ease-standard), box-shadow var(--zh-dur-fast) var(--zh-ease-standard);
+}
+.zh-inp.sm { height: calc(var(--zh-control-h) - 8px); }
+.zh-inp.lg { height: calc(var(--zh-control-h) + 8px); }
+.zh-inp:hover, .zh-inp.is-hover { border-color: var(--zh-color-primary); }
+.zh-inp:focus-within, .zh-inp.is-focus { border-color: var(--zh-color-primary); box-shadow: 0 0 0 3px var(--zh-color-primary-subtle); }
+.zh-inp-box { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; padding: 0 12px; }
+.zh-inp-el { flex: 1; min-width: 0; width: 100%; height: 100%; border: 0; outline: 0; padding: 0; background: transparent; color: inherit; font: inherit; -webkit-appearance: none; appearance: none; }
+.zh-inp-el::placeholder { color: var(--zh-text-tertiary); }
+.zh-inp-el[type="search"]::-webkit-search-cancel-button, .zh-inp-el[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+.zh-inp-pre { color: var(--zh-text-tertiary); flex: none; transition: color var(--zh-dur-fast); }
+.zh-inp:focus-within .zh-inp-pre { color: var(--zh-color-primary-text); }
+.zh-inp-suf { color: var(--zh-text-secondary); flex: none; }
+.zh-inp-btn {
+  flex: none; width: 24px; height: 24px; padding: 0; border: 0; border-radius: var(--zh-radius-sm); background: transparent; color: var(--zh-text-tertiary);
+  display: inline-grid; place-items: center; cursor: pointer; transition: background var(--zh-dur-fast), color var(--zh-dur-fast);
+}
+.zh-inp-btn:hover { background: var(--zh-bg-subtle); color: var(--zh-text); }
+.zh-inp-btn:focus-visible { outline: none; box-shadow: var(--zh-focus-ring); }
+.zh-inp-btn[hidden] { display: none; }
+.zh-inp-addon { display: flex; align-items: center; padding: 0 12px; background: var(--zh-bg-subtle); color: var(--zh-text-secondary); white-space: nowrap; font: inherit; }
+.zh-inp-addon:first-child { border-inline-end: 1px solid var(--zh-border); }
+.zh-inp-addon:last-child { border-inline-start: 1px solid var(--zh-border); }
+button.zh-inp-addon-btn { border: 0; cursor: pointer; color: var(--zh-color-primary-text); font-weight: 500; transition: background var(--zh-dur-fast); }
+button.zh-inp-addon-btn:hover { background: var(--zh-color-primary-subtle); }
+button.zh-inp-addon-btn:focus-visible { outline: none; box-shadow: inset var(--zh-focus-ring); }
+.zh-inp-addon-select { padding: 0 4px 0 8px; }
+.zh-inp-select { height: 100%; border: 0; background: transparent; color: inherit; font: inherit; outline: none; cursor: pointer; padding-inline-end: 4px; }
+.zh-inp-addon-kbd { padding: 0 8px; }
+.zh-inp-status { flex: none; display: inline-flex; align-items: center; color: var(--zh-text-success); }
+
+.zh-inp.is-disabled { opacity: var(--zh-opacity-disabled); background: var(--zh-bg-subtle); cursor: not-allowed; }
+.zh-inp.is-disabled:hover { border-color: var(--zh-border-strong); }
+.zh-inp.is-disabled .zh-inp-el { cursor: not-allowed; }
+.zh-inp.is-error { border-color: var(--zh-danger); }
+.zh-inp.is-error:focus-within { box-shadow: 0 0 0 3px var(--zh-danger-bg); }
+.zh-inp.is-success { border-color: var(--zh-success); }
+.zh-inp.is-success:focus-within { box-shadow: 0 0 0 3px var(--zh-success-bg); }
+.zh-inp.is-loading .zh-inp-status { color: var(--zh-text-tertiary); }
+.zh-input.is-warning { border-color: var(--zh-warning); }
+.zh-input.is-warning:focus { box-shadow: 0 0 0 3px var(--zh-warning-bg); }
+.zh-inp-spin { animation: zh-inp-spin .8s linear infinite; }
+@keyframes zh-inp-spin { to { transform: rotate(360deg); } }
+.zh-inp-msg { display: flex; align-items: flex-start; gap: 6px; font-size: .85em; line-height: 1.45; }
+.zh-inp-msg .ico { margin-top: 1px; flex: none; }
+.zh-inp-msg.is-error { color: var(--zh-text-danger); }
+.zh-inp-msg.is-warning { color: var(--zh-text-warning); }
+.zh-inp-msg.is-success { color: var(--zh-text-success); }
+.zh-inp-msg[hidden] { display: none; }
+.zh-inp-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+/* 数字步进 */
+.zh-num .zh-inp-el { text-align: center; font-variant-numeric: tabular-nums; }
+.zh-num-btn {
+  flex: none; width: var(--zh-control-h); padding: 0; border: 0; background: var(--zh-bg-subtle); color: var(--zh-text-secondary);
+  display: grid; place-items: center; cursor: pointer; -webkit-tap-highlight-color: transparent;
+  transition: background var(--zh-dur-fast), color var(--zh-dur-fast);
+}
+.zh-num.sm .zh-num-btn { width: calc(var(--zh-control-h) - 8px); }
+.zh-num.lg .zh-num-btn { width: calc(var(--zh-control-h) + 8px); }
+.zh-num-btn:first-child { border-inline-end: 1px solid var(--zh-border); }
+.zh-num-btn:last-child { border-inline-start: 1px solid var(--zh-border); }
+.zh-num-btn:hover:not(:disabled) { background: var(--zh-color-primary-subtle); color: var(--zh-color-primary-text); }
+.zh-num-btn:active:not(:disabled) { background: var(--zh-primary-a22); }
+.zh-num-btn:disabled { opacity: var(--zh-opacity-disabled); cursor: not-allowed; }
+.zh-num-split .zh-num-stack { display: flex; flex-direction: column; width: 30px; flex: none; border-inline-start: 1px solid var(--zh-border); }
+.zh-num-split .zh-num-btn { flex: 1; width: 100%; border: 0; }
+.zh-num-split .zh-num-btn + .zh-num-btn { border-top: 1px solid var(--zh-border); }
+.zh-num-split .zh-inp-el { text-align: start; }
+
+/* 验证码 */
+.zh-otp { display: flex; gap: 10px; }
+.zh-otp-cell {
+  width: calc(var(--zh-control-h) + 8px); height: calc(var(--zh-control-h) + 8px); padding: 0; text-align: center;
+  font: inherit; font-size: 1.3em; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--zh-text); caret-color: var(--zh-color-primary);
+  border: 1px solid var(--zh-border-strong); border-radius: var(--zh-radius-md); background: var(--zh-bg); box-shadow: inset 0 1px 2px rgba(16, 24, 40, .05);
+  transition: border-color var(--zh-dur-fast), box-shadow var(--zh-dur-fast), background var(--zh-dur-fast);
+}
+.zh-otp-cell:hover { border-color: var(--zh-color-primary); }
+.zh-otp-cell:focus { outline: none; border-color: var(--zh-color-primary); box-shadow: 0 0 0 3px var(--zh-color-primary-subtle); }
+.zh-otp-cell.is-filled { background: var(--zh-bg-subtle); }
+.zh-otp.is-error .zh-otp-cell { border-color: var(--zh-danger); animation: zh-inp-shake .32s var(--zh-ease-standard); }
+.zh-otp.is-ok .zh-otp-cell { border-color: var(--zh-success); }
+@keyframes zh-inp-shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-6px); } 40% { transform: translateX(5px); } 60% { transform: translateX(-3px); } 80% { transform: translateX(2px); } }
+@media (prefers-reduced-motion: reduce) { .zh-otp.is-error .zh-otp-cell, .zh-inp-spin { animation: none; } }
+
+/* 多行文本 */
+.zh-ta { position: relative; }
+.zh-ta .zh-textarea { display: block; width: 100%; resize: none; overflow-y: hidden; padding-bottom: 30px; }
+.zh-ta-count { position: absolute; inset-inline-end: 12px; bottom: 8px; padding-inline-start: 8px; background: var(--zh-bg); font-size: .8em; color: var(--zh-text-tertiary); font-variant-numeric: tabular-nums; pointer-events: none; }
+.zh-ta.is-over .zh-ta-count { color: var(--zh-text-danger); font-weight: 600; }
+.zh-ta.is-over .zh-textarea { border-color: var(--zh-danger); }
+
+/* 行内编辑 */
+.zh-edit { display: inline-flex; max-width: calc(100% + 16px); min-width: 0; margin: -4px -8px; }
+.zh-edit-view { display: inline-flex; align-items: center; gap: 8px; max-width: 100%; padding: 4px 8px; border: 0; border-radius: var(--zh-radius-md); background: transparent; color: var(--zh-text); font: inherit; font-weight: 600; cursor: text; transition: background var(--zh-dur-fast); }
+.zh-edit-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.zh-edit-view:hover, .zh-edit-view:focus-visible { background: var(--zh-bg-subtle); }
+.zh-edit-view:focus-visible { outline: none; box-shadow: var(--zh-focus-ring); }
+.zh-edit-view .ico { color: var(--zh-text-tertiary); opacity: 0; transition: opacity var(--zh-dur-fast); }
+.zh-edit-view:hover .ico, .zh-edit-view:focus-visible .ico { opacity: 1; }
+@media (pointer: coarse) { .zh-edit-view .ico { opacity: 1; } }
+.zh-edit .zh-inp { width: min(320px, 100%); }
+
+@container stage (max-width: 767px) {
+  .zh-otp { gap: 6px; }
+  .zh-otp-cell { flex: 1; min-width: 0; max-width: 52px; width: auto; }
+  .zh-inp-addon { padding: 0 8px; }
+}

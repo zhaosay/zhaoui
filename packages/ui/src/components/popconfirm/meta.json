@@ -1,0 +1,70 @@
+{
+  "name": "popconfirm",
+  "title": "气泡确认",
+  "summary": "挂在触发按钮旁的小确认框，用于轻量的二次确认（删除一行、下线一篇）。比模态框轻；破坏性很大的操作仍用确认对话框。",
+  "classes": [
+    "zh-pc",
+    "zh-pc-body",
+    "zh-pc-title",
+    "zh-pc-desc",
+    "zh-pc-foot"
+  ],
+  "attributes": [
+    {
+      "name": "data-zh-popconfirm",
+      "on": "触发按钮",
+      "value": "确认问题，如“删除这个文件？”",
+      "desc": "声明气泡确认，值是标题"
+    },
+    {
+      "name": "data-desc",
+      "on": "同上",
+      "value": "补充说明",
+      "desc": "可选"
+    },
+    {
+      "name": "data-ok / data-cancel",
+      "on": "同上",
+      "value": "按钮文字，默认“确定”“取消”",
+      "desc": "确认按钮写动作，如“删除”"
+    },
+    {
+      "name": "data-danger",
+      "on": "同上",
+      "value": "",
+      "desc": "破坏性操作：图标和确认按钮用危险色"
+    },
+    {
+      "name": "data-kind",
+      "on": "同上",
+      "value": "warning（默认）| info",
+      "desc": "图标语气"
+    },
+    {
+      "name": "data-placement",
+      "on": "同上",
+      "value": "top（默认）| bottom | left | right",
+      "desc": "位置"
+    }
+  ],
+  "events": [
+    {
+      "name": "zh:popconfirm",
+      "on": "触发按钮",
+      "detail": "{ action: 'ok' | 'cancel' }",
+      "desc": "用户点了确认或取消。在 ok 时执行真正的操作"
+    }
+  ],
+  "methods": [
+    {
+      "name": "ZhaoUI.popconfirm(anchor, options)",
+      "desc": "命令式用法。options：title、desc、okText、cancelText、kind、danger、placement、onConfirm()。onConfirm 返回 Promise 时，确认按钮显示加载中，成功后关闭，失败则保持打开"
+    }
+  ],
+  "a11y": [
+    "焦点被限制在气泡内，Tab 在两个按钮间切换，Esc 取消并回到触发按钮",
+    "标题通过 aria-labelledby 关联",
+    "加载中时气泡外的点击与 Esc 被忽略，避免重复提交"
+  ],
+  "example": "<button class=\"zh-btn\" data-zh-popconfirm=\"删除这个文件？\" data-desc=\"删除后 30 天内可在回收站找回。\" data-ok=\"删除\" data-danger id=\"pc-del\">删除</button>\n<script>\n  document.getElementById('pc-del').addEventListener('zh:popconfirm', function (e) {\n    if (e.detail.action === 'ok') ZhaoUI.message('已删除');\n  });\n</script>"
+}

@@ -1,0 +1,124 @@
+{
+  "name": "select",
+  "title": "下拉选择",
+  "summary": "增强原生 <select>：单选、多选、搜索、分组、清除、选项描述，选中值同步回原生 select 并触发原生 change，表单提交、name、required 照常工作。也可用 ZhaoUI.select 命令式创建，支持远程搜索和自动完成。",
+  "classes": [
+    "zh-sel",
+    "zh-sel-native"
+  ],
+  "attributes": [
+    {
+      "name": "data-zh-select",
+      "on": "<select>",
+      "value": "无",
+      "desc": "声明要增强这个 select；选项、optgroup、disabled、multiple、selected 都从它读取"
+    },
+    {
+      "name": "multiple",
+      "on": "<select>",
+      "value": "布尔属性",
+      "desc": "多选：选中项显示为标签，列表保持打开"
+    },
+    {
+      "name": "data-searchable",
+      "on": "<select>",
+      "value": "布尔属性",
+      "desc": "可输入搜索；按选项文字、data-desc、data-keys 匹配并高亮"
+    },
+    {
+      "name": "data-clearable",
+      "on": "<select>",
+      "value": "布尔属性",
+      "desc": "有值时显示清除按钮"
+    },
+    {
+      "name": "data-size",
+      "on": "<select>",
+      "value": "sm | md（默认）| lg",
+      "desc": "尺寸"
+    },
+    {
+      "name": "data-placeholder",
+      "on": "<select>",
+      "value": "字符串",
+      "desc": "占位文字；不写则取值为空的那个 <option> 的文字，再没有则是「请选择」"
+    },
+    {
+      "name": "data-empty-text",
+      "on": "<select>",
+      "value": "字符串",
+      "desc": "搜索无结果时的提示，默认「无匹配项」"
+    },
+    {
+      "name": "data-max-tags",
+      "on": "<select multiple>",
+      "value": "整数",
+      "desc": "最多显示几个标签，其余折叠为「+N」"
+    },
+    {
+      "name": "data-prefix-icon",
+      "on": "<select>",
+      "value": "图标名",
+      "desc": "输入框前的图标"
+    },
+    {
+      "name": "data-desc / data-icon / data-keys",
+      "on": "<option>",
+      "value": "字符串",
+      "desc": "选项的第二行说明 / 图标 / 额外的搜索关键词（如拼音）"
+    },
+    {
+      "name": "value=\"\"",
+      "on": "<option>",
+      "value": "空值",
+      "desc": "放一个空值的 option 作为占位；它不会出现在选项列表里，清除后 select 会回到它"
+    },
+    {
+      "name": "aria-invalid=\"true\"",
+      "on": "<select>",
+      "value": "true",
+      "desc": "错误状态外观"
+    }
+  ],
+  "events": [
+    {
+      "name": "change / input",
+      "on": "原生 <select>",
+      "detail": "原生事件",
+      "desc": "选中值变化时在原生 select 上触发（冒泡），已有的表单代码不用改"
+    },
+    {
+      "name": "zh:select-change",
+      "on": "生成的控件（select 后面的 .zh-sel）",
+      "detail": "{ value, labels }",
+      "desc": "单选时 value 是字符串，多选时是数组；labels 是对应的文字数组"
+    }
+  ],
+  "methods": [
+    {
+      "name": "selectEl.zhSelect.get() / .set(value)",
+      "desc": "读取或设置值（多选传数组）。set 会同步原生 select，但不触发 change"
+    },
+    {
+      "name": "selectEl.zhSelect.setOptions([{ value, label, desc?, icon?, disabled? }, …])",
+      "desc": "更换选项（支持分组：{ label, options: [...] }）。原生 <select> 里的 <option> 会一起重建，已选且仍存在的值会保留，不再存在的会被移除"
+    },
+    {
+      "name": "selectEl.zhSelect.setDisabled(bool) / .setInvalid(bool) / .open() / .close()",
+      "desc": "禁用、错误状态、打开、关闭"
+    },
+    {
+      "name": "ZhaoUI.select(host, config)",
+      "desc": "命令式创建。host 是一个空 <div> 或选择器；config：options、value、multiple、searchable、clearable、size、placeholder、emptyText、maxTags、prefixIcon、disabled、invalid、labelledby、onChange(value, labels)。\n远程搜索：source(query) 返回 Promise<选项数组>，可配 debounce（毫秒，默认 250）和 loading。\n自动完成：freeText: true，输入的文字本身就是值，chevron: false 可隐藏箭头。返回同一套方法（get / set / setOptions / setDisabled / setInvalid / open / close）"
+    }
+  ],
+  "a11y": [
+    "输入框是 role=\"combobox\"，带 aria-expanded / aria-controls / aria-activedescendant；列表是 role=\"listbox\"，选项是 role=\"option\"，多选时有 aria-multiselectable",
+    "<label for> 指向原生 select 时，点击 label 或表单校验聚焦，都会转到可见的输入框",
+    "↓ ↑ 打开并移动（到头会循环），Home / End 到首尾，Enter 选中，Esc 关闭，Tab 关闭并继续；不可搜索时直接输入字母可跳到对应选项，空格打开",
+    "多选时在空输入上按退格删除最后一个标签；标签上有带 aria-label 的移除按钮",
+    "禁用的选项标记 aria-disabled，不可选中，方向键会跳过",
+    "原生 select 保留在表单里（视觉隐藏、aria-hidden、不可 Tab），所以 required 的浏览器校验仍然有效"
+  ],
+  "example": "<label for=\"region\">区域</label>\n<select id=\"region\" name=\"region\" data-zh-select data-clearable required>\n  <option value=\"\">请选择区域</option>\n  <option value=\"east\">华东</option>\n  <option value=\"south\">华南</option>\n  <option value=\"north\">华北</option>\n</select>\n\n<label for=\"city\">城市</label>\n<select id=\"city\" name=\"city\" data-zh-select data-searchable data-empty-text=\"没有这个城市\">\n  <option value=\"\">请选择城市</option>\n  <optgroup label=\"直辖市\">\n    <option value=\"bj\" data-keys=\"beijing bj\" data-desc=\"首都\">北京</option>\n    <option value=\"sh\" data-keys=\"shanghai sh\">上海</option>\n  </optgroup>\n  <optgroup label=\"广东省\">\n    <option value=\"gz\" data-keys=\"guangzhou gz\">广州</option>\n    <option value=\"sz\" data-keys=\"shenzhen sz\" disabled>深圳</option>\n  </optgroup>\n</select>\n\n<label for=\"tags\">标签</label>\n<select id=\"tags\" name=\"tags\" multiple data-zh-select data-searchable data-clearable data-max-tags=\"2\">\n  <option value=\"fe\" selected>前端</option>\n  <option value=\"be\" selected>后端</option>\n  <option value=\"ux\">设计</option>\n</select>\n\n<div id=\"remote\"></div>\n\n<script>\ndocument.getElementById('region').addEventListener('change', function (e) {\n  console.log(e.target.value);\n});\n\n// 远程搜索\nZhaoUI.select('#remote', {\n  searchable: true, clearable: true, placeholder: '搜索技术',\n  source: function (q) {\n    return fetch('/api/tech?q=' + encodeURIComponent(q)).then(function (r) { return r.json(); });   // 返回 [{ value, label }, …]\n  }\n});\n</script>"
+}

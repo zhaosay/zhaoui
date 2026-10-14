@@ -1,0 +1,50 @@
+/* Cover + overview. The hero is a fixed dark scene (same in light and dark mode); only the brand colours follow the theme. */
+.zh-cv { position: relative; overflow: hidden; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 40px; align-items: center;
+  padding: clamp(28px, 5vw, 72px); margin-bottom: 40px; border-radius: 24px; background: #0a0c11; color: #f1f3f8; }
+.zh-cv-glow { position: absolute; inset: 0; z-index: -1;
+  background:
+    radial-gradient(520px 420px at 82% 0%, color-mix(in srgb, var(--zh-brand-7) 75%, transparent), transparent 70%),
+    radial-gradient(420px 360px at 96% 72%, rgba(198, 166, 255, .34), transparent 70%),
+    radial-gradient(420px 340px at 38% 100%, rgba(34, 183, 255, .26), transparent 70%),
+    radial-gradient(380px 300px at 0% 0%, color-mix(in srgb, var(--zh-brand-7) 35%, transparent), transparent 70%); }
+.zh-cv-eyebrow { margin: 0 0 16px; font: 500 13px/1 var(--zh-font-mono); letter-spacing: .12em; color: var(--zh-brand-5); }
+.zh-cv-title { margin: 0; font-size: clamp(64px, 9vw, 128px); line-height: 1.02; letter-spacing: -.03em; font-weight: 700; color: #f1f3f8; }
+.zh-cv-sub { margin: 8px 0 0; font-size: clamp(22px, 2.6vw, 36px); font-weight: 500; }
+.zh-cv-lead { margin: 20px 0 0; max-width: 34em; font-size: 16px; line-height: 1.85; color: #b4b7bf; }
+.zh-cv-chips { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; margin: 28px 0 0; padding: 0; }
+.zh-cv-chips li { padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 500; color: #b4b7bf; background: rgba(255, 255, 255, .06); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .16); }
+.zh-cv-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.zh-cv-card { display: flex; flex-direction: column; gap: 14px; padding: 20px 22px; border-radius: 20px; background: rgba(255, 255, 255, .07); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .18), 0 24px 48px -16px rgba(5, 8, 30, .5); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
+.zh-cv-wide { grid-column: 1 / -1; }
+.zh-cv-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 15px; }
+.zh-cv-head span, .zh-cv-card code { font: 12px/1.4 var(--zh-font-mono); color: #8e929b; background: none; padding: 0; }
+.zh-cv-scale { display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px; }
+.zh-cv-scale i { height: 52px; border-radius: 9px; background: var(--c); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .18); }
+.zh-cv-pills, .zh-cv-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.zh-cv-pills span { padding: 4px 12px 4px 10px; border-radius: 999px; font-size: 13px; font-weight: 500; color: var(--c); background: color-mix(in srgb, var(--c) 16%, transparent); }
+.zh-cv-pills span::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 7px; border-radius: 50%; background: var(--c); }
+.zh-cv-btns span { padding: 9px 18px; border-radius: 10px; font-size: 14px; font-weight: 500; }
+.zh-cv-b1 { background: var(--zh-brand-7); color: #fff; } .zh-cv-b2 { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .3); } .zh-cv-b3 { background: rgba(255, 255, 255, .07); color: #b4b7bf; }
+.zh-cv-aa { font-size: 52px; line-height: 1.1; font-weight: 700; }
+.zh-cv-radii { display: flex; gap: 8px; }
+.zh-cv-radii i { width: 40px; height: 40px; border-radius: var(--r); background: color-mix(in srgb, var(--zh-brand-7) 35%, transparent); box-shadow: inset 0 0 0 1.5px var(--zh-brand-5); }
+@container stage (max-width: 1099px) { .zh-cv { grid-template-columns: 1fr; } }
+@container stage (max-width: 520px) { .zh-cv-cards { grid-template-columns: 1fr; } .zh-cv-scale i { height: 40px; } }
+
+.zh-ov { margin: 0 0 48px; }
+.zh-ov-eyebrow { margin: 0 0 6px; font: 500 13px/1 var(--zh-font-mono); letter-spacing: .12em; color: var(--zh-color-primary-text); }
+.zh-ov h2 { margin: 0 0 8px; font-size: 32px; letter-spacing: -.01em; }
+.zh-ov-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 16px; margin-top: 20px; }
+.zh-ov-grid article { display: flex; flex-direction: column; gap: 8px; padding: 22px; border-radius: var(--zh-radius-lg); background: var(--zh-bg-elevated); box-shadow: 0 0 0 1px var(--zh-border) inset, var(--zh-shadow-sm); }
+.zh-ov-grid article > span { font: 500 12px/1 var(--zh-font-mono); color: var(--zh-color-primary-text); }
+.zh-ov-grid h3 { margin: 4px 0 0; font-size: 18px; }
+.zh-ov-grid p { margin: 0; color: var(--zh-text-secondary); font-size: .93em; line-height: 1.7; }
+.zh-ov-grid ul { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: auto 0 0; padding: 8px 0 0; }
+.zh-ov-grid li { padding: 2px 9px; border-radius: 7px; font-size: 12px; font-weight: 500; color: var(--zh-color-primary-text); background: var(--zh-color-primary-subtle); }
+
+/* The page numbers .block sections with h2::before; the cover and overview are not numbered, and code inside cards stays flat. */
+.zh-cv .zh-cv-title::before, .zh-ov h2::before { content: none; }
+.zh-cv .zh-cv-card code { border: 0; padding: 0; background: none; }
+.zh-ov .zh-ov-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@container stage (max-width: 999px) { .zh-ov .zh-ov-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@container stage (max-width: 559px) { .zh-ov .zh-ov-grid { grid-template-columns: 1fr; } }

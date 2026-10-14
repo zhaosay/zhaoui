@@ -1,0 +1,59 @@
+{
+  "name": "layout",
+  "title": "布局",
+  "summary": "纯样式组件：不需要 JS，写好标记即可。响应式栅格（桌面 12 列、平板 8 列、手机 4 列）、自适应卡片网格、主内容加侧栏、垂直堆叠、水平排列、两端对齐。间距来自 Token，不要自己写死。",
+  "classes": [
+    "zh-grid",
+    "zh-col",
+    "zh-auto-grid",
+    "zh-with-aside",
+    "zh-stack",
+    "zh-row",
+    "zh-split"
+  ],
+  "attributes": [
+    {
+      "name": "zh-grid + zh-col",
+      "on": "容器与子元素（class）",
+      "value": "在 zh-col 上用 style=\"--d:6;--t:8;--p:4\"",
+      "desc": "12 / 8 / 4 列栅格。--d 是桌面（≥ 1200px）占几列，--t 是平板（768 到 1199px），--p 是手机（≤ 767px）；不写则桌面占 3、平板占 4、手机占 4。列间距随断点变化"
+    },
+    {
+      "name": "zh-auto-grid",
+      "on": "容器（class）",
+      "value": "直接放卡片等子元素",
+      "desc": "按宽度自动排：每列至少 220px，放得下几列就几列，不需要写列数"
+    },
+    {
+      "name": "zh-with-aside",
+      "on": "容器（class）",
+      "value": "两个子元素：主内容、侧栏",
+      "desc": "主内容加 320px 侧栏；宽度 ≤ 1199px 时侧栏掉到下面"
+    },
+    {
+      "name": "zh-stack",
+      "on": "容器（class）",
+      "value": "可用 style=\"--g:8px\" 改间距，默认 12px",
+      "desc": "垂直堆叠"
+    },
+    {
+      "name": "zh-row",
+      "on": "容器（class）",
+      "value": "可用 style=\"--g:8px\"",
+      "desc": "水平排列，放不下自动换行，垂直居中"
+    },
+    {
+      "name": "zh-split",
+      "on": "容器（class）",
+      "value": "两个子元素",
+      "desc": "两端对齐：标题在左，操作在右，窄屏自动换行"
+    }
+  ],
+  "events": [],
+  "methods": [],
+  "a11y": [
+    "布局只改变视觉位置，不改变阅读顺序：DOM 里的先后就是读屏和 Tab 的先后",
+    "栅格里需要标题的区块请用 <section aria-labelledby> 或 aria-label，方便读屏用户导航"
+  ],
+  "example": "<div class=\"zh-grid\">\n  <div class=\"zh-col\" style=\"--d:3;--t:4;--p:4\"><div class=\"zh-card\">访客</div></div>\n  <div class=\"zh-col\" style=\"--d:3;--t:4;--p:4\"><div class=\"zh-card\">订单</div></div>\n  <div class=\"zh-col\" style=\"--d:6;--t:8;--p:4\"><div class=\"zh-card\">趋势（桌面占一半，手机占满）</div></div>\n</div>\n\n<div class=\"zh-auto-grid\">\n  <div class=\"zh-card\">一</div><div class=\"zh-card\">二</div><div class=\"zh-card\">三</div><div class=\"zh-card\">四</div>\n</div>\n\n<div class=\"zh-with-aside\">\n  <main class=\"zh-card\">主内容</main>\n  <aside class=\"zh-card\">侧栏</aside>\n</div>\n\n<div class=\"zh-split\"><h4>文章管理</h4><button class=\"zh-btn primary\">新建</button></div>\n<div class=\"zh-row\" style=\"--g:8px\"><button class=\"zh-btn\">甲</button><button class=\"zh-btn\">乙</button></div>\n<div class=\"zh-stack\" style=\"--g:8px\"><div>第一行</div><div>第二行</div></div>"
+}

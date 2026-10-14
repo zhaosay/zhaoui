@@ -1,0 +1,85 @@
+{
+  "name": "chart",
+  "title": "图表",
+  "summary": "基础图表：折线、面积、柱状、环形、迷你趋势。颜色用主题固定的 8 色分类色板（随亮暗主题变化），只有一条纵轴（不做双纵轴），图例可点击隐藏某个系列，鼠标悬停或键盘左右键查看每个点的数值，并附带给读屏用的数据表。需要堆叠、散点、地图、动画等复杂图表时请用专门的图表库。",
+  "classes": [
+    "zh-chart",
+    "zh-chart-stage",
+    "zh-chart-legend",
+    "zh-chart-key",
+    "zh-chart-tip"
+  ],
+  "attributes": [
+    {
+      "name": "data-zh-chart",
+      "on": "<div>",
+      "value": "里面放 <script type=\"application/json\">{…}</script>",
+      "desc": "声明为图表；JSON 就是下面的配置"
+    },
+    {
+      "name": "data-type",
+      "on": "<div>",
+      "value": "line | area | bar | donut | spark",
+      "desc": "图表类型，默认 line"
+    },
+    {
+      "name": "data-height",
+      "on": "<div>",
+      "value": "像素，默认 240",
+      "desc": "图表高度；spark 默认 40；宽度跟随容器"
+    },
+    {
+      "name": "data-title",
+      "on": "<div>",
+      "value": "文字",
+      "desc": "图表标题，用于无障碍名称和数据表标题"
+    },
+    {
+      "name": "data-no-legend",
+      "on": "<div>",
+      "value": "",
+      "desc": "不显示图例"
+    }
+  ],
+  "events": [
+    {
+      "name": "zh:chart-hover",
+      "on": "图表容器",
+      "value": "{ index, label }",
+      "desc": "指针或键盘移到某个数据点"
+    },
+    {
+      "name": "zh:chart-toggle",
+      "on": "图表容器",
+      "value": "{ index, visible }",
+      "desc": "点击图例显示或隐藏某个系列"
+    }
+  ],
+  "methods": [
+    {
+      "name": "ZhaoUI.chart(host, config)",
+      "on": "",
+      "value": "",
+      "desc": "命令式创建，返回 { update(partialConfig), toggle(seriesIndex, visible) }。config：type、labels（横轴标签数组）、series（[{ name, data: [数字或 null] }]，null 表示断开）、height、title、legend、points（折线是否画点，默认 true）、format(value)（数值格式化，默认大数显示“万”“亿”）、inner（环形内圈比例，默认 0.62）、centerLabel（环形中心下方文字，默认“合计”）"
+    },
+    {
+      "name": "环形图的数据",
+      "on": "",
+      "value": "series: [{ name, data: [数值] }]",
+      "desc": "每个系列只取第一个数，一个系列就是一块扇区；中心显示合计"
+    },
+    {
+      "name": "柱状与折线",
+      "on": "",
+      "value": "labels 与每个 series.data 等长",
+      "desc": "柱状图从 0 开始；折线与面积图的纵轴自动取合适的刻度"
+    }
+  ],
+  "a11y": [
+    "图表是 role=img，aria-label 是自动生成的摘要；同时附带一张视觉隐藏的数据表，读屏用户可以逐行读到全部数值",
+    "图表可聚焦，左右方向键逐点查看，Home/End 到首尾，Esc 隐藏提示；当前点的数值写入 aria-live 区域朗读",
+    "颜色之外还有图例文字、提示里的系列名，不靠颜色单独传递信息；超过 8 个系列时颜色会循环，请改用图表库或拆图",
+    "图例按钮带 aria-pressed；至少保留一个可见系列"
+  ],
+  "example": "<div class=\"zh-stack\">\n  <div data-zh-chart data-type=\"line\" data-title=\"近 7 天访问量\">\n    <script type=\"application/json\">{ \"labels\": [\"周一\",\"周二\",\"周三\",\"周四\",\"周五\",\"周六\",\"周日\"], \"series\": [ { \"name\": \"访问\", \"data\": [1200, 1800, 1500, 2300, 2100, 2900, 3200] }, { \"name\": \"下单\", \"data\": [120, 190, 150, 260, 210, 330, 380] } ] }</script>\n  </div>\n  <div class=\"zh-row\">\n    <div style=\"width:12rem\" data-zh-chart data-type=\"donut\" data-height=\"180\" data-title=\"渠道占比\"><script type=\"application/json\">{ \"series\": [ { \"name\": \"自然\", \"data\": [520] }, { \"name\": \"广告\", \"data\": [310] }, { \"name\": \"推荐\", \"data\": [170] } ] }</script></div>\n    <div style=\"width:10rem\" data-zh-chart data-type=\"spark\" data-title=\"趋势\"><script type=\"application/json\">{ \"labels\": [\"1\",\"2\",\"3\",\"4\",\"5\",\"6\"], \"series\": [ { \"name\": \"值\", \"data\": [3, 5, 4, 7, 6, 9] } ] }</script></div>\n  </div>\n  <div data-zh-chart data-type=\"bar\" data-title=\"季度销售额\"><script type=\"application/json\">{ \"labels\": [\"Q1\",\"Q2\",\"Q3\",\"Q4\"], \"series\": [ { \"name\": \"华东\", \"data\": [320, 410, 380, 520] }, { \"name\": \"华南\", \"data\": [280, 350, 400, 460] } ] }</script></div>\n</div>"
+}

@@ -1,0 +1,21 @@
+{
+  "name": "collapse",
+  "title": "折叠面板",
+  "summary": "手风琴或多开的折叠列表。展开状态用 .is-open 表示，库负责切换、无障碍属性和键盘。",
+  "classes": ["zh-collapse", "zh-collapse-item", "zh-collapse-trigger", "zh-collapse-panel"],
+  "attributes": [
+    { "name": "data-mode", "on": ".zh-collapse", "value": "single | multiple（默认）", "desc": "single：同时只展开一项；multiple：各项独立" },
+    { "name": "is-open", "on": ".zh-collapse-item", "value": "class", "desc": "初始展开的项加上这个类" },
+    { "name": "disabled", "on": ".zh-collapse-trigger", "value": "布尔", "desc": "禁用某一项，不可点击也不参与方向键" }
+  ],
+  "events": [
+    { "name": "zh:collapse-toggle", "on": ".zh-collapse", "detail": "{ item, open }", "desc": "某一项展开或收起时触发（冒泡）" }
+  ],
+  "methods": [],
+  "a11y": [
+    "触发按钮带 aria-expanded / aria-controls，面板带 role=\"region\" 与 aria-labelledby",
+    "收起的面板加 inert，内部内容不会被键盘聚焦",
+    "方向键上下在标题间移动，Home / End 跳到首尾"
+  ],
+  "example": "<div class=\"zh-collapse\" data-mode=\"single\">\n  <div class=\"zh-collapse-item is-open\">\n    <h4 class=\"zh-collapse-h\"><button class=\"zh-collapse-trigger\" type=\"button\"><span class=\"lead\">第一项</span><i data-i=\"chevron-right\" class=\"zh-collapse-chev\"></i></button></h4>\n    <div class=\"zh-collapse-panel\"><div class=\"zh-collapse-inner\"><div class=\"zh-collapse-content\">内容一</div></div></div>\n  </div>\n  <div class=\"zh-collapse-item\">\n    <h4 class=\"zh-collapse-h\"><button class=\"zh-collapse-trigger\" type=\"button\"><span class=\"lead\">第二项</span><i data-i=\"chevron-right\" class=\"zh-collapse-chev\"></i></button></h4>\n    <div class=\"zh-collapse-panel\"><div class=\"zh-collapse-inner\"><div class=\"zh-collapse-content\">内容二</div></div></div>\n  </div>\n</div>"
+}

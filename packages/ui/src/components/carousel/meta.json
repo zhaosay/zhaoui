@@ -1,0 +1,53 @@
+{
+  "name": "carousel",
+  "title": "轮播",
+  "summary": "一组幻灯片：左右箭头、圆点、键盘方向键、触屏滑动（基于 CSS 滚动吸附）；可自动播放。",
+  "classes": [
+    "zh-carousel",
+    "zh-carousel-track",
+    "zh-carousel-slide",
+    "zh-carousel-arrow",
+    "zh-carousel-dots",
+    "zh-carousel-dot"
+  ],
+  "attributes": [
+    {
+      "name": "data-zh-carousel",
+      "on": "容器",
+      "value": "里面放 .zh-carousel-track，轨道里放多个 .zh-carousel-slide",
+      "desc": "声明为轮播；箭头和圆点由库生成"
+    },
+    {
+      "name": "data-autoplay",
+      "on": "容器",
+      "value": "毫秒，如 5000",
+      "desc": "自动播放间隔；悬停、聚焦、页面不可见或系统开启“减少动态效果”时暂停"
+    },
+    {
+      "name": "data-loop",
+      "on": "容器",
+      "value": "",
+      "desc": "在首尾循环，否则到头时箭头禁用"
+    }
+  ],
+  "events": [
+    {
+      "name": "zh:carousel-change",
+      "on": "容器",
+      "detail": "{ index, slide }",
+      "desc": "切换到另一张后触发"
+    }
+  ],
+  "methods": [
+    {
+      "name": "ZhaoUI.carousel.go(el, index)",
+      "desc": "切换到第 index 张（从 0 开始）"
+    }
+  ],
+  "a11y": [
+    "容器是 role=\"region\"，带“轮播”说明，每张幻灯片是“第 n / 总数”",
+    "轨道可聚焦，左右方向键切换；箭头和圆点都是按钮，有 aria-label",
+    "自动播放在鼠标悬停或键盘聚焦时暂停，并让读屏朗读当前内容；可随时被用户中断"
+  ],
+  "example": "<div data-zh-carousel data-autoplay=\"6000\" aria-label=\"精选内容\" style=\"max-width:28rem\">\n  <div class=\"zh-carousel-track\">\n    <div class=\"zh-carousel-slide\" style=\"aspect-ratio:16/9;display:grid;place-items:center;background:var(--zh-color-primary-subtle)\">第一张</div>\n    <div class=\"zh-carousel-slide\" style=\"aspect-ratio:16/9;display:grid;place-items:center;background:var(--zh-bg-subtle)\">第二张</div>\n    <div class=\"zh-carousel-slide\" style=\"aspect-ratio:16/9;display:grid;place-items:center;background:var(--zh-info-bg)\">第三张</div>\n  </div>\n</div>"
+}

@@ -1,0 +1,110 @@
+{
+  "name": "side",
+  "title": "侧边菜单",
+  "summary": "后台常见的左侧导航：多级分组、当前页标记、可折叠成 64px 图标栏，支持键盘（方向键、Home/End、字母）。用嵌套的 <ul> 写，库会补齐 ARIA 树结构。",
+  "classes": [
+    "zh-side",
+    "zh-side-head",
+    "zh-side-scroll",
+    "zh-side-group",
+    "zh-side-foot"
+  ],
+  "attributes": [
+    {
+      "name": "data-zh-side",
+      "on": "<nav class=\"zh-side\">",
+      "value": "",
+      "desc": "声明为侧边菜单；里面放一个嵌套 <ul>"
+    },
+    {
+      "name": "data-icon",
+      "on": "每个 <a>",
+      "value": "图标名",
+      "desc": "可选，菜单项前的图标"
+    },
+    {
+      "name": "data-num",
+      "on": "每个 <a>",
+      "value": "序号文字，如 1",
+      "desc": "可选，在名称前显示序号（文档导航常用）；读屏读名称时忽略序号，折叠成图标栏时隐藏"
+    },
+    {
+      "name": "data-badge",
+      "on": "<a>",
+      "value": "文字 | dot",
+      "desc": "可选，右侧角标；dot 是小红点"
+    },
+    {
+      "name": "data-badge-tone",
+      "on": "<a>",
+      "value": "soft",
+      "desc": "角标用淡色底而不是红底"
+    },
+    {
+      "name": "aria-current=\"page\"",
+      "on": "当前页的 <a>",
+      "value": "page",
+      "desc": "当前页；它所在的分组会默认展开"
+    },
+    {
+      "name": "aria-disabled=\"true\"",
+      "on": "<a>",
+      "value": "true",
+      "desc": "禁用的菜单项，不可点、不可跳转"
+    },
+    {
+      "name": "data-open",
+      "on": "含子菜单的 <li>",
+      "value": "",
+      "desc": "该分组默认展开"
+    },
+    {
+      "name": "data-collapsed",
+      "on": "<nav>",
+      "value": "",
+      "desc": "初始为折叠的图标栏"
+    },
+    {
+      "name": "data-collapsible",
+      "on": "<nav>",
+      "value": "false",
+      "desc": "不显示折叠按钮"
+    },
+    {
+      "name": "zh-side-group",
+      "on": "<li>（class）",
+      "value": "分组标题文字",
+      "desc": "菜单里的分组小标题，不可点"
+    }
+  ],
+  "events": [
+    {
+      "name": "zh:side-select",
+      "detail": "{ item, href, label, path }",
+      "desc": "点击叶子项时触发，可 preventDefault 取消；path 是从顶层到该项的名称数组。href 为 # 或为空时库不会跳转，只切换当前页",
+      "on": "nav.zh-side"
+    },
+    {
+      "name": "zh:side-collapse",
+      "detail": "{ collapsed }",
+      "desc": "折叠或展开图标栏",
+      "on": "nav.zh-side"
+    }
+  ],
+  "methods": [
+    {
+      "name": "ZhaoUI.side.setActive(nav, hrefOrElement)",
+      "desc": "按链接地址或元素设置当前页，并展开它的祖先；找不到返回 false"
+    },
+    {
+      "name": "ZhaoUI.side.collapse(nav, collapsed?)",
+      "desc": "折叠（默认）或展开图标栏"
+    }
+  ],
+  "a11y": [
+    "外层是 <nav aria-label=\"…\">，库给列表加 role=tree，项加 role=treeitem 和 aria-level",
+    "键盘：上下键移动，右键展开或进入子级，左键收起或回到父级，Home/End 到首尾，空格激活",
+    "折叠成图标栏后，每项通过 title 显示名称；点击有子菜单的项会先展开侧栏"
+  ],
+  "example": "<nav class=\"zh-side\" data-zh-side aria-label=\"站点导航\" style=\"height:420px\">\n  <div class=\"zh-side-head\"><i aria-hidden=\"true\"></i><span>ZhaoUI</span></div>\n  <ul>\n    <li class=\"zh-side-group\">工作台</li>\n    <li><a href=\"#\" data-icon=\"layout-dashboard\">概览</a></li>\n    <li><a href=\"#\" data-icon=\"file-text\">内容管理</a>\n      <ul>\n        <li><a href=\"#\" aria-current=\"page\" data-badge=\"12\" data-badge-tone=\"soft\">文章</a></li>\n        <li><a href=\"#\">媒体库</a></li>\n      </ul>\n    </li>\n    <li><a href=\"#\" data-icon=\"settings\">系统设置</a></li>\n  </ul>\n</nav>"
+}

@@ -1,0 +1,115 @@
+{
+  "name": "cascader",
+  "title": "级联选择",
+  "summary": "多级联动选择（省市区、分类树）。数据写成页面里的嵌套列表，或用 ZhaoUI.cascader 传一棵树。支持搜索、悬停展开，窄屏自动变成逐级下钻。",
+  "classes": [
+    "zh-sel",
+    "zh-cas-panel",
+    "zh-cas-col",
+    "zh-cas-item"
+  ],
+  "attributes": [
+    {
+      "name": "data-zh-cascader",
+      "on": "容器 <div>",
+      "value": "无",
+      "desc": "声明这是一个级联选择；容器里的第一个 <ul> 是数据，读取后会被替换成控件"
+    },
+    {
+      "name": "data-name",
+      "on": "容器",
+      "value": "字段名",
+      "desc": "生成一个隐藏 <input name=…> 参与表单提交，值是用 / 连接的路径（如 浙江/杭州/西湖区）；如果路径上每个节点都写了 data-value，则用 data-value 连接"
+    },
+    {
+      "name": "data-value",
+      "on": "容器",
+      "value": "用 / 连接的标签路径，如 浙江/杭州/西湖区",
+      "desc": "初始选中的路径；标签里含有 / 时请改用命令式"
+    },
+    {
+      "name": "data-placeholder",
+      "on": "容器",
+      "value": "字符串",
+      "desc": "占位文字，默认「请选择」"
+    },
+    {
+      "name": "data-searchable",
+      "on": "容器",
+      "value": "布尔属性",
+      "desc": "可输入搜索，匹配完整路径文字，只搜到叶子节点"
+    },
+    {
+      "name": "data-clearable",
+      "on": "容器",
+      "value": "false 表示关闭",
+      "desc": "默认有清除按钮"
+    },
+    {
+      "name": "data-expand-trigger",
+      "on": "容器",
+      "value": "click（默认）| hover",
+      "desc": "悬停展开下一级；触屏和窄屏始终是点击"
+    },
+    {
+      "name": "data-size",
+      "on": "容器",
+      "value": "sm | md（默认）| lg",
+      "desc": "尺寸"
+    },
+    {
+      "name": "data-sep",
+      "on": "容器",
+      "value": "字符串，默认「 / 」",
+      "desc": "输入框里各级之间的分隔文字"
+    },
+    {
+      "name": "data-labelledby",
+      "on": "容器",
+      "value": "标签元素的 id",
+      "desc": "无障碍名称；也可以直接写 aria-label"
+    },
+    {
+      "name": "data-disabled / data-value",
+      "on": "<li>",
+      "value": "布尔属性 / 字符串",
+      "desc": "禁用该节点及其子树 / 该节点的值（用于表单）"
+    },
+    {
+      "name": "<label for=\"容器 id\">",
+      "on": "容器所在页面的 <label>",
+      "value": "for 指向容器的 id",
+      "desc": "label 会成为输入框的无障碍名称，点击 label 会聚焦输入框；容器是空 <div>，label 的 for 指向它的 id 即可"
+    }
+  ],
+  "events": [
+    {
+      "name": "zh:cascader-change",
+      "on": "容器",
+      "detail": "{ path, text, nodes }",
+      "desc": "选中或清除后触发（冒泡）。path 是标签数组，text 是拼好的文字，nodes 是节点对象数组（能读到你自己加的字段，如 value）；清除时都是空的"
+    }
+  ],
+  "methods": [
+    {
+      "name": "ZhaoUI.cascader(host, { data, value, searchable, clearable, expandTrigger, size, placeholder, sep, labelledby, onChange })",
+      "desc": "命令式创建。data 是节点树 [{ label, children?, disabled?, …你的字段 }]；value 是标签数组；onChange(labels, text, nodes)"
+    },
+    {
+      "name": "el.zhCascader.get() / .getNodes()",
+      "desc": "读取当前路径的标签数组 / 节点对象数组"
+    },
+    {
+      "name": "el.zhCascader.set(labels) / .setData(tree) / .open() / .close()",
+      "desc": "设置路径（不触发 change，并同步隐藏字段）、更换数据、打开、关闭"
+    }
+  ],
+  "a11y": [
+    "输入框是 role=\"combobox\"，各级是 role=\"listbox\"，带 aria-selected 与 aria-activedescendant",
+    "↓ ↑ 在当前一级移动（跳过禁用项），→ 展开子级，← 回到上一级，Enter 选中叶子或展开分支，Esc / Tab 关闭",
+    "搜索时 ↓ ↑ 在结果里移动，Enter 选中；结果显示完整路径",
+    "窄屏（≤ 767px）改为逐级下钻，有「返回上一级」按钮，每一级都是整行的大点击区",
+    "禁用的节点标记 aria-disabled，不可展开也不可选"
+  ],
+  "example": "<div data-zh-cascader data-name=\"region\" data-searchable data-value=\"浙江/杭州/西湖区\" data-placeholder=\"请选择地区\" aria-label=\"地区\">\n  <ul hidden>\n    <li>浙江\n      <ul>\n        <li>杭州<ul><li>西湖区</li><li>余杭区</li></ul></li>\n        <li>宁波<ul><li>海曙区</li><li>鄞州区</li></ul></li>\n      </ul>\n    </li>\n    <li>江苏<ul><li>南京<ul><li>玄武区</li></ul></li></ul></li>\n    <li data-disabled>海南<ul><li>海口<ul><li>龙华区</li></ul></li></ul></li>\n  </ul>\n</div>\n\n<div id=\"cas2\"></div>\n\n<script>\ndocument.querySelector('[data-zh-cascader]').addEventListener('zh:cascader-change', function (e) {\n  console.log(e.detail.text);   // 浙江 / 杭州 / 西湖区\n});\n\nZhaoUI.cascader('#cas2', {\n  expandTrigger: 'hover',\n  data: [{ label: '前端', value: 'fe', children: [{ label: 'Vue', value: 'vue' }, { label: 'React', value: 'react' }] }],\n  onChange: function (labels, text, nodes) { console.log(nodes.map(function (n) { return n.value; })); }\n});\n</script>"
+}

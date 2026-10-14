@@ -1,0 +1,101 @@
+      <section class="block" id="dropdown">
+        <h2>下拉与选择</h2>
+        <p class="desc">四类「从一组里挑」的组件：<strong>下拉菜单</strong>执行操作，<strong>选择器</strong>选值，<strong>自动补全</strong>在输入中给建议，<strong>级联选择</strong>沿层级选一条路径。它们共用同一套浮层引擎，位置、翻转、层级和键盘行为一致。</p>
+
+        <h3>下拉菜单 Dropdown</h3>
+        <p class="zh-hint" style="margin-top:0">用于「对当前对象执行操作」。点击按钮打开，焦点进入菜单，Esc 关闭并回到按钮。</p>
+        <div class="zh-row" style="gap:12px">
+          <button class="zh-btn" id="ddBasic"><i data-i="ellipsis"></i>文件操作<i data-i="chevron-down"></i></button>
+          <button class="zh-btn" id="ddView"><i data-i="layout-grid"></i>视图<i data-i="chevron-down"></i></button>
+          <div class="zh-dd-split" role="group" aria-label="保存">
+            <button class="zh-btn primary" id="ddSplitMain"><i data-i="save"></i>保存</button>
+            <button class="zh-btn primary icon" id="ddSplitCaret" aria-label="更多保存方式"><i data-i="chevron-down"></i></button>
+          </div>
+          <button class="zh-btn" id="ddUser"><i data-i="user"></i>张三<i data-i="chevron-down"></i></button>
+          <button class="zh-btn" id="ddDisabled" disabled><i data-i="ellipsis"></i>禁用</button>
+        </div>
+        <div class="zh-dd-ctx" id="ddCtx" tabindex="0" role="group" aria-label="右键菜单示例区域">
+          <i data-i="mouse-pointer-click" data-s="20"></i>
+          <span>在此区域右键，或聚焦后按 <kbd class="zh-kbd">Shift</kbd> + <kbd class="zh-kbd">F10</kbd> 打开上下文菜单</span>
+        </div>
+
+        <h3>弹出位置</h3>
+        <p class="zh-hint" style="margin-top:0">12 种位置。空间不够时自动翻到另一侧，并保持在屏幕内，无需手动处理。</p>
+        <div class="zh-dd-place">
+          <div class="zh-dd-chips" id="ddChips" role="group" aria-label="弹出位置"></div>
+          <button class="zh-btn primary" id="ddPlaceBtn">打开菜单<i data-i="chevron-down"></i></button>
+        </div>
+
+        <div class="matrix-wrap" style="margin-top:16px"><table class="matrix" style="min-width:560px">
+          <thead><tr><th>按键</th><th>菜单按钮</th><th>菜单内</th></tr></thead>
+          <tbody>
+            <tr><td><kbd class="zh-kbd">Enter</kbd> / <kbd class="zh-kbd">Space</kbd></td><td>打开菜单，焦点到第一项</td><td>执行当前项（复选、单选项保持菜单打开）</td></tr>
+            <tr><td><kbd class="zh-kbd">↓</kbd> / <kbd class="zh-kbd">↑</kbd></td><td>打开菜单，焦点到第一项 / 最后一项</td><td>下一项 / 上一项，循环，自动跳过禁用项</td></tr>
+            <tr><td><kbd class="zh-kbd">→</kbd> / <kbd class="zh-kbd">←</kbd></td><td>—</td><td>展开子菜单并进入 / 收起子菜单回到父项</td></tr>
+            <tr><td><kbd class="zh-kbd">Home</kbd> / <kbd class="zh-kbd">End</kbd> / 字母</td><td>—</td><td>首项 / 末项 / 按首字母跳转</td></tr>
+            <tr><td><kbd class="zh-kbd">Esc</kbd></td><td>—</td><td>关闭菜单，焦点回到触发按钮</td></tr>
+          </tbody>
+        </table></div>
+
+        <h3>选择器 Select</h3>
+        <p class="zh-hint" style="margin-top:0">用于「从固定选项里选值」。选项 ≤ 5 个且需要一眼看全时，优先用单选按钮组；选项较多再用选择器。</p>
+        <div class="zh-grid">
+          <div class="zh-col zh-field" style="--d:4;--t:4;--p:4"><label id="lbSelBasic">基础单选</label><div data-sel="basic"></div><span class="zh-hint" data-echo="basic">当前值：—</span></div>
+          <div class="zh-col zh-field" style="--d:4;--t:4;--p:4"><label id="lbSelClear">可清除</label><div data-sel="clear"></div><span class="zh-hint" data-echo="clear">当前值：华东</span></div>
+          <div class="zh-col zh-field" style="--d:4;--t:8;--p:4"><label id="lbSelSearch">可搜索 · 带图标与说明</label><div data-sel="search"></div><span class="zh-hint" data-echo="search">当前值：—</span></div>
+          <div class="zh-col zh-field" style="--d:4;--t:4;--p:4"><label id="lbSelGroup">选项分组</label><div data-sel="group"></div><span class="zh-hint" data-echo="group">当前值：—</span></div>
+          <div class="zh-col zh-field" style="--d:4;--t:4;--p:4"><label id="lbSelDis">含禁用选项</label><div data-sel="disopt"></div><span class="zh-hint">「专业版」暂不可选，键盘导航会跳过它</span></div>
+          <div class="zh-col zh-field" style="--d:4;--t:8;--p:4"><label id="lbSelRemote">远程搜索 · 加载态</label><div data-sel="remote"></div><span class="zh-hint">输入关键词，300 ms 后模拟请求，显示加载中</span></div>
+        </div>
+
+        <h3>多选与标签</h3>
+        <div class="zh-grid">
+          <div class="zh-col zh-field" style="--d:6;--t:8;--p:4"><label id="lbSelMulti">多选</label><div data-sel="multi"></div><span class="zh-hint" data-echo="multi">已选 2 项</span></div>
+          <div class="zh-col zh-field" style="--d:6;--t:8;--p:4"><label id="lbSelMax">多选 · 最多显示 2 个标签，其余折叠为 +N</label><div data-sel="max"></div><span class="zh-hint" data-echo="max">已选 4 项</span></div>
+        </div>
+
+        <h3>尺寸与状态</h3>
+        <div class="zh-grid">
+          <div class="zh-col zh-field" style="--d:4;--t:4;--p:4"><label id="lbSelSm">小 sm</label><div data-sel="sm"></div></div>
+          <div class="zh-col zh-field" style="--d:4;--t:4;--p:4"><label id="lbSelMd">中 md</label><div data-sel="md"></div></div>
+          <div class="zh-col zh-field" style="--d:4;--t:8;--p:4"><label id="lbSelLg">大 lg</label><div data-sel="lg"></div></div>
+          <div class="zh-col zh-field" style="--d:4;--t:4;--p:4"><label id="lbSelErr" class="zh-req">校验失败</label><div data-sel="error"></div><span class="zh-hint err" id="selErrMsg">请选择所属部门</span></div>
+          <div class="zh-col zh-field" style="--d:4;--t:4;--p:4"><label id="lbSelOff">禁用</label><div data-sel="disabled"></div></div>
+          <div class="zh-col zh-field" style="--d:4;--t:8;--p:4"><label id="lbSelLoad">加载中</label><div data-sel="loading"></div></div>
+          <div class="zh-col zh-field" style="--d:4;--t:4;--p:4"><label id="lbSelEmpty">无可选项</label><div data-sel="empty"></div></div>
+        </div>
+
+        <div class="matrix-wrap" style="margin-top:16px"><table class="matrix" style="min-width:560px">
+          <thead><tr><th>按键（焦点在选择框内）</th><th>行为</th></tr></thead>
+          <tbody>
+            <tr><td><kbd class="zh-kbd">↓</kbd> / <kbd class="zh-kbd">↑</kbd></td><td>打开列表；已打开时移动高亮，自动跳过禁用项；焦点始终留在输入框，高亮项通过 <code>aria-activedescendant</code> 播报</td></tr>
+            <tr><td><kbd class="zh-kbd">Enter</kbd></td><td>选中高亮项。单选会关闭列表，多选保持打开便于连续选择</td></tr>
+            <tr><td><kbd class="zh-kbd">Esc</kbd> / <kbd class="zh-kbd">Tab</kbd></td><td>关闭列表，不改变已选值</td></tr>
+            <tr><td><kbd class="zh-kbd">Home</kbd> / <kbd class="zh-kbd">End</kbd></td><td>不可搜索时跳到首项 / 末项；可搜索时用于移动输入光标</td></tr>
+            <tr><td>字母键</td><td>不可搜索时按首字母跳转；可搜索时进行过滤，命中文字高亮</td></tr>
+            <tr><td><kbd class="zh-kbd">Backspace</kbd></td><td>多选且输入框为空时，删除最后一个标签</td></tr>
+          </tbody>
+        </table></div>
+
+        <h3>自动补全 Autocomplete</h3>
+        <p class="zh-hint" style="margin-top:0">与选择器的区别：值就是输入的文字，建议只是辅助，可以不采纳。输入停顿 250 ms 后请求，请求中显示加载态，无结果给出提示。</p>
+        <div class="zh-grid">
+          <div class="zh-col zh-field" style="--d:6;--t:8;--p:4"><label id="lbAc">搜索城市</label><div data-sel="ac"></div><span class="zh-hint" data-echo="ac">输入至少 1 个字，试试「杭」「南」「shen」</span></div>
+        </div>
+
+        <h3>级联选择 Cascader</h3>
+        <p class="zh-hint" style="margin-top:0">用于「沿层级选一条路径」，如地区、分类。点击展开适合触屏；悬停展开适合鼠标且层级深的场景。手机上自动变成逐级进入。</p>
+        <div class="zh-grid">
+          <div class="zh-col zh-field" style="--d:4;--t:4;--p:4"><label id="lbCas1">点击展开</label><div data-cas="click"></div><span class="zh-hint" data-echo="cas1">当前值：—</span></div>
+          <div class="zh-col zh-field" style="--d:4;--t:4;--p:4"><label id="lbCas2">悬停展开</label><div data-cas="hover"></div><span class="zh-hint" data-echo="cas2">当前值：浙江 / 杭州 / 西湖区</span></div>
+          <div class="zh-col zh-field" style="--d:4;--t:8;--p:4"><label id="lbCas3">可搜索（跨层级）</label><div data-cas="search"></div><span class="zh-hint" data-echo="cas3">输入「区」查看跨层级结果</span></div>
+        </div>
+        <div class="matrix-wrap" style="margin-top:16px"><table class="matrix" style="min-width:560px">
+          <thead><tr><th>按键（焦点在输入框内）</th><th>行为</th></tr></thead>
+          <tbody>
+            <tr><td><kbd class="zh-kbd">↓</kbd> / <kbd class="zh-kbd">↑</kbd></td><td>在当前列内移动高亮，自动跳过禁用项</td></tr>
+            <tr><td><kbd class="zh-kbd">→</kbd> / <kbd class="zh-kbd">←</kbd></td><td>展开高亮项进入下一列 / 收起当前列回到上一列（手机上等同「返回」）</td></tr>
+            <tr><td><kbd class="zh-kbd">Enter</kbd></td><td>叶子节点：确认整条路径并关闭；分支节点：展开</td></tr>
+          </tbody>
+        </table></div>
+      </section>

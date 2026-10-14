@@ -1,0 +1,59 @@
+{
+  "name": "number",
+  "title": "数字步进器",
+  "summary": "带加减按钮的数字输入，支持范围、步长、小数位数，键盘可操作，按住按钮连续加减。",
+  "classes": [
+    "zh-num",
+    "zh-num-btn",
+    "zh-num-split",
+    "zh-num-stack"
+  ],
+  "attributes": [
+    {
+      "name": "data-min",
+      "on": ".zh-num",
+      "value": "数字",
+      "desc": "最小值，不写则不限"
+    },
+    {
+      "name": "data-max",
+      "on": ".zh-num",
+      "value": "数字",
+      "desc": "最大值，不写则不限"
+    },
+    {
+      "name": "data-step",
+      "on": ".zh-num",
+      "value": "数字，默认 1",
+      "desc": "每次加减的步长"
+    },
+    {
+      "name": "data-precision",
+      "on": ".zh-num",
+      "value": "整数",
+      "desc": "小数位数；不写则按步长推断（步长 0.5 → 1 位）"
+    },
+    {
+      "name": "data-dir",
+      "on": ".zh-num-btn",
+      "value": "1 或 -1",
+      "desc": "按钮的方向：1 增加，-1 减少"
+    }
+  ],
+  "events": [
+    {
+      "name": "zh:number",
+      "on": ".zh-num",
+      "detail": "{ value }",
+      "desc": "值被步进、回车或失焦后规范化时触发（冒泡），value 是数字"
+    }
+  ],
+  "methods": [],
+  "a11y": [
+    "input 需要 role=\"spinbutton\"，库会维护 aria-valuenow / aria-valuemin / aria-valuemax",
+    "↑ ↓ 加减一个步长，按住 Shift 或用 PageUp / PageDown 加减 10 个步长，Enter 立即规范化",
+    "到达边界时对应按钮自动禁用；输入超出范围的值，失焦后会被拉回范围内",
+    "加减按钮设为 tabindex=\"-1\"，键盘用户直接用方向键"
+  ],
+  "example": "<div class=\"zh-inp zh-num\" id=\"qty\" data-min=\"1\" data-max=\"10\" data-step=\"1\">\n  <button type=\"button\" class=\"zh-num-btn\" data-dir=\"-1\" aria-label=\"减少\" tabindex=\"-1\"><i data-i=\"minus\" data-s=\"16\"></i></button>\n  <input class=\"zh-inp-el\" role=\"spinbutton\" inputmode=\"numeric\" value=\"3\" aria-label=\"数量\">\n  <button type=\"button\" class=\"zh-num-btn\" data-dir=\"1\" aria-label=\"增加\" tabindex=\"-1\"><i data-i=\"plus\" data-s=\"16\"></i></button>\n</div>\n\n<div class=\"zh-inp zh-num\" data-min=\"0\" data-max=\"9999\" data-step=\"0.5\" data-precision=\"2\">\n  <button type=\"button\" class=\"zh-num-btn\" data-dir=\"-1\" aria-label=\"减少\" tabindex=\"-1\"><i data-i=\"minus\" data-s=\"16\"></i></button>\n  <input class=\"zh-inp-el\" role=\"spinbutton\" inputmode=\"decimal\" value=\"12.50\" aria-label=\"金额\">\n  <button type=\"button\" class=\"zh-num-btn\" data-dir=\"1\" aria-label=\"增加\" tabindex=\"-1\"><i data-i=\"plus\" data-s=\"16\"></i></button>\n</div>\n\n<script>\ndocument.getElementById('qty').addEventListener('zh:number', function (e) {\n  console.log(e.detail.value);\n});\n</script>"
+}

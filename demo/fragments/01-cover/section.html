@@ -1,0 +1,39 @@
+      <section class="zh-cv" id="cover" aria-labelledby="cvTitle">
+        <div class="zh-cv-glow" aria-hidden="true"></div>
+        <div class="zh-cv-copy">
+          <p class="zh-cv-eyebrow">DESIGN LANGUAGE · v0.1.0</p>
+          <h2 class="zh-cv-title" id="cvTitle">ZhaoUI</h2>
+          <p class="zh-cv-sub">设计语言与组件库</p>
+          <p class="zh-cv-lead">一套面向中后台与消费端的跨平台设计系统。色彩由 OKLCH 生成，用 Token 统一品牌、亮暗、密度与风格，让每一个界面既克制又精致。</p>
+          <ul class="zh-cv-chips" aria-label="关键特性"><li>B 端 / C 端</li><li>Vue 3 + TypeScript</li><li>OKLCH</li><li>Lucide 图标</li></ul>
+        </div>
+        <div class="zh-cv-cards">
+          <div class="zh-cv-card zh-cv-wide">
+            <div class="zh-cv-head"><b>品牌色阶</b><span>跟随右上角品牌色切换</span></div>
+            <div class="zh-cv-scale" role="img" aria-label="品牌色 10 级色阶"><i style="--c:var(--zh-brand-1)"></i><i style="--c:var(--zh-brand-2)"></i><i style="--c:var(--zh-brand-3)"></i><i style="--c:var(--zh-brand-4)"></i><i style="--c:var(--zh-brand-5)"></i><i style="--c:var(--zh-brand-6)"></i><i style="--c:var(--zh-brand-7)"></i><i style="--c:var(--zh-brand-8)"></i><i style="--c:var(--zh-brand-9)"></i><i style="--c:var(--zh-brand-10)"></i></div>
+          </div>
+          <div class="zh-cv-card zh-cv-wide">
+            <div class="zh-cv-head"><b>语义色与控件</b></div>
+            <div class="zh-cv-pills"><span style="--c:var(--zh-success)">成功</span><span style="--c:var(--zh-warning)">警告</span><span style="--c:var(--zh-danger)">危险</span><span style="--c:var(--zh-info)">信息</span></div>
+            <div class="zh-cv-btns"><span class="zh-cv-b1">主要按钮</span><span class="zh-cv-b2">次要按钮</span><span class="zh-cv-b3">幽灵按钮</span></div>
+          </div>
+          <div class="zh-cv-card"><div class="zh-cv-head"><b>字体</b></div><div class="zh-cv-aa">Aa 赵</div><code>PingFang SC / Segoe UI</code></div>
+          <div class="zh-cv-card"><div class="zh-cv-head"><b>圆角</b></div><div class="zh-cv-radii"><i style="--r:4px"></i><i style="--r:6px"></i><i style="--r:10px"></i><i style="--r:24px"></i></div><code>B 端 4–10 · C 端 10–24</code></div>
+        </div>
+      </section>
+
+      <section class="zh-ov" id="overview" aria-labelledby="ovTitle">
+        <p class="zh-ov-eyebrow">OVERVIEW</p>
+        <h2 id="ovTitle">体系概览</h2>
+        <p class="desc">ZhaoUI 由一份唯一的 Token 数据源驱动。改动色彩或风格只需在 Token 包里调整，所有组件与演示页自动跟随。</p>
+        <div class="zh-ov-grid">
+          <article><span>01</span><h3>主题维度</h3><p>六个维度可自由组合，互不干扰。</p><ul><li>品牌</li><li>亮暗</li><li>密度</li><li>受众</li><li>涨跌色</li><li>风格</li></ul></article>
+          <article><span>02</span><h3>双受众</h3><p>B 端追求信息密度与效率，C 端强调品牌感与触达。</p><ul><li>B 端 · 14px</li><li>C 端 · 16px</li></ul></article>
+          <article><span>03</span><h3>Token 分层</h3><p>基础与语义两层已落地，组件层持续补充。</p><ul><li>基础</li><li>语义</li><li>组件（规划）</li></ul></article>
+          <article><span>04</span><h3>技术栈</h3><p>Vue 3 + TypeScript + Vite，无头组件基于 Reka UI。</p><ul><li>Vue 3</li><li>Reka UI</li><li>Nuxt SSR</li></ul></article>
+          <article><span>05</span><h3>跨端策略</h3><p>Electron 复用 Web；移动端仅提供 H5 适配。</p><ul><li>Web</li><li>Electron</li><li>H5</li></ul></article>
+          <article><span>06</span><h3>浏览器基线</h3><p>色彩在构建期由 OKLCH 生成并输出为 HEX；玻璃风格依赖 backdrop-filter，不支持时退回实色。</p><ul><li>Chrome ≥ 111</li><li>Safari ≥ 16.4</li><li>Firefox ≥ 113</li><li>建议值</li></ul></article>
+        </div>
+        <h3>章节地图</h3>
+        <div class="zh-ov-map" id="chapterMap"></div>
+      </section>

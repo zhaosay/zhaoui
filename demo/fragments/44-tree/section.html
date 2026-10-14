@@ -1,0 +1,77 @@
+      <section class="block" id="tree">
+        <h2>树 Tree</h2>
+        <p class="desc">树用来浏览和操作有层级的数据：组织架构、文件目录、分类、权限。遵循 WAI-ARIA tree 模式，整棵树只有一个 Tab 停靠点，其余用方向键移动。数据是一份受控模型，勾选、选择、展开、移动都通过事件抛出。</p>
+
+        <h3>勾选与选择</h3>
+        <div class="zh-grid">
+          <div class="zh-col zh-card" style="--d:7;--t:8;--p:4">
+            <div class="zh-split" style="margin-bottom:10px">
+              <div class="zh-row" style="--g:8px"><button type="button" class="zh-btn sm" id="zhTrExpand"><i data-i="chevrons-up-down"></i>全部展开</button><button type="button" class="zh-btn sm" id="zhTrCollapse"><i data-i="chevrons-down"></i>全部折叠</button></div>
+              <label class="zh-check" style="font-size:.93em"><input type="checkbox" id="zhTrStrict"> 父子不联动</label>
+            </div>
+            <div class="zh-tree" id="zhTreeBasic" style="max-height:320px" aria-label="组织架构（可勾选）"></div>
+            <p class="zh-hint" id="zhTrChecked" style="margin:10px 0 0">已勾选：无</p>
+          </div>
+          <div class="zh-col zh-card" style="--d:5;--t:8;--p:4">
+            <div class="panel-label">事件日志 · 受控模型</div>
+            <ol class="zh-tree-log" id="zhTreeLog" aria-label="树事件日志"><li class="zh-hint">操作左侧的树，这里会记录事件</li></ol>
+          </div>
+        </div>
+
+        <h3>搜索过滤</h3>
+        <div class="zh-card">
+          <div class="zh-split" style="margin-bottom:10px">
+            <div class="zh-field" style="flex:1;min-width:200px;max-width:320px"><label for="zhTrFilter" class="zh-hint" style="margin:0">按名称过滤</label><input id="zhTrFilter" class="zh-input" type="search" placeholder="试试输入「服务」或「组」" autocomplete="off"></div>
+            <span class="zh-hint" id="zhTrFilterN" role="status" aria-live="polite" style="margin:0"></span>
+          </div>
+          <div class="zh-tree" id="zhTreeFilter" style="max-height:280px" aria-label="可过滤的树"></div>
+          <p class="zh-hint" style="margin:10px 0 0">命中的名称高亮，祖先节点自动展开；清空后恢复原来的展开状态。</p>
+        </div>
+
+        <h3>懒加载与错误重试</h3>
+        <div class="zh-grid">
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><div class="panel-label">展开时才请求子节点 · PostgreSQL 第一次会失败</div><div class="zh-tree" id="zhTreeLazy" aria-label="数据源（懒加载）"></div></div>
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4">
+            <div class="panel-label">节点操作 · 拖拽排序</div>
+            <div class="zh-tree" id="zhTreeEdit" style="max-height:300px" aria-label="任务列表（可编辑）"></div>
+            <p class="zh-hint" style="margin:10px 0 0">悬停出现「添加 / 重命名 / 删除」，双击或 F2 重命名；拖动改变位置（上 1/4 放到前面，下 1/4 放到后面，中间放进去）；键盘用 Alt + ↑ ↓ 调整顺序。</p>
+          </div>
+        </div>
+
+        <h3>目录树</h3>
+        <div class="zh-grid">
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><div class="panel-label">文件类型图标 + 缩进参考线；点击文件夹同时展开</div><div class="zh-tree zh-tree--guides" id="zhTreeDir" style="max-height:368px" aria-label="项目目录"></div><p class="zh-hint" id="zhTrDirPath" style="margin:10px 0 0">已选择：无</p></div>
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4">
+            <div class="panel-label">TreeSelect · 下拉里的树</div>
+            <div class="zh-stack" style="--g:14px">
+              <div class="zh-field"><label class="zh-hint" style="margin:0" id="zhTsL1">所在地区（单选）</label><div class="zh-input zh-tselect" id="zhTsSingle" role="combobox" tabindex="0" aria-haspopup="tree" aria-expanded="false" aria-labelledby="zhTsL1"></div></div>
+              <div class="zh-field"><label class="zh-hint" style="margin:0" id="zhTsL2">覆盖地区（多选，可勾选）</label><div class="zh-input zh-tselect" id="zhTsMulti" role="combobox" tabindex="0" aria-haspopup="tree" aria-expanded="false" aria-labelledby="zhTsL2"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <h3>大数据：5,000+ 节点</h3>
+        <div class="zh-card">
+          <div class="zh-split" style="margin-bottom:10px">
+            <div class="zh-row" style="--g:8px"><button type="button" class="zh-btn sm primary" id="zhTrBigOpen"><i data-i="chevrons-up-down"></i>全部展开</button><button type="button" class="zh-btn sm" id="zhTrBigClose"><i data-i="chevrons-down"></i>折叠</button></div>
+            <span class="zh-hint" id="zhTrBigStat" role="status" style="margin:0"></span>
+          </div>
+          <div class="zh-tree" id="zhTreeBig" style="height:320px" aria-label="大数据树"></div>
+          <p class="zh-hint" style="margin:10px 0 0">只渲染可视区附近的行，滚动时按位置换行；<code>aria-setsize</code> / <code>aria-posinset</code> 仍按完整数据计算，读屏软件读到的是真实位置。</p>
+        </div>
+
+        <h3>规范</h3>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:680px">
+          <thead><tr><th>项</th><th>规则</th></tr></thead>
+          <tbody>
+            <tr><td>语义</td><td><code>role="tree"</code> 下是 <code>treeitem</code>；每项带 <code>aria-level</code> / <code>aria-setsize</code> / <code>aria-posinset</code>；有子节点的带 <code>aria-expanded</code>；勾选树用 <code>aria-checked</code>（含 <code>mixed</code>）</td></tr>
+            <tr><td>焦点</td><td>漫游 tabindex：整棵树只有一个 Tab 停靠点；行内的操作按钮不进入 Tab 序列，键盘用快捷键代替</td></tr>
+            <tr><td>键盘</td><td>↑ ↓ 移动 · → 展开 / 进入子级 · ← 折叠 / 回到父级 · Home End · <kbd class="zh-kbd">*</kbd> 展开同级 · 输入字母跳转 · Enter 选择 · Space 勾选 · F2 重命名 · Delete 删除 · Alt+↑↓ 调整顺序</td></tr>
+            <tr><td>勾选</td><td>父子联动：全选为选中，部分为半选，全不选为未选；「父子不联动」时各自独立；禁用的节点不参与联动</td></tr>
+            <tr><td>缩进</td><td>每级 20px；有参考线时线只画在缩进区，不穿过文字</td></tr>
+            <tr><td>动效</td><td>展开时子节点依次淡入并下移 6px（间隔 30ms），折叠时整体淡出；只动 transform 与 opacity；「减少动态效果」下无动画</td></tr>
+            <tr><td>状态</td><td>悬停浅灰底 · 选中品牌浅底加品牌文字 · 焦点内描边 · 禁用降低对比并跳过联动 · 加载中显示旋转图标 · 失败显示原因与「重试」</td></tr>
+            <tr><td>数量</td><td>可见行超过 80 自动开启窗口化；一次性展示超过 5,000 行前先考虑搜索或分级加载</td></tr>
+          </tbody>
+        </table></div>
+      </section>

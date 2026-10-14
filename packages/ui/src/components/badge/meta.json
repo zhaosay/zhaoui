@@ -1,0 +1,76 @@
+{
+  "name": "badge",
+  "title": "徽标",
+  "summary": "挂在头像、图标、按钮角上的数字、红点或文字徽标。数量为 0 时自动隐藏，超过上限显示 99+。",
+  "classes": [
+    "zh-bdg",
+    "zh-bdg-mark",
+    "zh-bdg-status"
+  ],
+  "attributes": [
+    {
+      "name": "data-count",
+      "on": ".zh-bdg-mark",
+      "value": "整数",
+      "desc": "数字徽标；0 时隐藏（除非 data-show-zero）"
+    },
+    {
+      "name": "data-max",
+      "on": ".zh-bdg-mark",
+      "value": "整数，默认 99",
+      "desc": "超过则显示 99+"
+    },
+    {
+      "name": "data-dot",
+      "on": ".zh-bdg-mark",
+      "value": "true",
+      "desc": "红点模式，只表示有更新"
+    },
+    {
+      "name": "data-text",
+      "on": ".zh-bdg-mark",
+      "value": "字符串，如 NEW",
+      "desc": "文字徽标"
+    },
+    {
+      "name": "data-tone",
+      "on": ".zh-bdg-mark",
+      "value": "danger | primary | success | warning | info | neutral",
+      "desc": "颜色"
+    },
+    {
+      "name": "data-label",
+      "on": ".zh-bdg-mark",
+      "value": "字符串，如「条未读消息」",
+      "desc": "读屏时跟在数字后面，务必填写"
+    },
+    {
+      "name": "data-pos",
+      "on": ".zh-bdg（外层）",
+      "value": "top-left | bottom-left | bottom-right（默认右上）",
+      "desc": "徽标相对被包裹元素的位置，默认右上"
+    },
+    {
+      "name": "data-show-zero",
+      "on": ".zh-bdg-mark",
+      "value": "true",
+      "desc": "数量为 0 也显示"
+    }
+  ],
+  "events": [],
+  "methods": [
+    {
+      "name": "ZhaoUI.badge.paint(el)",
+      "desc": "修改 data-count 等属性后调用，重新渲染"
+    },
+    {
+      "name": "ZhaoUI.badge.pop(el)",
+      "desc": "播放一次弹跳动画（开启「减少动态效果」时不播放）"
+    }
+  ],
+  "a11y": [
+    "可见的数字是 aria-hidden，另有视觉隐藏的文字读作「5 条未读」，所以 data-label 很重要",
+    "隐藏时设置 aria-hidden=\"true\""
+  ],
+  "example": "<span class=\"zh-bdg\"><button class=\"zh-btn\" aria-label=\"消息\">消息</button><span class=\"zh-bdg-mark\" id=\"unread\" data-count=\"5\" data-tone=\"danger\" data-label=\"条未读\"></span></span>\n<span class=\"zh-bdg\"><button class=\"zh-btn\">待办</button><span class=\"zh-bdg-mark\" data-count=\"128\" data-tone=\"primary\" data-label=\"项待办\"></span></span>\n<span class=\"zh-bdg\"><button class=\"zh-btn\">动态</button><span class=\"zh-bdg-mark\" data-dot=\"true\" data-tone=\"danger\" data-label=\"有更新\"></span></span>\n<span class=\"zh-bdg\"><button class=\"zh-btn\">功能</button><span class=\"zh-bdg-mark\" data-text=\"NEW\" data-tone=\"success\"></span></span>\n\n<script>\nvar m = document.getElementById('unread');\nm.dataset.count = '12';\nZhaoUI.badge.paint(m); ZhaoUI.badge.pop(m);\n</script>"
+}

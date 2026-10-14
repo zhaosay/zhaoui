@@ -1,0 +1,132 @@
+/* @zhaoui style pack: glassmorphism
+   Loaded after zhaoui.css. Activated by [data-style="glass"] on any element.
+   Rules: translucent surfaces over a colourful backdrop; background blur only on top-level and floating surfaces
+   (nested blur cannot see through its parent); a bright 1px edge; a soft brand-tinted shadow; primary actions stay solid.
+   Text tokens are unchanged - the palette keeps every glass surface within contrast, and each surface falls back to a solid
+   colour when blur is unsupported, transparency is reduced, or high contrast is requested. */
+
+/* ---- backdrop: three blurred light spots derived from the brand hue ---- */
+[data-style="glass"] body {
+  background-color: var(--zh-glass-base);
+  background-image:
+    radial-gradient(60vmax 48vmax at 6% -4%, var(--zh-glass-o1), transparent 62%),
+    radial-gradient(52vmax 44vmax at 98% 14%, var(--zh-glass-o2), transparent 62%),
+    radial-gradient(58vmax 46vmax at 42% 108%, var(--zh-glass-o3), transparent 64%);
+  background-attachment: fixed;
+}
+
+/* ---- top-level and floating surfaces: these are the only elements that blur what is behind them ---- */
+[data-style="glass"] .topbar,
+[data-style="glass"] .stage,
+[data-style="glass"] .zh-pop-body,
+[data-style="glass"] dialog.zh-modal,
+[data-style="glass"] .zh-drawer,
+[data-style="glass"] .zh-sel-list, [data-style="glass"] .zh-cas-panel, [data-style="glass"] .zh-dp-panel, [data-style="glass"] .zh-tp-panel,
+[data-style="glass"] .zh-dd-menu, [data-style="glass"] .zh-nav-panel, [data-style="glass"] .zh-nav-menu, [data-style="glass"] .zh-avatar-list, [data-style="glass"] .zh-bdg-menu {
+  background: var(--zh-glass-fill);
+  -webkit-backdrop-filter: blur(var(--zh-glass-blur)) saturate(var(--zh-glass-saturate));
+  backdrop-filter: blur(var(--zh-glass-blur)) saturate(var(--zh-glass-saturate));
+  border: 1px solid var(--zh-glass-border);
+}
+[data-style="glass"] .topbar { box-shadow: 0 8px 24px -14px var(--zh-glass-shadow), inset 0 -1px 0 var(--zh-glass-border); border-bottom-color: transparent; }
+[data-style="glass"] .stage { box-shadow: var(--zh-shadow-lg); }
+[data-style="glass"] .zh-pop-body, [data-style="glass"] dialog.zh-modal, [data-style="glass"] .zh-drawer,
+[data-style="glass"] .zh-sel-list, [data-style="glass"] .zh-cas-panel, [data-style="glass"] .zh-dp-panel, [data-style="glass"] .zh-tp-panel,
+[data-style="glass"] .zh-dd-menu, [data-style="glass"] .zh-nav-panel, [data-style="glass"] .zh-nav-menu, [data-style="glass"] .zh-avatar-list, [data-style="glass"] .zh-bdg-menu { background: var(--zh-glass-fill-strong); box-shadow: var(--zh-shadow-lg); }
+[data-style="glass"] dialog.zh-modal::backdrop { background: var(--zh-overlay); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+[data-style="glass"] section.block { border-top-color: var(--zh-glass-border); }
+[data-style="glass"] .toc a.active { background: var(--zh-glass-fill); box-shadow: inset 0 1px 0 var(--zh-glass-hi); border-left-color: var(--zh-color-primary); }
+
+/* ---- in-page surfaces: translucent fill and edge, no extra blur ---- */
+[data-style="glass"] .zh-card,
+[data-style="glass"] .zh-card.zh-card,
+[data-style="glass"] .zh-alert,
+[data-style="glass"] .zh-upload-card, [data-style="glass"] .zh-upload-item, [data-style="glass"] .zh-collapse-item, [data-style="glass"] .zh-ai-msg, [data-style="glass"] .zh-opt-msg,
+[data-style="glass"] .icon-cell { background: var(--zh-glass-fill); border-color: var(--zh-glass-border); box-shadow: var(--zh-shadow-sm); }
+[data-style="glass"] .zh-card { box-shadow: var(--zh-shadow-md); }
+[data-style="glass"] .zh-table-wrap, [data-style="glass"] .matrix-wrap { background: var(--zh-glass-well); border-color: var(--zh-glass-border); }
+[data-style="glass"] .zh-table th, [data-style="glass"] .matrix th { background: var(--zh-glass-fill); }
+[data-style="glass"] .zh-table tbody tr:hover, [data-style="glass"] .matrix tbody tr:hover { background: var(--zh-glass-fill); }
+[data-style="glass"] .zh-modal header, [data-style="glass"] .zh-modal footer { border-color: var(--zh-glass-border); }
+[data-style="glass"] .tt { background: var(--zh-glass-fill-strong); border-color: var(--zh-glass-border); }
+
+/* ---- buttons: glass by default, solid brand for primary ---- */
+[data-style="glass"] .zh-btn {
+  background: var(--zh-glass-fill); border-color: var(--zh-glass-border); box-shadow: var(--zh-shadow-sm);
+  transition: background var(--zh-dur-fast) var(--zh-ease-standard), box-shadow var(--zh-dur-fast) var(--zh-ease-standard), transform var(--zh-dur-instant) var(--zh-ease-standard), border-color var(--zh-dur-fast);
+}
+[data-style="glass"] .zh-btn:hover { background: var(--zh-glass-fill-strong); border-color: var(--zh-color-primary); color: var(--zh-color-primary-text); box-shadow: var(--zh-shadow-md); }
+[data-style="glass"] .zh-btn:active { transform: scale(.98); box-shadow: var(--zh-shadow-sm); }
+[data-style="glass"] .zh-btn.primary {
+  color: var(--zh-on-primary); border-color: var(--zh-glass-border);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .22), rgba(255, 255, 255, 0) 60%), var(--zh-color-primary);
+  box-shadow: 0 8px 20px -6px var(--zh-primary-a35), inset 0 1px 0 rgba(255, 255, 255, .35);
+}
+[data-style="glass"] .zh-btn.primary:hover { color: var(--zh-on-primary); background: linear-gradient(180deg, rgba(255, 255, 255, .22), rgba(255, 255, 255, 0) 60%), var(--zh-color-primary-hover); box-shadow: 0 12px 26px -8px var(--zh-primary-a35), inset 0 1px 0 rgba(255, 255, 255, .35); }
+[data-style="glass"] .zh-btn.primary:active { background: var(--zh-color-primary-active); }
+[data-style="glass"] .zh-btn.text, [data-style="glass"] .zh-btn.text:hover { background: transparent; border-color: transparent; box-shadow: none; }
+[data-style="glass"] .zh-btn.text:hover { background: var(--zh-glass-fill); }
+[data-style="glass"] .zh-btn.danger { color: var(--zh-text-danger); }
+[data-style="glass"] .zh-btn.danger:hover { background: var(--zh-danger); color: #fff; border-color: transparent; }
+[data-style="glass"] .zh-btn[aria-disabled="true"], [data-style="glass"] .zh-btn:disabled { box-shadow: none; }
+
+/* ---- fields: a slightly denser pane with a visible edge ---- */
+[data-style="glass"] .zh-input, [data-style="glass"] .zh-select select, [data-style="glass"] .zh-textarea,
+[data-style="glass"] .zh-sel-trigger, [data-style="glass"] .zh-sel-box, [data-style="glass"] .zh-dp-field, [data-style="glass"] .zh-inp-box, [data-style="glass"] .zh-otp-cell,
+[data-style="glass"] .zh-tag-input, [data-style="glass"] .zh-cmd-input, [data-style="glass"] .zh-pg-jumpbox, [data-style="glass"] .zh-upload-drop, [data-style="glass"] .zh-upload-avatarbox {
+  background: var(--zh-glass-well); border-color: var(--zh-glass-edge); box-shadow: inset 0 1px 2px rgba(15, 23, 42, .06);
+}
+[data-style="glass"] .zh-input:hover, [data-style="glass"] .zh-select select:hover, [data-style="glass"] .zh-textarea:hover { border-color: var(--zh-color-primary); }
+[data-style="glass"] .zh-input:focus, [data-style="glass"] .zh-select select:focus, [data-style="glass"] .zh-textarea:focus,
+[data-style="glass"] .zh-sel-trigger:focus-within, [data-style="glass"] .zh-dp-field:focus-within, [data-style="glass"] .zh-inp-box:focus-within {
+  background: var(--zh-glass-fill-strong); border-color: var(--zh-color-primary); box-shadow: 0 0 0 3px var(--zh-primary-a22);
+}
+[data-style="glass"] .zh-input[aria-invalid="true"] { border-color: var(--zh-danger); }
+[data-style="glass"] .zh-input[readonly] { background: transparent; border-color: transparent; box-shadow: none; }
+[data-style="glass"] .zh-inp-box .zh-input, [data-style="glass"] .zh-inp-box input, [data-style="glass"] .zh-sel-input { background: transparent; box-shadow: none; border-color: transparent; }
+
+/* ---- toggles ---- */
+[data-style="glass"] .zh-switch { background: var(--zh-glass-edge); box-shadow: inset 0 1px 2px rgba(15, 23, 42, .12); }
+[data-style="glass"] .zh-switch::after { background: #fff; box-shadow: 0 1px 4px rgba(15, 23, 42, .3); }
+[data-style="glass"] .zh-switch:checked { background: var(--zh-color-primary); }
+
+/* ---- segmented control, tabs, menus, pager, tags ---- */
+[data-style="glass"] .seg { background: var(--zh-glass-well); border-color: var(--zh-glass-border); }
+[data-style="glass"] .seg button[aria-pressed="true"] { background: var(--zh-glass-fill-strong); box-shadow: var(--zh-shadow-sm); }
+[data-style="glass"] .zh-tabs { border-bottom-color: var(--zh-glass-border); }
+[data-style="glass"] .zh-tabs button[aria-selected="true"], [data-style="glass"] .zh-tabs--card [aria-selected="true"] { background: var(--zh-glass-fill-strong); border-radius: var(--zh-radius-md) var(--zh-radius-md) 0 0; }
+[data-style="glass"] .zh-menu a:hover { background: var(--zh-glass-fill); }
+[data-style="glass"] .zh-menu a[aria-current="page"], [data-style="glass"] .zh-side-item[aria-current="page"], [data-style="glass"] .zh-side-item.is-active { background: var(--zh-glass-fill-strong); box-shadow: var(--zh-shadow-sm); }
+[data-style="glass"] .zh-side-item:hover, [data-style="glass"] .zh-tree-row:hover { background: var(--zh-glass-fill); }
+[data-style="glass"] .zh-tree-row[aria-selected="true"] { background: var(--zh-glass-fill-strong); }
+[data-style="glass"] .zh-pager button, [data-style="glass"] .zh-pg-btn, [data-style="glass"] .zh-num-btn, [data-style="glass"] .zh-inp-btn, [data-style="glass"] .zh-inp-addon-btn, [data-style="glass"] .zh-nav-iconbtn {
+  background: var(--zh-glass-fill); border-color: var(--zh-glass-border); box-shadow: var(--zh-shadow-sm);
+}
+[data-style="glass"] .zh-pager button:hover, [data-style="glass"] .zh-pg-btn:hover { background: var(--zh-glass-fill-strong); }
+[data-style="glass"] .zh-pager button[aria-current="page"], [data-style="glass"] .zh-pg-btn[aria-current="page"] { background: var(--zh-color-primary); color: var(--zh-on-primary); border-color: var(--zh-glass-border); }
+[data-style="glass"] .zh-tag { background: var(--zh-glass-well); border-color: var(--zh-glass-border); }
+
+/* ---- tracks and fills ---- */
+[data-style="glass"] .meter, [data-style="glass"] .zh-slider-rail, [data-style="glass"] .zh-progress-track, [data-style="glass"] .zh-upload-bar, [data-style="glass"] .zh-skeleton { background: var(--zh-glass-well); border-color: var(--zh-glass-border); }
+[data-style="glass"] .zh-slider-thumb { background: #fff; border-color: var(--zh-glass-border); box-shadow: 0 2px 8px var(--zh-glass-shadow); }
+[data-style="glass"] .zh-dp-day[aria-selected="true"], [data-style="glass"] .zh-dp-day.is-selected { background: var(--zh-color-primary); color: var(--zh-on-primary); }
+[data-style="glass"] .zh-dd-item:hover, [data-style="glass"] .zh-sel-opt:hover, [data-style="glass"] .zh-cas-item:hover, [data-style="glass"] .zh-cmd-item:hover, [data-style="glass"] .zh-tp-item:hover, [data-style="glass"] .zh-dp-day:hover { background: var(--zh-glass-well); }
+[data-style="glass"] .zh-sel-opt[aria-selected="true"], [data-style="glass"] .zh-cas-item[aria-selected="true"], [data-style="glass"] .zh-cmd-item[aria-selected="true"], [data-style="glass"] .zh-tp-item[aria-selected="true"] { background: var(--zh-color-primary-subtle); }
+[data-style="glass"] .zh-step-icon, [data-style="glass"] .zh-tl-dot { background: var(--zh-glass-fill-strong); border-color: var(--zh-glass-border); box-shadow: var(--zh-shadow-sm); }
+[data-style="glass"] .zh-inf-box, [data-style="glass"] .zh-lng-box, [data-style="glass"] .zh-log, [data-style="glass"] .zh-tree-log, [data-style="glass"] .zh-tselect-chip { background: var(--zh-glass-well); border-color: var(--zh-glass-border); }
+
+/* ---- fallbacks: a solid surface when blur or transparency is unavailable or unwanted ---- */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  [data-style="glass"] { --zh-glass-fill: var(--zh-glass-solid); --zh-glass-fill-strong: var(--zh-glass-solid); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  [data-style="glass"] { --zh-glass-fill: var(--zh-glass-solid); --zh-glass-fill-strong: var(--zh-glass-solid); --zh-glass-well: var(--zh-glass-solid); }
+  [data-style="glass"] .topbar, [data-style="glass"] .stage, [data-style="glass"] .zh-pop-body, [data-style="glass"] dialog.zh-modal, [data-style="glass"] .zh-drawer { -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+@media (prefers-contrast: more), (forced-colors: active) {
+  [data-style="glass"] .zh-card, [data-style="glass"] .zh-btn, [data-style="glass"] .zh-input, [data-style="glass"] .zh-select select, [data-style="glass"] .zh-textarea,
+  [data-style="glass"] .zh-tag, [data-style="glass"] .seg, [data-style="glass"] .zh-alert, [data-style="glass"] .zh-sel-trigger, [data-style="glass"] .zh-dp-field,
+  [data-style="glass"] .zh-inp-box, [data-style="glass"] .zh-upload-drop, [data-style="glass"] .zh-pg-btn { border: 1px solid CanvasText; box-shadow: none; }
+  [data-style="glass"] body { background-image: none; }
+}
+@media (prefers-reduced-motion: reduce) { [data-style="glass"] * { transition: none !important; } }

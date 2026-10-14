@@ -1,0 +1,29 @@
+{
+  "name": "spinner",
+  "title": "加载中",
+  "summary": "纯样式组件：不需要 JS，写好标记即可。一个转动的圆圈，表示正在加载。三个大小：sm、默认、lg。系统开启“减少动态效果”时圈会静止，所以旁边请同时写“加载中”之类的文字。",
+  "classes": [
+    "zh-spinner"
+  ],
+  "attributes": [
+    {
+      "name": "zh-spinner",
+      "on": "<span>（class）",
+      "value": "",
+      "desc": "转动的圆圈；可加 sm 或 lg"
+    },
+    {
+      "name": "role=\"status\"",
+      "on": "外层容器",
+      "value": "",
+      "desc": "读屏会读出里面的文字"
+    }
+  ],
+  "events": [],
+  "methods": [],
+  "a11y": [
+    "圆圈本身加 aria-hidden=\"true\"，用旁边的文字或外层 role=\"status\" 告诉读屏用户",
+    "按钮上的加载态用 is-loading，不需要这个组件"
+  ],
+  "example": "<div class=\"zh-row\" role=\"status\"><span class=\"zh-spinner\" aria-hidden=\"true\"></span><span>加载中…</span></div>\n<span class=\"zh-spinner sm\" aria-hidden=\"true\"></span> <span class=\"zh-spinner lg\" aria-hidden=\"true\"></span>"
+}

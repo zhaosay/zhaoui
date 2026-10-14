@@ -1,0 +1,117 @@
+      <section class="block" id="stream">
+        <h2>流式加载</h2>
+        <p class="desc">内容不是一次到齐，而是边到边显示：分页追加、逐字输出、实时日志。核心原则三条：<strong>不让页面跳</strong>（追加不改变已有内容的位置）、<strong>不打扰用户</strong>（用户往上翻时不强行滚到底）、<strong>失败可恢复</strong>（保留已有内容，就地重试）。</p>
+
+        <h3>无限滚动</h3>
+        <div class="zh-grid">
+          <div class="zh-col" style="--d:7;--t:8;--p:4">
+            <div class="zh-inf-wrap"><div class="zh-inf-box" id="zhInfBox" tabindex="0" role="region" aria-label="资讯列表，滚动到底部自动加载更多"><ul class="zh-inf-list" id="zhInfList"></ul><div class="zh-inf-foot" id="zhInfFoot"></div></div></div>
+          </div>
+          <div class="zh-col zh-card" style="--d:5;--t:8;--p:4">
+            <div class="panel-label">状态</div>
+            <div class="metric metric-md" id="zhInfCount">0<span class="unit">条</span></div>
+            <p class="zh-hint" id="zhInfStatus" role="status" aria-live="polite" style="margin:4px 0 12px"></p>
+            <div class="zh-stack" style="--g:10px">
+              <label class="zh-check"><input type="checkbox" id="zhInfFail" checked> 第 3 页首次加载失败（演示重试）</label>
+              <div class="zh-row" style="--g:8px"><button type="button" class="zh-btn sm" id="zhInfReset"><i data-i="rotate-ccw"></i>重置</button><button type="button" class="zh-btn sm" id="zhInfTop"><i data-i="arrow-up"></i>回到顶部</button></div>
+            </div>
+            <ul class="check" style="margin-top:14px;font-size:.93em"><li>距底部 120px 时提前加载，用户看不到空白</li><li>加载中用与内容同高的骨架行占位，追加后位置不变</li><li>失败保留已加载内容，只在末尾显示「重试」</li><li>到底后停止请求并明确告知</li></ul>
+          </div>
+        </div>
+
+        <h3>「加载更多」按钮</h3>
+        <div class="zh-grid">
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4">
+            <ul class="zh-inf-list" id="zhMoreList" style="border:1px solid var(--zh-border);border-radius:var(--zh-radius-lg);overflow:hidden"></ul>
+            <div class="zh-row" style="justify-content:center;margin-top:12px" id="zhMoreFoot"></div>
+          </div>
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4">
+            <div class="panel-label">什么时候用按钮而不是无限滚动</div>
+            <ul class="check" style="font-size:.93em"><li>页面底部还有页脚、表单或需要被触达的内容</li><li>用户需要回到某一条内容（无限滚动会丢位置）</li><li>键盘和读屏用户：按钮是可到达的，滚动触发不是</li><li>加载完成后焦点移到第一条新内容，并读出「已加载 N 条」</li></ul>
+          </div>
+        </div>
+
+        <h3>长列表：content-visibility</h3>
+        <div class="zh-card">
+          <div class="zh-split" style="margin-bottom:10px">
+            <label class="zh-check"><input type="checkbox" id="zhLngCv" checked> 启用 <code>content-visibility: auto</code></label>
+            <span class="zh-hint" id="zhLngStat" role="status" style="margin:0"></span>
+          </div>
+          <div class="zh-lng-box" id="zhLngBox" tabindex="0" role="region" aria-label="两千行的长列表"><ul class="zh-inf-list" id="zhLngList"></ul></div>
+          <p class="zh-hint" style="margin:10px 0 0">不需要虚拟滚动库：让浏览器跳过屏幕外行的布局与绘制，条数在几千以内足够。Safari 18 之前不支持，会退化为普通渲染，功能不受影响。上万行请分页或换成窗口化渲染（参见「树 · 大数据」）。</p>
+        </div>
+
+        <h3>AI 流式输出</h3>
+        <div class="zh-ai" id="zhAi">
+          <div class="zh-ai-head">
+            <div class="zh-row" style="--g:8px"><span class="zh-ai-badge" aria-hidden="true"><i data-i="sparkles" data-s="16"></i></span><strong>设计助手</strong><span class="zh-tag" id="zhAiState">空闲</span></div>
+            <span class="zh-hint" id="zhAiTok" style="margin:0"></span>
+          </div>
+          <div class="zh-ai-wrap">
+            <div class="zh-ai-body" id="zhAiBody" tabindex="0" role="region" aria-label="对话内容" aria-busy="false">
+              <div class="zh-ai-user"><span>给我一份设计系统落地的建议</span></div>
+              <div class="zh-ai-msg" id="zhAiMsg"><span class="zh-ai-ava" aria-hidden="true"><i data-i="bot" data-s="18"></i></span><div class="zh-ai-md" id="zhAiMd"><p class="zh-hint" style="margin:0">点击下方「生成」，体验逐字输出、停止、继续与重新生成。</p></div></div>
+            </div>
+            <button type="button" class="zh-btn sm zh-stream-jump" id="zhAiJump" hidden><i data-i="arrow-down"></i>跳到最新</button>
+          </div>
+          <div class="zh-ai-foot">
+            <div class="zh-row" style="--g:8px">
+              <button type="button" class="zh-btn primary sm" id="zhAiGo"><i data-i="play"></i>生成</button>
+              <button type="button" class="zh-btn sm" id="zhAiRe" disabled><i data-i="refresh-cw"></i>重新生成</button>
+              <button type="button" class="zh-btn sm" id="zhAiCopy" disabled><i data-i="copy"></i>复制</button>
+            </div>
+            <div class="zh-row" style="--g:12px">
+              <div class="seg" role="group" aria-label="输出速度" id="zhAiSpeed"><button type="button" data-v="70" aria-pressed="false">慢</button><button type="button" data-v="32" aria-pressed="true">中</button><button type="button" data-v="12" aria-pressed="false">快</button></div>
+              <label class="zh-check" style="font-size:.9em"><input type="checkbox" id="zhAiErr"> 中途模拟断线</label>
+            </div>
+          </div>
+        </div>
+        <div class="zh-stream-live" id="zhAiLive" role="status" aria-live="polite"></div>
+        <p class="zh-hint" style="margin:10px 0 0">每次刷新都把「已收到的全文」重新渲染，所有文本先转义再加标记，未闭合的代码块也安全；正在输出时容器标记 <code>aria-busy</code>，读屏只在开始与结束时播报一次，不逐字朗读。</p>
+
+        <h3>实时日志</h3>
+        <div class="zh-card">
+          <div class="zh-split" style="margin-bottom:10px">
+            <div class="zh-row" style="--g:10px">
+              <button type="button" class="zh-btn sm" id="zhLogPause"><i data-i="pause"></i>暂停</button>
+              <div class="seg" role="group" aria-label="日志级别" id="zhLogFilter"><button type="button" data-v="all" aria-pressed="true">全部</button><button type="button" data-v="info" aria-pressed="false">信息</button><button type="button" data-v="warn" aria-pressed="false">警告</button><button type="button" data-v="error" aria-pressed="false">错误</button></div>
+              <button type="button" class="zh-btn sm" id="zhLogClear"><i data-i="trash-2"></i>清空</button>
+            </div>
+            <span class="zh-hint" id="zhLogStat" style="margin:0"></span>
+          </div>
+          <div class="zh-ai-wrap"><div class="zh-log" id="zhLogBox" tabindex="0" role="log" aria-label="服务日志" aria-live="off"></div><button type="button" class="zh-btn sm zh-stream-jump" id="zhLogJump" hidden><i data-i="arrow-down"></i>跳到最新</button></div>
+          <p class="zh-hint" style="margin:10px 0 0">最多保留 200 行，更早的自动截断并提示；级别用图标加文字，不只靠颜色；用户向上翻看时新日志继续累计但不打断阅读；页面滚出可视区时自动停止产生日志。</p>
+        </div>
+
+        <h3>渐进显示与乐观追加</h3>
+        <div class="zh-grid">
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4">
+            <div class="zh-split" style="margin-bottom:10px"><div class="panel-label" style="margin:0">骨架 → 内容，逐行错峰淡入</div><button type="button" class="zh-btn sm" id="zhProgGo"><i data-i="rotate-ccw"></i>重新加载</button></div>
+            <ul class="zh-inf-list" id="zhProgList" aria-live="polite" style="border:1px solid var(--zh-border);border-radius:var(--zh-radius-lg);overflow:hidden"></ul>
+          </div>
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4">
+            <div class="panel-label">乐观追加：先显示，再确认</div>
+            <div class="zh-ai-wrap"><div class="zh-opt-list" id="zhOptList" tabindex="0" role="log" aria-label="消息" aria-live="polite"></div><button type="button" class="zh-btn sm zh-stream-jump" id="zhOptJump" hidden><i data-i="arrow-down"></i>跳到最新</button></div>
+            <form class="zh-row" style="margin-top:10px;flex-wrap:nowrap;--g:8px" id="zhOptForm" onsubmit="return false">
+              <input class="zh-input" id="zhOptIn" placeholder="输入消息，回车发送" autocomplete="off" aria-label="消息内容">
+              <button type="submit" class="zh-btn primary" id="zhOptSend"><i data-i="send-horizontal"></i>发送</button>
+            </form>
+            <label class="zh-check" style="margin-top:8px;font-size:.9em"><input type="checkbox" id="zhOptFail"> 下一条发送失败（演示重试）</label>
+          </div>
+        </div>
+
+        <h3>规范</h3>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:680px">
+          <thead><tr><th>项</th><th>规则</th></tr></thead>
+          <tbody>
+            <tr><td>占位</td><td>骨架行与真实行同高同结构；数量等于预期条数（不超过 5 行）；刷新时保留旧内容并降低透明度，不要闪一下骨架</td></tr>
+            <tr><td>触发</td><td>无限滚动用 IntersectionObserver，提前 120px；同一时刻只允许一个请求在途；到底后断开观察</td></tr>
+            <tr><td>滚动</td><td>追加不改变已有位置；流式内容只在用户位于底部 24px 内时才自动跟随，否则出现「跳到最新」</td></tr>
+            <tr><td>错误</td><td>就地显示原因与「重试」；已收到的内容永远保留；流式中断提供「继续生成」，而不是清空重来</td></tr>
+            <tr><td>读屏</td><td>加载中容器 <code>aria-busy</code>；完成、失败、到底用 <code>role="status"</code> 播报一次；不要给逐字更新的区域加 <code>aria-live</code></td></tr>
+            <tr><td>控制权</td><td>任何流式输出都必须能「停止」；日志必须能「暂停」；两者都不能因为再次点击丢内容</td></tr>
+            <tr><td>动效</td><td>新内容淡入并上移 8px，多行按 30ms×2 错峰；光标闪烁；「减少动态效果」下全部关闭，光标变为常亮</td></tr>
+            <tr><td>数量</td><td>DOM 里保留的行数设上限（日志 200）；几千行用 content-visibility，上万行用窗口化</td></tr>
+          </tbody>
+        </table></div>
+      </section>

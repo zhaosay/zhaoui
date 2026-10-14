@@ -1,0 +1,97 @@
+      <section class="block" id="input">
+        <h2>输入框</h2>
+        <p class="desc">所有文字类输入共用一套外观：一个边框、一圈焦点环、统一的高度。前后缀、清除按钮、密码开关都放在同一个框里，不各画各的边。标签永远在框外、在框上方。</p>
+
+        <h3>状态</h3>
+        <div class="zh-grid zh-inp-states">
+          <div class="zh-col zh-field" style="--d:4;--t:4;--p:4"><label for="ip-s1">默认</label><input id="ip-s1" class="zh-input" placeholder="请输入"><span class="zh-hint">提示文字放在框下方</span></div>
+          <div class="zh-col zh-field" style="--d:4;--t:4;--p:4"><label for="ip-s2">悬停（示意）</label><div class="zh-inp is-hover"><span class="zh-inp-box"><input id="ip-s2" class="zh-inp-el" placeholder="请输入"></span></div></div>
+          <div class="zh-col zh-field" style="--d:4;--t:4;--p:4"><label for="ip-s3">聚焦（示意）</label><div class="zh-inp is-focus"><span class="zh-inp-box"><input id="ip-s3" class="zh-inp-el" value="中控系统"></span></div></div>
+          <div class="zh-col zh-field" style="--d:4;--t:4;--p:4"><label for="ip-s4">错误</label><input id="ip-s4" class="zh-input" aria-invalid="true" aria-describedby="ip-s4e" value="ZH-"><span class="zh-inp-msg is-error" id="ip-s4e"><i data-i="circle-alert" data-s="16"></i>编号格式应为 ZH-0001</span></div>
+          <div class="zh-col zh-field" style="--d:4;--t:4;--p:4"><label for="ip-s5">警告</label><input id="ip-s5" class="zh-input is-warning" aria-describedby="ip-s5e" value="admin"><span class="zh-inp-msg is-warning" id="ip-s5e"><i data-i="triangle-alert" data-s="16"></i>该用户名已被使用较多，建议更换</span></div>
+          <div class="zh-col zh-field" style="--d:4;--t:4;--p:4"><label for="ip-s6">成功</label><div class="zh-inp is-success"><span class="zh-inp-box"><input id="ip-s6" class="zh-inp-el" value="zhao@example.com" aria-describedby="ip-s6e"><span class="zh-inp-status"><i data-i="circle-check" data-s="18"></i></span></span></div><span class="zh-inp-msg is-success" id="ip-s6e"><i data-i="check" data-s="16"></i>邮箱可用</span></div>
+          <div class="zh-col zh-field" style="--d:4;--t:4;--p:4"><label for="ip-s7">禁用</label><div class="zh-inp is-disabled"><span class="zh-inp-box"><input id="ip-s7" class="zh-inp-el" value="不可修改" disabled></span></div></div>
+          <div class="zh-col zh-field" style="--d:4;--t:4;--p:4"><label for="ip-s8">只读</label><input id="ip-s8" class="zh-input" value="ZH-20260929" readonly aria-readonly="true"><span class="zh-hint">可选中、可复制，不可编辑</span></div>
+          <div class="zh-col zh-field" style="--d:4;--t:4;--p:4"><label for="ip-s9">加载中</label><div class="zh-inp is-loading"><span class="zh-inp-box"><input id="ip-s9" class="zh-inp-el" value="正在校验…" aria-busy="true"><span class="zh-inp-status"><i data-i="loader-circle" data-s="18" class="zh-inp-spin"></i></span></span></div></div>
+        </div>
+
+        <h3>前后缀、清除与密码</h3>
+        <div class="zh-grid">
+          <div class="zh-col zh-field" style="--d:6;--t:8;--p:4"><label for="ip-a1">前缀图标 + 可清除</label>
+            <div class="zh-inp"><span class="zh-inp-box"><i data-i="mail" data-s="18" class="zh-inp-pre"></i><input id="ip-a1" class="zh-inp-el" type="email" placeholder="name@example.com" value="zhao@example.com"><button type="button" class="zh-inp-btn zh-inp-clear" aria-label="清除" hidden><i data-i="x" data-s="16"></i></button></span></div></div>
+          <div class="zh-col zh-field" style="--d:6;--t:8;--p:4"><label for="ip-a2">密码 · 可切换显示</label>
+            <div class="zh-inp"><span class="zh-inp-box"><i data-i="lock" data-s="18" class="zh-inp-pre"></i><input id="ip-a2" class="zh-inp-el" type="password" value="hunter2secret" autocomplete="new-password"><button type="button" class="zh-inp-btn zh-inp-eye" aria-label="显示密码" aria-pressed="false"><i data-i="eye" data-s="18"></i></button></span></div></div>
+          <div class="zh-col zh-field" style="--d:6;--t:8;--p:4"><label for="ip-a3">前置 / 后置文字</label>
+            <div class="zh-inp"><span class="zh-inp-addon">https://</span><span class="zh-inp-box"><input id="ip-a3" class="zh-inp-el" placeholder="站点域名" value="zhaoui"></span><span class="zh-inp-addon">.example.com</span></div></div>
+          <div class="zh-col zh-field" style="--d:6;--t:8;--p:4"><label for="ip-a4">前置选择 + 后置按钮</label>
+            <div class="zh-inp"><span class="zh-inp-addon zh-inp-addon-select"><select aria-label="协议" class="zh-inp-select"><option>+86</option><option>+852</option><option>+1</option></select></span><span class="zh-inp-box"><input id="ip-a4" class="zh-inp-el" inputmode="tel" placeholder="手机号" value="13800138000"></span><button type="button" class="zh-inp-addon zh-inp-addon-btn">获取验证码</button></div></div>
+          <div class="zh-col zh-field" style="--d:12;--t:8;--p:4"><label for="ip-a5">搜索 · Enter 提交，Esc 清空</label>
+            <div class="zh-inp zh-inp-search" data-search data-out="#ip-a5o"><span class="zh-inp-box"><i data-i="search" data-s="18" class="zh-inp-pre"></i><input id="ip-a5" class="zh-inp-el" type="search" placeholder="搜索文章、设备、用户" enterkeyhint="search"><button type="button" class="zh-inp-btn zh-inp-clear" aria-label="清除搜索" hidden><i data-i="x" data-s="16"></i></button></span><span class="zh-inp-addon zh-inp-addon-kbd"><kbd class="zh-kbd">Enter</kbd></span></div>
+            <span class="zh-hint" id="ip-a5o" aria-live="polite">尚未搜索</span></div>
+        </div>
+
+        <h3>数字步进</h3>
+        <div class="zh-grid">
+          <div class="zh-col zh-field" style="--d:4;--t:4;--p:4"><label for="ip-n1">数量 · 1–10</label>
+            <div class="zh-inp zh-num" data-min="1" data-max="10" data-step="1"><button type="button" class="zh-num-btn" data-dir="-1" aria-label="减少" tabindex="-1"><i data-i="minus" data-s="16"></i></button><input id="ip-n1" class="zh-inp-el" role="spinbutton" inputmode="numeric" value="3"><button type="button" class="zh-num-btn" data-dir="1" aria-label="增加" tabindex="-1"><i data-i="plus" data-s="16"></i></button></div>
+            <span class="zh-hint">按住按钮连续增减；↑↓ 步进，Shift 或 PageUp/Down ×10</span></div>
+          <div class="zh-col zh-field" style="--d:4;--t:4;--p:4"><label for="ip-n2">单价 · 精度 2，步长 0.5</label>
+            <div class="zh-inp zh-num" data-min="0" data-max="9999" data-step="0.5" data-precision="2"><button type="button" class="zh-num-btn" data-dir="-1" aria-label="减少" tabindex="-1"><i data-i="minus" data-s="16"></i></button><input id="ip-n2" class="zh-inp-el" role="spinbutton" inputmode="decimal" value="12.50"><button type="button" class="zh-num-btn" data-dir="1" aria-label="增加" tabindex="-1"><i data-i="plus" data-s="16"></i></button></div>
+            <span class="zh-hint">输入越界会在失焦时修正到范围内</span></div>
+          <div class="zh-col zh-field" style="--d:4;--t:8;--p:4"><label for="ip-n3">折扣 · 0–100，后缀 %</label>
+            <div class="zh-inp zh-num zh-num-split" data-min="0" data-max="100" data-step="5"><span class="zh-inp-box"><input id="ip-n3" class="zh-inp-el" role="spinbutton" inputmode="numeric" value="85"><span class="zh-inp-suf">%</span></span><span class="zh-num-stack"><button type="button" class="zh-num-btn" data-dir="1" aria-label="增加" tabindex="-1"><i data-i="chevron-up" data-s="14"></i></button><button type="button" class="zh-num-btn" data-dir="-1" aria-label="减少" tabindex="-1"><i data-i="chevron-down" data-s="14"></i></button></span></div></div>
+        </div>
+
+        <h3>验证码</h3>
+        <div class="zh-card">
+          <div class="zh-field"><label id="otp-l">短信验证码</label>
+            <div class="zh-otp" data-length="6" aria-labelledby="otp-l" data-out="#otp-o"></div>
+            <span class="zh-hint" id="otp-o" aria-live="polite">已发送到 138****8000，可直接粘贴</span></div>
+          <div class="zh-row" style="margin-top:12px"><button type="button" class="zh-btn sm" id="otp-err">模拟错误</button><button type="button" class="zh-btn sm" id="otp-clear">清空</button></div>
+        </div>
+
+        <h3>多行文本</h3>
+        <div class="zh-grid">
+          <div class="zh-col zh-field" style="--d:6;--t:8;--p:4"><label for="ip-t1">自动增高 + 字数上限 80</label>
+            <div class="zh-ta" data-max-rows="6"><textarea id="ip-t1" class="zh-textarea" rows="2" maxlength="80" placeholder="输入内容，框会随行数增高（最多 6 行）"></textarea><span class="zh-ta-count" aria-hidden="true">0 / 80</span></div></div>
+          <div class="zh-col zh-field" style="--d:6;--t:8;--p:4"><label for="ip-t2">软上限 · 允许超出但提示</label>
+            <div class="zh-ta" data-soft-max="30" data-max-rows="6"><textarea id="ip-t2" class="zh-textarea" rows="2" placeholder="超过 30 字会标红，仍可继续输入">这段文字已经超过了三十个字的软上限，计数会变红并提示超出多少字。</textarea><span class="zh-ta-count" aria-hidden="true"></span></div>
+            <span class="zh-inp-msg is-error" data-ta-msg hidden><i data-i="circle-alert" data-s="16"></i><span></span></span><span class="zh-inp-sr" role="status" aria-live="polite"></span></div>
+        </div>
+
+        <h3>标签、提示与校验</h3>
+        <div class="zh-grid">
+          <div class="zh-col" style="--d:6;--t:8;--p:4">
+            <div class="zh-field" data-validate="email"><label for="ip-v1"><span class="zh-req">邮箱</span></label>
+              <div class="zh-inp"><span class="zh-inp-box"><i data-i="mail" data-s="18" class="zh-inp-pre"></i><input id="ip-v1" class="zh-inp-el" type="email" placeholder="name@example.com" aria-describedby="ip-v1h ip-v1e" autocomplete="off"><span class="zh-inp-status"></span></span></div>
+              <span class="zh-hint" id="ip-v1h">用于接收登录验证与通知</span>
+              <span class="zh-inp-msg is-error" id="ip-v1e" hidden></span></div>
+          </div>
+          <div class="zh-col" style="--d:6;--t:8;--p:4">
+            <div class="panel-label">行内编辑 · 点击、Enter 或 F2 进入；Enter 保存，Esc 取消</div>
+            <div class="zh-edit" data-empty-msg="名称不能为空"><button type="button" class="zh-edit-view" aria-label="编辑名称：中控系统"><span class="zh-edit-text">中控系统</span><i data-i="pencil" data-s="16"></i></button></div>
+            <div class="zh-hint" id="ed-o" aria-live="polite">&nbsp;</div>
+          </div>
+        </div>
+
+        <h3>尺寸</h3>
+        <div class="zh-grid">
+          <div class="zh-col" style="--d:4;--t:8;--p:4"><div class="zh-inp sm"><span class="zh-inp-box"><i data-i="search" data-s="16" class="zh-inp-pre"></i><input class="zh-inp-el" placeholder="小 sm" aria-label="小尺寸输入框"></span></div></div>
+          <div class="zh-col" style="--d:4;--t:8;--p:4"><div class="zh-inp"><span class="zh-inp-box"><i data-i="search" data-s="18" class="zh-inp-pre"></i><input class="zh-inp-el" placeholder="中 md" aria-label="中尺寸输入框"></span></div></div>
+          <div class="zh-col" style="--d:4;--t:8;--p:4"><div class="zh-inp lg"><span class="zh-inp-box"><i data-i="search" data-s="20" class="zh-inp-pre"></i><input class="zh-inp-el" placeholder="大 lg" aria-label="大尺寸输入框"></span></div></div>
+        </div>
+
+        <h3>规范</h3>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:600px">
+          <thead><tr><th>项</th><th>规则</th></tr></thead>
+          <tbody>
+            <tr><td>结构</td><td>标签在框上方；提示与错误在框下方；前后缀、清除、密码开关都在同一个边框里，整体一圈焦点环</td></tr>
+            <tr><td>错误</td><td>红框 + 图标 + 文字，三者同时出现；<code>aria-invalid="true"</code>，错误文字通过 <code>aria-describedby</code> 关联到输入框</td></tr>
+            <tr><td>清除按钮</td><td>有内容才出现；点击后焦点回到输入框；键盘可 Tab 到达，读作「清除」</td></tr>
+            <tr><td>数字步进</td><td>±步长按钮仅作鼠标辅助（不进 Tab 序），键盘用 ↑↓；输入越界或非数字，在失焦时修正，不在输入中途打断</td></tr>
+            <tr><td>验证码</td><td>每格 1 位，自动跳格；Backspace 回退；整段粘贴自动拆分；第一格带 <code>autocomplete="one-time-code"</code></td></tr>
+            <tr><td>多行文本</td><td>自动增高但有上限；字数计数不参与朗读，超限时另用播报区提示，避免逐字打断</td></tr>
+            <tr><td>触控</td><td>手机上高度不低于 44px；前置选择和后置按钮在窄屏保持同一行，输入框自动收缩</td></tr>
+          </tbody>
+        </table></div>
+      </section>

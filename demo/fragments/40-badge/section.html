@@ -1,0 +1,178 @@
+      <section class="block" id="badge">
+        <h2>徽章、标签与头像</h2>
+        <p class="desc">三个小组件解决三件事：徽章表示「有多少、有没有」，标签表示「属于什么、是什么状态」，头像表示「是谁」。颜色永远不单独表达意思：数字、文字或图标必须同时出现。</p>
+
+        <h3>徽章 Badge</h3>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px">
+          <thead><tr><th>类型</th><th>用在哪里</th><th>规则</th></tr></thead>
+          <tbody>
+            <tr><td>数字</td><td>未读消息、待办数量</td><td>超过上限显示「99+」；为 0 时默认隐藏，需要强调「已清零」时才显示 0</td></tr>
+            <tr><td>红点</td><td>有更新但数量不重要</td><td>只表示「有」，不带数字；尺寸为数字徽章的一半</td></tr>
+            <tr><td>文字</td><td>新功能、推荐</td><td>不超过 3 个字符，大写；同一屏最多 2 个</td></tr>
+            <tr><td>状态点</td><td>在线、处理中、异常</td><td>圆点 + 文字标签；「处理中」用脉冲，其余静态</td></tr>
+          </tbody>
+        </table></div>
+
+        <h3>交互试验</h3>
+        <div class="zh-grid">
+          <div class="zh-col zh-card" style="--d:5;--t:8;--p:4">
+            <div class="zh-row" style="gap:28px;align-items:center">
+              <span class="zh-bdg" id="bdgPlayWrap" data-size="md">
+                <button class="zh-btn icon lg" aria-label="消息"><i data-i="bell" data-s="20"></i></button>
+                <span class="zh-bdg-mark" id="bdgPlay" data-count="8" data-tone="danger" data-label="条未读消息" aria-live="polite"></span>
+              </span>
+              <div class="zh-stack" style="--g:8px">
+                <div class="zh-row" style="--g:8px">
+                  <button class="zh-btn sm icon" id="bdgMinus" aria-label="减 1"><i data-i="minus"></i></button>
+                  <button class="zh-btn sm icon" id="bdgPlus" aria-label="加 1"><i data-i="plus"></i></button>
+                  <button class="zh-btn sm" id="bdgPlus10">+10</button>
+                  <button class="zh-btn sm text" id="bdgReset">重置</button>
+                </div>
+                <span class="zh-hint" id="bdgReadout"></span>
+              </div>
+            </div>
+          </div>
+          <div class="zh-col zh-card" style="--d:7;--t:8;--p:4">
+            <div class="zh-row" style="gap:12px 24px">
+              <label class="zh-check"><input type="checkbox" class="zh-switch" role="switch" id="bdgZero"> 数量为 0 时显示</label>
+              <label class="zh-check"><input type="checkbox" class="zh-switch" role="switch" id="bdgDot"> 红点模式</label>
+              <span class="zh-row" style="--g:6px"><label for="bdgMax" class="zh-hint">上限</label>
+                <span class="zh-select" style="width:88px"><select id="bdgMax" class="zh-input sm" style="height:calc(var(--zh-control-h) - 8px)"><option value="9">9+</option><option value="99" selected>99+</option><option value="999">999+</option></select></span></span>
+            </div>
+            <p class="zh-hint" style="margin:10px 0 0">数字变化时徽章会弹一下（约 320ms），减少动态效果时自动关闭。</p>
+          </div>
+        </div>
+
+        <h3>样式一览</h3>
+        <div class="zh-bdg-lab">
+          <div><span class="zh-bdg"><span class="zh-avatar" data-name="设计" data-size="md" data-shape="square"></span><span class="zh-bdg-mark" data-count="5" data-tone="danger" data-label="条未读"></span></span><span class="cap">count</span></div>
+          <div><span class="zh-bdg"><span class="zh-avatar" data-name="研发" data-size="md" data-shape="square"></span><span class="zh-bdg-mark" data-count="128" data-tone="primary" data-label="项待办"></span></span><span class="cap">99+</span></div>
+          <div><span class="zh-bdg"><span class="zh-avatar" data-name="运营" data-size="md" data-shape="square"></span><span class="zh-bdg-mark" data-dot="true" data-tone="danger" data-label="有更新"></span></span><span class="cap">dot</span></div>
+          <div><span class="zh-bdg"><span class="zh-avatar" data-name="市场" data-size="md" data-shape="square"></span><span class="zh-bdg-mark" data-text="NEW" data-tone="success"></span></span><span class="cap">text</span></div>
+          <div><span class="zh-bdg"><span class="zh-avatar" data-name="客服" data-size="md" data-shape="square"></span><span class="zh-bdg-mark" data-text="HOT" data-tone="warning"></span></span><span class="cap">text</span></div>
+          <div><span class="zh-bdg" data-pos="top-left"><span class="zh-avatar" data-name="财务" data-size="md" data-shape="square"></span><span class="zh-bdg-mark" data-count="3" data-tone="info" data-label="条通知"></span></span><span class="cap">top-left</span></div>
+          <div><span class="zh-bdg" data-pos="bottom-right"><span class="zh-avatar" data-name="法务" data-size="md" data-shape="square"></span><span class="zh-bdg-mark" data-count="2" data-tone="neutral" data-label="条草稿"></span></span><span class="cap">bottom-right</span></div>
+          <div><span class="zh-bdg" data-pos="bottom-left"><span class="zh-avatar" data-name="人事" data-size="md" data-shape="square"></span><span class="zh-bdg-mark" data-count="9" data-tone="danger" data-label="条提醒"></span></span><span class="cap">bottom-left</span></div>
+        </div>
+        <div class="zh-bdg-lab" style="margin-top:22px">
+          <div><span class="zh-bdg" data-size="sm"><button class="zh-btn icon" aria-label="购物车"><i data-i="shopping-cart"></i></button><span class="zh-bdg-mark" data-count="3" data-tone="danger" data-label="件商品"></span></span><span class="cap">size sm</span></div>
+          <div><span class="zh-bdg" data-size="md"><button class="zh-btn icon" aria-label="购物车"><i data-i="shopping-cart"></i></button><span class="zh-bdg-mark" data-count="3" data-tone="danger" data-label="件商品"></span></span><span class="cap">size md</span></div>
+          <div><span class="zh-bdg" data-size="lg"><button class="zh-btn icon" aria-label="购物车"><i data-i="shopping-cart"></i></button><span class="zh-bdg-mark" data-count="3" data-tone="danger" data-label="件商品"></span></span><span class="cap">size lg</span></div>
+          <div><span class="zh-bdg"><button class="zh-btn">审批</button><span class="zh-bdg-mark" data-count="12" data-tone="danger" data-label="项待审批"></span></span><span class="cap">on button</span></div>
+          <div><span class="zh-bdg"><button class="zh-btn icon" aria-label="通知"><i data-i="bell"></i></button><span class="zh-bdg-mark" data-dot="true" data-tone="danger" data-label="有新通知"></span></span><span class="cap">on icon</span></div>
+          <div><span class="zh-bdg" data-shape="circle"><span class="zh-avatar" data-name="Ada Lovelace" data-size="lg"></span><span class="zh-bdg-mark" data-count="4" data-tone="danger" data-label="条消息"></span></span><span class="cap">on avatar</span></div>
+          <div><span class="zh-bdg-mark is-inline" data-count="1200" data-max="999" data-tone="neutral" data-label="条" style="margin:0"></span><span class="cap">standalone</span></div>
+        </div>
+
+        <h3>附着在菜单与标签页上</h3>
+        <div class="zh-grid">
+          <div class="zh-col" style="--d:5;--t:4;--p:4">
+            <ul class="zh-menu zh-bdg-menu" aria-label="示例菜单">
+              <li><a href="#badge" aria-current="page"><i data-i="layout-dashboard"></i>概览</a></li>
+              <li><a href="#badge"><i data-i="message-square"></i>消息<span class="zh-bdg-mark is-inline" data-count="6" data-tone="danger" data-label="条未读"></span></a></li>
+              <li><a href="#badge"><i data-i="file-text"></i>审批<span class="zh-bdg-mark is-inline" data-count="120" data-tone="primary" data-label="项待审批"></span></a></li>
+              <li><a href="#badge"><i data-i="settings"></i>设置<span class="zh-bdg-mark is-inline" data-text="新" data-tone="success"></span></a></li>
+            </ul>
+          </div>
+          <div class="zh-col" style="--d:7;--t:4;--p:4">
+            <div class="zh-tabs" role="tablist" aria-label="收件箱" id="bdgTabs">
+              <button role="tab" aria-selected="true">全部<span class="zh-bdg-mark is-inline" data-count="23" data-tone="neutral" data-label="条"></span></button>
+              <button role="tab" aria-selected="false" data-clear="1">未读<span class="zh-bdg-mark is-inline" data-count="5" data-tone="danger" data-label="条未读"></span></button>
+              <button role="tab" aria-selected="false">已归档</button>
+            </div>
+            <p class="zh-hint" style="margin:10px 0 0">点击「未读」标签页，未读徽章会清零并收起。</p>
+          </div>
+        </div>
+
+        <h3>状态点</h3>
+        <div class="zh-row" style="gap:12px 28px">
+          <span class="zh-bdg-status"><i></i>未开始</span>
+          <span class="zh-bdg-status is-processing" data-tone="primary"><i></i>处理中</span>
+          <span class="zh-bdg-status" data-tone="success"><i></i>已完成</span>
+          <span class="zh-bdg-status" data-tone="warning"><i></i>待确认</span>
+          <span class="zh-bdg-status" data-tone="danger"><i></i>失败</span>
+          <span class="zh-bdg-status" data-tone="info"><i></i>提示</span>
+        </div>
+
+        <h3>标签 Tag</h3>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px">
+          <thead><tr><th>形态</th><th>用在哪里</th><th>规则</th></tr></thead>
+          <tbody>
+            <tr><td>柔和（默认）</td><td>状态、分类</td><td>低对比底色 + 语义文字色，最常用</td></tr>
+            <tr><td>实心</td><td>需要强调的少数标签</td><td>同一屏最多 1–2 个，文字用反色令牌</td></tr>
+            <tr><td>描边</td><td>次要属性、筛选条件</td><td>透明底 + 同色描边</td></tr>
+            <tr><td>可关闭 / 可选中</td><td>已选条件、多选筛选</td><td>关闭按钮有独立的可访问名称；可选中是复选框或单选组，可用键盘操作</td></tr>
+            <tr><td>类别色标记</td><td>多类别数据</td><td>圆点承载类别色，文字保持文字令牌颜色</td></tr>
+          </tbody>
+        </table></div>
+        <div class="zh-stack" style="--g:14px;margin-top:14px">
+          <div class="zh-tag-group" aria-label="形态">
+            <span class="zh-tag zh-tag--x">柔和</span><span class="zh-tag zh-tag--x primary">品牌</span><span class="zh-tag zh-tag--x success">成功</span><span class="zh-tag zh-tag--x warning">警告</span><span class="zh-tag zh-tag--x danger">失败</span>
+            <span class="zh-tag zh-tag--x zh-tag--filled">实心</span><span class="zh-tag zh-tag--x zh-tag--filled primary">品牌</span><span class="zh-tag zh-tag--x zh-tag--filled success">成功</span><span class="zh-tag zh-tag--x zh-tag--filled warning">警告</span><span class="zh-tag zh-tag--x zh-tag--filled danger">失败</span><span class="zh-tag zh-tag--x zh-tag--filled info">提示</span>
+          </div>
+          <div class="zh-tag-group" aria-label="描边与尺寸">
+            <span class="zh-tag zh-tag--x zh-tag--outline">描边</span><span class="zh-tag zh-tag--x zh-tag--outline primary">品牌</span><span class="zh-tag zh-tag--x zh-tag--outline success">成功</span><span class="zh-tag zh-tag--x zh-tag--outline warning">警告</span><span class="zh-tag zh-tag--x zh-tag--outline danger">失败</span><span class="zh-tag zh-tag--x zh-tag--outline info">提示</span>
+            <span class="zh-tag zh-tag--x zh-tag--sm primary">小 sm</span><span class="zh-tag zh-tag--x primary">中 md</span><span class="zh-tag zh-tag--x zh-tag--lg primary">大 lg</span>
+            <span class="zh-tag zh-tag--x success"><i data-i="circle-check"></i>带图标</span><span class="zh-tag zh-tag--x zh-tag--outline warning"><i data-i="triangle-alert"></i>需关注</span><span class="zh-tag zh-tag--x" aria-disabled="true">禁用</span>
+          </div>
+        </div>
+
+        <h3>可关闭与新增</h3>
+        <div class="zh-tag-group" id="tagClosable" aria-label="已选标签"></div>
+        <div class="zh-row" style="--g:10px;margin-top:10px"><button class="zh-btn sm text" id="tagReset"><i data-i="rotate-ccw"></i>恢复默认</button><span class="zh-hint" id="tagMsg" role="status"></span></div>
+
+        <h3>可选中：单选与多选</h3>
+        <div class="zh-grid">
+          <div class="zh-col" style="--d:6;--t:8;--p:4"><p class="panel-label">单选 · role=radiogroup · 方向键切换</p>
+            <div class="zh-tag-group" id="tagRadio" role="radiogroup" aria-label="选择周期">
+              <button class="zh-tag zh-tag--x zh-tag--check" role="radio" aria-checked="true" tabindex="0"><i data-i="check" data-s="12" class="zh-tag-tick"></i>今天</button>
+              <button class="zh-tag zh-tag--x zh-tag--check" role="radio" aria-checked="false" tabindex="-1"><i data-i="check" data-s="12" class="zh-tag-tick"></i>近 7 天</button>
+              <button class="zh-tag zh-tag--x zh-tag--check" role="radio" aria-checked="false" tabindex="-1"><i data-i="check" data-s="12" class="zh-tag-tick"></i>近 30 天</button>
+              <button class="zh-tag zh-tag--x zh-tag--check" role="radio" aria-checked="false" tabindex="-1"><i data-i="check" data-s="12" class="zh-tag-tick"></i>本季度</button>
+            </div>
+            <p class="zh-hint" id="tagRadioOut" style="margin:8px 0 0" aria-live="polite"></p></div>
+          <div class="zh-col" style="--d:6;--t:8;--p:4"><p class="panel-label">多选 · role=checkbox · 空格切换</p>
+            <div class="zh-tag-group" id="tagMulti" role="group" aria-label="选择渠道">
+              <button class="zh-tag zh-tag--x zh-tag--check" role="checkbox" aria-checked="true"><i data-i="check" data-s="12" class="zh-tag-tick"></i>自然搜索</button>
+              <button class="zh-tag zh-tag--x zh-tag--check" role="checkbox" aria-checked="true"><i data-i="check" data-s="12" class="zh-tag-tick"></i>直接访问</button>
+              <button class="zh-tag zh-tag--x zh-tag--check" role="checkbox" aria-checked="false"><i data-i="check" data-s="12" class="zh-tag-tick"></i>社交媒体</button>
+              <button class="zh-tag zh-tag--x zh-tag--check" role="checkbox" aria-checked="false"><i data-i="check" data-s="12" class="zh-tag-tick"></i>推荐</button>
+            </div>
+            <p class="zh-hint" id="tagMultiOut" style="margin:8px 0 0" aria-live="polite"></p></div>
+        </div>
+
+        <h3>类别色标记</h3>
+        <div class="zh-tag-group" id="tagCats" aria-label="类别"></div>
+        <p class="zh-hint" style="margin:8px 0 0">圆点取 8 色分类色板，按顺序使用；文字始终是文字令牌色，保证对比度。</p>
+
+        <h3>头像 Avatar</h3>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px">
+          <thead><tr><th>规则</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>尺寸</td><td>xs 24 · sm 32 · md 40 · lg 56 · xl 72；圆形用于人，方形用于组织和应用</td></tr>
+            <tr><td>回退顺序</td><td>图片 → 姓名首字 → 通用人像图标；图片加载失败自动回退</td></tr>
+            <tr><td>首字</td><td>中文取姓氏首字，英文取前两个单词的首字母</td></tr>
+            <tr><td>颜色</td><td>由姓名哈希从 8 色分类色板中固定取一个，同一个人在任何地方颜色一致；底色只占 20%，文字保持文字令牌色</td></tr>
+          </tbody>
+        </table></div>
+        <div class="zh-bdg-lab" style="margin-top:14px">
+          <div><span class="zh-avatar" data-name="张三" data-size="xs"></span><span class="cap">xs</span></div>
+          <div><span class="zh-avatar" data-name="李四" data-size="sm"></span><span class="cap">sm</span></div>
+          <div><span class="zh-avatar" data-name="王五" data-size="md"></span><span class="cap">md</span></div>
+          <div><span class="zh-avatar" data-name="Ada Lovelace" data-size="lg"></span><span class="cap">lg</span></div>
+          <div><span class="zh-avatar" data-name="Grace Hopper" data-size="xl"></span><span class="cap">xl</span></div>
+          <div><span class="zh-avatar" data-name="研发部" data-size="lg" data-shape="square"></span><span class="cap">square</span></div>
+          <div><span class="zh-avatar" data-name="Cover" data-size="lg" data-src="art"></span><span class="cap">image</span></div>
+          <div><span class="zh-avatar" data-name="失败回退" data-size="lg" data-src="data:image/png;base64,AAAA"></span><span class="cap">broken → 首字</span></div>
+          <div><span class="zh-avatar" data-name="" data-size="lg" data-icon="user"></span><span class="cap">icon</span></div>
+          <div><span class="zh-avatar" data-name="在线" data-size="lg" data-status="success"></span><span class="cap">status</span></div>
+          <div><span class="zh-bdg" data-shape="circle"><span class="zh-avatar" data-name="赵六" data-size="lg" data-status="warning"></span><span class="zh-bdg-mark" data-count="7" data-tone="danger" data-label="条未读"></span></span><span class="cap">status + badge</span></div>
+        </div>
+
+        <h3>头像组</h3>
+        <div class="zh-row" style="gap:20px 40px">
+          <div><div class="panel-label">重叠 + 悬停抬起</div><div class="zh-avatar-group" id="avGroup" role="group" aria-label="项目成员"></div></div>
+          <div><div class="panel-label">小尺寸</div><div class="zh-avatar-group" id="avGroupSm" role="group" aria-label="评审人"></div></div>
+        </div>
+        <p class="zh-hint" style="margin:10px 0 0">超过上限的成员折叠为「+N」按钮，点击展开成员列表（Esc 关闭，焦点回到按钮）。</p>
+      </section>

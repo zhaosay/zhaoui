@@ -1,0 +1,42 @@
+# 更新日志
+
+版本号遵循语义化版本。0.x 阶段接口可能调整。
+
+## 0.1.0（未发布，团队内部使用）
+
+首个版本。原生版 = 一个 CSS 加一个 JS，组件用 `data-zh-*` 属性声明。
+
+**组件（首批 24 个）**：模态框与抽屉、标签页、折叠面板、下拉菜单、消息提示、输入框、数字步进器、验证码输入、多行文本、行内编辑、进度条、环形进度、徽标、头像、标签、滑块、评分、分页、下拉选择、级联选择、日期选择、日期范围选择、时间选择、日期时间选择。
+
+**纯样式组件（已文档化并在三个引擎下测试）**：卡片、表格（窄屏变卡片，或 `zh-table-wrap--scroll` 横向滚动）、表单控件（复选框、单选、开关、选择框、必填与错误态）、栅格与布局（12/8/4 列）、警告条/空状态/骨架屏、面包屑、描述列表、结果页。
+
+**新增（对照 H-ui 补齐）**：可选公共类文件 `zhaoui-utilities.css`（间距、布局、文字、响应式显示隐藏、动画，约 9 KB gzip）；侧边菜单、返回顶部、文字提示、气泡卡片、气泡确认、轮播、滚动公告（有行为）；页头、键位、按钮组、列表、代码、图片、页脚、评论、遮罩条、加载中（纯样式）。核心图标增加 5 个。
+
+**再补齐**：表格排序与行选择（data-zh-table）、步骤条、时间线、树（含复选）、文件上传（列表模式）、顶部导航条、锚点目录、`zh-tag.info`；组件展示页 `docs/gallery.html`。
+
+**最后一批**：配置式菜单与右键菜单、内嵌日历、命令面板、基础图表（折线、面积、柱状、环形、迷你趋势）；演示页回归扫描 `demo/scan.mjs`。
+
+**无障碍修正**：文字按钮、链接、标签页选中项、面包屑悬停改用达标的文字色（原来用品牌色，对比度只有 3.9 到 4.3）；错误提示改用文字红（原 4.02）；树的朗读区域移出 role=tree；图表数据表补表头；骨架屏示例补 role。新增 `test/a11y.mjs`（axe-core，对展示页的亮色、暗色、C 端各审一次，0 条违规，仅忽略展示页嵌套造成的 heading-order）。
+
+**分包**：上传、树、图表、命令面板各自独立成 `modular/upload|tree|chart|command`（JS 约 2 到 4 KB gzip，另有同名 CSS），核心包 JS 压缩后约 25 KB；全量版不变。**Windows 加固**：等宽字体栈加入 Cascadia Mono 与微软雅黑，避免代码里的中文回退到宋体；引用块加左侧竖条；图表网格线像素对齐。
+
+**精致度（对照导友落地页）**：新增可选 `zhaoui-marketing.css`（页宽、区块、hero、特性卡、价格卡、品牌渐变横幅、导航与内容对齐）和落地页 Token（`--zh-font-display`、`--zh-font-title`、`--zh-section-gap`、`--zh-page-max`、`--zh-shadow-glow`、`--zh-gradient-soft`、`--zh-gradient-brand`）；按钮增加 `xl`，`<a class="zh-btn">` 不再带下划线；标签图标与文字有间距、字重 600、更高；二级和三级文字降到 6.7:1 和 5.3:1（原 10:1 和 7.4:1，层级拉不开）；状态文字色（绿、琥珀、红、青）改为刚好达标的更清爽一档；头像支持 `data-tone="brand"`；修正 `.zh-center` 与公共类重名并加了防重名测试。
+
+**大屏与细节**：页面最大宽度 `--zh-page-max` 提到 112rem；气泡卡片（`data-zh-popover`）内容加内边距；侧边菜单支持序号 `data-num`；`.zh-display em` 不在词中折行；`--zh-gradient-soft` 改为随明暗变化（原来暗色下是一团亮白）。
+
+**Windows**：测试与打包脚本跨平台（Windows、macOS、Linux）；适配 Windows 高对比度（forced-colors）：焦点用实线轮廓，开关、进度条、滑块、选中项改用系统颜色，卡片/警告条保留边框。高对比度只在 Chromium 模拟下验证过，未在真实 Windows 上看过。
+
+**构建产物**
+- 全量：`zhaoui.css` / `zhaoui.js`（gzip 约 19.6 KB / 37.7 KB），均有压缩版；JS 压缩版带 source map。
+- 按需：`modular/core`、`select`、`date`、`brand`；核心 JS gzip 约 16.2 KB。
+- 可选：`zhaoui-icons.js`（完整 Lucide 图标集）、`zhaoui-style-glass.css`（玻璃拟态，实验性）。
+
+**其它**：Markdown 文档、`components.json`、`llms.txt`、Claude Code 技能、TypeScript 类型；服务端渲染下导入不报错。
+
+**已知限制**
+- 演示页里的复杂图表、上传的头像与图片卡片模式、树的拖拽与按需加载、导航超大菜单尚无独立版。
+- 提示文字为中文，未做多语言。
+- 玻璃拟态风格包里有针对演示页外壳的规则，未在独立页面中验证。
+- 部分组件内部类名没有 `zh-` 前缀（如 `.body`、`.lead`、`.icon`），与宿主页面样式有冲突的可能。
+
+**渐变强调色与装饰类**：品牌色之外新增三个强调色 Token `--zh-accent-a/b/c`（由品牌色在 OKLCH 里旋转色相生成，随 `setBrand()` 变化，在白底和深色底上都保证至少 3:1，只用于大字、数字和装饰）和 `--zh-gradient-accent`；`zhaoui-marketing.css` 增加可选装饰类 `zh-aurora`（三团光斑，`zh-aurora--grid` 加网格线，`zh-aurora-stage` 作舞台）、`zh-glass-tag`、`zh-gradient-text`、`zh-index`（渐变序号）、`zh-stats-bar`、`zh-btn gradient`。通用细节并入默认外观：大标题字距收紧到 -0.04em、行高 1.06，眉题前加短横线。暗色光斑区块在外层元素上写 `data-mode="dark"` 即可，不单设主题预设。

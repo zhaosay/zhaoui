@@ -1,0 +1,84 @@
+{
+  "name": "progress",
+  "title": "进度条",
+  "summary": "线性进度条，支持标签位置、状态、分步、缓冲、目标线和不确定进度。只写一个带 data-* 的空元素，内容由库生成。",
+  "classes": [
+    "zh-progress"
+  ],
+  "attributes": [
+    {
+      "name": "data-value",
+      "on": ".zh-progress",
+      "value": "0 到 100",
+      "desc": "当前进度"
+    },
+    {
+      "name": "data-label",
+      "on": ".zh-progress",
+      "value": "outside（默认）| inside | top | none",
+      "desc": "百分比文字的位置；top 时用 data-title 作标题"
+    },
+    {
+      "name": "data-name",
+      "on": ".zh-progress",
+      "value": "字符串",
+      "desc": "无障碍名称（aria-label），务必填写"
+    },
+    {
+      "name": "data-status",
+      "on": ".zh-progress",
+      "value": "normal | success | warning | exception",
+      "desc": "状态色；进度到 100 且未指定状态时自动变为 success，data-auto=\"off\" 可关闭"
+    },
+    {
+      "name": "data-steps",
+      "on": ".zh-progress",
+      "value": "整数",
+      "desc": "分步显示，如 10 表示十格"
+    },
+    {
+      "name": "data-buffer",
+      "on": ".zh-progress",
+      "value": "0 到 100",
+      "desc": "缓冲进度（比如视频缓冲），画在主进度之下"
+    },
+    {
+      "name": "data-target / data-target-label",
+      "on": ".zh-progress",
+      "value": "0 到 1 / 字符串",
+      "desc": "目标线位置（0.8 表示 80%）与它的文字"
+    },
+    {
+      "name": "data-indeterminate",
+      "on": ".zh-progress",
+      "value": "true",
+      "desc": "不确定进度：显示循环动画，无数值"
+    },
+    {
+      "name": "data-size",
+      "on": ".zh-progress",
+      "value": "sm | lg",
+      "desc": "尺寸"
+    },
+    {
+      "name": "is-active / is-striped",
+      "on": ".zh-progress",
+      "value": "class",
+      "desc": "进行中的流光 / 条纹效果"
+    }
+  ],
+  "events": [],
+  "methods": [
+    {
+      "name": "ZhaoUI.progress.set(el, value)",
+      "desc": "更新进度（0 到 100），同步更新文字、状态色和 aria-valuenow。el 可以是元素或选择器"
+    }
+  ],
+  "a11y": [
+    "元素自动带 role=\"progressbar\" 与 aria-valuenow / aria-valuetext（如「64%，已完成」）",
+    "不确定进度带 aria-busy=\"true\"，读作「加载中」",
+    "状态不只靠颜色：成功和失败会在文字位置显示图标",
+    "开启「减少动态效果」时，流光和循环动画会停止"
+  ],
+  "example": "<div class=\"zh-progress\" id=\"pg\" data-value=\"36\" data-name=\"导入数据\"></div>\n<div class=\"zh-progress\" data-label=\"top\" data-title=\"存储空间\" data-value=\"62\" data-name=\"存储空间\"></div>\n<div class=\"zh-progress\" data-status=\"exception\" data-value=\"42\" data-name=\"上传失败\"></div>\n<div class=\"zh-progress\" data-steps=\"10\" data-value=\"60\" data-name=\"完成步骤\"></div>\n<div class=\"zh-progress\" data-indeterminate=\"true\" data-label=\"none\" data-name=\"加载中\"></div>\n\n<script>\nZhaoUI.progress.set('#pg', 80);\n</script>"
+}

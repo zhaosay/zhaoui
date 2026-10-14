@@ -1,0 +1,91 @@
+{
+  "name": "slider",
+  "title": "滑块",
+  "summary": "单值或范围滑块，支持刻度、步进、竖直、颜色分档，键盘与指针都可操作。只写一个带 data-* 的空元素。",
+  "classes": [
+    "zh-slider"
+  ],
+  "attributes": [
+    {
+      "name": "data-value",
+      "on": ".zh-slider",
+      "value": "数字，或「下限,上限」",
+      "desc": "写两个值即为范围滑块，如 800,3200"
+    },
+    {
+      "name": "data-min / data-max / data-step",
+      "on": ".zh-slider",
+      "value": "数字，默认 0 / 100 / 1",
+      "desc": "范围与步长，值会吸附到步长上"
+    },
+    {
+      "name": "data-label",
+      "on": ".zh-slider",
+      "value": "字符串",
+      "desc": "无障碍名称；范围滑块会自动加「最小值 / 最大值」"
+    },
+    {
+      "name": "data-fmt",
+      "on": ".zh-slider",
+      "value": "含 {v} 的模板，如 {v}%",
+      "desc": "显示与朗读时的数值格式"
+    },
+    {
+      "name": "data-marks",
+      "on": ".zh-slider",
+      "value": "值:文字 逗号分隔，如 0:低,50:中,100:高",
+      "desc": "刻度；点击刻度可直接跳到该值"
+    },
+    {
+      "name": "data-colors / data-status",
+      "on": ".zh-slider",
+      "value": "值:颜色 或 值:文字 逗号分隔",
+      "desc": "按数值分档变色（primary、warning、danger 等）或附加状态文字"
+    },
+    {
+      "name": "data-gap",
+      "on": ".zh-slider",
+      "value": "数字",
+      "desc": "范围滑块两个滑块之间的最小间隔"
+    },
+    {
+      "name": "data-vertical / data-disabled",
+      "on": ".zh-slider",
+      "value": "布尔属性",
+      "desc": "竖直 / 禁用；竖直滑块用 --zh-slider-len 设定长度"
+    },
+    {
+      "name": "data-out",
+      "on": ".zh-slider",
+      "value": "<output> 的选择器",
+      "desc": "把当前值写到这个元素里"
+    },
+    {
+      "name": "data-link",
+      "on": ".zh-slider",
+      "value": "数字输入框的选择器，逗号分隔",
+      "desc": "与输入框双向同步"
+    }
+  ],
+  "events": [
+    {
+      "name": "zh:slider",
+      "on": ".zh-slider",
+      "detail": "{ type: 'input' | 'change', values }",
+      "desc": "拖动中触发 input，松手或按键后触发 change（冒泡）"
+    }
+  ],
+  "methods": [
+    {
+      "name": "el.zhSlider.get() / el.zhSlider.set([values])",
+      "desc": "读取或设置当前值（数组）"
+    }
+  ],
+  "a11y": [
+    "每个滑块都是 role=\"slider\"，带 aria-valuemin / aria-valuemax / aria-valuenow / aria-valuetext",
+    "← → ↑ ↓ 加减一个步长，PageUp / PageDown 加减约十分之一范围，Home / End 到两端",
+    "RTL 页面中水平滑块的方向会自动反过来",
+    "颜色分档同时给出状态文字，不只靠颜色"
+  ],
+  "example": "<div class=\"zh-slider\" id=\"vol\" data-value=\"40\" data-label=\"音量\" data-fmt=\"{v}%\"></div>\n<div class=\"zh-slider\" data-value=\"50\" data-step=\"25\" data-label=\"清晰度\" data-marks=\"0:流畅,25:标清,50:高清,75:超清,100:蓝光\"></div>\n<div class=\"zh-slider\" data-value=\"800,3200\" data-min=\"0\" data-max=\"5000\" data-step=\"50\" data-gap=\"200\" data-label=\"价格\" data-fmt=\"¥{v}\"></div>\n<div class=\"zh-slider\" data-value=\"78\" data-label=\"存储用量\" data-fmt=\"{v}%\" data-colors=\"0:primary,70:warning,90:danger\" data-status=\"0:正常,70:偏高,90:危险\"></div>\n\n<script>\ndocument.getElementById('vol').addEventListener('zh:slider', function (e) {\n  if (e.detail.type === 'change') console.log(e.detail.values[0]);\n});\n</script>"
+}

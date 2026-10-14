@@ -1,0 +1,28 @@
+/* Popup engine: every floating surface (dropdown, popover, tooltip, select list, date panel) uses these. */
+.zh-layer { position: fixed; inset: 0; z-index: var(--zh-z-tooltip); pointer-events: none; }
+.zh-layer > .zh-pop, dialog .zh-pop { pointer-events: auto; }
+.zh-pop {
+  position: fixed; left: 0; top: 0; --zh-pop-x: 0px; --zh-pop-y: 4px;
+  opacity: 0; transform: translate(var(--zh-pop-x), var(--zh-pop-y)) scale(.98);
+  transition: opacity var(--zh-dur-fast) var(--zh-ease-enter), transform var(--zh-dur-fast) var(--zh-ease-enter);
+}
+.zh-pop.is-open { opacity: 1; transform: none; }
+.zh-pop.is-closing { transition-duration: var(--zh-dur-instant); transition-timing-function: var(--zh-ease-exit); }
+.zh-pop[data-placement^="top"] { --zh-pop-y: -4px; }
+.zh-pop[data-placement^="left"] { --zh-pop-x: -4px; --zh-pop-y: 0px; }
+.zh-pop[data-placement^="right"] { --zh-pop-x: 4px; --zh-pop-y: 0px; }
+.zh-pop--dropdown { z-index: var(--zh-z-dropdown); }
+.zh-pop--popover { z-index: var(--zh-z-popover); }
+.zh-pop--tooltip { z-index: var(--zh-z-tooltip); pointer-events: none !important; }
+.zh-pop-body {
+  position: relative; background: var(--zh-bg-elevated); color: var(--zh-text); border: 1px solid var(--zh-border);
+  border-radius: var(--zh-radius-lg); box-shadow: var(--zh-shadow-lg); font-size: var(--zh-fs); line-height: var(--zh-line);
+}
+.zh-pop--tooltip .zh-pop-body { background: var(--zh-text); color: var(--zh-bg); border-color: transparent; border-radius: var(--zh-radius-md); box-shadow: var(--zh-shadow-md); padding: 6px 10px; font-size: 12px; line-height: 1.4; max-width: 260px; }
+.zh-pop-arrow { position: absolute; width: 10px; height: 10px; background: var(--zh-bg-elevated); border: 1px solid var(--zh-border); transform: rotate(45deg); }
+.zh-pop--tooltip .zh-pop-arrow { background: var(--zh-text); border-color: transparent; }
+.zh-pop[data-placement^="top"] .zh-pop-arrow { bottom: -5px; left: calc(var(--zh-arrow-x) - 5px); border-top-color: transparent; border-left-color: transparent; }
+.zh-pop[data-placement^="bottom"] .zh-pop-arrow { top: -5px; left: calc(var(--zh-arrow-x) - 5px); border-bottom-color: transparent; border-right-color: transparent; }
+.zh-pop[data-placement^="left"] .zh-pop-arrow { right: -5px; top: calc(var(--zh-arrow-y) - 5px); border-bottom-color: transparent; border-left-color: transparent; }
+.zh-pop[data-placement^="right"] .zh-pop-arrow { left: -5px; top: calc(var(--zh-arrow-y) - 5px); border-top-color: transparent; border-right-color: transparent; }
+@media (prefers-reduced-motion: reduce) { .zh-pop { transition: none; transform: none; } }

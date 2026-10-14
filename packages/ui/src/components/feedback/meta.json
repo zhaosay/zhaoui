@@ -1,0 +1,39 @@
+{
+  "name": "feedback",
+  "title": "警告条、空状态、骨架屏",
+  "summary": "纯样式组件：不需要 JS，写好标记即可。页面内的提示条（信息、成功、警告、危险）、没有数据时的空状态、加载中的骨架屏。会自动消失的轻提示用 ZhaoUI.message。",
+  "classes": [
+    "zh-alert",
+    "zh-empty",
+    "zh-skeleton"
+  ],
+  "attributes": [
+    {
+      "name": "zh-alert + info | success | warning | danger",
+      "on": "<div>（class）",
+      "value": "里面放一个图标 <i data-i=\"info\"> 和一个 <span> 文字",
+      "desc": "页面内提示条。图标颜色跟随类型。信息用 role=\"status\"，警告和危险用 role=\"alert\""
+    },
+    {
+      "name": "zh-empty",
+      "on": "<div>（class）",
+      "value": "图标、说明文字、可选的操作按钮，居中",
+      "desc": "空状态：没有数据、搜索无结果时用"
+    },
+    {
+      "name": "zh-skeleton",
+      "on": "<div>（class）",
+      "value": "用 style=\"width:60%\" 控制长度，高度默认 12px",
+      "desc": "加载中的灰色条，带流光动画；开启「减少动态效果」时流光停止"
+    }
+  ],
+  "events": [],
+  "methods": [],
+  "a11y": [
+    "zh-alert 要有 role：只是信息用 role=\"status\"（礼貌播报），警告和危险用 role=\"alert\"（立即播报）",
+    "不要只靠颜色区分类型：图标和文字要说明含义",
+    "骨架屏所在的容器加 aria-busy=\"true\" 和 aria-label=\"加载中\"，加载完成后移除",
+    "空状态里的说明文字要说清为什么空，以及下一步能做什么"
+  ],
+  "example": "<div class=\"zh-stack\">\n  <div class=\"zh-alert info\" role=\"status\"><i data-i=\"info\"></i><span>系统将在今晚 23:00 进行维护。</span></div>\n  <div class=\"zh-alert success\" role=\"status\"><i data-i=\"circle-check\"></i><span>保存成功。</span></div>\n  <div class=\"zh-alert warning\" role=\"alert\"><i data-i=\"triangle-alert\"></i><span>存在 3 台设备离线，请及时处理。</span></div>\n  <div class=\"zh-alert danger\" role=\"alert\"><i data-i=\"circle-x\"></i><span>发布失败，请重试。</span></div>\n\n  <div class=\"zh-empty\">\n    <i data-i=\"search-x\" data-s=\"48\"></i>\n    <div>没有匹配的数据</div>\n    <button class=\"zh-btn sm\">清除筛选</button>\n  </div>\n\n  <div class=\"zh-card\" role=\"status\" aria-busy=\"true\" aria-label=\"加载中\">\n    <div class=\"zh-skeleton\" style=\"width:60%\"></div>\n    <div class=\"zh-skeleton\" style=\"margin-top:12px\"></div>\n    <div class=\"zh-skeleton\" style=\"margin-top:12px;width:80%\"></div>\n  </div>\n</div>"
+}

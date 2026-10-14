@@ -1,0 +1,17 @@
+{
+  "name": "zhaoui",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build -w @zhaoui/tokens && npm run build -w @zhaoui/ui",
+    "test": "npm test -w @zhaoui/tokens",
+    "demo": "node demo/build.mjs",
+    "test:ui": "npm test -w @zhaoui/ui",
+    "site": "node site/build.mjs",
+    "site:dev": "node site/serve.mjs",
+    "site:all": "npm run build && node site/build.mjs",
+    "test:site": "node site/test/site.mjs"
+  }
+}

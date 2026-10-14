@@ -1,0 +1,30 @@
+{
+  "name": "marquee",
+  "title": "滚动公告",
+  "summary": "一行向左滚动的公告文字，首尾无缝衔接；悬停或聚焦时暂停；系统开启“减少动态效果”时不滚动，改为可横向拖动。",
+  "classes": [
+    "zh-marquee",
+    "zh-marquee-track"
+  ],
+  "attributes": [
+    {
+      "name": "data-zh-marquee",
+      "on": "容器",
+      "value": "里面放文字或链接",
+      "desc": "声明为滚动公告；库会复制一份内容（对读屏隐藏）做无缝循环"
+    },
+    {
+      "name": "data-speed",
+      "on": "容器",
+      "value": "像素每秒，默认 60",
+      "desc": "滚动速度"
+    }
+  ],
+  "events": [],
+  "methods": [],
+  "a11y": [
+    "复制出来的内容是 aria-hidden 且不可聚焦，读屏只读一遍",
+    "滚动的文字不好阅读：重要通知请同时用警告条常驻显示"
+  ],
+  "example": "<div data-zh-marquee data-speed=\"50\" aria-label=\"公告\">系统将在今晚 23:00 进行维护，预计 30 分钟。 <a href=\"#\">查看详情</a></div>"
+}

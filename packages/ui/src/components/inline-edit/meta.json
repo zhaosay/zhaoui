@@ -1,0 +1,40 @@
+{
+  "name": "inline-edit",
+  "title": "行内编辑",
+  "summary": "点击文字原地变成输入框，Enter 或失焦保存，Esc 取消。空内容不会被保存。",
+  "classes": [
+    "zh-edit",
+    "zh-edit-view",
+    "zh-edit-text"
+  ],
+  "attributes": [
+    {
+      "name": "data-label",
+      "on": ".zh-edit",
+      "value": "字符串，默认「名称」",
+      "desc": "给屏幕阅读器用的字段名，用于输入框与按钮的 aria-label"
+    }
+  ],
+  "events": [
+    {
+      "name": "zh:edit-save",
+      "on": ".zh-edit",
+      "detail": "{ value, previous }",
+      "desc": "内容有变化并保存时触发（冒泡）；内容没变化不触发"
+    },
+    {
+      "name": "zh:edit-cancel",
+      "on": ".zh-edit",
+      "detail": "无",
+      "desc": "按 Esc 取消，或在空内容上失焦还原旧值时触发"
+    }
+  ],
+  "methods": [],
+  "a11y": [
+    "点击按钮、或聚焦后按 F2 进入编辑",
+    "Enter 保存并把焦点还给按钮；Esc 取消；在空内容上按 Enter 会停留在输入框并标记 is-error",
+    "在空内容上直接失焦会还原旧值",
+    "按钮的 aria-label 会随保存后的新值更新（「编辑名称：新值」）"
+  ],
+  "example": "<div class=\"zh-edit\" id=\"ed\" data-label=\"名称\">\n  <button type=\"button\" class=\"zh-edit-view\" aria-label=\"编辑名称：中控系统\"><span class=\"zh-edit-text\">中控系统</span><i data-i=\"pencil\" data-s=\"16\"></i></button>\n</div>\n\n<script>\ndocument.getElementById('ed').addEventListener('zh:edit-save', function (e) {\n  console.log(e.detail.previous, '→', e.detail.value);\n});\n</script>"
+}

@@ -1,0 +1,131 @@
+{
+  "name": "upload",
+  "title": "文件上传",
+  "summary": "拖拽或点击选择文件，带文件列表、进度条、类型与大小校验、数量限制，失败可重试，上传中可取消。可以用 data-action 直接 POST 到接口，也可以用自己的函数上传；两者都不给时只收集文件，由你在提交表单时取。只有列表模式；头像上传和图片卡片墙没有做。",
+  "classes": [
+    "zh-upload",
+    "zh-upload-drop",
+    "zh-upload-list",
+    "zh-upload-item",
+    "zh-upload-title",
+    "zh-upload-hint",
+    "zh-upload-link",
+    "zh-upload-errors"
+  ],
+  "attributes": [
+    {
+      "name": "data-zh-upload",
+      "on": "<div class=\"zh-upload\">",
+      "value": "",
+      "desc": "声明为上传；没有写 zh-upload-drop 时库会生成默认的拖拽区"
+    },
+    {
+      "name": "data-accept",
+      "on": "容器",
+      "value": "如 .pdf,.png,image/*",
+      "desc": "允许的类型：扩展名或 MIME；也会传给系统的文件选择窗口"
+    },
+    {
+      "name": "data-max-mb",
+      "on": "容器",
+      "value": "数字",
+      "desc": "单个文件大小上限（MB）"
+    },
+    {
+      "name": "data-max",
+      "on": "容器",
+      "value": "数字",
+      "desc": "最多文件数；设为 1 时选新文件会替换旧的"
+    },
+    {
+      "name": "data-action",
+      "on": "容器",
+      "value": "接口地址",
+      "desc": "用 XHR 以 multipart/form-data 上传到这里，文件字段名由 data-field 指定（默认 file）；返回 2xx 算成功"
+    },
+    {
+      "name": "data-credentials",
+      "on": "容器",
+      "value": "",
+      "desc": "跨域上传时带上 Cookie"
+    },
+    {
+      "name": "data-hint",
+      "on": "容器",
+      "value": "提示文字",
+      "desc": "生成默认拖拽区时显示的限制说明"
+    },
+    {
+      "name": "is-disabled",
+      "on": "容器（class）",
+      "value": "",
+      "desc": "禁用，不能选择也不能拖入"
+    }
+  ],
+  "events": [
+    {
+      "name": "zh:upload-add",
+      "on": "容器",
+      "value": "{ file }",
+      "desc": "文件通过校验并加入列表"
+    },
+    {
+      "name": "zh:upload-reject",
+      "on": "容器",
+      "value": "{ file, reason }",
+      "desc": "文件没通过校验（类型、大小、数量）"
+    },
+    {
+      "name": "zh:upload-done",
+      "on": "容器",
+      "value": "{ file, result }",
+      "desc": "上传成功；result 是服务器返回的文本或你的函数的返回值"
+    },
+    {
+      "name": "zh:upload-error",
+      "on": "容器",
+      "value": "{ file, reason }",
+      "desc": "上传失败"
+    },
+    {
+      "name": "zh:upload-remove",
+      "on": "容器",
+      "value": "{ file }",
+      "desc": "从列表移除（含上传中取消）"
+    }
+  ],
+  "methods": [
+    {
+      "name": "ZhaoUI.upload.files(el)",
+      "on": "",
+      "value": "",
+      "desc": "返回列表里的 File 数组，可自己放进 FormData 提交"
+    },
+    {
+      "name": "ZhaoUI.upload.uploader(el, fn)",
+      "on": "",
+      "value": "",
+      "desc": "设置自己的上传函数 fn(file, { onProgress(百分比), onAbort(回调) })，返回 Promise；会替代 data-action"
+    },
+    {
+      "name": "ZhaoUI.upload.add(el, files)",
+      "on": "",
+      "value": "",
+      "desc": "以代码方式加入文件（同样会校验）"
+    },
+    {
+      "name": "ZhaoUI.upload.clear(el)",
+      "on": "",
+      "value": "",
+      "desc": "清空列表"
+    }
+  ],
+  "a11y": [
+    "拖拽区是 role=button，可聚焦，回车或空格打开文件选择；不会只支持拖拽",
+    "校验错误写在 role=alert 区域，会被读屏立即朗读",
+    "进度条是 role=progressbar，带文件名和 aria-valuenow",
+    "列表里的按钮都带文件名，如“移除 报告.pdf”",
+    "只靠前端校验不可靠，服务端必须再校验类型与大小"
+  ],
+  "example": "<div class=\"zh-upload\" data-zh-upload data-accept=\".pdf,.png,.jpg\" data-max=\"3\" data-max-mb=\"5\" data-hint=\"PDF、PNG、JPG · 单个不超过 5 MB · 最多 3 个\" style=\"max-width:32rem\">\n  <div class=\"zh-upload-foot\"><span class=\"zh-upload-count zh-hint\">已添加 0 / 3 个</span></div>\n</div>"
+}

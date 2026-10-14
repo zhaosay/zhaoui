@@ -1,0 +1,77 @@
+{
+  "name": "timeline",
+  "title": "时间线",
+  "summary": "按时间顺序展示事件：左侧一条轨道和圆点，右侧是标题、时间、说明。圆点颜色表示状态（primary、success、warning、danger、info），进行中的项显示转圈。可以带头像、引用、附件，以及点击展开的详情。",
+  "classes": [
+    "zh-tl",
+    "zh-tl-item",
+    "zh-tl-rail",
+    "zh-tl-dot",
+    "zh-tl-body",
+    "zh-tl-head",
+    "zh-tl-title",
+    "zh-tl-time",
+    "zh-tl-desc",
+    "zh-tl-quote",
+    "zh-tl-toggle",
+    "zh-tl-detail",
+    "zh-tl--alt",
+    "zh-tl--right",
+    "zh-tl--compact",
+    "zh-tl--feed"
+  ],
+  "attributes": [
+    {
+      "name": "zh-tl",
+      "on": "<ol>（class）",
+      "value": "里面放 zh-tl-item",
+      "desc": "时间线容器"
+    },
+    {
+      "name": "zh-tl-item--primary|success|warning|danger|info|pending",
+      "on": "<li>（class）",
+      "value": "",
+      "desc": "圆点和轨道的状态色；pending 表示进行中，圆点换成转圈"
+    },
+    {
+      "name": "zh-tl-dot--hollow",
+      "on": "圆点（class）",
+      "value": "",
+      "desc": "空心点；zh-tl-dot--icon 放图标，再加 zh-tl-dot--lg 变大"
+    },
+    {
+      "name": "zh-tl-quote",
+      "on": "正文里的容器",
+      "value": "",
+      "desc": "引用块，如审批意见"
+    },
+    {
+      "name": "zh-tl-toggle + zh-tl-detail",
+      "on": "展开按钮与详情容器",
+      "value": "",
+      "desc": "点击按钮展开详情，库负责切换 aria-expanded 与文字；按钮上可用 data-open / data-close 自定义文字"
+    },
+    {
+      "name": "zh-tl--alt / --right / --compact / --feed",
+      "on": "<ol>（class）",
+      "value": "",
+      "desc": "左右交替 / 靠右 / 紧凑 / 动态流（带头像）"
+    }
+  ],
+  "events": [
+    {
+      "name": "zh:timeline-toggle",
+      "on": "<ol>",
+      "value": "{ item, open }",
+      "desc": "详情展开或收起"
+    }
+  ],
+  "methods": [],
+  "a11y": [
+    "用有序列表 <ol>，顺序对读屏有意义",
+    "时间用 <time datetime=\"…\">",
+    "圆点是装饰，加 aria-hidden=\"true\"；状态要在文字里体现，不要只靠颜色",
+    "进行中的项给 <li> 加 aria-label，如“进行中：派送中”"
+  ],
+  "example": "<ol class=\"zh-tl\">\n  <li class=\"zh-tl-item zh-tl-item--success\"><div class=\"zh-tl-rail\"><span class=\"zh-tl-dot\" aria-hidden=\"true\"></span></div>\n    <div class=\"zh-tl-body\"><div class=\"zh-tl-head\"><span class=\"zh-tl-title\">订单已创建</span><time class=\"zh-tl-time\" datetime=\"2026-10-04T09:00\">09:00</time></div><div class=\"zh-tl-desc\">订单 #20261004</div></div></li>\n  <li class=\"zh-tl-item zh-tl-item--primary\"><div class=\"zh-tl-rail\"><span class=\"zh-tl-dot\" aria-hidden=\"true\"></span></div>\n    <div class=\"zh-tl-body\"><div class=\"zh-tl-head\"><span class=\"zh-tl-title\">仓库已接单</span><time class=\"zh-tl-time\" datetime=\"2026-10-04T09:12\">09:12</time></div>\n      <button type=\"button\" class=\"zh-tl-toggle\" aria-expanded=\"false\" aria-controls=\"tl-d1\"><i data-i=\"chevron-right\" data-s=\"14\"></i><span>展开详情</span></button>\n      <div class=\"zh-tl-detail\" id=\"tl-d1\"><div class=\"zh-tl-detail-wrap\"><div class=\"zh-tl-detail-in\">上海仓 · 拣货员 A12 已接单，预计 20 分钟内出库。</div></div></div></div></li>\n  <li class=\"zh-tl-item zh-tl-item--pending\" aria-label=\"进行中：派送中\"><div class=\"zh-tl-rail\"><span class=\"zh-tl-dot zh-tl-dot--icon\" aria-hidden=\"true\"><i data-i=\"loader-circle\" data-s=\"14\" class=\"zh-tl-spin\"></i></span></div>\n    <div class=\"zh-tl-body\"><div class=\"zh-tl-head\"><span class=\"zh-tl-title\">派送中</span></div></div></li>\n</ol>"
+}

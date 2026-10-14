@@ -1,0 +1,88 @@
+      <section class="block" id="upload">
+        <h2>上传</h2>
+        <p class="desc">选择本地文件、把它们放进列表、看到进度与结果。原则：<strong>选中即校验</strong>（类型、大小、数量在上传前就说清楚），<strong>过程可控</strong>（可取消、可重试、可移除），<strong>结果可读</strong>（成功、失败都有文字，不只靠颜色）。以下演示均为本地模拟，不发起任何网络请求；文件名含 <code>fail</code> 的文件第一次会失败，点重试后成功。</p>
+
+        <h3>拖拽上传 + 文件列表</h3>
+        <div class="zh-card">
+          <div class="zh-upload" id="up-list" data-mode="list" data-max="5" data-max-mb="5" data-accept=".pdf,.png,.jpg,.jpeg,.gif,.zip,.docx,.xlsx,.txt,.mp4">
+            <div class="zh-upload-drop" role="button" tabindex="0" aria-label="上传文件：点击选择，或把文件拖到此处，聚焦后也可粘贴图片">
+              <i data-i="cloud-upload" data-s="32"></i>
+              <div class="zh-upload-title">拖拽文件到此处，或 <span class="zh-upload-link">点击选择</span></div>
+              <div class="zh-upload-hint">PDF、图片、Office 文档、ZIP、MP4 · 单个 ≤ 5 MB · 最多 5 个 · 聚焦后可 Ctrl+V 粘贴图片</div>
+            </div>
+            <input class="zh-upload-input" type="file" multiple hidden tabindex="-1" aria-hidden="true">
+            <div class="zh-upload-errors" role="alert"></div>
+            <ul class="zh-upload-list" aria-label="文件列表"></ul>
+            <div class="zh-upload-foot"><span class="zh-upload-count zh-hint">已添加 0 / 5 个</span></div>
+            <div class="zh-upload-sr" aria-live="polite"></div>
+          </div>
+        </div>
+
+        <h3>图片墙</h3>
+        <div class="zh-card">
+          <div class="zh-upload" id="up-cards" data-mode="card" data-max="6" data-max-mb="5" data-accept="image/*">
+            <input class="zh-upload-input" type="file" multiple accept="image/*" hidden tabindex="-1" aria-hidden="true">
+            <ul class="zh-upload-cards" aria-label="图片列表">
+              <li class="zh-upload-addwrap"><button type="button" class="zh-upload-add" aria-label="添加图片"><i data-i="plus" data-s="24"></i><span>添加图片</span></button></li>
+            </ul>
+            <div class="zh-upload-errors" role="alert"></div>
+            <div class="zh-upload-foot"><span class="zh-upload-count zh-hint">已添加 0 / 6 张 · 悬停或聚焦图片可预览、删除</span></div>
+            <div class="zh-upload-sr" aria-live="polite"></div>
+          </div>
+        </div>
+
+        <h3>头像上传</h3>
+        <div class="zh-grid">
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4">
+            <div class="zh-upload zh-upload-avatarbox" id="up-avatar" data-mode="avatar" data-max-mb="2" data-accept="image/*">
+              <button type="button" class="zh-upload-avatar" aria-label="上传头像，点击选择图片">
+                <span class="zh-upload-avatar-ph"><i data-i="user-round" data-s="40"></i></span>
+                <span class="zh-upload-avatar-ov"><i data-i="camera" data-s="20"></i><span>更换</span></span>
+              </button>
+              <div class="zh-stack" style="--g:6px;min-width:0">
+                <div style="font-weight:600">个人头像</div>
+                <div class="zh-hint">JPG / PNG · ≤ 2 MB · 建议正方形</div>
+                <div><button type="button" class="zh-btn sm" data-act="remove" hidden>移除头像</button></div>
+                <div class="zh-upload-errors" role="alert"></div>
+              </div>
+              <input class="zh-upload-input" type="file" accept="image/*" hidden tabindex="-1" aria-hidden="true">
+              <div class="zh-upload-sr" aria-live="polite"></div>
+            </div>
+          </div>
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4">
+            <div class="panel-label">文件夹上传 · 一次选一个目录</div>
+            <div class="zh-upload-dir">
+              <button type="button" class="zh-btn" id="up-dirbtn"><i data-i="folder-open"></i>选择文件夹</button>
+              <input type="file" id="up-dir" webkitdirectory multiple hidden tabindex="-1" aria-hidden="true">
+              <div class="zh-hint" id="up-dirout" aria-live="polite">尚未选择文件夹。选择后显示文件数量、总大小和前几项路径。</div>
+              <ul class="zh-upload-dirlist" id="up-dirlist" hidden></ul>
+            </div>
+          </div>
+        </div>
+
+        <h3>禁用</h3>
+        <div class="zh-card">
+          <div class="zh-upload is-disabled" data-mode="list" data-disabled>
+            <div class="zh-upload-drop" role="button" tabindex="-1" aria-disabled="true" aria-label="上传已禁用">
+              <i data-i="cloud-upload" data-s="32"></i>
+              <div class="zh-upload-title">上传功能不可用</div>
+              <div class="zh-upload-hint">当前账号没有上传权限，请联系管理员</div>
+            </div>
+          </div>
+        </div>
+
+        <h3>规范</h3>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:620px">
+          <thead><tr><th>项</th><th>规则</th></tr></thead>
+          <tbody>
+            <tr><td>入口</td><td>拖拽、点击、键盘（Enter / Space）、粘贴四种方式都要能用；拖入时区域高亮并加深边框</td></tr>
+            <tr><td>校验</td><td>类型、大小、数量在上传前判断，被拒的文件逐条说明原因；通过校验的文件照常上传，不因个别失败而整批取消</td></tr>
+            <tr><td>进度</td><td>进度条 + 百分比 + 速度 + 剩余时间；最多同时上传 3 个，其余显示「等待上传」</td></tr>
+            <tr><td>失败</td><td>红色图标 + 文字「上传失败」+ 重试按钮；重试成功后回到正常状态</td></tr>
+            <tr><td>预览</td><td>图片在弹层中预览，Esc 或点击遮罩关闭，焦点回到触发按钮；非图片显示类型图标</td></tr>
+            <tr><td>内存</td><td>缩略图使用临时地址，移除文件或离开页面时立即释放</td></tr>
+            <tr><td>无障碍</td><td>拖拽区是 <code>role="button"</code>；状态变化由播报区朗读（完成、失败、取消）；进度条是 <code>role="progressbar"</code>；所有文件名经过转义</td></tr>
+            <tr><td>触屏</td><td>图片墙的操作按钮在触屏上常显，不依赖悬停；手机上拖拽区改为整块点击</td></tr>
+          </tbody>
+        </table></div>
+      </section>

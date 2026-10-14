@@ -1,0 +1,94 @@
+/* ===== 上传 ===== */
+.zh-upload { position: relative; }
+.zh-upload [hidden] { display: none !important; }
+.zh-upload-drop {
+  display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 28px 20px; text-align: center;
+  border: 1.5px dashed var(--zh-border-strong); border-radius: var(--zh-radius-lg); background: var(--zh-bg-subtle); color: var(--zh-text-secondary); cursor: pointer;
+  transition: border-color var(--zh-dur-fast) var(--zh-ease-standard), background var(--zh-dur-fast) var(--zh-ease-standard);
+}
+.zh-upload-drop .ico { color: var(--zh-text-tertiary); transition: transform var(--zh-dur-base) var(--zh-ease-spring), color var(--zh-dur-fast); }
+.zh-upload-drop:hover, .zh-upload-drop:focus-visible { border-color: var(--zh-color-primary); background: var(--zh-color-primary-subtle); }
+.zh-upload-drop:focus-visible { outline: none; box-shadow: var(--zh-focus-ring); }
+.zh-upload-drop.is-over, .zh-upload-add.is-over { border-style: solid; border-color: var(--zh-color-primary); background: var(--zh-color-primary-subtle); }
+.zh-upload-drop.is-over .ico { transform: translateY(-4px) scale(1.1); color: var(--zh-color-primary); }
+.zh-upload-title { color: var(--zh-text); font-weight: 500; }
+.zh-upload-link { color: var(--zh-color-primary-text); font-weight: 600; }
+.zh-upload-hint { font-size: .85em; color: var(--zh-text-tertiary); max-width: 60ch; }
+.zh-upload.is-disabled .zh-upload-drop { opacity: var(--zh-opacity-disabled); cursor: not-allowed; }
+.zh-upload.is-disabled .zh-upload-drop:hover { border-color: var(--zh-border-strong); background: var(--zh-bg-subtle); }
+.zh-upload-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.zh-upload-errors:empty { display: none; }
+.zh-upload-errors { margin-top: 10px; display: grid; gap: 4px; }
+.zh-upload-err { display: flex; gap: 8px; align-items: flex-start; font-size: .88em; color: var(--zh-text-danger); line-height: 1.45; }
+.zh-upload-err .ico { flex: none; margin-top: 2px; }
+.zh-upload-err .zh-upload-errx { margin-inline-start: auto; flex: none; }
+.zh-upload-foot { margin-top: 10px; }
+
+/* 文件列表 */
+.zh-upload-list { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 8px; }
+.zh-upload-list:empty { display: none; }
+.zh-upload-item {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 10px 12px;
+  border: 1px solid var(--zh-border); border-radius: var(--zh-radius-md); background: var(--zh-bg-elevated); animation: zh-upload-in var(--zh-dur-base) var(--zh-ease-enter);
+}
+@keyframes zh-upload-in { from { opacity: 0; transform: translateY(6px); } }
+.zh-upload-ico { width: 36px; height: 36px; border-radius: var(--zh-radius-md); background: var(--zh-bg-subtle); color: var(--zh-text-secondary); display: grid; place-items: center; transition: background var(--zh-dur-base), color var(--zh-dur-base); }
+.zh-upload-item.is-done .zh-upload-ico { background: var(--zh-success-bg); color: var(--zh-text-success); }
+.zh-upload-item.is-error .zh-upload-ico { background: var(--zh-danger-bg); color: var(--zh-text-danger); }
+.zh-upload-item.is-error { border-color: var(--zh-danger-border); }
+.zh-upload-name { font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.zh-upload-meta { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: .82em; color: var(--zh-text-tertiary); font-variant-numeric: tabular-nums; }
+.zh-upload-item.is-done .zh-upload-status { color: var(--zh-text-success); }
+.zh-upload-item.is-error .zh-upload-status { color: var(--zh-text-danger); }
+.zh-upload-bar { height: 4px; border-radius: 2px; background: var(--zh-meter-track); margin-top: 6px; overflow: hidden; }
+.zh-upload-bar i { display: block; height: 100%; width: 0; border-radius: 2px; background: var(--zh-color-primary); transition: width var(--zh-dur-fast) linear, background var(--zh-dur-base); }
+.zh-upload-item.is-error .zh-upload-bar i { background: var(--zh-danger); }
+.zh-upload-item.is-done .zh-upload-bar, .zh-upload-item.is-queued .zh-upload-bar { display: none; }
+.zh-upload-actions { display: flex; gap: 2px; }
+
+/* 图片墙 */
+.zh-upload-cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 12px; }
+.zh-upload-card, .zh-upload-add { position: relative; aspect-ratio: 1; border-radius: var(--zh-radius-lg); overflow: hidden; }
+.zh-upload-card { border: 1px solid var(--zh-border); background: var(--zh-bg-subtle); animation: zh-upload-in var(--zh-dur-base) var(--zh-ease-enter); }
+.zh-upload-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.zh-upload-file { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 8px; text-align: center; color: var(--zh-text-secondary); font-size: .8em; }
+.zh-upload-file span { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.zh-upload-card-ov { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--zh-bg-glass); opacity: 0; transition: opacity var(--zh-dur-fast) var(--zh-ease-standard); }
+.zh-upload-card:hover .zh-upload-card-ov, .zh-upload-card:focus-within .zh-upload-card-ov, .zh-upload-card.is-error .zh-upload-card-ov { opacity: 1; }
+.zh-upload-card-btn { width: 32px; height: 32px; padding: 0; border: 1px solid var(--zh-border); border-radius: 50%; background: var(--zh-bg-elevated); color: var(--zh-text); display: grid; place-items: center; cursor: pointer; box-shadow: var(--zh-shadow-sm); transition: color var(--zh-dur-fast), transform var(--zh-dur-fast) var(--zh-ease-spring); }
+.zh-upload-card-btn:hover { color: var(--zh-color-primary-text); transform: scale(1.08); }
+.zh-upload-card-btn:focus-visible { outline: none; box-shadow: var(--zh-focus-ring); }
+.zh-upload-card-prog { position: absolute; left: 0; right: 0; bottom: 0; padding: 6px 8px 8px; background: var(--zh-bg-glass); font-size: .78em; font-variant-numeric: tabular-nums; color: var(--zh-text); }
+.zh-upload-card-prog .zh-upload-bar { margin-top: 4px; }
+.zh-upload-card.is-error { border-color: var(--zh-danger); }
+.zh-upload-card-err { position: absolute; left: 0; right: 0; top: 0; padding: 4px 6px; font-size: .78em; background: var(--zh-danger-bg); color: var(--zh-text-danger); display: flex; align-items: center; gap: 4px; justify-content: center; }
+.zh-upload-add { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; width: 100%; padding: 0; border: 1.5px dashed var(--zh-border-strong); background: var(--zh-bg-subtle); color: var(--zh-text-secondary); font: inherit; font-size: .88em; cursor: pointer; transition: border-color var(--zh-dur-fast), background var(--zh-dur-fast), color var(--zh-dur-fast); }
+.zh-upload-add:hover { border-color: var(--zh-color-primary); background: var(--zh-color-primary-subtle); color: var(--zh-color-primary-text); }
+.zh-upload-add:focus-visible { outline: none; box-shadow: var(--zh-focus-ring); }
+.zh-upload-add[disabled] { opacity: var(--zh-opacity-disabled); cursor: not-allowed; }
+@media (pointer: coarse) { .zh-upload-card-ov { opacity: 1; align-items: flex-end; justify-content: flex-end; background: transparent; padding: 6px; } }
+
+/* 头像 */
+.zh-upload-avatarbox { display: flex; gap: 20px; align-items: center; }
+.zh-upload-avatar { position: relative; width: 96px; height: 96px; padding: 0; flex: none; overflow: hidden; border-radius: 50%; border: 1px solid var(--zh-border-strong); background: var(--zh-bg-subtle); color: var(--zh-text-tertiary); cursor: pointer; }
+.zh-upload-avatar:focus-visible { outline: none; box-shadow: var(--zh-focus-ring); }
+.zh-upload-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.zh-upload-avatar-ph { display: grid; place-items: center; width: 100%; height: 100%; }
+.zh-upload-avatar-ov { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: .8em; color: var(--zh-text); background: var(--zh-bg-glass); opacity: 0; transition: opacity var(--zh-dur-fast) var(--zh-ease-standard); }
+.zh-upload-avatar:hover .zh-upload-avatar-ov, .zh-upload-avatar:focus-visible .zh-upload-avatar-ov, .zh-upload-avatar.is-loading .zh-upload-avatar-ov { opacity: 1; }
+.zh-upload-avatar.is-loading .zh-upload-avatar-ov .ico { animation: zh-upload-spin .8s linear infinite; }
+@keyframes zh-upload-spin { to { transform: rotate(360deg); } }
+@media (pointer: coarse) { .zh-upload-avatar-ov { opacity: 1; inset: auto 0 0 0; height: 30px; flex-direction: row; gap: 4px; } }
+
+.zh-upload-dir { display: grid; gap: 10px; justify-items: start; }
+.zh-upload-dirlist { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; font: .82em var(--zh-font-mono); color: var(--zh-text-secondary); max-width: 100%; }
+.zh-upload-dirlist li { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.zh-upload-dirlist[hidden] { display: none; }
+
+@media (prefers-reduced-motion: reduce) { .zh-upload-item, .zh-upload-card { animation: none; } .zh-upload-avatar.is-loading .zh-upload-avatar-ov .ico { animation: none; } .zh-upload-drop.is-over .ico { transform: none; } }
+@container stage (max-width: 767px) {
+  .zh-upload-drop { padding: 22px 12px; }
+  .zh-upload-cards { grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)); gap: 8px; }
+  .zh-upload-avatarbox { gap: 14px; }
+  .zh-upload-item { gap: 10px; padding: 10px; }
+}

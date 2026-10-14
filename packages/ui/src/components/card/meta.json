@@ -1,0 +1,78 @@
+{
+  "name": "card",
+  "title": "卡片",
+  "summary": "纯样式组件：不需要 JS，写好标记即可。带边框、圆角、阴影的内容容器。可只放一个标题和内容，也可用 zh-card--flush 配头部、正文、底部、封面图；整张卡片可点时用 zh-card--hover。",
+  "classes": [
+    "zh-card",
+    "zh-card--flush",
+    "zh-card--hover",
+    "zh-cardx-head",
+    "zh-cardx-title",
+    "zh-cardx-extra",
+    "zh-cardx-body",
+    "zh-cardx-foot",
+    "zh-cardx-cover",
+    "zh-cardx-meta",
+    "zh-cardx-stat-label",
+    "zh-cardx-stat-foot"
+  ],
+  "attributes": [
+    {
+      "name": "zh-card",
+      "on": "<div>（class）",
+      "value": "内部可放 <h4> 作标题",
+      "desc": "基础卡片：内边距、边框、圆角、阴影随受众与密度变化"
+    },
+    {
+      "name": "zh-card--flush",
+      "on": "与 zh-card 一起",
+      "value": "配合下面的 zh-cardx-* 分区",
+      "desc": "去掉内边距，由 head / body / foot 各自控制；溢出裁切，封面图贴边"
+    },
+    {
+      "name": "zh-cardx-head / -title / -extra",
+      "on": "flush 卡片内",
+      "value": "标题在左，-extra 里放右侧操作按钮",
+      "desc": "卡片头部"
+    },
+    {
+      "name": "zh-cardx-body / -foot",
+      "on": "flush 卡片内",
+      "value": "-foot 里放右对齐的按钮",
+      "desc": "正文与底部操作区"
+    },
+    {
+      "name": "zh-cardx-cover",
+      "on": "flush 卡片内",
+      "value": "里面放一张 <img alt=\"…\"> 或一个 <svg>",
+      "desc": "封面区域：16:9 比例、浅色底，里面的图片或 SVG 撑满并裁切；放在卡片最上面"
+    },
+    {
+      "name": "zh-cardx-meta",
+      "on": "卡片内",
+      "value": "里面放 zh-tag",
+      "desc": "一行标签或元信息"
+    },
+    {
+      "name": "zh-cardx-stat-label / -stat-foot",
+      "on": "基础卡片内",
+      "value": "label 是指标名，foot 放趋势与说明",
+      "desc": "指标卡的两端；中间的数字自己写（用 --zh-text 等变量），库不提供数字样式"
+    },
+    {
+      "name": "zh-card--hover",
+      "on": "写在 <a> 上，与 zh-card 一起",
+      "value": "href 指向目标",
+      "desc": "整张卡片是链接：悬停上浮并描边，键盘聚焦有聚焦环"
+    }
+  ],
+  "events": [],
+  "methods": [],
+  "a11y": [
+    "zh-card--hover 应该是真正的 <a href>，这样键盘可聚焦、屏幕阅读器读作链接",
+    "卡片标题请用合适的标题级别（<h4> 只是样式默认，按页面结构调整）",
+    "装饰性封面图保持 aria-hidden=\"true\"；有信息量的图片请放 <img alt>",
+    "zh-card--select（选择型卡片）的样式在 CSS 里，但选中行为没有提供，不要使用"
+  ],
+  "example": "<div class=\"zh-stack\">\n  <div class=\"zh-card\">\n    <h4>基础卡片</h4>\n    <p>容器负责边界与留白，内容由业务决定。</p>\n    <div class=\"zh-cardx-meta\"><span class=\"zh-tag primary\">品牌</span><span class=\"zh-tag\">默认</span></div>\n  </div>\n\n  <div class=\"zh-card zh-card--flush\" style=\"max-width:22rem\">\n    <div class=\"zh-cardx-cover\"><img src=\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'%3E%3Crect width='16' height='9' fill='%23c7d2fe'/%3E%3C/svg%3E\" alt=\"设计语言 2.0 的封面\"></div>\n    <div class=\"zh-cardx-head\"><h4 class=\"zh-cardx-title\">发布确认</h4><div class=\"zh-cardx-extra\"><button class=\"zh-btn sm text\">全部</button></div></div>\n    <div class=\"zh-cardx-body\">确认后文章将立即对外可见。</div>\n    <div class=\"zh-cardx-foot\"><button class=\"zh-btn sm\">取消</button><button class=\"zh-btn sm primary\">发布</button></div>\n  </div>\n\n  <div class=\"zh-card\">\n    <div class=\"zh-cardx-stat-label\">活跃用户</div>\n    <strong>12.4 万</strong>\n    <div class=\"zh-cardx-stat-foot\"><span style=\"color:var(--zh-trend-up)\">+8.2%</span><span class=\"zh-hint\">较上周</span></div>\n  </div>\n\n  <a class=\"zh-card zh-card--hover\" href=\"#\"><h4>进入项目</h4><p>查看成员、进度与最近动态。</p></a>\n</div>"
+}

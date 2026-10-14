@@ -1,0 +1,86 @@
+      <section class="block" id="progress">
+        <h2>进度</h2>
+        <p class="desc">进度回答「还要多久」。能算出百分比就用确定进度（线性或环形），算不出来才用不确定进度。数值变化只用位移和描边偏移做动画，不会触发布局。</p>
+
+        <div class="matrix-wrap"><table class="matrix" style="min-width:600px">
+          <thead><tr><th>形态</th><th>用在哪里</th><th>规则</th></tr></thead>
+          <tbody>
+            <tr><td>线性</td><td>上传、导入、任务进度、资源用量</td><td>高度 4 / 8 / 12px；百分比放在右侧或上方，行内文字只用于 ≥18px 的粗条</td></tr>
+            <tr><td>环形 / 仪表</td><td>目标完成率、健康分、使用率</td><td>中心放结论数字；仪表盘 270°，半环 180°，两端标 0 与 100</td></tr>
+            <tr><td>分段 / 堆叠</td><td>步骤数、构成占比</td><td>堆叠必须有带数值的图例；颜色取 8 色分类色板，按顺序使用</td></tr>
+            <tr><td>不确定</td><td>无法预估时长</td><td>循环滑动条，并标记 aria-busy，不显示百分比</td></tr>
+            <tr><td>状态</td><td>完成、失败、警告</td><td>颜色之外必须有图标或文字：完成显示对勾，失败显示叉；满 100% 自动变为完成</td></tr>
+          </tbody>
+        </table></div>
+
+        <h3>交互试验</h3>
+        <div class="zh-card">
+          <div class="zh-pgd-ctl">
+            <span class="zh-row" style="--g:8px"><button class="zh-btn sm icon" id="pgMinus" aria-label="减少 10%"><i data-i="minus"></i></button><button class="zh-btn sm icon" id="pgPlus" aria-label="增加 10%"><i data-i="plus"></i></button>
+              <button class="zh-btn sm primary" id="pgSim"><i data-i="play"></i>模拟</button><button class="zh-btn sm text" id="pgReset">重置</button></span>
+            <span class="lab">状态</span><div class="seg" role="group" aria-label="状态" id="pgStatus"><button data-v="normal" aria-pressed="true">正常</button><button data-v="success" aria-pressed="false">成功</button><button data-v="exception" aria-pressed="false">异常</button><button data-v="warning" aria-pressed="false">警告</button></div>
+            <span class="lab">尺寸</span><div class="seg" role="group" aria-label="尺寸" id="pgSize"><button data-v="sm" aria-pressed="false">sm</button><button data-v="md" aria-pressed="true">md</button><button data-v="lg" aria-pressed="false">lg</button></div>
+            <span class="lab">标签</span><div class="seg" role="group" aria-label="标签位置" id="pgLabel"><button data-v="outside" aria-pressed="true">右侧</button><button data-v="top" aria-pressed="false">上方</button><button data-v="inside" aria-pressed="false">内部</button><button data-v="none" aria-pressed="false">无</button></div>
+          </div>
+          <div class="zh-pgd-play"><div id="pgMain" class="zh-progress" data-value="36" data-name="演示进度" data-title="导入数据"></div><div id="pgRing" class="zh-ring" data-value="36" data-size="lg" data-name="演示进度（环形）"></div></div>
+        </div>
+
+        <h3>线性进度</h3>
+        <div class="zh-grid">
+          <div class="zh-col" style="--d:6;--t:8;--p:4"><p class="panel-label">尺寸 sm / md / lg</p>
+            <div class="zh-stack" style="--g:14px"><div class="zh-progress" data-size="sm" data-value="30" data-name="小尺寸"></div><div class="zh-progress" data-value="55" data-name="中尺寸"></div><div class="zh-progress" data-size="lg" data-value="80" data-name="大尺寸"></div></div></div>
+          <div class="zh-col" style="--d:6;--t:8;--p:4"><p class="panel-label">标签：上方 / 内部 / 无</p>
+            <div class="zh-stack" style="--g:14px"><div class="zh-progress" data-label="top" data-title="存储空间" data-value="62" data-name="存储空间"></div><div class="zh-progress" data-label="inside" data-value="68" data-name="内部标签"></div><div class="zh-progress" data-label="none" data-value="45" data-name="无标签"></div></div></div>
+          <div class="zh-col" style="--d:6;--t:8;--p:4"><p class="panel-label">状态：正常 / 成功 / 异常 / 警告</p>
+            <div class="zh-stack" style="--g:14px"><div class="zh-progress" data-value="60" data-name="正常"></div><div class="zh-progress" data-value="100" data-name="成功"></div><div class="zh-progress" data-status="exception" data-value="42" data-name="异常"></div><div class="zh-progress" data-status="warning" data-value="78" data-name="警告"></div></div></div>
+          <div class="zh-col" style="--d:6;--t:8;--p:4"><p class="panel-label">动态：流光 / 条纹 / 不确定</p>
+            <div class="zh-stack" style="--g:14px"><div class="zh-progress is-active" data-value="64" data-name="进行中（流光）"></div><div class="zh-progress is-striped" data-size="lg" data-value="52" data-name="进行中（条纹）"></div><div class="zh-progress" data-indeterminate="true" data-label="none" data-name="加载中"></div></div></div>
+          <div class="zh-col" style="--d:6;--t:8;--p:4"><p class="panel-label">分段：10 段 / 5 段</p>
+            <div class="zh-stack" style="--g:14px"><div class="zh-progress" data-steps="10" data-value="60" data-name="10 步"></div><div class="zh-progress" data-steps="5" data-size="lg" data-value="80" data-name="5 步"></div></div></div>
+          <div class="zh-col" style="--d:6;--t:8;--p:4"><p class="panel-label">缓冲 + 目标线</p>
+            <div class="zh-stack" style="--g:22px"><div class="zh-progress" data-buffer="62" data-value="35" data-name="播放缓冲"></div><div class="zh-progress" data-target="0.8" data-target-label="目标 80%" data-value="64" data-name="季度目标"></div></div></div>
+          <div class="zh-col" style="--d:12;--t:8;--p:4"><p class="panel-label">堆叠：构成占比（图例必须带数值）</p>
+            <div id="pgStack"></div></div>
+        </div>
+
+        <h3>环形与仪表</h3>
+        <div class="zh-pgd-lab">
+          <div><div class="zh-ring" data-size="sm" data-value="30" data-name="小环"></div><span class="cap">sm</span></div>
+          <div><div class="zh-ring" data-value="65" data-name="中环"></div><span class="cap">md</span></div>
+          <div><div class="zh-ring" data-size="lg" data-value="88" data-name="大环" data-caption="完成率"></div><span class="cap">lg + caption</span></div>
+          <div><div class="zh-ring" data-value="100" data-name="成功"></div><span class="cap">success</span></div>
+          <div><div class="zh-ring" data-value="42" data-status="exception" data-name="失败"></div><span class="cap">exception</span></div>
+          <div><div class="zh-ring" data-value="78" data-status="warning" data-name="警告"></div><span class="cap">warning</span></div>
+          <div><div class="zh-ring" data-size="lg" data-shape="gauge" data-value="72" data-caption="CPU" data-name="CPU 使用率"></div><span class="cap">gauge 270°</span></div>
+          <div><div class="zh-ring" data-size="lg" data-shape="semi" data-value="58" data-caption="内存" data-name="内存使用率"></div><span class="cap">semi 180°</span></div>
+          <div><div id="pgMulti"></div><span class="cap">concentric</span></div>
+        </div>
+
+        <h3>表格中的迷你进度</h3>
+        <div class="zh-table-wrap">
+          <table class="zh-table">
+            <caption style="position:absolute;left:-9999px">任务进度</caption>
+            <thead><tr><th scope="col">任务</th><th scope="col">负责人</th><th scope="col">进度</th></tr></thead>
+            <tbody>
+              <tr><td data-label="任务">设计规范</td><td data-label="负责人">张三</td><td data-label="进度"><div class="zh-progress zh-progress-mini" data-size="sm" data-value="92" data-name="设计规范进度"></div></td></tr>
+              <tr><td data-label="任务">组件库</td><td data-label="负责人">李四</td><td data-label="进度"><div class="zh-progress zh-progress-mini" data-size="sm" data-value="64" data-name="组件库进度"></div></td></tr>
+              <tr><td data-label="任务">文档站</td><td data-label="负责人">王五</td><td data-label="进度"><div class="zh-progress zh-progress-mini" data-size="sm" data-value="27" data-name="文档站进度"></div></td></tr>
+              <tr><td data-label="任务">发布检查</td><td data-label="负责人">赵六</td><td data-label="进度"><div class="zh-progress zh-progress-mini" data-size="sm" data-status="exception" data-value="15" data-name="发布检查进度"></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>倒计时环</h3>
+        <div class="zh-cd-wrap">
+          <div class="zh-ring" id="cdRing" data-size="lg" data-value="100" data-auto="off" role="timer"></div>
+          <div class="zh-stack" style="--g:10px">
+            <span class="zh-row" style="--g:8px"><button class="zh-btn sm primary" id="cdToggle"><i data-i="play"></i>开始</button><button class="zh-btn sm" id="cdReset"><i data-i="rotate-ccw"></i>重置</button>
+              <span class="seg" role="group" aria-label="倒计时长" id="cdLen"><button data-v="5" aria-pressed="false">5s</button><button data-v="10" aria-pressed="true">10s</button><button data-v="30" aria-pressed="false">30s</button></span></span>
+            <span class="zh-hint" id="cdMsg" role="status">剩余 3 秒时变为警告色，结束时变为红色。</span>
+          </div>
+        </div>
+
+        <h3>上传队列：暂停 / 继续 / 重试</h3>
+        <div class="zh-row" style="margin-bottom:10px"><button class="zh-btn sm" id="upqAll"><i data-i="pause"></i>全部暂停</button><button class="zh-btn sm text" id="upqRestart"><i data-i="rotate-ccw"></i>重新演示</button><span id="upqLive" role="status" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)"></span></div>
+        <ul class="zh-upq" id="upq" aria-label="上传队列"></ul>
+      </section>

@@ -1,0 +1,74 @@
+      <section class="block" id="formexample">
+        <h2>表单示例</h2>
+        <p class="desc">一张完整的「新建设备」表单。字段用自动列布局：每个字段至少 232px 宽，一行放得下几列就放几列，宽度变了列数跟着变；备注、标签这类需要整行的内容单独占满。拖动下面的滑块改变表单宽度，可以看到列数从 1 列到 4 列的变化。</p>
+
+        <div class="zh-fx-tools">
+          <label for="fxWidth" class="zh-fx-toollabel">表单宽度</label>
+          <input type="range" id="fxWidth" min="280" max="1200" step="10" value="1200" aria-describedby="fxReadout">
+          <span class="zh-tag primary" id="fxReadout" aria-live="polite"></span>
+          <button type="button" class="zh-btn sm" id="fxFull"><i data-i="maximize-2"></i>铺满</button>
+        </div>
+
+        <div class="zh-fx-frame" id="fxFrame">
+          <form id="fxForm" class="zh-card zh-fx" novalidate aria-label="新建设备">
+            <div class="zh-fx-summary" id="fxSummary" role="alert" hidden></div>
+
+            <fieldset class="zh-fx-group">
+              <legend>基本信息</legend>
+              <div class="zh-fx-grid">
+                <div class="zh-field"><label for="fxName" class="zh-req">设备名称</label><input class="zh-input" id="fxName" autocomplete="off" aria-describedby="fxNameMsg"><span class="zh-hint" id="fxNameMsg">2–20 个字</span></div>
+                <div class="zh-field"><label for="fxCode" class="zh-req">设备编号</label><input class="zh-input" id="fxCode" autocomplete="off" placeholder="ZH-0001" aria-describedby="fxCodeMsg"><span class="zh-hint" id="fxCodeMsg">格式：ZH-加 4 位数字</span></div>
+                <div class="zh-field"><label for="fxType">设备类型</label><div class="zh-select"><select id="fxType"><option>中控主机</option><option>边缘网关</option><option>传感器</option><option>显示终端</option></select></div></div>
+                <div class="zh-field"><label for="fxOwner" class="zh-req">负责人</label><input class="zh-input" id="fxOwner" autocomplete="off" aria-describedby="fxOwnerMsg"><span class="zh-hint" id="fxOwnerMsg">填写姓名</span></div>
+                <div class="zh-field"><label for="fxRegion">所在区域</label><div class="zh-select"><select id="fxRegion"><option>华东</option><option>华南</option><option>华北</option><option>西南</option><option>东北</option></select></div></div>
+                <div class="zh-field"><label for="fxDate">上线日期</label><input class="zh-input" id="fxDate" type="date" value="2026-10-01"></div>
+                <div class="zh-field"><label for="fxIp" class="zh-req">IP 地址</label><input class="zh-input" id="fxIp" inputmode="decimal" autocomplete="off" placeholder="192.168.1.10" aria-describedby="fxIpMsg"><span class="zh-hint" id="fxIpMsg">IPv4，每段 0–255</span></div>
+                <div class="zh-field"><label for="fxPort" class="zh-req">端口</label><input class="zh-input" id="fxPort" inputmode="numeric" autocomplete="off" value="8080" aria-describedby="fxPortMsg"><span class="zh-hint" id="fxPortMsg">1–65535</span></div>
+              </div>
+            </fieldset>
+
+            <fieldset class="zh-fx-group">
+              <legend>网络与安全</legend>
+              <div class="zh-fx-grid">
+                <div class="zh-field"><span class="zh-fx-lbl" id="fxProtoL">通信协议</span>
+                  <div class="zh-fx-seg" role="radiogroup" aria-labelledby="fxProtoL" id="fxProto"><button type="button" role="radio" aria-checked="true">MQTT</button><button type="button" role="radio" aria-checked="false">HTTP</button><button type="button" role="radio" aria-checked="false">TCP</button></div></div>
+                <div class="zh-field"><span class="zh-fx-lbl" id="fxEncL">加密方式</span>
+                  <div class="zh-fx-seg" role="radiogroup" aria-labelledby="fxEncL" id="fxEnc"><button type="button" role="radio" aria-checked="false">无</button><button type="button" role="radio" aria-checked="true">TLS</button><button type="button" role="radio" aria-checked="false">国密</button></div></div>
+                <div class="zh-field"><label for="fxLevel">告警级别</label><div class="zh-select"><select id="fxLevel"><option>提示</option><option selected>警告</option><option>严重</option></select></div></div>
+                <div class="zh-field"><span class="zh-fx-lbl">开关</span>
+                  <div class="zh-fx-stack"><label class="zh-check"><input type="checkbox" class="zh-switch" role="switch" id="fxRemote" checked> 允许远程访问</label><label class="zh-check"><input type="checkbox" class="zh-switch" role="switch" id="fxAuto"> 自动更新固件</label></div></div>
+                <div class="zh-field zh-fx-wide"><span class="zh-fx-lbl" id="fxChL">通知渠道</span>
+                  <div class="zh-fx-checks" role="group" aria-labelledby="fxChL"><label class="zh-check"><input type="checkbox" checked> 站内信</label><label class="zh-check"><input type="checkbox" checked> 邮件</label><label class="zh-check"><input type="checkbox"> 短信</label><label class="zh-check"><input type="checkbox"> 企业微信</label><label class="zh-check"><input type="checkbox"> Webhook</label></div></div>
+              </div>
+            </fieldset>
+
+            <fieldset class="zh-fx-group">
+              <legend>其他</legend>
+              <div class="zh-fx-grid">
+                <div class="zh-field zh-fx-full"><label for="fxNote">备注</label><textarea class="zh-input zh-textarea" id="fxNote" placeholder="安装位置、维护说明等" maxlength="200" aria-describedby="fxNoteMsg"></textarea><span class="zh-hint" id="fxNoteMsg">0 / 200</span></div>
+              </div>
+            </fieldset>
+
+            <div class="zh-fx-actions">
+              <span class="zh-hint" style="margin:0"><span class="zh-req" style="color:inherit"></span>为必填项</span>
+              <span class="zh-fx-btns"><button type="button" class="zh-btn text" id="fxReset">重置</button><button type="button" class="zh-btn" id="fxDraft">存草稿</button><button type="submit" class="zh-btn primary" id="fxSubmit"><span class="zh-fx-spin" hidden></span><span>提交</span></button></span>
+            </div>
+          </form>
+        </div>
+
+        <div class="zh-card" id="fxResultCard" hidden style="margin-top:16px"><div class="zh-split"><h4 style="margin:0">提交结果</h4><span class="zh-tag success"><i data-i="circle-check"></i>&nbsp;已保存</span></div><pre class="tokens" id="fxResult" style="margin-top:10px"></pre></div>
+
+        <h3>布局规则</h3>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:600px">
+          <thead><tr><th>规则</th><th>做法</th></tr></thead>
+          <tbody>
+            <tr><td>列数</td><td>不写死。字段容器用 <code>repeat(auto-fill, minmax(232px, 1fr))</code>，一行能放几列就放几列</td></tr>
+            <tr><td>整行字段</td><td>备注、富文本、表格类字段加 <code>zh-fx-full</code> 占满整行；多选组、单选组这类内容较长的字段可以占两格</td></tr>
+            <tr><td>标签位置</td><td>统一放在输入框上方，靠左对齐；不因列数变化而改变，扫读路径稳定</td></tr>
+            <tr><td>分组</td><td>每组用 <code>fieldset</code> 加 <code>legend</code>，组与组之间留 32px；一组不超过 8 个字段</td></tr>
+            <tr><td>顺序</td><td>必填在前，选填在后；相关字段挨着放；按阅读顺序从左到右、从上到下</td></tr>
+            <tr><td>操作区</td><td>提交按钮固定在表单底部右侧，取消和存草稿在左；手机上按钮通栏</td></tr>
+            <tr><td>校验</td><td>失焦时校验，提交时整体校验；焦点回到第一个出错的字段，并在顶部汇总数量</td></tr>
+          </tbody>
+        </table></div>
+      </section>

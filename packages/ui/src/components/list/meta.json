@@ -1,0 +1,60 @@
+{
+  "name": "list",
+  "title": "列表",
+  "summary": "纯样式组件：不需要 JS，写好标记即可。一行一项的列表：主文字、说明、右侧附加内容（标签、时间、按钮），行之间有分隔线。zh-list--bordered 加外框，zh-list--hover 悬停高亮，zh-list--plain 是带圆点的普通列表。",
+  "classes": [
+    "zh-list",
+    "zh-list-main",
+    "zh-list-title",
+    "zh-list-desc",
+    "zh-list-extra",
+    "zh-list--bordered",
+    "zh-list--hover",
+    "zh-list--plain"
+  ],
+  "attributes": [
+    {
+      "name": "zh-list",
+      "on": "<ul>（class）",
+      "value": "每个 <li> 里放 zh-list-main，可再放 zh-list-extra",
+      "desc": "列表容器"
+    },
+    {
+      "name": "zh-list-title / zh-list-desc",
+      "on": "<li> 里的 <p>",
+      "value": "",
+      "desc": "主文字（加粗，单行省略）与说明"
+    },
+    {
+      "name": "zh-list-extra",
+      "on": "<li> 里的容器",
+      "value": "",
+      "desc": "右侧附加内容，不会被挤压"
+    },
+    {
+      "name": "zh-list--bordered",
+      "on": ".zh-list",
+      "value": "",
+      "desc": "圆角外框和底色"
+    },
+    {
+      "name": "zh-list--hover",
+      "on": ".zh-list",
+      "value": "",
+      "desc": "悬停整行高亮；整行可点时请把内容放进 <a>"
+    },
+    {
+      "name": "zh-list--plain",
+      "on": ".zh-list",
+      "value": "",
+      "desc": "普通圆点列表，用于文章里的要点"
+    }
+  ],
+  "events": [],
+  "methods": [],
+  "a11y": [
+    "用 <ul>/<li> 保持列表语义",
+    "整行可点击时，用一个覆盖整行的 <a>，不要给 <li> 绑点击"
+  ],
+  "example": "<ul class=\"zh-list zh-list--bordered\">\n  <li><div class=\"zh-list-main\"><p class=\"zh-list-title\">产品发布会回顾</p><p class=\"zh-list-desc\">李明 · 2026-10-04</p></div><div class=\"zh-list-extra\"><span class=\"zh-tag success\">已发布</span></div></li>\n  <li><div class=\"zh-list-main\"><p class=\"zh-list-title\">季度运营复盘</p><p class=\"zh-list-desc\">王芳 · 2026-10-04</p></div><div class=\"zh-list-extra\"><span class=\"zh-tag warning\">待审核</span></div></li>\n</ul>"
+}

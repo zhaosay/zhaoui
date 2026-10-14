@@ -1,0 +1,30 @@
+{
+  "name": "breadcrumb",
+  "title": "面包屑",
+  "summary": "纯样式组件：不需要 JS，写好标记即可。页面层级路径。当前页用 aria-current=\"page\"；手机宽度只保留最后两级。",
+  "classes": [
+    "zh-crumb"
+  ],
+  "attributes": [
+    {
+      "name": "zh-crumb",
+      "on": "<ol>（class）",
+      "value": "每一级一个 <li>，前面的用 <a>，最后一级用 aria-current=\"page\"",
+      "desc": "分隔符由样式画出，不用自己写 /"
+    },
+    {
+      "name": "aria-current=\"page\"",
+      "on": "最后一个 <li>",
+      "value": "page",
+      "desc": "当前页，样式加深，读屏读作「当前页」"
+    }
+  ],
+  "events": [],
+  "methods": [],
+  "a11y": [
+    "外面包一层 <nav aria-label=\"面包屑\">",
+    "使用有序列表 <ol>，层级关系读屏可感知",
+    "手机宽度（≤ 767px）只显示最后两级，其余在样式里隐藏，读屏仍然可读到完整路径"
+  ],
+  "example": "<nav aria-label=\"面包屑\">\n  <ol class=\"zh-crumb\">\n    <li><a href=\"#\">首页</a></li>\n    <li><a href=\"#\">内容管理</a></li>\n    <li aria-current=\"page\">文章管理</li>\n  </ol>\n</nav>"
+}

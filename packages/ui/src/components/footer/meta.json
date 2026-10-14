@@ -1,0 +1,29 @@
+{
+  "name": "footer",
+  "title": "页脚",
+  "summary": "纯样式组件：不需要 JS，写好标记即可。页面底部：版权文字在一侧，链接在另一侧，窄屏自动换行。",
+  "classes": [
+    "zh-footer",
+    "zh-footer-links"
+  ],
+  "attributes": [
+    {
+      "name": "zh-footer",
+      "on": "<footer>（class）",
+      "value": "",
+      "desc": "顶部分隔线，两端对齐，可换行"
+    },
+    {
+      "name": "zh-footer-links",
+      "on": "<ul>（class）",
+      "value": "里面放 <li><a>",
+      "desc": "链接列表，横向排列"
+    }
+  ],
+  "events": [],
+  "methods": [],
+  "a11y": [
+    "链接列表外层用 <nav aria-label=\"页脚\"> 更利于读屏导航"
+  ],
+  "example": "<footer class=\"zh-footer\">\n  <span>© 2026 ZhaoUI. 保留所有权利。</span>\n  <ul class=\"zh-footer-links\"><li><a href=\"#\">隐私政策</a></li><li><a href=\"#\">服务条款</a></li><li><a href=\"#\">联系我们</a></li></ul>\n</footer>"
+}

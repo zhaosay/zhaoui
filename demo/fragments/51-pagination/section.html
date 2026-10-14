@@ -1,0 +1,61 @@
+      <section class="block" id="pagination">
+        <h2>分页</h2>
+        <p class="desc">分页解决「数据太多一屏放不下」。已知总数用页码分页；不知道总数或数据在不断增长，用游标分页或「加载更多」。页码控件<strong>始终占用固定数量的位置</strong>，翻页时不会左右跳动。</p>
+
+        <h3>完整分页 + 数据表</h3>
+        <div class="zh-row" style="margin-bottom:12px">
+          <input class="zh-input zh-pgx-search" id="pgxSearch" type="search" placeholder="按标题筛选，试试输入「不存在」" aria-label="按标题筛选" style="max-width:280px">
+          <span class="zh-hint" style="margin:0">共 86 条演示数据；翻页时会短暂显示骨架屏</span>
+        </div>
+        <div class="zh-table-wrap" id="pgxTableWrap" aria-live="polite">
+          <table class="zh-table">
+            <caption style="position:absolute;left:-9999px">文章列表（分页演示）</caption>
+            <thead><tr><th scope="col" class="num" style="width:5.5em">编号</th><th scope="col">标题</th><th scope="col">部门</th><th scope="col">状态</th><th scope="col">更新时间</th></tr></thead>
+            <tbody id="pgxBody"></tbody>
+          </table>
+          <div class="zh-pgx-empty" id="pgxEmpty" hidden>
+            <div class="zh-empty"><i data-i="search-x" data-s="48" style="color:var(--zh-border-strong)"></i><div style="margin-top:8px">没有匹配的数据</div><button class="zh-btn sm" id="pgxClear" style="margin-top:12px">清除筛选</button></div>
+          </div>
+          <div class="zh-pgx-foot"><nav class="zh-pg" id="pgxMain" aria-label="文章列表分页"></nav></div>
+        </div>
+
+        <h3>模式与尺寸</h3>
+        <div class="zh-grid">
+          <div class="zh-col zh-card" style="--d:12;--t:8;--p:4"><div class="panel-label">标准 · 总数 + 每页条数 + 页码 + 跳转</div><nav class="zh-pg" id="pgStd" aria-label="标准分页示例"></nav></div>
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><div class="panel-label">简洁 · 只看上一页 / 下一页 / 当前页</div><nav class="zh-pg" id="pgSimple" aria-label="简洁分页示例"></nav></div>
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><div class="panel-label">迷你 · 用在卡片、弹层、表格内嵌</div><nav class="zh-pg" id="pgMini" aria-label="迷你分页示例"></nav></div>
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><div class="panel-label">带边框 · B 端表格常用</div><nav class="zh-pg" id="pgBordered" aria-label="带边框分页示例"></nav></div>
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><div class="panel-label">禁用</div><nav class="zh-pg" id="pgDisabled" aria-label="禁用分页示例"></nav></div>
+          <div class="zh-col zh-card" style="--d:12;--t:8;--p:4"><div class="panel-label">三档尺寸 sm / md / lg</div>
+            <div class="zh-stack" style="--g:12px"><nav class="zh-pg" id="pgSm" aria-label="小尺寸分页"></nav><nav class="zh-pg" id="pgMd" aria-label="中尺寸分页"></nav><nav class="zh-pg" id="pgLg" aria-label="大尺寸分页"></nav></div></div>
+          <div class="zh-col zh-card" style="--d:12;--t:8;--p:4"><div class="panel-label">只有一页时隐藏</div>
+            <div class="zh-row" style="margin-bottom:12px"><div class="seg" role="group" aria-label="数据量" id="pgOneSeg"><button data-v="8" aria-pressed="true">共 8 条</button><button data-v="48" aria-pressed="false">共 48 条</button></div><span class="zh-hint" style="margin:0" id="pgOneHint"></span></div>
+            <nav class="zh-pg" id="pgOne" aria-label="单页隐藏示例"></nav></div>
+        </div>
+
+        <h3>加载更多与游标分页</h3>
+        <div class="zh-grid">
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><div class="panel-label">加载更多 · 内容流、评论、订单列表</div>
+            <ul class="zh-pgx-list" id="pgxMoreList" aria-live="polite"></ul>
+            <div class="zh-pgx-more"><div class="meter" aria-hidden="true"><i id="pgxMoreBar" style="width:0;background:var(--zh-color-primary)"></i></div><div class="zh-split" style="margin-top:8px"><span class="zh-hint" style="margin:0" id="pgxMoreCount"></span><button class="zh-btn sm" id="pgxMoreBtn">加载更多</button></div></div></div>
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><div class="panel-label">游标分页 · 不知道总数，只能前后翻</div>
+            <ul class="zh-pgx-list" id="pgxCurList" aria-live="polite"></ul>
+            <nav class="zh-pgx-cursor" aria-label="游标分页"><button class="zh-btn sm" id="pgxCurPrev"><i data-i="chevron-left"></i>上一页</button><span class="zh-hint" style="margin:0" id="pgxCurInfo"></span><button class="zh-btn sm" id="pgxCurNext">下一页<i data-i="chevron-right"></i></button></nav></div>
+        </div>
+
+        <h3>规则</h3>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:680px">
+          <thead><tr><th>项</th><th>规范</th></tr></thead>
+          <tbody>
+            <tr><td>页码位置</td><td>总页数 ≤ 7 全部显示；更多时固定 7 个位置（首页、末页、当前页及左右各 1 页、两个省略号），翻页不抖动</td></tr>
+            <tr><td>省略号</td><td>本身是按钮：悬停或聚焦时变成双箭头，点击向前 / 向后跳 5 页，读屏读作「向前 5 页」</td></tr>
+            <tr><td>每页条数</td><td>10 / 20 / 50 / 100；切换时保持当前第一行仍在页内（第 31 行所在页 → 每页 20 条时跳到第 2 页）</td></tr>
+            <tr><td>跳转</td><td>回车确认；超出范围自动取最近的合法页，输入非数字标红并读出错误</td></tr>
+            <tr><td>状态</td><td>首页禁用「上一页」、末页禁用「下一页」（保留可聚焦，用 <code>aria-disabled</code>）；整体禁用用 <code>disabled</code></td></tr>
+            <tr><td>加载</td><td>翻页时保持表格高度，显示与每页条数相同的骨架行；慢请求返回时丢弃过期结果</td></tr>
+            <tr><td>空状态</td><td>筛选无结果时显示空状态和「清除筛选」，隐藏分页；只有一页时可配置隐藏</td></tr>
+            <tr><td>手机 &lt;768</td><td>页码收成「‹ 3 / 20 ›」，隐藏每页条数与跳转，总数移到上方居中；触控热区 ≥ 44px</td></tr>
+            <tr><td>可访问性</td><td><code>&lt;nav aria-label&gt;</code>；当前页 <code>aria-current="page"</code>；每个页码 <code>aria-label="第 N 页"</code>；翻页后用 <code>role="status"</code> 播报「第 N 页，共 M 页」；键盘翻页后焦点留在当前页按钮上</td></tr>
+          </tbody>
+        </table></div>
+      </section>

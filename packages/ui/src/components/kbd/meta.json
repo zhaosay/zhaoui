@@ -1,0 +1,23 @@
+{
+  "name": "kbd",
+  "title": "键位",
+  "summary": "纯样式组件：不需要 JS。用 <kbd class=\"zh-kbd\"> 显示键盘按键，如快捷键提示。",
+  "classes": [
+    "zh-kbd"
+  ],
+  "attributes": [
+    {
+      "name": "zh-kbd",
+      "on": "<kbd>（class）",
+      "value": "按键名",
+      "desc": "一个按键一个元素；组合键用多个并排"
+    }
+  ],
+  "events": [],
+  "methods": [],
+  "a11y": [
+    "使用语义化的 <kbd>",
+    "符号键（如 ⌘）读屏可能读不出，重要的快捷键请同时在文字里写明"
+  ],
+  "example": "<p>按 <kbd class=\"zh-kbd\">Ctrl</kbd> + <kbd class=\"zh-kbd\">K</kbd> 打开搜索，<kbd class=\"zh-kbd\">Esc</kbd> 关闭。</p>"
+}

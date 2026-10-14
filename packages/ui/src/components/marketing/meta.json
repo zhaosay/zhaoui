@@ -1,0 +1,165 @@
+{
+  "name": "marketing",
+  "title": "营销页区块",
+  "summary": "可选的 zhaoui-marketing.css：搭一个落地页用的整块样式，页宽与区块间距、hero（左文右卡）、区块标题、特性卡、价格卡、品牌渐变横幅、带品牌色发光的主按钮，以及可选的渐变文字、数据条、极光光斑和玻璃标签。极光、渐变文字、玻璃标签只是装饰，默认不用：普通页面直接用 zh-hero 的浅色渐变；只有深色、发布会式的首屏才考虑加 zh-aurora（并在该区块写 data-mode=\"dark\"）。下面的示例为了演示全部类才把它们放在一起，不是推荐的搭配。全部读主题变量，跟着品牌色、亮暗和 B/C 端走。需要额外引入 zhaoui-marketing.css，放在 zhaoui.css 之后。",
+  "classes": [
+    "zh-wrap",
+    "zh-section",
+    "zh-section--subtle",
+    "zh-section--brand",
+    "zh-section--center",
+    "zh-eyebrow",
+    "zh-display",
+    "zh-section-title",
+    "zh-section-sub",
+    "zh-hero",
+    "zh-hero-grid",
+    "zh-hero-actions",
+    "zh-stats",
+    "zh-float-card",
+    "zh-float-flag",
+    "zh-feature-grid",
+    "zh-feature",
+    "zh-feature--brand",
+    "zh-feature-tags",
+    "zh-tags",
+    "zh-tile",
+    "zh-price",
+    "zh-price--popular",
+    "zh-price-flag",
+    "zh-price-name",
+    "zh-price-amount",
+    "zh-price-desc",
+    "zh-price-list",
+    "zh-nav--contained",
+    "zh-glow",
+    "zh-gradient-text",
+    "zh-index",
+    "zh-stats-bar",
+    "zh-stat",
+    "zh-aurora",
+    "zh-aurora--grid",
+    "zh-aurora-stage",
+    "zh-glass-tag"
+  ],
+  "attributes": [
+    {
+      "name": "zh-wrap",
+      "on": "容器（class）",
+      "value": "",
+      "desc": "页面内容宽度：最宽 --zh-page-max（80rem），两侧留白随屏幕在 16 到 64px 之间变化"
+    },
+    {
+      "name": "zh-section",
+      "on": "<section>（class）",
+      "value": "加 --subtle（浅灰底）、--brand（品牌渐变底、白字）、--center（标题居中）",
+      "desc": "一个区块；上下留白用 --zh-section-gap（64 到 96px，随屏幕）。给区块加 data-mode=\"dark\" 就是一整块深色区"
+    },
+    {
+      "name": "zh-eyebrow / zh-display / zh-section-title / zh-section-sub",
+      "on": "文字（class）",
+      "value": "",
+      "desc": "小标题、展示级大标题（--zh-font-display，em 部分用品牌色）、区块标题（--zh-font-title）、区块说明（限制行宽）"
+    },
+    {
+      "name": "zh-hero + zh-hero-grid",
+      "on": "区块与容器",
+      "value": "",
+      "desc": "首屏：柔和渐变底，左边文字、右边产品卡片，900px 以下上下排"
+    },
+    {
+      "name": "zh-float-card + zh-float-flag",
+      "on": "卡片与标签",
+      "value": "",
+      "desc": "带大阴影的产品展示卡，标签浮在右上角并带品牌色发光"
+    },
+    {
+      "name": "zh-feature-grid + zh-feature",
+      "on": "网格与卡片",
+      "value": "加 zh-feature--brand 做主推卡",
+      "desc": "自动按宽度分列的特性卡；zh-feature-grid--4 每列更窄；悬停上浮"
+    },
+    {
+      "name": "zh-feature-tags / zh-tags",
+      "on": "标签组",
+      "value": "",
+      "desc": "卡片里的多个标签：比单个状态标签更高、更松，间距 8px"
+    },
+    {
+      "name": "zh-tile",
+      "on": "图标块",
+      "value": "里面放 <i data-i>",
+      "desc": "52px 的圆角图标底块，品牌浅色底"
+    },
+    {
+      "name": "zh-price 系列",
+      "on": "价格卡",
+      "value": "zh-price-name、zh-price-amount、zh-price-desc、zh-price-list、zh-price-flag",
+      "desc": "价格卡；zh-price--popular 加品牌边框和发光"
+    },
+    {
+      "name": "zh-nav--contained",
+      "on": "导航条（class）",
+      "value": "",
+      "desc": "让导航内容和页面内容对齐在同一条线上"
+    },
+    {
+      "name": "zh-glow",
+      "on": "按钮等（class）",
+      "value": "",
+      "desc": "品牌色发光阴影；hero 里的主按钮已自带"
+    },
+    {
+      "name": "zh-btn xl",
+      "on": "按钮（class）",
+      "value": "",
+      "desc": "超大按钮，落地页的主操作用；比 lg 再大 8px 高度"
+    },
+    {
+      "name": "zh-gradient-text / zh-index",
+      "on": "文字（class）",
+      "value": "",
+      "desc": "渐变文字 / 渐变编号（01、02…）。渐变取自品牌派生的三个强调色 --zh-accent-a/b/c，只用在大字号上（强调色在白底和近黑底上都有 3:1，是大字的下限，不适合小字）"
+    },
+    {
+      "name": "--zh-accent-a / b / c",
+      "on": "品牌令牌",
+      "value": "颜色",
+      "desc": "三个强调色，换品牌色会一起变；想固定成指定的三色（如珊瑚、橙、紫），在 CSS 里直接覆盖这三个变量。--zh-gradient-accent 是用它们画的渐变"
+    },
+    {
+      "name": "zh-stats-bar + zh-stat",
+      "on": "容器与项",
+      "value": "项里放 <b>数字</b><span>说明</span>",
+      "desc": "一排关键数据放在一张柔和的大圆角卡里，竖线分隔；数字上加 zh-gradient-text 得到渐变数字；给它负的上外边距可以压在上面的 hero 上"
+    },
+    {
+      "name": "zh-aurora（+ zh-aurora--grid）",
+      "on": "区块（class）",
+      "value": "需同时加 data-mode=\"dark\"",
+      "desc": "可选装饰：深色底上用强调色画的静态光斑，加 --grid 再叠一层淡网格；没有模糊滤镜也没有动画，几乎没有绘制成本"
+    },
+    {
+      "name": "zh-aurora-stage + zh-glass-tag",
+      "on": "展示卡与标签",
+      "value": "glass-tag 用 style 的 left/top 定位",
+      "desc": "深色展示卡，上面浮动的玻璃标签（半透明加模糊；不支持模糊的浏览器只是半透明）；只在深色或图片背景上使用"
+    },
+    {
+      "name": "zh-btn gradient",
+      "on": "按钮（class）",
+      "value": "",
+      "desc": "主操作的渐变按钮：从主色渐变到深一档的主色，白字对比度达标；原站那种“白字压鲜艳渐变”约 3.2:1，不达标，库里不提供"
+    }
+  ],
+  "events": [],
+  "methods": [],
+  "a11y": [
+    "大标题用真正的 h1/h2，区块用 <section> 并有标题；这些类只管样式，不改语义",
+    "品牌渐变底上的字固定用 --zh-on-primary，主色由库保证白字不低于 4.5:1",
+    "hero 里的“em”强调色用大字号（不小于 24px 的粗体）才能用 --zh-brand-6，正文大小的强调请用 --zh-color-primary-text",
+    "手机上 hero、网格会自动单列；价格卡等宽度不要写死像素",
+    "渐变文字用 background-clip，强制颜色（Windows 高对比度）下自动退回普通文字色；光斑和网格在高对比度下隐藏"
+  ],
+  "example": "<section class=\"zh-hero zh-aurora zh-aurora--grid\" data-mode=\"dark\">\n  <div class=\"zh-wrap zh-hero-grid\">\n    <div>\n      <span class=\"zh-tag zh-tag--lg primary\">2026 全新服务</span>\n      <h2 class=\"zh-display\" style=\"margin-top:16px\">一句话讲清<span class=\"zh-gradient-text\">你的价值</span></h2>\n      <p class=\"zh-section-sub\" style=\"margin-bottom:24px\">一个副标题，补充说明。主操作用 xl 按钮，次操作用默认按钮。</p>\n      <div class=\"zh-hero-actions\"><a class=\"zh-btn gradient xl\" href=\"#mk-features\">主要操作</a><a class=\"zh-btn xl\" href=\"#mk-price\">次要操作</a></div>\n      <ul class=\"zh-stats\"><li><b>500+</b><span>合作伙伴</span></li><li><b>98%</b><span>满意度</span></li></ul>\n    </div>\n    <div class=\"zh-card zh-float-card\"><span class=\"zh-tag zh-tag--filled primary zh-float-flag\">进行中</span><h3>产品卡片</h3><p>放一张展示产品实际样子的卡片。</p></div>\n  </div>\n</section>\n<section class=\"zh-section zh-section--subtle\" id=\"mk-features\">\n  <div class=\"zh-wrap\">\n    <ol class=\"zh-stats-bar\" style=\"list-style:none;margin:0 0 32px\"><li class=\"zh-stat\"><b class=\"zh-gradient-text\">60+</b><span>个组件</span></li><li class=\"zh-stat\"><b class=\"zh-gradient-text\">0</b><span>运行时依赖</span></li></ol>\n    <p class=\"zh-eyebrow\">特性</p>\n    <h2 class=\"zh-section-title\">区块标题</h2>\n    <p class=\"zh-section-sub\">一段说明文字，宽度自动限制在舒适的行长内。</p>\n    <div class=\"zh-feature-grid\">\n      <div class=\"zh-card zh-feature zh-feature--brand\"><span class=\"zh-tile\"><i data-i=\"sparkles\"></i></span><h3>主推特性</h3><p>品牌渐变底的特性卡，白字。</p><div class=\"zh-feature-tags\"><span class=\"zh-tag\">标签一</span><span class=\"zh-tag\">标签二</span></div></div>\n      <div class=\"zh-card zh-feature\"><span class=\"zh-index\">01</span><h3>普通特性</h3><p>悬停时上浮并带品牌色的柔和阴影。</p><div class=\"zh-feature-tags\"><span class=\"zh-tag primary\">标签一</span><span class=\"zh-tag primary\">标签二</span></div></div>\n    </div>\n  </div>\n</section>\n<section class=\"zh-section zh-section--center\" id=\"mk-price\">\n  <div class=\"zh-wrap\">\n    <h2 class=\"zh-section-title\">价格卡</h2>\n    <div class=\"zh-feature-grid\" style=\"max-width:40rem;margin-inline:auto\">\n      <div class=\"zh-card zh-price\"><p class=\"zh-price-name\">基础版</p><div class=\"zh-price-amount\">¥99<small>/月</small></div><p class=\"zh-price-desc\">适合个人</p><ul class=\"zh-price-list\"><li><i data-i=\"check\"></i>功能一</li><li><i data-i=\"check\"></i>功能二</li></ul><a class=\"zh-btn lg\" href=\"#\">选择</a></div>\n      <div class=\"zh-card zh-price zh-price--popular\"><span class=\"zh-tag zh-tag--filled primary zh-price-flag\">最受欢迎</span><p class=\"zh-price-name\">专业版</p><div class=\"zh-price-amount\">¥299<small>/月</small></div><p class=\"zh-price-desc\">适合团队</p><ul class=\"zh-price-list\"><li><i data-i=\"check\"></i>功能一</li><li><i data-i=\"check\"></i>功能二</li><li><i data-i=\"check\"></i>功能三</li></ul><a class=\"zh-btn primary lg\" href=\"#\">选择</a></div>\n    </div>\n  </div>\n</section>\n<section class=\"zh-section zh-section--brand\">\n  <div class=\"zh-wrap\"><h2 class=\"zh-section-title\">行动号召</h2><p class=\"zh-section-sub\" style=\"margin:0 auto 24px\">品牌渐变底的整行区块，字用 on-primary。</p><a class=\"zh-btn xl\" href=\"#\">立即开始</a></div>\n</section>"
+}

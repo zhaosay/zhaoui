@@ -1,0 +1,84 @@
+{
+  "name": "time",
+  "title": "时间选择",
+  "summary": "时、分（可选秒）三列滚动选择，也可以直接键入。分钟可按步长取整。",
+  "classes": [
+    "zh-dp",
+    "zh-tp-panel",
+    "zh-tp-cols"
+  ],
+  "attributes": [
+    {
+      "name": "data-zh-time",
+      "on": "<div>",
+      "value": "无",
+      "desc": "声明这是时间选择"
+    },
+    {
+      "name": "data-value",
+      "on": "容器",
+      "value": "HH:mm 或 HH:mm:ss",
+      "desc": "初始时间"
+    },
+    {
+      "name": "data-seconds",
+      "on": "容器",
+      "value": "布尔属性",
+      "desc": "显示并允许选择秒"
+    },
+    {
+      "name": "data-step-minutes",
+      "on": "容器",
+      "value": "整数，默认 1",
+      "desc": "分钟的步长，如 15；键入的分钟会四舍五入到最近的步长"
+    },
+    {
+      "name": "data-name",
+      "on": "容器",
+      "value": "字段名",
+      "desc": "生成隐藏 <input name=…> 参与表单提交"
+    },
+    {
+      "name": "data-size",
+      "on": "容器",
+      "value": "sm | md（默认）| lg",
+      "desc": "尺寸"
+    },
+    {
+      "name": "aria-label / data-labelledby / data-label",
+      "on": "容器",
+      "value": "字符串 / 标签元素 id / 弹层标题",
+      "desc": "输入框的无障碍名称；data-label 是弹出面板的标题"
+    },
+    {
+      "name": "<label for=\"容器 id\">",
+      "on": "容器所在页面的 <label>",
+      "value": "for 指向容器的 id",
+      "desc": "label 会成为输入框的无障碍名称，点击 label 会聚焦输入框；容器是空 <div>，label 的 for 指向它的 id 即可"
+    }
+  ],
+  "events": [
+    {
+      "name": "zh:time-change",
+      "on": "容器",
+      "detail": "{ value: 'HH:mm' | 'HH:mm:ss' | '', time: { h, m, s } | null }",
+      "desc": "选择、键入确认、点「此刻」或清除后触发（冒泡）"
+    }
+  ],
+  "methods": [
+    {
+      "name": "ZhaoUI.timePicker(host, { value: { h, m, s }, seconds, stepM, size, label, onChange })",
+      "desc": "命令式创建；value 是 { h, m, s } 对象"
+    },
+    {
+      "name": "el.zhTime.get() / .set(value) / .open() / .close()",
+      "desc": "get 返回 { h, m, s } 或 null；set 接受对象或 HH:mm 字符串，不触发事件"
+    }
+  ],
+  "a11y": [
+    "每一列是一个 listbox，↑ ↓ 逐项移动，PageUp / PageDown 一次移动五个步长，Home / End 到首尾，← → 在时分秒列之间切换，Enter 确定",
+    "键入不合法（如 25:00）时标记 aria-invalid",
+    "面板底部有「此刻」和「确定」按钮"
+  ],
+  "example": "<div data-zh-time data-name=\"at\" data-value=\"09:30\" aria-label=\"提醒时间\"></div>\n<div data-zh-time data-seconds data-step-minutes=\"15\" data-value=\"14:15:10\" aria-label=\"精确时间\"></div>\n\n<script>\ndocument.querySelector('[data-zh-time]').addEventListener('zh:time-change', function (e) {\n  console.log(e.detail.value);   // 09:45\n});\n</script>"
+}

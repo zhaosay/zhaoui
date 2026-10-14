@@ -1,0 +1,43 @@
+{
+  "name": "textarea",
+  "title": "多行文本",
+  "summary": "随内容增高的文本域，带字数统计。硬上限用 maxlength，软上限 data-soft-max 允许继续输入但提示超出。",
+  "classes": [
+    "zh-ta",
+    "zh-textarea",
+    "zh-ta-count"
+  ],
+  "attributes": [
+    {
+      "name": "data-max-rows",
+      "on": ".zh-ta",
+      "value": "整数，默认 6",
+      "desc": "最多增高到几行，超过后出现滚动条"
+    },
+    {
+      "name": "data-soft-max",
+      "on": ".zh-ta",
+      "value": "整数",
+      "desc": "软上限：超过后计数变红、textarea 设 aria-invalid，但仍可输入"
+    },
+    {
+      "name": "maxlength",
+      "on": "textarea",
+      "value": "整数",
+      "desc": "硬上限：浏览器阻止继续输入，计数显示「当前 / 上限」"
+    },
+    {
+      "name": "data-ta-msg",
+      "on": ".zh-ta 的兄弟元素",
+      "value": "带 hidden 的提示容器，内含一个 <span>",
+      "desc": "可选：超出软上限时显示「超出 N 字」"
+    }
+  ],
+  "events": [],
+  "methods": [],
+  "a11y": [
+    "计数文字是 aria-hidden；若在旁边放一个 .zh-inp-sr（视觉隐藏的 aria-live 区域），越过或回到软上限时会朗读「已超出字数上限」",
+    "超出软上限时 textarea 会设置 aria-invalid=\"true\""
+  ],
+  "example": "<div class=\"zh-ta\" data-max-rows=\"6\">\n  <textarea class=\"zh-textarea\" rows=\"2\" maxlength=\"80\" placeholder=\"输入内容，最多 80 字\" aria-label=\"简介\"></textarea>\n  <span class=\"zh-ta-count\" aria-hidden=\"true\">0 / 80</span>\n</div>\n\n<div class=\"zh-ta\" data-soft-max=\"30\" data-max-rows=\"6\">\n  <textarea class=\"zh-textarea\" rows=\"2\" placeholder=\"超过 30 字会标红，仍可继续输入\" aria-label=\"备注\">这段文字已经超过了三十个字的软上限，计数会变红并提示超出多少字。</textarea>\n  <span class=\"zh-ta-count\" aria-hidden=\"true\"></span>\n</div>"
+}

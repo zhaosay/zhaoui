@@ -1,0 +1,67 @@
+{
+  "name": "input",
+  "title": "输入框",
+  "summary": "带前置图标、清除按钮、密码显示开关、搜索快捷键的文本输入。结构是 .zh-inp 包着 .zh-inp-box 和原生 input，按钮按需添加。",
+  "classes": [
+    "zh-inp",
+    "zh-inp-box",
+    "zh-inp-el",
+    "zh-inp-pre",
+    "zh-inp-btn",
+    "zh-inp-clear",
+    "zh-inp-eye",
+    "zh-inp-search",
+    "zh-inp-addon",
+    "zh-inp-suf",
+    "zh-inp-msg",
+    "zh-inp-status"
+  ],
+  "attributes": [
+    {
+      "name": "zh-inp-clear",
+      "on": "输入框内的按钮（class）",
+      "value": "加 hidden 作为初始状态",
+      "desc": "有内容时自动显示，点击清空并让输入框获得焦点"
+    },
+    {
+      "name": "zh-inp-eye",
+      "on": "password 输入框旁的按钮（class）",
+      "value": "aria-pressed=\"false\"",
+      "desc": "点击在密码与明文之间切换，并同步 aria-label"
+    },
+    {
+      "name": "data-search",
+      "on": ".zh-inp",
+      "value": "无",
+      "desc": "搜索模式：Enter 触发搜索，Esc 清空内容"
+    },
+    {
+      "name": "is-error / is-success",
+      "on": ".zh-inp",
+      "value": "class",
+      "desc": "错误与成功状态的外观；校验逻辑由你来写"
+    }
+  ],
+  "events": [
+    {
+      "name": "zh:search",
+      "on": ".zh-inp[data-search]",
+      "detail": "{ query }",
+      "desc": "在搜索框按 Enter 时触发（冒泡），query 已去掉首尾空格"
+    },
+    {
+      "name": "zh:search-clear",
+      "on": ".zh-inp[data-search]",
+      "detail": "无",
+      "desc": "在有内容的搜索框按 Esc 清空后触发"
+    }
+  ],
+  "methods": [],
+  "a11y": [
+    "清除按钮必须有 aria-label（示例里已写）",
+    "密码开关会更新 aria-pressed 和 aria-label",
+    "图标按钮请保留 aria-label，前置图标是装饰性的",
+    "校验失败时给 input 设置 aria-invalid=\"true\"，并把错误信息放在 .zh-inp-msg 里"
+  ],
+  "example": "<div class=\"zh-inp\"><span class=\"zh-inp-box\"><i data-i=\"search\" data-s=\"18\" class=\"zh-inp-pre\"></i><input class=\"zh-inp-el\" type=\"text\" placeholder=\"邮箱\" aria-label=\"邮箱\"><button type=\"button\" class=\"zh-inp-btn zh-inp-clear\" aria-label=\"清除\" hidden><i data-i=\"x\" data-s=\"16\"></i></button></span></div>\n\n<div class=\"zh-inp\"><span class=\"zh-inp-box\"><input class=\"zh-inp-el\" type=\"password\" value=\"hunter2\" aria-label=\"密码\" autocomplete=\"new-password\"><button type=\"button\" class=\"zh-inp-btn zh-inp-eye\" aria-label=\"显示密码\" aria-pressed=\"false\"><i data-i=\"eye\" data-s=\"18\"></i></button></span></div>\n\n<div class=\"zh-inp zh-inp-search\" data-search><span class=\"zh-inp-box\"><i data-i=\"search\" data-s=\"18\" class=\"zh-inp-pre\"></i><input class=\"zh-inp-el\" type=\"search\" placeholder=\"搜索文章\" aria-label=\"搜索\" enterkeyhint=\"search\"><button type=\"button\" class=\"zh-inp-btn zh-inp-clear\" aria-label=\"清除搜索\" hidden><i data-i=\"x\" data-s=\"16\"></i></button></span></div>\n\n<script>\ndocument.querySelector('[data-search]').addEventListener('zh:search', function (e) {\n  console.log('搜索：', e.detail.query);\n});\n</script>"
+}

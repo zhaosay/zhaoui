@@ -1,0 +1,9 @@
+node_modules/
+.DS_Store
+*.bak
+# build output: rebuilt by "npm run build" and "npm run site"
+packages/*/dist/
+packages/ui/docs/
+packages/ui/skills/
+site/dist-site/
+*.generated.html

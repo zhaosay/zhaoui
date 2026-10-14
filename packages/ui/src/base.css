@@ -1,0 +1,80 @@
+/* Library base. Deliberately small: it never restyles bare elements, only what components need. */
+[class*="zh-"], [class*="zh-"]::before, [class*="zh-"]::after { box-sizing: border-box; }
+:where(dialog.zh-modal, .zh-drawer, .zh-pop) { font-family: var(--zh-font-sans); font-size: calc(var(--zh-font-base) * var(--zh-scale, 1)); line-height: var(--zh-line); color: var(--zh-text); }
+/* Library elements that set display (e.g. .zh-menu { display: flex }) must still honour [hidden]. */
+[class*="zh-"][hidden] { display: none !important; }
+/* Reduced motion: keep opacity and colour feedback, remove movement, loops and long animations. Scoped to library classes. */
+@media (prefers-reduced-motion: reduce) {
+  [class*="zh-"], [class*="zh-"]::before, [class*="zh-"]::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; animation-delay: 0s !important; transition-property: opacity, color, background-color, border-color, box-shadow !important; }
+}
+/* Toast host used by ZhaoUI.message() */
+.zh-toast-host { position: fixed; top: 16px; left: 50%; transform: translateX(-50%); z-index: var(--zh-z-toast); display: flex; flex-direction: column; gap: 8px; align-items: center; pointer-events: none; }
+.zh-toast-host > * { pointer-events: auto; }
+.zh-message--info .ico { color: var(--zh-text-info); }
+.zh-message--warning .ico { color: var(--zh-text-warning); }
+.zh-message--error .ico { color: var(--zh-text-danger); }
+/* The native <select> that a data-zh-select control replaces: still in the form and focusable, just not seen. */
+.zh-sel-native { position: absolute; width: 1px; height: 1px; margin: 0; padding: 0; opacity: 0; pointer-events: none; overflow: hidden; clip-path: inset(50%); }
+/* The range picker holds two dates, an arrow, an icon and a clear button, so it needs about 17.5rem. In a narrower container it overflows visibly instead of silently clipping the dates;
+   the fix is then obvious (give it more room). Two classes: the component's own .zh-dp { min-width: 0 } comes later in the file. */
+.zh-dp.zh-dp--range { min-width: 17.5rem; }
+
+/* ---- layout grid ----
+   .zh-grid reads --cols, but the token stylesheet defines --zh-cols per breakpoint (12 / 8 / 4). Bridge them so .zh-grid works on any page. */
+:root { --cols: var(--zh-cols, 12); }
+
+/* ---- alert: success and danger next to the existing info and warning; the icon takes the variant's colour ---- */
+.zh-alert.success { background: var(--zh-success-bg-subtle); border-color: var(--zh-success-border); }
+.zh-alert.danger { background: var(--zh-danger-bg-subtle); border-color: var(--zh-danger-border); }
+.zh-alert .ico { flex: none; margin-top: .15em; }
+.zh-alert.info .ico { color: var(--zh-text-info); }
+.zh-alert.success .ico { color: var(--zh-text-success); }
+.zh-alert.warning .ico { color: var(--zh-text-warning); }
+.zh-alert.danger .ico { color: var(--zh-text-danger); }
+
+/* ---- table: below 768px a .zh-table turns into a card list (one field per line, labelled by data-label). Wide admin tables usually want to scroll
+   sideways instead: put .zh-table-wrap--scroll on the wrapper to keep a real table at every width. ---- */
+.zh-table-wrap.zh-table-wrap--scroll { overflow-x: auto; }
+@media (max-width: 767px) {
+  .zh-table-wrap--scroll .zh-table { display: table; }
+  .zh-table-wrap--scroll .zh-table thead { position: static; left: auto; display: table-header-group; }
+  .zh-table-wrap--scroll .zh-table tbody { display: table-row-group; }
+  .zh-table-wrap--scroll .zh-table tr { display: table-row; padding: 0; border-bottom: 0; }
+  .zh-table-wrap--scroll .zh-table th, .zh-table-wrap--scroll .zh-table td { display: table-cell; padding: calc(var(--zh-control-h) * .25) 16px; border-bottom: 1px solid var(--zh-border); white-space: nowrap; }
+  .zh-table-wrap--scroll .zh-table td::before { content: none; }
+  .zh-table-wrap--scroll .zh-table tr:last-child td { border-bottom: 0; }
+}
+
+/* card cover: a photo is the common case, the stylesheet only sized <svg> */
+.zh-cardx-cover img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* ---- Windows High Contrast / forced colors ----
+   The browser replaces our colours with the user's palette and drops shadows, so anything that meant something only by
+   its fill (switch, progress, slider, selected day or option) or only by a box-shadow focus ring needs a system colour
+   or a real outline.  System colours (Highlight, ButtonText, ...) are the one thing the browser lets authors keep. ---- */
+@media (forced-colors: active) {
+  :focus-visible { outline: 2px solid Highlight !important; outline-offset: 2px; }
+  :root .zh-btn.primary, :root .zh-dp-day.is-selected, :root .zh-dp-cell.is-selected { background: Highlight; background-image: none; forced-color-adjust: none; color: HighlightText; border-color: Highlight; }
+  :root .zh-btn.danger { border-color: LinkText; }
+  :root .zh-switch { border: 1px solid ButtonText; background: Canvas; }
+  :root .zh-switch::after { background: ButtonText; }
+  :root .zh-switch:checked { background: Highlight; border-color: Highlight; }
+  :root .zh-switch:checked::after { background: HighlightText; }
+  :root .zh-progress-track, :root .zh-slider-rail { border: 1px solid CanvasText; background: Canvas; }
+  :root .zh-progress-fill, :root .zh-slider-fill { background: Highlight; forced-color-adjust: none; }
+  :root .zh-slider-thumb { background: Canvas; border-color: Highlight; }
+  :root .zh-progress-in { color: HighlightText; }
+  :root .zh-tag, :root .zh-badge b, :root .zh-alert, :root .zh-card, :root .zh-table-wrap, :root .zh-descr-wrap, :root .zh-result-icon, :root .zh-avatar { border: 1px solid CanvasText; }
+  :root .zh-tabs button[aria-selected="true"]::after { background: Highlight; forced-color-adjust: none; }
+  :root .zh-sel-opt[aria-selected="true"], :root .zh-cas-item[aria-selected="true"] { background: Highlight; color: HighlightText; forced-color-adjust: none; }
+  :root .zh-sel-opt.is-active, :root .zh-cas-item.is-active { outline: 2px solid Highlight; outline-offset: -2px; }
+  :root .zh-dp-day.is-today, :root .zh-dp-cell.is-today { outline: 1px solid CanvasText; outline-offset: -1px; }
+  :root .zh-dp-day.is-disabled, :root .zh-sel-opt[aria-disabled="true"], :root .zh-btn:disabled { color: GrayText; }
+  :root .zh-rating-icons .zh-rating-base { color: GrayText; }
+  :root .zh-rating-part .ico { color: Highlight; }
+  :root .zh-skeleton { background: GrayText; animation: none; }
+}
+
+/* back to top: fixed to the viewport unless data-target points at a scrolling box */
+.zh-backtop.zh-backtop--fixed { position: fixed; right: 24px; bottom: 24px; }
+@media (max-width: 767px) { .zh-backtop.zh-backtop--fixed { right: 16px; bottom: 16px; } }

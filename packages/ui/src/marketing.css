@@ -1,0 +1,102 @@
+/* ZhaoUI marketing blocks (optional file): the pieces of a landing page.  Every colour, space and radius is a variable, so a page follows the brand,
+   light and dark, and the C-end / B-end switch.  Include after zhaoui.css:  <link rel="stylesheet" href="zhaoui-marketing.css"> */
+
+/* page width and sections */
+.zh-wrap { max-width: var(--zh-page-max); margin-inline: auto; padding-inline: clamp(16px, 5vw, 64px); }
+.zh-section { padding-block: var(--zh-section-gap); background: var(--zh-bg); color: var(--zh-text); }
+.zh-section--subtle { background: var(--zh-bg-subtle); }
+.zh-section--brand { background: var(--zh-gradient-brand); color: var(--zh-on-primary); text-align: center; }
+.zh-section--brand .zh-section-sub { color: inherit; opacity: .95; }
+.zh-section--center { text-align: center; } .zh-section--center .zh-section-sub { margin-inline: auto; }
+/* small heading above a title: a short rule, then spaced capitals (Latin text) or spaced characters (CJK) */
+.zh-eyebrow { display: inline-flex; align-items: center; gap: 12px; margin: 0 0 16px; font-size: .82em; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--zh-color-primary-text); }
+.zh-eyebrow::before { content: ""; flex: none; width: 28px; height: 2px; border-radius: 2px; background: currentColor; }
+.zh-section--center .zh-eyebrow, .zh-section--brand .zh-eyebrow { justify-content: center; }
+/* display type: tight tracking and leading are what make large headings look set rather than typed */
+.zh-display { margin: 0 0 20px; font-size: var(--zh-font-display); line-height: 1.06; font-weight: 800; letter-spacing: -.04em; text-wrap: balance; }
+.zh-display em { font-style: normal; color: var(--zh-brand-6); white-space: nowrap; }   /* an emphasised phrase must not break in the middle of a word */
+[data-mode="dark"] .zh-display em { color: var(--zh-color-primary-text); }
+.zh-section-title { margin: 0 0 12px; font-size: var(--zh-font-title); line-height: 1.14; font-weight: 800; letter-spacing: -.03em; text-wrap: balance; }
+.zh-section-sub { margin: 0; max-width: 34rem; font-size: 1.1em; color: var(--zh-text-secondary); }
+
+/* hero: text on one side, a product card on the other; stacks below 900px */
+.zh-hero { background: var(--zh-gradient-soft); padding-block: clamp(40px, 7vw, 88px); }
+.zh-hero-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(32px, 6vw, 72px); align-items: center; }
+.zh-hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.zh-hero-actions .zh-btn.primary, .zh-glow { box-shadow: var(--zh-shadow-glow); }
+.zh-stats { display: flex; flex-wrap: wrap; gap: 20px 40px; margin: 44px 0 0; padding: 0; list-style: none; }
+.zh-stats b { display: block; font-size: 1.9em; line-height: 1; font-weight: 800; }
+.zh-stats span { font-size: .93em; color: var(--zh-text-secondary); }
+.zh-float-card { position: relative; padding: 32px; border-radius: calc(var(--zh-radius-lg) + 4px); box-shadow: 0 20px 60px var(--zh-primary-a14); }
+.zh-float-flag { position: absolute; top: -16px; right: 20px; box-shadow: var(--zh-shadow-glow); }
+
+/* feature cards and icon tiles */
+.zh-feature-grid { display: grid; gap: 20px; margin-top: 48px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); }
+.zh-feature-grid--4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); }
+.zh-tile { display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: var(--zh-radius-lg); background: var(--zh-color-primary-subtle); color: var(--zh-color-primary-text); font-size: 26px; }
+.zh-feature { display: flex; flex-direction: column; height: 100%; transition: transform var(--zh-dur-base) var(--zh-ease-standard), box-shadow var(--zh-dur-base) var(--zh-ease-standard); }
+.zh-feature h3 { margin: 18px 0 8px; font-size: 1.15em; }
+.zh-feature p { margin: 0; color: var(--zh-text-secondary); }
+.zh-feature:hover { transform: translateY(-4px); box-shadow: 0 12px 40px var(--zh-primary-a14); }
+.zh-feature--brand { background: var(--zh-gradient-brand); border-color: transparent; color: var(--zh-on-primary); }
+.zh-feature--brand p { color: var(--zh-on-primary); opacity: .92; }
+.zh-feature--brand .zh-tile { background: rgba(255, 255, 255, .2); color: var(--zh-on-primary); }
+.zh-feature--brand .zh-tag { background: rgba(255, 255, 255, .2); color: var(--zh-on-primary); border-color: transparent; }
+.zh-feature-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 20px; }
+.zh-feature-tags .zh-tag, .zh-tags .zh-tag { height: 2.2em; padding: 0 1em; font-size: .86em; }   /* tags that sit in a group need to be taller and more spaced than a lone status tag */
+.zh-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+
+/* pricing */
+.zh-price { position: relative; display: flex; flex-direction: column; height: 100%; padding: 36px 28px; text-align: center; }
+.zh-price--popular { border-color: var(--zh-color-primary); box-shadow: 0 8px 40px var(--zh-primary-a22); }
+.zh-price-flag { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); white-space: nowrap; }
+.zh-price-name { margin: 0 0 12px; font-weight: 600; color: var(--zh-text-secondary); }
+.zh-price-amount { font-size: 2.8em; line-height: 1.1; font-weight: 800; letter-spacing: -.02em; }
+.zh-price-amount small { font-size: .38em; font-weight: 500; letter-spacing: 0; color: var(--zh-text-secondary); }
+.zh-price-desc { margin: 8px 0 24px; font-size: .93em; color: var(--zh-text-secondary); }
+.zh-price-list { flex: 1; margin: 0 0 28px; padding: 0; list-style: none; text-align: start; }
+.zh-price-list li { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--zh-border); color: var(--zh-text-secondary); }
+.zh-price-list li:last-child { border-bottom: 0; }
+.zh-price-list .ico { flex: none; color: var(--zh-color-primary-text); }
+.zh-price .zh-btn { width: 100%; justify-content: center; }
+
+/* a nav bar whose content lines up with the page width */
+.zh-nav--contained { padding-inline: max(var(--zh-space-4), calc((100% - var(--zh-page-max)) / 2 + clamp(16px, 5vw, 64px))); }
+@media (max-width: 899px) { .zh-hero-grid { grid-template-columns: minmax(0, 1fr); } }
+@media (forced-colors: active) { :root .zh-section--brand, :root .zh-feature--brand { background: Canvas; color: CanvasText; border: 1px solid CanvasText; } }
+
+/* ---------- gradient used as a mark ----------
+   --zh-gradient-accent runs through three accent colours derived from the brand (--zh-accent-a/b/c).  Use it on large type, numerals and decoration only:
+   the accents are guaranteed 3:1 on white and on near-black, which is the large-text bound, not the 4.5:1 that small text needs. */
+.zh-gradient-text { background: var(--zh-gradient-accent); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.zh-index { display: block; margin-bottom: 16px; font-size: 2.2rem; line-height: 1; font-weight: 800; letter-spacing: -.04em; font-variant-numeric: tabular-nums; background: var(--zh-gradient-accent); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* a row of key numbers in one soft card (overlap the hero above it with a negative top margin) */
+.zh-stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); padding: 32px 8px; background: var(--zh-bg-subtle); border: 1px solid var(--zh-border); border-radius: 28px; box-shadow: 0 24px 60px var(--zh-primary-a14); }
+.zh-stat { padding: 8px 20px; text-align: center; }
+.zh-stat + .zh-stat { border-inline-start: 1px solid var(--zh-border); }
+.zh-stat b { display: block; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; font-weight: 800; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.zh-stat span { font-size: .93em; color: var(--zh-text-secondary); }
+@media (max-width: 700px) { .zh-stat + .zh-stat { border-inline-start: 0; } }
+
+/* ---------- optional decoration: aurora ----------
+   Put .zh-aurora on a section that also has data-mode="dark".  Soft light spots in the accent colours on the dark field, and optionally a faint grid.
+   Static radial gradients only: no blur filter and no animation, so it costs nothing to paint. */
+.zh-aurora { position: relative; overflow: hidden; isolation: isolate; background: var(--zh-bg); color: var(--zh-text); }
+.zh-aurora::before { content: ""; position: absolute; inset: 0; z-index: -2;
+  background:
+    radial-gradient(46rem 34rem at 88% 4%, color-mix(in srgb, var(--zh-accent-a) 60%, transparent), transparent 66%),
+    radial-gradient(40rem 32rem at 6% 96%, color-mix(in srgb, var(--zh-accent-b) 48%, transparent), transparent 66%),
+    radial-gradient(34rem 26rem at 52% 52%, color-mix(in srgb, var(--zh-accent-c) 20%, transparent), transparent 70%); }
+.zh-aurora--grid::after { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .5;
+  background: linear-gradient(to right, rgba(255, 255, 255, .05) 1px, transparent 1px) 0 0 / 64px 64px, linear-gradient(to bottom, rgba(255, 255, 255, .05) 1px, transparent 1px) 0 0 / 64px 64px;
+  -webkit-mask-image: radial-gradient(70% 70% at 50% 40%, #000 30%, transparent 100%); mask-image: radial-gradient(70% 70% at 50% 40%, #000 30%, transparent 100%); }
+/* a dark showcase card: the same light spots on a small stage, with glass labels floating on it */
+.zh-aurora-stage { position: relative; min-height: 22rem; overflow: hidden; border-radius: 28px; background: #0b0b12; color: #fff; box-shadow: 0 40px 90px rgba(11, 11, 18, .25);
+  background-image: radial-gradient(26rem 20rem at 70% 78%, color-mix(in srgb, var(--zh-accent-a) 70%, transparent), transparent 70%), radial-gradient(22rem 18rem at 20% 20%, color-mix(in srgb, var(--zh-accent-b) 40%, transparent), transparent 70%); }
+.zh-glass-tag { position: absolute; padding: 10px 18px; border-radius: 14px; font-size: .93em; font-weight: 600; color: #fff; background: rgba(255, 255, 255, .1); border: 1px solid rgba(255, 255, 255, .2); box-shadow: 0 10px 30px rgba(0, 0, 0, .25); }
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) { .zh-glass-tag { -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); } }
+/* a call-to-action button that keeps white text readable: the gradient runs from the primary colour to its darker step, not through the vivid accents */
+.zh-btn.gradient { color: var(--zh-on-primary); border-color: transparent; background: linear-gradient(120deg, var(--zh-color-primary) 0%, var(--zh-color-primary-active) 100%); box-shadow: var(--zh-shadow-glow); }
+.zh-btn.gradient:hover { background: linear-gradient(120deg, var(--zh-color-primary-hover) 0%, var(--zh-color-primary-active) 100%); }
+@media (forced-colors: active) { :root .zh-aurora::before, :root .zh-aurora--grid::after { display: none; } :root .zh-gradient-text, :root .zh-index { background: none; color: CanvasText; } :root .zh-glass-tag { border-color: CanvasText; background: Canvas; color: CanvasText; } }

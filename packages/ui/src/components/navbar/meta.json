@@ -1,0 +1,76 @@
+{
+  "name": "navbar",
+  "title": "顶部导航条",
+  "summary": "网站或应用顶部的导航：左侧标志，中间链接（当前页下方有滑动的下划线），右侧放搜索、通知、头像等你自己的内容。有嵌套 <ul> 的链接自动成为下拉菜单；宽度小于 768px 时链接收进汉堡按钮打开的侧滑抽屉。",
+  "classes": [
+    "zh-nav",
+    "zh-nav-logo",
+    "zh-nav-links",
+    "zh-nav-link",
+    "zh-nav-right",
+    "zh-nav-iconbtn",
+    "zh-nav-avatar",
+    "zh-nav-search"
+  ],
+  "attributes": [
+    {
+      "name": "data-zh-nav",
+      "on": "<header class=\"zh-nav\"> 或 <nav>",
+      "value": "",
+      "desc": "声明为导航条；直接子元素按顺序放 .zh-nav-logo、ul.zh-nav-links、.zh-nav-right"
+    },
+    {
+      "name": "zh-nav-link",
+      "on": "<a> 或 <button>（class）",
+      "value": "",
+      "desc": "一个导航项；当前页加 aria-current=\"page\""
+    },
+    {
+      "name": "嵌套 <ul>",
+      "on": "含子链接的 <li> 里",
+      "value": "里面放 <a href>",
+      "desc": "把外层的 zh-nav-link 变成下拉菜单触发器；手机抽屉里变成可展开的二级"
+    },
+    {
+      "name": "data-icon",
+      "on": "<a> / 顶层 zh-nav-link",
+      "value": "图标名",
+      "desc": "抽屉里该项前的图标（桌面端不显示）"
+    },
+    {
+      "name": "zh-nav-iconbtn",
+      "on": "<button>（class）",
+      "value": "里面放 <i data-i>",
+      "desc": "右侧的图标按钮，如通知；必须有 aria-label"
+    },
+    {
+      "name": "zh-nav-avatar",
+      "on": "<button>（class）",
+      "value": "缩写文字",
+      "desc": "圆形头像按钮，可配合 data-zh-dropdown 做账户菜单"
+    },
+    {
+      "name": "zh-nav-search",
+      "on": "<button>（class）",
+      "value": "图标、提示文字和 zh-kbd",
+      "desc": "外观像搜索框的按钮，点击后打开你自己的搜索；手机宽度自动隐藏"
+    }
+  ],
+  "events": [
+    {
+      "name": "zh:nav-select",
+      "on": "导航条",
+      "value": "{ href, label }",
+      "desc": "点击链接（桌面或抽屉里）。href 为 # 或为空时库不跳转，只切换当前页"
+    }
+  ],
+  "methods": [],
+  "a11y": [
+    "导航条要有 aria-label；当前页用 aria-current=\"page\" 标出，不只靠下划线颜色",
+    "汉堡按钮带 aria-expanded 和 aria-controls；抽屉打开后焦点被限制在里面，Esc 或点击遮罩关闭并把焦点还给按钮",
+    "下拉菜单：回车或点击展开，↓ 进入菜单项，Esc 关闭",
+    "导航条本身不固定位置；需要吸顶时加 zh-sticky zh-top-0（公共类），或自己写 position: sticky",
+    "不含超大菜单（带图标和说明的多列面板）和全局搜索面板；这些请自己用气泡卡片或对话框做"
+  ],
+  "example": "<header class=\"zh-nav\" data-zh-nav aria-label=\"主导航\">\n  <a class=\"zh-nav-logo\" href=\"#\"><i aria-hidden=\"true\"></i><span>ZhaoUI</span></a>\n  <ul class=\"zh-nav-links\">\n    <li><a class=\"zh-nav-link\" href=\"#\" aria-current=\"page\" data-icon=\"layout-dashboard\">概览</a></li>\n    <li><button class=\"zh-nav-link\" type=\"button\" data-icon=\"file-text\">产品<i data-i=\"chevron-down\"></i></button>\n      <ul><li><a href=\"#\">中控台</a></li><li><a href=\"#\">数据分析</a></li></ul></li>\n    <li><a class=\"zh-nav-link\" href=\"#\">价格</a></li>\n  </ul>\n  <div class=\"zh-nav-right\"><button class=\"zh-nav-avatar\" type=\"button\" aria-label=\"账户\">ZW</button></div>\n</header>"
+}

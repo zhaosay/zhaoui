@@ -1,0 +1,148 @@
+      <section class="block" id="panel">
+        <h2>面板与卡片</h2>
+        <p class="desc">面板把相关内容装进一个有边界的容器：卡片承载独立的一块信息，折叠面板收纳次要内容，描述列表展示「字段：值」，分栏面板并排浏览，结果页告诉用户一件事办成了没有。</p>
+
+        <h3>卡片 Card</h3>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:600px">
+          <thead><tr><th>变体</th><th>用在哪里</th><th>规则</th></tr></thead>
+          <tbody>
+            <tr><td>基础 / 头部 + 操作 / 底部操作</td><td>信息块、设置块、表单块</td><td>标题 15px 半粗；头部操作最多 2 个；底部操作右对齐，主操作在最右</td></tr>
+            <tr><td>封面</td><td>文章、项目、商品</td><td>封面 16:9；图片缺失时用品牌色阶生成的插图，不留空白</td></tr>
+            <tr><td>可悬停</td><td>整块可点击的入口</td><td>整张卡片是一个链接；悬停上浮 3px，聚焦显示焦点环</td></tr>
+            <tr><td>可选择</td><td>套餐、模板、方案</td><td>单选用 radio、多选用 checkbox；选中有描边与对勾，不只靠颜色</td></tr>
+            <tr><td>加载中 / 统计</td><td>看板、首页</td><td>加载时保持卡片尺寸，用骨架屏占位并标记 aria-busy</td></tr>
+          </tbody>
+        </table></div>
+        <div class="zh-grid" style="margin-top:16px">
+          <div class="zh-col" style="--d:4;--t:4;--p:4"><p class="panel-label">基础</p>
+            <div class="zh-card"><h4>基础卡片</h4><p style="margin:0;color:var(--zh-text-secondary)">容器负责边界与留白，内容由业务决定。</p><div class="zh-cardx-meta"><span class="zh-tag primary">品牌</span><span class="zh-tag">默认</span></div></div></div>
+          <div class="zh-col" style="--d:4;--t:4;--p:4"><p class="panel-label">头部 + 操作</p>
+            <div class="zh-card zh-card--flush">
+              <div class="zh-cardx-head"><h4 class="zh-cardx-title">本月概览</h4><div class="zh-cardx-extra"><button class="zh-btn sm text">全部</button><button class="zh-btn sm icon text" aria-label="更多操作"><i data-i="ellipsis"></i></button></div></div>
+              <div class="zh-cardx-body">订单 <b>3,426</b>，同比增长 <span class="trend up"><i data-i="trending-up"></i>6.1%</span>。</div>
+            </div></div>
+          <div class="zh-col" style="--d:4;--t:4;--p:4"><p class="panel-label">底部操作</p>
+            <div class="zh-card zh-card--flush">
+              <div class="zh-cardx-head"><h4 class="zh-cardx-title">发布确认</h4></div>
+              <div class="zh-cardx-body">确认后文章将立即对外可见。</div>
+              <div class="zh-cardx-foot"><button class="zh-btn sm">取消</button><button class="zh-btn sm primary">发布</button></div>
+            </div></div>
+          <div class="zh-col" style="--d:4;--t:4;--p:4"><p class="panel-label">封面</p>
+            <div class="zh-card zh-card--flush">
+              <div class="zh-cardx-cover" data-art="3" aria-hidden="true"></div>
+              <div class="zh-cardx-body"><h4 style="margin:0 0 4px;font-size:1em">设计语言 2.0</h4><p style="margin:0;color:var(--zh-text-secondary)">新的色彩、字体与动效规范。</p><div class="zh-cardx-meta"><span class="zh-tag success">已发布</span><span class="zh-tag">12 分钟阅读</span></div></div>
+            </div></div>
+          <div class="zh-col" style="--d:4;--t:4;--p:4"><p class="panel-label">可悬停（整卡是链接）</p>
+            <a class="zh-card zh-card--hover" href="#panel"><div class="zh-split"><h4 style="margin:0;font-size:1em">进入项目</h4><i data-i="arrow-up-right" style="color:var(--zh-text-tertiary)"></i></div><p style="margin:8px 0 0;color:var(--zh-text-secondary)">查看成员、进度与最近动态。</p></a></div>
+          <div class="zh-col" style="--d:4;--t:4;--p:4"><p class="panel-label">统计</p>
+            <div class="zh-card"><div class="zh-cardx-stat-label"><i data-i="users-round"></i>活跃用户</div><div class="metric metric-lg" style="margin-top:6px">12.4<span class="unit">万</span></div><div class="zh-cardx-stat-foot"><span class="trend up"><i data-i="trending-up"></i>+8.2%</span><span class="zh-hint">较上周</span></div></div></div>
+        </div>
+
+        <div class="zh-grid" style="margin-top:20px">
+          <div class="zh-col" style="--d:8;--t:8;--p:4"><p class="panel-label">可选择 · role=radiogroup · 方向键切换</p>
+            <div class="zh-grid" id="cardPlans" role="radiogroup" aria-label="选择套餐" style="--cols:3;grid-template-columns:repeat(3,minmax(0,1fr))">
+              <div class="zh-card zh-card--select" role="radio" aria-checked="false" tabindex="-1"><span class="zh-card-tick"><i data-i="check"></i></span><h4>基础版</h4><div class="metric metric-md">¥0</div><p class="zh-hint" style="margin:6px 0 0">个人与小团队</p></div>
+              <div class="zh-card zh-card--select" role="radio" aria-checked="true" tabindex="0"><span class="zh-card-tick"><i data-i="check"></i></span><h4>专业版</h4><div class="metric metric-md">¥99<span class="unit">/月</span></div><p class="zh-hint" style="margin:6px 0 0">成长型团队</p></div>
+              <div class="zh-card zh-card--select" role="radio" aria-checked="false" aria-disabled="true" tabindex="-1"><span class="zh-card-tick"><i data-i="check"></i></span><h4>企业版</h4><div class="metric metric-md">联系销售</div><p class="zh-hint" style="margin:6px 0 0">暂不可选</p></div>
+            </div></div>
+          <div class="zh-col" style="--d:4;--t:8;--p:4"><p class="panel-label">加载中</p>
+            <div class="zh-card" id="cardLoad" aria-busy="true">
+              <div class="zh-cardx-loading zh-stack" style="--g:10px"><div class="zh-skeleton" style="width:45%;height:16px"></div><div class="zh-skeleton"></div><div class="zh-skeleton" style="width:78%"></div></div>
+              <div class="zh-cardx-ready" hidden><h4>周报已生成</h4><p style="margin:0;color:var(--zh-text-secondary)">共 12 项完成，3 项延期。</p></div>
+              <label class="zh-check" style="margin-top:12px"><input type="checkbox" class="zh-switch" role="switch" id="cardLoadSwitch" checked> 加载中</label>
+            </div></div>
+        </div>
+
+        <h3>折叠面板 Collapse</h3>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:560px">
+          <thead><tr><th>规则</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>模式</td><td>手风琴（同时只展开一项）用于互斥内容；多开用于独立的补充信息</td></tr>
+            <tr><td>键盘</td><td>Enter / 空格展开收起；上下方向键在标题间移动，Home / End 跳到首尾</td></tr>
+            <tr><td>动效</td><td>高度用网格行 0fr → 1fr 过渡（约 200ms）；收起后内容不可聚焦</td></tr>
+          </tbody>
+        </table></div>
+        <div class="zh-grid" style="margin-top:16px">
+          <div class="zh-col" style="--d:6;--t:8;--p:4"><p class="panel-label">手风琴 · 描边</p>
+            <div class="zh-collapse" data-mode="single" id="colA">
+              <div class="zh-collapse-item is-open"><h4 class="zh-collapse-h"><button class="zh-collapse-trigger" type="button"><span class="lead"><i data-i="info"></i>什么是设计语言</span><i data-i="chevron-right" class="zh-collapse-chev"></i></button></h4><div class="zh-collapse-panel"><div class="zh-collapse-inner"><div class="zh-collapse-content"><p>设计语言是一组共享的视觉与交互规则，让不同产品在不同平台上依然像同一个家族。</p></div></div></div></div>
+              <div class="zh-collapse-item"><h4 class="zh-collapse-h"><button class="zh-collapse-trigger" type="button"><span class="lead"><i data-i="palette"></i>怎么切换品牌色</span><i data-i="chevron-right" class="zh-collapse-chev"></i></button></h4><div class="zh-collapse-panel"><div class="zh-collapse-inner"><div class="zh-collapse-content"><p>提供一个种子色，系统会生成 10 级色阶，并保证按钮文字的对比度。</p></div></div></div></div>
+              <div class="zh-collapse-item"><h4 class="zh-collapse-h"><button class="zh-collapse-trigger" type="button" disabled><span class="lead"><i data-i="lock"></i>高级设置（已锁定）</span><i data-i="chevron-right" class="zh-collapse-chev"></i></button></h4><div class="zh-collapse-panel"><div class="zh-collapse-inner"><div class="zh-collapse-content"><p>需要管理员权限。</p></div></div></div></div>
+            </div></div>
+          <div class="zh-col" style="--d:6;--t:8;--p:4"><p class="panel-label">多开 · 无边框 · 可嵌套</p>
+            <div class="zh-collapse zh-collapse--ghost" data-mode="multiple" id="colB">
+              <div class="zh-collapse-item is-open"><h4 class="zh-collapse-h"><button class="zh-collapse-trigger" type="button"><span class="lead">外观</span><i data-i="chevron-right" class="zh-collapse-chev"></i></button></h4><div class="zh-collapse-panel"><div class="zh-collapse-inner"><div class="zh-collapse-content"><p>主题、密度与圆角。</p>
+                <div class="zh-collapse zh-collapse--ghost" data-mode="multiple">
+                  <div class="zh-collapse-item"><h4 class="zh-collapse-h"><button class="zh-collapse-trigger" type="button"><span class="lead">主题</span><i data-i="chevron-right" class="zh-collapse-chev"></i></button></h4><div class="zh-collapse-panel"><div class="zh-collapse-inner"><div class="zh-collapse-content"><p>亮色、暗色、跟随系统。</p></div></div></div></div>
+                  <div class="zh-collapse-item"><h4 class="zh-collapse-h"><button class="zh-collapse-trigger" type="button"><span class="lead">密度</span><i data-i="chevron-right" class="zh-collapse-chev"></i></button></h4><div class="zh-collapse-panel"><div class="zh-collapse-inner"><div class="zh-collapse-content"><p>紧凑、标准、宽松。</p></div></div></div></div>
+                </div></div></div></div></div>
+              <div class="zh-collapse-item is-open"><h4 class="zh-collapse-h"><button class="zh-collapse-trigger" type="button"><span class="lead">通知</span><i data-i="chevron-right" class="zh-collapse-chev"></i></button></h4><div class="zh-collapse-panel"><div class="zh-collapse-inner"><div class="zh-collapse-content"><p>邮件、站内信与推送。</p></div></div></div></div>
+              <div class="zh-collapse-item"><h4 class="zh-collapse-h"><button class="zh-collapse-trigger" type="button"><span class="lead">隐私</span><i data-i="chevron-right" class="zh-collapse-chev"></i></button></h4><div class="zh-collapse-panel"><div class="zh-collapse-inner"><div class="zh-collapse-content"><p>数据导出与账号注销。</p></div></div></div></div>
+            </div></div>
+        </div>
+
+        <h3>描述列表 Descriptions</h3>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:520px">
+          <thead><tr><th>形态</th><th>规则</th></tr></thead>
+          <tbody>
+            <tr><td>描边</td><td>标签列带底色，适合详情页的主信息；桌面 3 列，平板 2 列，手机 1 列</td></tr>
+            <tr><td>无边框</td><td>标签在上、值在下，适合卡片内的次要信息；值可放标签、链接、头像</td></tr>
+          </tbody>
+        </table></div>
+        <div class="zh-stack" style="--g:18px;margin-top:16px">
+          <div class="zh-descr-wrap"><dl class="zh-descr" data-cols="3" data-variant="bordered" aria-label="订单信息">
+            <div class="zh-descr-item"><dt>订单号</dt><dd>20260929-0086</dd></div>
+            <div class="zh-descr-item"><dt>状态</dt><dd><span class="zh-tag success">已发货</span></dd></div>
+            <div class="zh-descr-item"><dt>金额</dt><dd>¥ 1,286.00</dd></div>
+            <div class="zh-descr-item"><dt>收货人</dt><dd>张三</dd></div>
+            <div class="zh-descr-item"><dt>电话</dt><dd>138 **** 0086</dd></div>
+            <div class="zh-descr-item"><dt>物流</dt><dd><a class="zh-descr-link" href="#panel">SF1234567890</a></dd></div>
+            <div class="zh-descr-item" data-span="3"><dt>地址</dt><dd>上海市浦东新区世纪大道 100 号 · 中控大厦 18 层</dd></div>
+          </dl></div>
+          <dl class="zh-descr" data-cols="2" data-variant="plain" aria-label="项目信息">
+            <div class="zh-descr-item"><dt>负责人</dt><dd><i data-i="user-round" style="margin-right:6px;color:var(--zh-text-tertiary)"></i>李四</dd></div>
+            <div class="zh-descr-item"><dt>标签</dt><dd><span class="zh-tag primary">设计</span> <span class="zh-tag">研发</span></dd></div>
+            <div class="zh-descr-item"><dt>创建时间</dt><dd>2026-09-01 09:30</dd></div>
+            <div class="zh-descr-item"><dt>仓库</dt><dd><a class="zh-descr-link" href="#panel">zhaoui/zhaoui</a></dd></div>
+          </dl>
+        </div>
+
+        <h3>结果页 Result</h3>
+        <div class="zh-row" style="margin-bottom:12px"><div class="seg" role="group" aria-label="结果类型" id="resultSeg"></div></div>
+        <div class="zh-card" style="padding:0"><div class="zh-result" id="resultCard" aria-live="polite"></div></div>
+
+        <h3>分栏面板 Split</h3>
+        <div class="zh-splitpane" id="spDemo">
+          <div class="zh-splitpane-pane is-a" id="spA">
+            <div class="zh-splitpane-head"><span>文档</span></div>
+            <ul class="zh-splitpane-list" id="spList"></ul>
+          </div>
+          <div class="zh-splitpane-bar" id="spBar" role="separator" aria-orientation="vertical" tabindex="0" aria-controls="spA" aria-valuemin="20" aria-valuemax="80" aria-valuenow="36" aria-label="调整左右面板宽度"></div>
+          <div class="zh-splitpane-pane is-b">
+            <div class="zh-splitpane-head"><span id="spTitle">概览</span><button class="zh-btn sm text" id="spToggle" aria-expanded="true" aria-controls="spA"><i data-i="panel-left-close"></i>收起</button></div>
+            <div class="zh-splitpane-body" id="spBody"></div>
+          </div>
+        </div>
+        <p class="zh-hint" style="margin:8px 0 0"><span class="zh-splitpane-readout" id="spReadout"></span> 拖动分隔条，或聚焦后用 ← / → 调整（Shift 步长更大，Home / End 到最小 / 最大），双击恢复默认。手机上上下堆叠。</p>
+
+        <h3>设置页面板</h3>
+        <p class="zh-hint" style="margin-top:0">左侧说明这一块是什么，右侧是可操作的卡片。有未保存的更改时，底部浮出保存栏。</p>
+        <div id="psDemo">
+          <section class="zh-panelsec"><div class="zh-panelsec-intro"><h4>通知</h4><p class="zh-hint">选择你希望接收提醒的方式。</p></div>
+            <div class="zh-card zh-card--flush">
+              <div class="zh-panelrow"><div class="zh-panelrow-text"><b>邮件通知</b><span>每天汇总一封</span></div><div class="zh-panelrow-ctl"><input type="checkbox" class="zh-switch" role="switch" aria-label="邮件通知" data-k="mail" checked></div></div>
+              <div class="zh-panelrow"><div class="zh-panelrow-text"><b>站内信</b><span>有新消息时提示</span></div><div class="zh-panelrow-ctl"><input type="checkbox" class="zh-switch" role="switch" aria-label="站内信" data-k="inbox" checked></div></div>
+              <div class="zh-panelrow"><div class="zh-panelrow-text"><b>营销推送</b><span>产品动态与活动</span></div><div class="zh-panelrow-ctl"><input type="checkbox" class="zh-switch" role="switch" aria-label="营销推送" data-k="promo"></div></div>
+            </div></section>
+          <section class="zh-panelsec"><div class="zh-panelsec-intro"><h4>个人资料</h4><p class="zh-hint">这些信息会显示在你的主页上。</p></div>
+            <div class="zh-card zh-card--flush">
+              <div class="zh-panelrow"><div class="zh-panelrow-text"><b>显示名称</b><span>最多 20 个字</span></div><div class="zh-panelrow-ctl"><input class="zh-input" aria-label="显示名称" data-k="name" value="张三" maxlength="20"></div></div>
+              <div class="zh-panelrow"><div class="zh-panelrow-text"><b>语言</b><span>界面显示语言</span></div><div class="zh-panelrow-ctl"><span class="zh-select"><select aria-label="语言" data-k="lang"><option>简体中文</option><option>English</option></select></span></div></div>
+            </div></section>
+          <section class="zh-panelsec"><div class="zh-panelsec-intro"><h4>危险操作</h4><p class="zh-hint">这些操作无法撤销。</p></div>
+            <div class="zh-card zh-card--flush">
+              <div class="zh-panelrow zh-panelrow--danger"><div class="zh-panelrow-text"><b>注销账号</b><span>所有数据将被永久删除</span></div><div class="zh-panelrow-ctl"><button class="zh-btn danger sm">注销账号</button></div></div>
+            </div></section>
+          <div class="zh-panelbar" id="psBar" hidden role="status"><span id="psCount"></span><span class="zh-row" style="--g:8px"><button class="zh-btn sm" id="psReset">还原</button><button class="zh-btn sm primary" id="psSave">保存更改</button></span></div>
+        </div>
+      </section>

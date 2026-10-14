@@ -1,0 +1,132 @@
+      <section class="block" id="navigation">
+        <h2>导航</h2>
+        <p class="desc">导航回答三个问题：我在哪、能去哪、怎么回去。桌面用顶栏 + 侧栏，平板收窄，手机换成汉堡菜单和底部 Tab（见「应用骨架」）。所有导航都能只用键盘操作，当前位置用 <code>aria-current</code> 标出，不只靠颜色。</p>
+
+        <h3>顶部导航</h3>
+        <div class="zh-nav-frame zh-nav-frame--drawer" id="navFrame">
+          <nav class="zh-nav" aria-label="主导航（示例）">
+            <button class="zh-nav-iconbtn zh-nav-burger" id="navBurger" type="button" aria-label="打开导航菜单" aria-expanded="false" aria-controls="navDrawer"><i data-i="menu" data-s="20"></i></button>
+            <a class="zh-nav-logo" href="#navigation" data-nav-noop><i aria-hidden="true"></i><span>ZhaoUI</span></a>
+            <div class="zh-nav-linkwrap" id="navLinkWrap">
+              <ul class="zh-nav-links">
+                <li><a class="zh-nav-link" href="#navigation" data-nav-noop aria-current="page">概览</a></li>
+                <li><button class="zh-nav-link" id="navProd" type="button" aria-haspopup="true" aria-expanded="false">产品<i data-i="chevron-down"></i></button></li>
+                <li><a class="zh-nav-link" href="#navigation" data-nav-noop>方案</a></li>
+                <li><button class="zh-nav-link" id="navRes" type="button" aria-haspopup="true" aria-expanded="false">资源<i data-i="chevron-down"></i></button></li>
+                <li><a class="zh-nav-link" href="#navigation" data-nav-noop>价格</a></li>
+              </ul>
+              <span class="zh-nav-ink" id="navInk" aria-hidden="true"></span>
+            </div>
+            <div class="zh-nav-right">
+              <button class="zh-nav-search" id="navSearch" type="button" aria-label="搜索，快捷键 Ctrl K"><i data-i="search" data-s="18"></i><span class="zh-nav-st">搜索页面与操作…</span><span class="zh-kbd" data-mod>Ctrl</span><span class="zh-kbd">K</span></button>
+              <button class="zh-nav-iconbtn zh-nav-search-icon" id="navSearchIcon" type="button" aria-label="搜索"><i data-i="search" data-s="20"></i></button>
+              <span class="zh-badge"><button class="zh-nav-iconbtn" type="button" aria-label="通知，3 条未读"><i data-i="bell" data-s="20"></i></button><b>3</b></span>
+              <button class="zh-nav-avatar" id="navUser" type="button" aria-label="账户菜单" aria-haspopup="menu" aria-expanded="false">ZW</button>
+            </div>
+          </nav>
+          <div class="zh-nav-ghost" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+          <div class="zh-nav-drawer" id="navDrawer" aria-hidden="true">
+            <div class="zh-nav-mask" id="navMask"></div>
+            <div class="zh-nav-panel" id="navPanel" role="dialog" aria-modal="true" aria-label="导航菜单">
+              <header><a class="zh-nav-logo" href="#navigation" data-nav-noop style="margin:0"><i aria-hidden="true"></i><span>ZhaoUI</span></a><button class="zh-nav-iconbtn" id="navDClose" type="button" aria-label="关闭导航菜单"><i data-i="x" data-s="20"></i></button></header>
+              <nav aria-label="移动端导航">
+                <a class="zh-nav-dl" href="#navigation" data-nav-noop aria-current="page"><i data-i="layout-dashboard"></i>概览</a>
+                <button class="zh-nav-dl" type="button" aria-expanded="false" aria-controls="navDsub"><i data-i="boxes"></i>产品<i class="zh-nav-caret" data-i="chevron-down"></i></button>
+                <div class="zh-nav-dsub" id="navDsub"><div><a class="zh-nav-dl" href="#navigation" data-nav-noop>中控台</a><a class="zh-nav-dl" href="#navigation" data-nav-noop>数据分析</a><a class="zh-nav-dl" href="#navigation" data-nav-noop>权限中心</a></div></div>
+                <a class="zh-nav-dl" href="#navigation" data-nav-noop><i data-i="workflow"></i>方案</a>
+                <a class="zh-nav-dl" href="#navigation" data-nav-noop><i data-i="book-open"></i>资源</a>
+                <a class="zh-nav-dl" href="#navigation" data-nav-noop><i data-i="tag"></i>价格</a>
+              </nav>
+              <footer><button class="zh-btn" type="button" id="navDSearch" style="flex:1"><i data-i="search"></i>搜索</button><span class="zh-nav-avatar" style="margin:0" aria-hidden="true">ZW</span></footer>
+            </div>
+          </div>
+        </div>
+        <p class="zh-hint">桌面：当前项下方的指示条会滑动到点击的链接；「产品」「资源」用下拉面板（点击或回车展开，↓ 进入面板，Esc 关闭并回到按钮）。手机（&lt;768）：链接收进汉堡菜单，搜索变图标；抽屉打开后焦点被限制在抽屉内。</p>
+
+        <h3>侧边菜单</h3>
+        <div class="zh-nav-frame">
+          <div class="zh-side-demo" id="sideDemo">
+            <nav class="zh-side" id="sideNav" aria-label="侧边菜单（示例）">
+              <div class="zh-side-head"><i aria-hidden="true"></i><span>ZhaoUI</span></div>
+              <div class="zh-side-scroll" id="sideScroll"></div>
+              <div class="zh-side-foot"><button class="zh-side-toggle" id="sideToggle" type="button" aria-expanded="true"><i data-i="panel-left-close" data-s="20"></i><span class="zh-side-label">折叠侧栏</span></button></div>
+            </nav>
+            <div class="zh-side-main">
+              <div class="zh-side-here"><i data-i="map-pin" data-s="16"></i>当前位置：<b id="sideHere">内容管理 / 文章</b></div>
+              <div class="zh-nav-ghost" aria-hidden="true" style="padding:0"><i></i><i></i><i></i><i></i></div>
+              <p class="zh-hint" style="margin:0" id="sideNote"></p>
+            </div>
+          </div>
+        </div>
+        <p class="zh-hint">键盘（WAI-ARIA 导航树）：↑ ↓ 在可见项间移动，→ 展开或进入子级，← 收起或回到父级，Home / End 首尾，Enter / 空格 激活或展开，输入首字母跳转。折叠成 64px 图标栏后，悬停显示名称，有子级的项弹出子菜单。</p>
+
+        <h3>标签页</h3>
+        <div class="zh-grid">
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><div class="panel-label">line · 默认，页面内主要分区（自动激活）</div><div data-tabs="line"></div></div>
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><div class="panel-label">pill · 带图标，筛选视图</div><div data-tabs="pill"></div></div>
+          <div class="zh-col zh-card" style="--d:12;--t:8;--p:4"><div class="panel-label">card · 可关闭、可新增，溢出时出现滚动箭头与渐隐边缘（Delete 关闭当前标签）</div><div data-tabs="card" style="max-width:560px"></div><p class="zh-hint" style="margin:8px 0 0">最多 12 个标签；拖窄浏览器或减少标签，箭头会自动出现或消失。</p></div>
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><div class="panel-label">segmented · 三档尺寸；第一组为手动激活（方向键移动焦点，Enter / 空格 才切换）</div>
+            <div class="zh-stack" style="--g:12px"><div data-tabs="seg-sm"></div><div data-tabs="seg-md"></div><div data-tabs="seg-lg"></div></div></div>
+          <div class="zh-col zh-card" style="--d:6;--t:8;--p:4"><div class="panel-label">vertical · 设置页左侧分类（↑ ↓ 切换）</div><div data-tabs="vertical"></div></div>
+        </div>
+
+        <h3>面包屑</h3>
+        <div class="zh-card">
+          <div class="panel-label">斜杠分隔 · 层级少时完整显示</div>
+          <nav class="zh-bc" data-bc="slash" aria-label="面包屑（示例一）"><ol class="zh-bc-list"></ol></nav>
+          <div class="zh-row" style="margin:20px 0 10px;justify-content:space-between"><div class="panel-label" style="margin:0">箭头分隔 · 空间不够时，中间层级收进「…」菜单（首页和最近两级永远可见）</div>
+            <div class="seg" role="group" aria-label="容器宽度" id="bcWidth"><button data-v="100%" aria-pressed="true">宽</button><button data-v="420px" aria-pressed="false">中</button><button data-v="260px" aria-pressed="false">窄</button></div></div>
+          <div id="bcBox" style="max-width:100%;transition:max-width var(--zh-dur-slow) var(--zh-ease-standard)"><nav class="zh-bc" data-bc="chevron" aria-label="面包屑（示例二）"><ol class="zh-bc-list"></ol></nav></div>
+        </div>
+
+        <h3>锚点目录与回到顶部</h3>
+        <div class="zh-nav-frame zh-anchor-frame" id="ancFrame">
+          <div class="zh-anchor-scroll" id="ancScroll" tabindex="0" role="region" aria-label="文档内容（可滚动区域）"><div class="zh-anchor-bar" id="ancBar" aria-hidden="true"></div></div>
+          <nav class="zh-anchor-side" aria-label="本页目录"><h5>本页目录</h5><div class="zh-anchor-wrap"><span class="zh-anchor-rail" aria-hidden="true"></span><span class="zh-anchor-ink" id="ancInk" aria-hidden="true"></span><ul class="zh-anchor-list" id="ancList"></ul></div></nav>
+          <button class="zh-backtop" id="ancTop" type="button" aria-label="回到顶部" tabindex="-1"><svg class="zh-backtop-ring" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="21" pathLength="100"/></svg><i data-i="arrow-up" data-s="20"></i></button>
+        </div>
+        <p class="zh-hint">滚动内容区：目录高亮跟随当前章节，指示条滑动；顶部细线显示阅读进度；滚过 180px 后右下角出现回到顶部按钮（环形进度），点击平滑回顶，系统开启「减少动态效果」时直接跳转。手机上目录变为顶部横向标签。</p>
+
+        <h3>页头</h3>
+        <div class="zh-grid">
+          <div class="zh-col" style="--d:12;--t:8;--p:4"><div class="panel-label">标准页头 · 面包屑、标题、状态、操作、元信息、分区标签（手机上次要操作收进「更多」）</div>
+            <div class="zh-nav-frame" id="phFrame">
+              <div class="zh-ph">
+                <nav class="zh-bc" data-bc="slash" data-static aria-label="页头面包屑"><ol class="zh-bc-list"><li><a href="#navigation" data-nav-noop>设备监控</a></li><li><a href="#navigation" data-nav-noop>设备列表</a></li><li><span class="zh-bc-cur" aria-current="page">设备详情</span></li></ol></nav>
+                <div class="zh-ph-main">
+                  <div class="zh-ph-title"><button class="zh-ph-back" type="button" aria-label="返回设备列表"><i data-i="arrow-left" data-s="18"></i></button><h4>边缘网关 X1-204</h4><span class="zh-tag success">在线</span></div>
+                  <div class="zh-ph-actions"><button class="zh-btn zh-ph-sec" type="button">重启</button><button class="zh-btn zh-ph-sec" type="button">导出日志</button><button class="zh-btn primary" type="button">下发配置</button><button class="zh-nav-iconbtn" id="phMore" type="button" aria-label="更多操作" aria-haspopup="menu" aria-expanded="false"><i data-i="ellipsis" data-s="20"></i></button></div>
+                </div>
+                <dl class="zh-ph-meta"><div><dt>型号</dt><dd>X1-204</dd></div><div><dt>位置</dt><dd>上海 · 浦东机房</dd></div><div><dt>最近上报</dt><dd>2 分钟前</dd></div></dl>
+                <div data-tabs="header"></div>
+              </div>
+            </div></div>
+          <div class="zh-col" style="--d:12;--t:8;--p:4"><div class="panel-label">紧凑页头 · 内页吸顶或空间紧张时，标题与标签同一行</div>
+            <div class="zh-nav-frame"><div class="zh-ph zh-ph--compact"><div class="zh-ph-title"><button class="zh-ph-back" type="button" aria-label="返回" style="width:calc(var(--zh-control-h) - 6px);height:calc(var(--zh-control-h) - 6px)"><i data-i="arrow-left" data-s="16"></i></button><h4>边缘网关 X1-204</h4></div><div data-tabs="compact"></div><div class="zh-ph-actions"><button class="zh-btn primary sm" type="button">下发配置</button></div></div></div></div>
+        </div>
+
+        <h3>命令面板</h3>
+        <div class="zh-card">
+          <div class="zh-row" style="justify-content:space-between;gap:12px">
+            <div style="min-width:0"><b>快速跳转与执行操作</b><div class="zh-hint" style="margin:2px 0 0">在页面任意位置按 <span class="zh-kbd" data-mod>Ctrl</span> + <span class="zh-kbd">K</span> 打开；输入关键词模糊匹配，↑ ↓ 选择，Enter 执行，Esc 关闭，关闭后焦点回到原处。</div></div>
+            <button class="zh-btn primary" id="cmdOpen" type="button" aria-haspopup="dialog"><i data-i="command"></i>打开命令面板</button>
+          </div>
+          <div class="zh-hint" id="cmdLast" style="margin:12px 0 0" aria-live="polite"></div>
+        </div>
+
+        <h3>规则</h3>
+        <div class="matrix-wrap"><table class="matrix" style="min-width:720px">
+          <thead><tr><th>组件</th><th>规则</th></tr></thead>
+          <tbody>
+            <tr><td>顶部导航</td><td>一级入口 ≤ 6 个；有子级的用下拉面板，面板里每项 = 图标 + 标题 + 一句说明；当前页 <code>aria-current="page"</code> + 滑动指示条；手机 &lt;768 改汉堡菜单</td></tr>
+            <tr><td>侧边菜单</td><td>最多 3 级；分组标题用小号等宽字；当前项加左侧色条，父级仅加深文字；可折叠成 64px 图标栏（悬停出名称，子级用弹出菜单）；采用 <code>role="tree"</code> 的导航树键盘模型</td></tr>
+            <tr><td>标签页</td><td>line 用于页面主分区，card 用于可增删的工作区，pill 用于筛选视图，segmented 用于 2–4 个互斥选项，vertical 用于设置类页面；自动激活为默认，代价高的面板用手动激活</td></tr>
+            <tr><td>面包屑</td><td>层级 ≥ 4 或空间不足时折叠中间项；首页与最近两级不折叠；当前页不是链接；过长的标题截断并给出完整 <code>title</code></td></tr>
+            <tr><td>锚点目录</td><td>用于长文档；点击平滑滚动到章节并把焦点移到标题；高亮以「最靠近顶部的章节」为准；到底时高亮最后一节</td></tr>
+            <tr><td>回到顶部</td><td>滚过 180px 出现，位置贴近内容区右下；键盘与读屏可达；点击后焦点回到内容区</td></tr>
+            <tr><td>页头</td><td>顺序：面包屑 → 标题 + 状态 → 主操作（每页只有 1 个主按钮）→ 元信息 → 分区标签；手机上只保留主按钮，其余进「更多」</td></tr>
+            <tr><td>命令面板</td><td><code>Ctrl/⌘ + K</code> 打开；搜索框为 <code>role="combobox"</code>，结果为 <code>listbox</code>，<code>aria-activedescendant</code> 指向当前项；空查询显示最近使用</td></tr>
+            <tr><td>动效</td><td>指示条与展开动画 200–320ms，退出比进入快；尊重「减少动态效果」，关闭全部过渡</td></tr>
+          </tbody>
+        </table></div>
+      </section>

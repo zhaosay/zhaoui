@@ -1,0 +1,36 @@
+{
+  "name": "btngroup",
+  "title": "按钮组",
+  "summary": "纯样式组件：不需要 JS，写好标记即可。把几个相关按钮连成一组：共用边框，只有两端有圆角。常用来做视图切换或分段筛选；选中项用 is-active 或 aria-pressed=\"true\"。",
+  "classes": [
+    "zh-btn-group",
+    "zh-btn-group--vertical"
+  ],
+  "attributes": [
+    {
+      "name": "zh-btn-group",
+      "on": "容器（class）",
+      "value": "里面放多个 zh-btn",
+      "desc": "横向连接的一组按钮"
+    },
+    {
+      "name": "zh-btn-group--vertical",
+      "on": ".zh-btn-group",
+      "value": "",
+      "desc": "竖向排列"
+    },
+    {
+      "name": "is-active / aria-pressed=\"true\"",
+      "on": "组内的按钮",
+      "value": "",
+      "desc": "选中状态；切换时由你的代码更新"
+    }
+  ],
+  "events": [],
+  "methods": [],
+  "a11y": [
+    "外层加 role=\"group\" 和 aria-label 说明这组按钮的用途",
+    "做开关式选择时用 aria-pressed，并在点击时更新它"
+  ],
+  "example": "<div class=\"zh-btn-group\" role=\"group\" aria-label=\"视图\">\n  <button class=\"zh-btn\" aria-pressed=\"true\">列表</button>\n  <button class=\"zh-btn\" aria-pressed=\"false\">卡片</button>\n  <button class=\"zh-btn\" aria-pressed=\"false\">看板</button>\n</div>"
+}
