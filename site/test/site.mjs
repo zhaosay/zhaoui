@@ -74,6 +74,14 @@ await check('download page has a side menu whose links all point at real heading
   const g = await p.evaluate(() => { const st = document.querySelector('.s-stage').getBoundingClientRect(), a = document.querySelector('.s-actions'), bs = [...a.querySelectorAll('.zh-btn')].map((x) => x.getBoundingClientRect()); return { above: a.getBoundingClientRect().top - st.bottom, between: bs[1].left - bs[0].right, same: bs[0].height === bs[1].height && [...a.querySelectorAll('.zh-btn')].every((x) => x.className === 'zh-btn sm') }; });
   assert.ok(g.above >= 12, `space between the example box and its buttons (${g.above}px)`); assert.ok(g.between >= 10, `space between the two buttons (${g.between}px)`); assert.equal(g.same, true, 'both buttons are the same kind');
 });
+await check('text fills its column: paragraphs, lead text and code blocks are the same width as the article, on a normal and a large screen', async (p) => {
+  for (const pg of ['guide/quickstart.html', 'design/index.html', 'components/tree.html']) {
+    await open(p, pg);
+    const r = await p.evaluate(() => { const art = document.querySelector('.s-article'), w = (e) => Math.round(e.getBoundingClientRect().width), ps = [...art.querySelectorAll(':scope > p, :scope > section > p')].filter((e) => w(e) > 0);
+      return { art: w(art), short: ps.filter((e) => w(e) < w(art) - 1).map((e) => [w(e), e.className, e.textContent.slice(0, 20)]), n: ps.length }; });
+    assert.ok(r.n >= 1, `${pg}: has paragraphs`); assert.deepEqual(r.short, [], `${pg}: paragraphs narrower than the article (${r.art}px)`);
+  }
+}, 1920);
 await check('asset links carry a content hash, so an edge cache cannot keep serving an old stylesheet or script', async (p) => {
   const seen = new Set();
   for (const pg of ['index.html', 'components/result.html', 'download.html', 'playground.html']) {

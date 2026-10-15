@@ -13,17 +13,16 @@ body { margin: 0; background: var(--zh-bg); color: var(--zh-text); font-family: 
 .s-toc-title { margin: 0 0 8px; padding-inline-start: 14px; font-size: .86em; font-weight: 600; color: var(--zh-text-tertiary); letter-spacing: .04em; }
 .s-side-btn { display: none; margin-bottom: 12px; }
 .s-crumb { margin-bottom: 12px; font-size: .93em; }
-.s-article { max-width: 62rem; }
+.s-article { max-width: none; }   /* fills the column next to the side menu; the page as a whole is capped by .s-shell */
 .s-article h1 { margin: 0 0 8px; font-size: 2em; line-height: 1.25; font-weight: var(--zh-heading-weight); }
 .s-article h2 { margin: 40px 0 12px; padding-top: 8px; font-size: 1.4em; font-weight: var(--zh-heading-weight); scroll-margin-top: 72px; }
 .s-article h3 { margin: 24px 0 8px; font-size: 1.1em; scroll-margin-top: 72px; }
-.s-article p, .s-article li { max-width: 68ch; }
 .s-article .zh-code-inline, .s-article td { overflow-wrap: anywhere; }
 .s-article p { margin: 0 0 12px; }
 .s-article ul, .s-article ol { padding-inline-start: 1.4em; margin: 0 0 16px; }
 .s-article li { margin: 4px 0; }
 .s-article a:not(.zh-btn):not(.zh-card):not(.zh-tag) { color: var(--zh-color-primary-text); text-underline-offset: 3px; }
-.s-lead { font-size: 1.1em; color: var(--zh-text-secondary); max-width: 62ch; margin: 0 0 16px; }
+.s-lead { font-size: 1.1em; color: var(--zh-text-secondary); margin: 0 0 16px; }
 .s-badges { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 8px; }
 .s-stage { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 16px; padding: 24px; background: var(--zh-bg-elevated); border: 1px solid var(--zh-border); border-radius: var(--zh-radius-lg); min-width: 0; overflow-x: auto; }
 .s-stage > :is(div, section, form, ul, ol, table, p, nav, article, header, footer, dl, pre, figure, fieldset) { flex: 1 1 100%; min-width: 0; }
