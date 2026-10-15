@@ -38,6 +38,44 @@ ZhaoUI 当前版本 **${version}**。原生版只有两个必需文件：一个 
 
 下载后按 [快速开始](guide/quickstart.html) 引入。压缩包的内容和这个站点上的文件完全一致，不含任何统计或追踪代码。
 
+## 命令行安装
+
+macOS 和 Linux 上一行命令，把两个必需文件装进当前目录的 \`zhaoui\` 文件夹：
+
+\`\`\`bash
+curl -fsSL ${abs('').replace(/\/$/, '')}/install.sh | sh
+\`\`\`
+
+要放到别的文件夹，或者同时装可选文件：
+
+\`\`\`bash
+curl -fsSL ${abs('').replace(/\/$/, '')}/install.sh | sh -s -- --dir public/vendor/zhaoui --with icons,marketing
+\`\`\`
+
+| 选项 | 说明 |
+| --- | --- |
+| \`--dir 文件夹\` | 装到哪个文件夹，默认 \`zhaoui\` |
+| \`--with 列表\` | 额外的文件，逗号分隔：\`icons\`（更多图标）、\`utilities\`（公共类）、\`marketing\`（营销页区块）、\`glass\`（玻璃风格） |
+| \`--all\` | 下载包含全部文件的压缩包，而不是单个文件 |
+| \`--force\` | 覆盖已存在的文件，不加这个选项时遇到同名文件会停下，什么都不写 |
+
+这个脚本很短，运行前可以先看一遍：\`curl -fsSL ${abs('').replace(/\/$/, '')}/install.sh\`。它需要 curl 或 wget，只往你指定的文件夹写文件，不使用 sudo。写入前会用 [SHA256SUMS](SHA256SUMS) 校验每个文件，不一致就整体放弃。要注意，校验文件和脚本来自同一个站点，它能发现下载损坏，防不了站点本身被篡改。
+
+不想运行脚本，也可以只下载文件：
+
+\`\`\`bash
+curl -LO ${abs('').replace(/\/$/, '')}/assets/zhaoui/zhaoui.min.css -O ${abs('').replace(/\/$/, '')}/assets/zhaoui/zhaoui.min.js
+\`\`\`
+
+Windows PowerShell：
+
+\`\`\`powershell
+Invoke-WebRequest ${abs('').replace(/\/$/, '')}/assets/zhaoui/zhaoui.min.css -OutFile zhaoui.min.css
+Invoke-WebRequest ${abs('').replace(/\/$/, '')}/assets/zhaoui/zhaoui.min.js -OutFile zhaoui.min.js
+\`\`\`
+
+安装脚本在 Windows 上请用 Git Bash 或 WSL 运行。Windows 的这几条命令我没有在真实的 Windows 上测过。
+
 ## 单个文件
 
 只想要必需的两个文件，直接下载它们：

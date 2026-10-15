@@ -7,7 +7,8 @@ import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { gzipSync } from 'node:zlib';
-import { abs } from './config.mjs';
+import { createHash } from 'node:crypto';
+import { abs, SITE } from './config.mjs';
 import { page } from './lib/layout.mjs';
 import { makeFaq, makeDesc } from '../packages/ui/scripts/facts.mjs';
 import { componentPage, componentIndex, componentSide, order } from './lib/pages-components.mjs';
@@ -44,6 +45,10 @@ for (const f of ['CHANGELOG.md', 'THIRD_PARTY_NOTICES.md', 'README.md']) cpSync(
 const zr = spawnSync('zip', ['-r', '-X', '-q', join(out, 'assets', zipName), `zhaoui-${version}`], { cwd: dirname(stage), encoding: 'utf8' });
 if (zr.status !== 0) { console.error('zip failed: ' + (zr.stderr || zr.error)); process.exit(1); }
 rmSync(dirname(stage), { recursive: true, force: true });
+// SHA256SUMS (same format as `sha256sum`, paths relative to the site root) and the installer that checks against it
+const sumsOf = [...readdirSync(lib).filter((f) => f !== 'index.html' && statSync(join(lib, f)).isFile()).map((f) => `assets/zhaoui/${f}`), `assets/${zipName}`];
+write('SHA256SUMS', sumsOf.sort().map((p) => `${createHash('sha256').update(readFileSync(join(out, p))).digest('hex')}  ${p}`).join('\n') + '\n');
+write('install.sh', read(join(here, 'install', 'install.sh')).replaceAll('@@ORIGIN@@', SITE.origin));
 const sizeOf = (f) => { const p = join(lib, f); return existsSync(p) ? statSync(p).size : null; }, gzOf = (f) => { const p = join(lib, f); return existsSync(p) ? gzipSync(readFileSync(p), { level: 9 }).length : null; };
 const tok = join(root, 'packages', 'tokens', 'dist'); mkdirSync(join(out, 'assets', 'tokens'), { recursive: true });
 for (const f of ['zhaoui.css', 'zhaoui-style-glass.css', 'zhaoui.runtime.js']) cpSync(join(tok, f), join(out, 'assets', 'tokens', f));

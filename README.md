@@ -30,6 +30,16 @@
 <script src="zhaoui.min.js"></script>   <!-- 放在 </body> 前 -->
 ```
 
+命令行一键安装（macOS、Linux；把两个必需文件装进当前目录的 `zhaoui` 文件夹）：
+
+```bash
+curl -fsSL https://ui.352m.com/install.sh | sh
+# 放到别处并同时装可选文件
+curl -fsSL https://ui.352m.com/install.sh | sh -s -- --dir public/vendor/zhaoui --with icons,marketing
+```
+
+脚本只往你指定的文件夹写文件，不用 sudo，不覆盖已有文件（除非加 `--force`），写入前用 [SHA256SUMS](https://ui.352m.com/SHA256SUMS) 校验。运行前可以先看一遍：`curl -fsSL https://ui.352m.com/install.sh`。Windows 的 PowerShell 写法和全部选项见 [下载页](https://ui.352m.com/download.html)。
+
 更多用法见 [快速开始](https://ui.352m.com/guide/quickstart.html)。暂未发布到 npm。
 
 ## 仓库结构
@@ -51,6 +61,7 @@ npm install
 npm run build        # 生成 Token 和组件库，输出在 packages/*/dist
 npm run site         # 生成网站，输出在 site/dist-site
 npm test             # Token 测试
+node site/test/install.mjs   # 安装脚本测试（需要先运行 npm run site）
 ```
 
 组件和网站的浏览器测试（`npm run test:ui`、`npm run test:site`）用 Playwright，需要先安装 Playwright 和 axe-core，并下载 Chromium、Firefox、WebKit。
