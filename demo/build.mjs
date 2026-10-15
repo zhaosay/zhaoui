@@ -3,12 +3,12 @@
 //   node demo/build.mjs --out /tmp/x.html --only 00-core,10-badge
 // A fragment is a folder with any of: fragment.json {id,title,order?}, section.html, style.css, script.js
 import { readFileSync, writeFileSync, readdirSync, existsSync, statSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { basename, dirname, join, resolve } from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { readBase } from './base.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
-const root = resolve(here, '..', '..');
+const repo = resolve(here, '..'), root = resolve(repo, '..');   // the page is written next to the repository folder by default
 const args = process.argv.slice(2);
 const opt = (k) => { const i = args.indexOf(k); return i >= 0 ? args[i + 1] : null; };
 const out = resolve(opt('--out') || join(root, 'zhaoui-demo.html'));
@@ -47,6 +47,8 @@ put('<!-- @fragments:sections -->', sections.join('\n\n'));
 put('<!-- @fragments:toc -->', toc.length ? `    <div class="grp">更多组件</div>\n${toc.join('\n')}` : '');
 put('/* @fragments:js */', js.join('\n\n'));
 
-if (dirname(out) !== root) html = html.split('zhaoui/packages/').join(join(root, 'zhaoui/packages') + '/');
+// base.html links to the token files as "zhaoui/packages/...".  Beside the repository folder the link only needs the folder's real name; anywhere else it has
+// to be absolute, written as a file URL so that a Windows path (D:\\a\\...) works too.
+html = html.split('zhaoui/packages/').join(dirname(out) === root ? `${basename(repo)}/packages/` : pathToFileURL(join(repo, 'packages')).href + '/');
 writeFileSync(out, html);
 console.log(`built ${out} (${(html.length / 1024).toFixed(0)} KB, ${sections.length} sections, ${js.length} scripts)`);

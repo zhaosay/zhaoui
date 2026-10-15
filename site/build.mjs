@@ -105,7 +105,7 @@ add('404.html', { title: '页面不存在', description: '这个页面不存在�
 const demoOut = join(out, 'design', 'visual.html');
 const r = spawnSync(process.execPath, [join(root, 'demo', 'build.mjs'), '--out', demoOut], { encoding: 'utf8' });
 if (r.status !== 0) { console.error(r.stdout + r.stderr); process.exit(1); }
-write('design/visual.html', read(demoOut).replace(/(href|src)="[^"]*zhaoui\/packages\/tokens\/dist\//g, '$1="../assets/tokens/').replace('</head>', `<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">\n<link rel="canonical" href="${abs('design/visual.html')}">\n</head>`));
+write('design/visual.html', read(demoOut).replace(/(href|src)="[^"]*packages\/tokens\/dist\//g, '$1="../assets/tokens/').replace('</head>', `<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">\n<link rel="canonical" href="${abs('design/visual.html')}">\n</head>`));
 pages.push({ path: 'design/visual.html', title: '完整视觉演示', description: 'ZhaoUI 设计语言的完整视觉演示：色彩、字体、间距、圆角、阴影、动效、组件与交互模式。', group: '设计', keywords: '色彩 字体 间距 动效 Token 品牌色 涨跌色' });
 
 // ---------- Markdown copies, search index, sitemap, robots, llms ----------

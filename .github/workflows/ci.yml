@@ -60,7 +60,9 @@ jobs:
       - name: Package contents
         run: npm run verify-pack -w @zhaoui/ui
       - name: Demo page
-        run: node demo/scan.mjs
+        run: |
+          node demo/build.mjs
+          node demo/scan.mjs
 
   # Windows: the library has been reported to render differently there and has never been tested on it, so this job is what finds out.
   windows:
