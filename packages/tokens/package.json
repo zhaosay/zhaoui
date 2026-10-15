@@ -1,6 +1,6 @@
 {
   "name": "@zhaoui/tokens",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "ZhaoUI design tokens: single source of truth compiled to CSS variables, JSON and JS.",
   "type": "module",
   "license": "MIT",

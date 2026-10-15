@@ -31,27 +31,27 @@ ZhaoUI 的原生版只需要两个文件：一个 CSS，一个 JS。不依赖任
 
 | 文件 | 说明 | 大小 |
 |---|---|---|
-| `zhaoui.css` | Token 变量 + 全部组件样式 | 190.2 KB → 165.2 KB，gzip 28.3 KB |
-| `modular/core.css` | 核心：Token、基础、通用组件样式 | 157.7 KB → 136.6 KB，gzip 24.0 KB |
+| `zhaoui.css` | Token 变量 + 全部组件样式 | 190.2 KB → 165.2 KB，gzip 29.5 KB |
+| `modular/core.css` | 核心：Token、基础、通用组件样式 | 157.7 KB → 136.6 KB，gzip 25.0 KB |
 | `modular/select.css` | 下拉选择与级联选择的样式 | 8.8 KB → 7.8 KB，gzip 2.0 KB |
-| `modular/upload.css` | 文件上传的样式 | 4.2 KB → 3.7 KB，gzip 1.1 KB |
+| `modular/upload.css` | 文件上传的样式 | 4.2 KB → 3.7 KB，gzip 1.2 KB |
 | `modular/tree.css` | 树的样式 | 4.4 KB → 3.9 KB，gzip 1.2 KB |
 | `modular/chart.css` | 基础图表的样式 | 2.5 KB → 2.2 KB，gzip 0.9 KB |
 | `modular/command.css` | 命令面板的样式 | 3.2 KB → 2.9 KB，gzip 1.0 KB |
-| `modular/date.css` | 日期、日期范围、时间、日期时间选择的样式 | 10.0 KB → 8.9 KB，gzip 2.1 KB |
-| `zhaoui-utilities.css` | 可选：公共类（间距、布局、文字、响应式显示隐藏、动画） | 65.1 KB → 56.0 KB，gzip 9.1 KB |
-| `zhaoui-marketing.css` | 可选：营销页区块（页宽、区块、hero、特性卡、价格卡） | 10.9 KB → 8.1 KB，gzip 2.2 KB |
+| `modular/date.css` | 日期、日期范围、时间、日期时间选择的样式 | 10.0 KB → 8.9 KB，gzip 2.2 KB |
+| `zhaoui-utilities.css` | 可选：公共类（间距、布局、文字、响应式显示隐藏、动画） | 65.1 KB → 56.0 KB，gzip 9.5 KB |
+| `zhaoui-marketing.css` | 可选：营销页区块（页宽、区块、hero、特性卡、价格卡） | 10.9 KB → 8.1 KB，gzip 2.3 KB |
 | `zhaoui-style-glass.css` | 可选：玻璃拟态风格包（实验性） | 16.5 KB → 14.0 KB，gzip 1.9 KB |
-| `zhaoui-icons.js` | 可选：完整 Lucide 图标集（372 个） | 67.0 KB → 62.6 KB，gzip 16.0 KB |
-| `zhaoui.js` | 主题运行时 + 全部组件行为 + 内置图标 + 自动初始化 | 264.2 KB → 179.8 KB，gzip 55.7 KB |
-| `modular/brand.js` | 品牌色运行时：ZhaoUI.setBrand()、Logo 取色（可选） | 22.6 KB → 13.7 KB，gzip 6.1 KB |
-| `modular/core.js` | 核心：组件注册与自动初始化 + 通用组件行为（必须最先加载） | 123.8 KB → 83.9 KB，gzip 25.3 KB |
-| `modular/select.js` | 下拉选择与级联选择的行为（在 core.js 之后加载） | 35.9 KB → 23.2 KB，gzip 7.5 KB |
-| `modular/upload.js` | 文件上传的行为（在 core.js 之后加载） | 9.3 KB → 7.3 KB，gzip 3.0 KB |
+| `zhaoui-icons.js` | 可选：完整 Lucide 图标集（372 个） | 67.0 KB → 62.6 KB，gzip 17.1 KB |
+| `zhaoui.js` | 主题运行时 + 全部组件行为 + 内置图标 + 自动初始化 | 264.2 KB → 179.8 KB，gzip 57.9 KB |
+| `modular/brand.js` | 品牌色运行时：ZhaoUI.setBrand()、Logo 取色（可选） | 22.6 KB → 13.7 KB，gzip 6.3 KB |
+| `modular/core.js` | 核心：组件注册与自动初始化 + 通用组件行为（必须最先加载） | 123.8 KB → 83.9 KB，gzip 26.3 KB |
+| `modular/select.js` | 下拉选择与级联选择的行为（在 core.js 之后加载） | 35.9 KB → 23.2 KB，gzip 7.7 KB |
+| `modular/upload.js` | 文件上传的行为（在 core.js 之后加载） | 9.3 KB → 7.3 KB，gzip 3.1 KB |
 | `modular/tree.js` | 树的行为（在 core.js 之后加载） | 7.7 KB → 5.5 KB，gzip 2.2 KB |
 | `modular/chart.js` | 基础图表的行为（在 core.js 之后加载） | 12.4 KB → 8.7 KB，gzip 3.7 KB |
 | `modular/command.js` | 命令面板的行为（在 core.js 之后加载） | 7.6 KB → 5.5 KB，gzip 2.5 KB |
-| `modular/date.js` | 日期、日期范围、时间、日期时间选择的行为（在 core.js 之后加载） | 48.6 KB → 34.0 KB，gzip 10.1 KB |
+| `modular/date.js` | 日期、日期范围、时间、日期时间选择的行为（在 core.js 之后加载） | 48.6 KB → 34.0 KB，gzip 10.5 KB |
 
 
 - 全量版 `zhaoui.css` + `zhaoui.js` 已经包含 Token 变量、全部组件和 36 个内置图标，不需要别的文件。线上请用压缩版 `zhaoui.min.css` 和 `zhaoui.min.js`（JS 另带 `.map`，方便排查线上报错）。
@@ -69,18 +69,18 @@ ZhaoUI 的原生版只需要两个文件：一个 CSS，一个 JS。不依赖任
 
 ## 按需引入
 
-全量版的 JS 压缩加 gzip 后约 55.7 KB。只要页面不用全部组件，就只引 `modular/` 下需要的文件：核心必需，其余按用到的组件加。
+全量版的 JS 压缩加 gzip 后约 57.9 KB。只要页面不用全部组件，就只引 `modular/` 下需要的文件：核心必需，其余按用到的组件加。
 
 | 文件 | 内容 | JS 约（gzip） |
 | --- | --- | --- |
-| `modular/core` | 注册与自动初始化、对话框、标签页、下拉菜单、输入类、表格、导航、步骤条、时间线、菜单等通用组件 | 25.3 KB |
-| `modular/select` | 下拉选择、级联选择 | 7.5 KB |
-| `modular/date` | 日期、日期范围、时间、日期时间选择器，内嵌日历 | 10.1 KB |
-| `modular/upload` | 文件上传 | 3.0 KB |
+| `modular/core` | 注册与自动初始化、对话框、标签页、下拉菜单、输入类、表格、导航、步骤条、时间线、菜单等通用组件 | 26.3 KB |
+| `modular/select` | 下拉选择、级联选择 | 7.7 KB |
+| `modular/date` | 日期、日期范围、时间、日期时间选择器，内嵌日历 | 10.5 KB |
+| `modular/upload` | 文件上传 | 3.1 KB |
 | `modular/tree` | 树 | 2.2 KB |
 | `modular/chart` | 基础图表 | 3.7 KB |
 | `modular/command` | 命令面板 | 2.5 KB |
-| `modular/brand` | `ZhaoUI.setBrand()` 与 Logo 取色 | 6.1 KB |
+| `modular/brand` | `ZhaoUI.setBrand()` 与 Logo 取色 | 6.3 KB |
 
 ```html
 <link rel="stylesheet" href="modular/core.min.css">

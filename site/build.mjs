@@ -5,7 +5,7 @@ import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync, existsSync, rea
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
-import { gzipSync } from 'node:zlib';
+import { gzipSync } from 'fflate';
 import { createHash } from 'node:crypto';
 import { abs, SITE } from './config.mjs';
 import { page, BUILD } from './lib/layout.mjs';
@@ -24,7 +24,7 @@ const read = (p) => readFileSync(p, 'utf8');
 for (const need of [join(ui, 'dist', 'zhaoui.min.js'), join(ui, 'docs', 'components.json')]) if (!existsSync(need)) { console.error(`missing ${need}: run "npm run build" at the repository root first`); process.exit(1); }
 
 const data = JSON.parse(read(join(ui, 'docs', 'components.json'))), metas = data.components, version = data.version;
-const gz = (name) => { const f = join(ui, 'dist', name.endsWith('.js') ? name.replace(/\.js$/, '.min.js') : name.replace(/\.css$/, '.min.css')); return existsSync(f) ? (gzipSync(readFileSync(f), { level: 9 }).length / 1024).toFixed(1) : null; };
+const gz = (name) => { const f = join(ui, 'dist', name.endsWith('.js') ? name.replace(/\.js$/, '.min.js') : name.replace(/\.css$/, '.min.css')); return existsSync(f) ? (gzipSync(new Uint8Array(readFileSync(f)), { level: 9 }).length / 1024).toFixed(1) : null; };
 const faq = makeFaq({ metas, gz }), desc = makeDesc(metas.length);
 
 rmSync(out, { recursive: true, force: true }); mkdirSync(out, { recursive: true });
@@ -59,7 +59,7 @@ makeZip({ top: `zhaoui-templates-${version}`, out: join(out, 'assets', tplZipNam
 const sumsOf = [...readdirSync(lib).filter((f) => f !== 'index.html' && statSync(join(lib, f)).isFile()).map((f) => `assets/zhaoui/${f}`), `assets/${zipName}`];
 write('SHA256SUMS', sumsOf.sort().map((p) => `${createHash('sha256').update(readFileSync(join(out, p))).digest('hex')}  ${p}`).join('\n') + '\n');
 write('install.sh', read(join(here, 'install', 'install.sh')).replaceAll('@@ORIGIN@@', SITE.origin).replaceAll('@@REPO@@', SITE.repo).replaceAll('@@VERSION@@', version));
-const sizeOf = (f) => { const p = join(lib, f); return existsSync(p) ? statSync(p).size : null; }, gzOf = (f) => { const p = join(lib, f); return existsSync(p) ? gzipSync(readFileSync(p), { level: 9 }).length : null; };
+const sizeOf = (f) => { const p = join(lib, f); return existsSync(p) ? statSync(p).size : null; }, gzOf = (f) => { const p = join(lib, f); return existsSync(p) ? gzipSync(new Uint8Array(readFileSync(p)), { level: 9 }).length : null; };
 const tok = join(root, 'packages', 'tokens', 'dist'); mkdirSync(join(out, 'assets', 'tokens'), { recursive: true });
 for (const f of ['zhaoui.css', 'zhaoui-style-glass.css', 'zhaoui.runtime.js']) cpSync(join(tok, f), join(out, 'assets', 'tokens', f));
 
