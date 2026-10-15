@@ -74,6 +74,15 @@ await check('download page has a side menu whose links all point at real heading
   const g = await p.evaluate(() => { const st = document.querySelector('.s-stage').getBoundingClientRect(), a = document.querySelector('.s-actions'), bs = [...a.querySelectorAll('.zh-btn')].map((x) => x.getBoundingClientRect()); return { above: a.getBoundingClientRect().top - st.bottom, between: bs[1].left - bs[0].right, same: bs[0].height === bs[1].height && [...a.querySelectorAll('.zh-btn')].every((x) => x.className === 'zh-btn sm') }; });
   assert.ok(g.above >= 12, `space between the example box and its buttons (${g.above}px)`); assert.ok(g.between >= 10, `space between the two buttons (${g.between}px)`); assert.equal(g.same, true, 'both buttons are the same kind');
 });
+await check('asset links carry a content hash, so an edge cache cannot keep serving an old stylesheet or script', async (p) => {
+  const seen = new Set();
+  for (const pg of ['index.html', 'components/result.html', 'download.html', 'playground.html']) {
+    await open(p, pg);
+    const links = await p.evaluate(() => [...document.querySelectorAll('link[rel=stylesheet], script[src]')].map((e) => e.getAttribute('href') || e.getAttribute('src')).filter((u) => /assets\//.test(u)));
+    assert.ok(links.length >= 5, `${pg}: ${links.length} asset links`); for (const u of links) { assert.match(u, /\.(css|js)\?v=[0-9a-f]{10}$/, `${pg}: ${u}`); seen.add(u.split('?v=')[1]); }
+  }
+  assert.equal(seen.size, 1, 'one version for the whole build');
+});
 await check('download page and top navigation on a phone: no sideways scroll', async (p) => {
   for (const pg of ['download.html', 'index.html']) { await open(p, pg); assert.equal(await p.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true, pg); }
 }, 390);

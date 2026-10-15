@@ -16,6 +16,10 @@ export const up = (from) => '../'.repeat(from.split('/').length - 1);
 export const rel = (from, to) => up(from) + to;
 const json = (o) => JSON.stringify(o).replace(/</g, '\\u003c');
 
+/** Set by the build: a hash of everything the pages load.  Asset links carry it as ?v=..., so a changed file gets a new address and an edge cache cannot keep serving the old one. */
+export const BUILD = { v: '' };
+const ver = (p) => (BUILD.v ? `${p}?v=${BUILD.v}` : p);
+
 function sideHtml(side, path, label) {
   if (!side) return '';
   let n = 0;   // groups marked numbered share one running count: 1, 2, 3 ...
@@ -55,15 +59,15 @@ export function page(o) {
 <meta name="twitter:card" content="summary"><meta name="twitter:title" content="${esc(full)}"><meta name="twitter:description" content="${esc(description)}">
 <link rel="alternate" type="text/plain" href="${abs('llms.txt')}" title="llms.txt">
 <link rel="icon" href="${R('assets/favicon.svg')}" type="image/svg+xml">
-<link rel="stylesheet" href="${R('assets/zhaoui/zhaoui.min.css')}">
-<link rel="stylesheet" href="${R('assets/zhaoui/zhaoui-utilities.min.css')}">
-<link rel="stylesheet" href="${R('assets/zhaoui/zhaoui-marketing.min.css')}">
-<link rel="stylesheet" href="${R('assets/site.css')}">
+<link rel="stylesheet" href="${R(ver('assets/zhaoui/zhaoui.min.css'))}">
+<link rel="stylesheet" href="${R(ver('assets/zhaoui/zhaoui-utilities.min.css'))}">
+<link rel="stylesheet" href="${R(ver('assets/zhaoui/zhaoui-marketing.min.css'))}">
+<link rel="stylesheet" href="${R(ver('assets/site.css'))}">
 <script>try{var t=JSON.parse(localStorage.getItem('zhaoui-site-theme')||'null');if(t){var h=document.documentElement;for(var k in t)h.setAttribute('data-'+k,t[k]);}}catch(e){}</script>
 ${ldAll.map((x) => `<script type="application/ld+json">${json(x)}</script>`).join('\n')}
 </head>
 <body data-site-root="${up(path) || './'}">
-<script src="${R('assets/zhaoui/zhaoui.min.js')}"></script><script src="${R('assets/zhaoui/zhaoui-icons.min.js')}"></script><!-- first, because the examples in the page call ZhaoUI as they are parsed -->
+<script src="${R(ver('assets/zhaoui/zhaoui.min.js'))}"></script><script src="${R(ver('assets/zhaoui/zhaoui-icons.min.js'))}"></script><!-- first, because the examples in the page call ZhaoUI as they are parsed -->
 <a class="s-skip" href="#main">跳到正文</a>
 <header class="zh-nav zh-nav--contained s-nav" data-zh-nav aria-label="主导航">
   <a class="zh-nav-logo" href="${R('index.html')}"><i aria-hidden="true"></i><span>${SITE.name}</span></a>
@@ -100,9 +104,9 @@ ${toc ? `<div class="s-toc">${toc}</div>` : ''}
   <nav aria-label="页脚"><ul class="zh-footer-links"><li><a href="${R('guide/quickstart.html')}">快速开始</a></li><li><a href="${R('components/index.html')}">组件</a></li><li><a href="${R('changelog.html')}">更新日志</a></li><li><a href="${R('llms.txt')}">llms.txt</a></li><li><a href="${R('llms-full.txt')}">llms-full.txt</a></li><li><a href="${R('sitemap.xml')}">站点地图</a></li><li><a href="${R('assets/zhaoui/')}">下载文件</a></li></ul></nav>
 </footer>
 ${side ? `<aside class="zh-drawer zh-drawer--left" id="s-drawer" aria-label="${esc(sideLabel)}"><div class="s-drawer-head"><strong>${esc(sideLabel)}</strong><button class="zh-btn sm text" type="button" data-zh-close>关闭</button></div>${sideHtml(side, path, sideLabel + '（手机）')}</aside>` : ''}
-<script src="${R('assets/search-index.js')}"></script>
-<script src="${R('assets/site.js')}"></script>
-${(o.scripts || []).map((s) => `<script src="${R(s)}"></script>`).join('\n')}
+<script src="${R(ver('assets/search-index.js'))}"></script>
+<script src="${R(ver('assets/site.js'))}"></script>
+${(o.scripts || []).map((s) => `<script src="${R(ver(s))}"></script>`).join('\n')}
 </body>
 </html>
 `;

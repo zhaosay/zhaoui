@@ -9,7 +9,7 @@ import { tmpdir } from 'node:os';
 import { gzipSync } from 'node:zlib';
 import { createHash } from 'node:crypto';
 import { abs, SITE } from './config.mjs';
-import { page } from './lib/layout.mjs';
+import { page, BUILD } from './lib/layout.mjs';
 import { makeFaq, makeDesc } from '../packages/ui/scripts/facts.mjs';
 import { componentPage, componentIndex, componentSide, order } from './lib/pages-components.mjs';
 import { GUIDE, guidePage, guideSide, changelogPage, designIndex, designSide } from './lib/pages-guide.mjs';
@@ -55,6 +55,11 @@ for (const f of ['zhaoui.css', 'zhaoui-style-glass.css', 'zhaoui.runtime.js']) c
 
 // the playground inlines the library into its sandboxed frame
 write('assets/playground-bundle.js', `window.ZH_PG = ${JSON.stringify({ css: ['zhaoui.min.css', 'zhaoui-utilities.min.css', 'zhaoui-marketing.min.css'].map((f) => read(join(dist, f))).join('\n'), js: ['zhaoui.min.js', 'zhaoui-icons.min.js'].map((f) => read(join(dist, f)).replace(/\/\/# sourceMappingURL=.*$/gm, '')).join(';\n') })};\n`);
+
+// one hash over everything the pages load, used as ?v= on the asset links (see layout.mjs)
+{ const h = createHash('sha256'), files = (d) => readdirSync(d, { withFileTypes: true }).flatMap((e) => e.isDirectory() ? files(join(d, e.name)) : [join(d, e.name)]).sort();
+  for (const f of [...files(join(out, 'assets')).filter((f) => !f.endsWith('.zip') && !f.endsWith('index.html')), ...files(join(ui, 'docs')).filter((f) => /\.(md|json)$/.test(f)), join(ui, 'CHANGELOG.md')]) h.update(readFileSync(f));
+  BUILD.v = h.digest('hex').slice(0, 10); }
 
 // ---------- pages ----------
 const pages = [];   // { path, html, title, description, group, keywords, noindex }
