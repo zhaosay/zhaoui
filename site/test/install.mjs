@@ -8,12 +8,14 @@ import { spawn, spawnSync } from 'node:child_process';
 import assert from 'node:assert/strict';
 
 const dist = join(dirname(fileURLToPath(import.meta.url)), '..', 'dist-site');
-let tamper = null;   // a path whose content the server alters, to prove the checksum catches it
+let tamper = null, stale = null; const seen = [];   // stale: a path a CDN still serves the old copy of, unless the address is a new one   // a path whose content the server alters, to prove the checksum catches it
 const server = createServer((req, res) => {
   const p = decodeURIComponent(new URL(req.url, 'http://x').pathname).slice(1);
   // what GitHub would serve for a release: /releases/download/v<version>/<file>, the files being the same ones the site builds
   const rel = p.match(/^releases\/download\/v([0-9.]+)\/(.+)$/); const file = rel ? (rel[2] === 'SHA256SUMS' ? 'SHA256SUMS' : `assets/${rel[2]}`) : p;
   let body; try { body = readFileSync(join(dist, file)); } catch { res.writeHead(404).end('nf'); return; }
+  const u = new URL(req.url, 'http://x'); seen.push(u.pathname.slice(1) + u.search);
+  if (stale && p === stale && !u.search) body = Buffer.concat([body, Buffer.from('\n/* an older copy */')]);
   if (p === tamper || file === tamper) body = Buffer.concat([body, Buffer.from('\n/* changed in transit */')]);
   res.writeHead(200).end(body);
 });
@@ -25,7 +27,7 @@ let passed = 0, failed = 0;
 function exec(cmd, args, opts) { return new Promise((resolve) => { const c = spawn(cmd, args, opts); let stdout = '', stderr = ''; c.stdout.on('data', (d) => { stdout += d; }); c.stderr.on('data', (d) => { stderr += d; }); c.on('close', (status) => resolve({ status, stdout, stderr })); }); }
 function run(args, cwd, env = {}) { return exec('sh', [join(dist, 'install.sh'), ...args], { cwd, env: { ...process.env, ZHAOUI_BASE: base, ZHAOUI_RELEASES: `${base}/releases/download`, ...env } }); }
 async function test(label, fn) {
-  const cwd = mkdtempSync(join(tmpdir(), 'zhaoui-install-')); tamper = null;
+  const cwd = mkdtempSync(join(tmpdir(), 'zhaoui-install-')); tamper = null; stale = null; seen.length = 0;
   try { await fn(cwd); passed++; } catch (e) { failed++; console.log(`FAIL ${label}\n   ${e.message.split('\n').slice(0, 6).join(' | ')}`); } finally { rmSync(cwd, { recursive: true, force: true }); }
 }
 const same = (a, b) => readFileSync(a).equals(readFileSync(b));
@@ -40,6 +42,12 @@ await test('default: installs the two required files, identical to the site, and
   assert.deepEqual(readdirSync(join(cwd, 'zhaoui')).sort(), ['zhaoui.min.css', 'zhaoui.min.js']);
   assert.ok(same(join(cwd, 'zhaoui/zhaoui.min.css'), join(dist, 'assets/zhaoui/zhaoui.min.css')) && same(join(cwd, 'zhaoui/zhaoui.min.js'), join(dist, 'assets/zhaoui/zhaoui.min.js')));
   assert.match(r.stdout, /<link rel="stylesheet" href="zhaoui\/zhaoui\.min\.css">/); assert.match(r.stdout, /<script src="zhaoui\/zhaoui\.min\.js"><\/script>/);
+});
+await test('a stale copy on the CDN cannot break an install: file addresses carry the expected hash, so the current file is fetched', async (cwd) => {
+  stale = 'assets/zhaoui/zhaoui.min.css'; const r = await run([], cwd); assert.equal(r.status, 0, r.stderr);
+  assert.ok(same(join(cwd, 'zhaoui/zhaoui.min.css'), join(dist, 'assets/zhaoui/zhaoui.min.css')), 'the current file, not the old copy');
+  const sums = readFileSync(join(dist, 'SHA256SUMS'), 'utf8');
+  for (const f of ['assets/zhaoui/zhaoui.min.css', 'assets/zhaoui/zhaoui.min.js']) { const h = sums.split('\n').find((l) => l.endsWith('  ' + f)).slice(0, 12); assert.ok(seen.includes(`${f}?v=${h}`), `${f} was requested with ?v=${h} (${seen.filter((x) => x.includes(f))})`); }
 });
 await test('--dir and --with: other folder, extra files, CSS and JS listed in the right order', async (cwd) => {
   const r = await run(['--dir', 'public/vendor/zh', '--with', 'icons,marketing,utilities,glass'], cwd); assert.equal(r.status, 0, r.stderr);

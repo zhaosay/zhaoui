@@ -116,9 +116,13 @@ fi
 
 for f in $FILES; do
   name=$(basename "$f")
-  fetch "$(url_of "$f")" "$TMP/$name" || die "cannot download $(url_of "$f")"
   expected=$(grep "  $f\$" "$TMP/SHA256SUMS" | cut -d' ' -f1 || true)
   [ -n "$expected" ] || die "$f is not listed in SHA256SUMS, nothing was installed"
+  url=$(url_of "$f")
+  # The address carries the first characters of the expected hash.  The server ignores it, but a CDN treats it as a new address, so a copy of the
+  # file cached before an update cannot be served in place of the current one (which would only fail the check below).
+  [ -n "$VERSION" ] || url="$url?v=$(printf '%.12s' "$expected")"
+  fetch "$url" "$TMP/$name" || die "cannot download $url"
   actual=$(hash_of "$TMP/$name")
   if [ -n "$actual" ] && [ "$actual" != "$expected" ]; then
     die "checksum mismatch for $name, nothing was installed"
