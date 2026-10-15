@@ -17,7 +17,7 @@ export function templatesPage({ version, zip, kb }) {
 </article>`).join('\n');
   const body = `<h1>模板</h1>
 <p class="s-lead">四个完整的页面，用 ZhaoUI 搭成，拿来就能改。每个都有实时预览，整套打包成一个压缩包，解压后用浏览器直接打开。</p>
-<p><a class="zh-btn primary xl" href="../assets/${zip.name}" download><i data-i="download" data-s="20"></i>下载全部模板（${kb(zip.size)}）</a></p>
+<p><a class="zh-btn primary xl s-dl-btn" href="../assets/${zip.name}" download><i data-i="download" data-s="20"></i>下载全部模板（${kb(zip.size)}）</a></p>
 <p class="zh-hint">压缩包里有四个 HTML 和它们用到的 ZhaoUI 文件（<code class="zh-code-inline">zhaoui/</code> 文件夹），不需要联网。页面里的文案、数据和价格都是占位示例，请替换成你自己的内容。</p>
 <h2 id="preview">预览</h2>
 <div class="tpl-list">

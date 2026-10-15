@@ -79,7 +79,8 @@ export default async function run(h) {
     const t = E('table', '.zh-table');
     assert.deepEqual(await p.evaluate(() => { const w = document.querySelector('[data-example="table"] .zh-table-wrap'), x = getComputedStyle(w); return [x.overflow, x.borderTopWidth, x.borderRadius !== '0px']; }), ['hidden', '1px', true]);
     assert.notEqual(await css(p, t + ' th', 'backgroundColor'), 'rgba(0, 0, 0, 0)', 'header has a tint'); assert.equal(await css(p, t + ' td.num', 'textAlign'), 'right');
-    const row = t + ' tbody tr'; const bg0 = await css(p, row, 'backgroundColor'); await p.hover(row); await wait(p, 250); assert.notEqual(await css(p, row, 'backgroundColor'), bg0, 'row highlights on hover');
+    const row = t + ' tbody tr'; const bg0 = await css(p, row, 'backgroundColor'); await p.hover(row); let bg1 = bg0; for (let i = 0; i < 15 && bg1 === bg0; i++) { await wait(p, 100); bg1 = await css(p, row, 'backgroundColor'); }   // the colour changes through a transition: poll, do not guess a delay
+    assert.notEqual(bg1, bg0, 'row highlights on hover');
     assert.equal(await css(p, t, 'display'), 'table');
   });
   await testEx('table on a phone: rows become cards labelled by data-label; --scroll keeps a real table that scrolls sideways', async (p) => {

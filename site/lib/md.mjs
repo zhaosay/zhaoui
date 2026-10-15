@@ -27,7 +27,7 @@ export function md(src, { link = (u) => u, idPrefix = '' } = {}) {
     if (/^\|.*\|\s*$/.test(l) && /^\|[\s:|-]+\|\s*$/.test(lines[i + 1] || '')) {
       flush(); const cells = (r) => r.trim().replace(/^\||\|$/g, '').split(/(?<!\\)\|/).map((c) => c.trim().replace(/\\\|/g, '|'));
       const head = cells(l); i += 2; const rows = []; while (i < lines.length && /^\|.*\|\s*$/.test(lines[i])) rows.push(cells(lines[i++]));
-      out.push(`<div class="zh-table-wrap"><table class="zh-table"><thead><tr>${head.map((c) => `<th scope="col">${inline(c, link)}</th>`).join('')}</tr></thead><tbody>${rows.map((r) => `<tr>${r.map((c, k) => `<td data-label="${esc(head[k] || '')}">${inline(c, link)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`); continue;
+      out.push(`<div class="zh-table-wrap"><table class="zh-table"><thead><tr>${head.map((c) => `<th scope="col">${inline(c, link)}</th>`).join('')}</tr></thead><tbody>${rows.map((r) => `<tr>${r.map((c, k) => `<td data-label="${esc(head[k] || '')}"><span class="s-cell">${inline(c, link)}</span></td>`).join('')}</tr>`).join('')}</tbody></table></div>`); continue;
     }
     if (/^>\s?/.test(l)) { flush(); const buf = []; while (i < lines.length && /^>\s?/.test(lines[i])) buf.push(lines[i++].replace(/^>\s?/, '')); out.push(`<blockquote class="doc-quote">${inline(buf.join(' '), link)}</blockquote>`); continue; }
     if (/^\s*([-*]|\d+\.)\s+/.test(l)) {

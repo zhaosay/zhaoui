@@ -28,7 +28,8 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      - run: npx playwright install --with-deps ${{ matrix.engine }}
+      # the axe audit at the end of matrix.mjs always runs in Chromium, whatever engine is under test
+      - run: npx playwright install --with-deps chromium ${{ matrix.engine }}
       - run: npm run build
       - name: Token tests
         run: npm test

@@ -1,0 +1,6 @@
+# Text files are LF on every platform: the build compares and hashes them (the release zip is reproducible byte for byte),
+# and the demo shell resolves include lines that end in a newline.  Without this a Windows checkout turns them into CRLF.
+* text=auto eol=lf
+*.sh text eol=lf
+*.png binary
+*.zip binary

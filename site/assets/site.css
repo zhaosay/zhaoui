@@ -103,3 +103,12 @@ a.zh-btn { text-decoration: none; }
 .tpl-card p { margin: 0; color: var(--zh-text-secondary); }
 .tpl-frame { display: block; width: 100%; height: 560px; margin-top: 4px; border: 1px solid var(--zh-border); border-radius: var(--zh-radius-md); background: #fff; }
 @media (max-width: 899px) { .tpl-frame { height: 480px; } }
+
+/* a button with a long label (the download buttons carry a file name and size) must wrap instead of pushing the page wider than a small phone */
+.s-dl-btn { max-width: 100%; height: auto; min-height: var(--zh-control-h); padding-block: .55em; white-space: normal; text-align: center; line-height: 1.35; }
+
+/* Table cells written from Markdown: on a phone the library turns a row into a card whose cells are flex rows, and every piece of a cell (a run of text,
+   a code chip) would become its own flex item.  One span around the content makes it a single item that wraps like a paragraph. */
+.s-cell { min-width: 0; text-align: end; }
+.s-cell code { overflow-wrap: anywhere; }
+@media (min-width: 768px) { .s-cell { text-align: start; } }

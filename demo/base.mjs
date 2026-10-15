@@ -8,5 +8,5 @@ import { fileURLToPath } from 'node:url';
 const here = dirname(fileURLToPath(import.meta.url));
 
 export function readBase() {
-  return readFileSync(join(here, 'base.html'), 'utf8').replace(/^<!-- @include (\S+) -->\n/gm, (_, file) => readFileSync(join(here, file), 'utf8'));
+  return readFileSync(join(here, 'base.html'), 'utf8').replace(/^<!-- @include (\S+) -->\r?\n/gm, (_, file) => readFileSync(join(here, file), 'utf8'));
 }

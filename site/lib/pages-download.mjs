@@ -145,7 +145,7 @@ ${MODULAR.map(modRow).join('\n')}
 - 图标来自 Lucide，许可说明在压缩包里的 \`THIRD_PARTY_NOTICES.md\`。
 - 每个版本的变化见 [更新日志](changelog.html)。`;
   const { html, headings } = md(src);
-  const button = `<p><a class="zh-btn primary xl" href="assets/${zip.name}" download><i data-i="download" data-s="20"></i>下载 ${zip.name}（${kb(zip.size)}）</a></p>`;
+  const button = `<p><a class="zh-btn primary xl s-dl-btn" href="assets/${zip.name}" download><i data-i="download" data-s="20"></i>下载 ${zip.name}（${kb(zip.size)}）</a></p>`;
   // plain links into assets/zhaoui/ become real downloads instead of opening as text in the browser
   const body = html.replace('<p>@@ZIP@@</p>', button).replace(/<a href="(assets\/zhaoui\/[^"]+\.(?:css|js))"/g, '<a href="$1" download');
   return { title: '下载', description: `下载 ZhaoUI ${version}：全部文件的压缩包、单个 CSS 和 JS、按需加载的分包，以及直接引用的写法。`, body, headings: headings.filter((h) => h.level > 1) };

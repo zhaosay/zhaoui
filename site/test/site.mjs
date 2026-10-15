@@ -138,9 +138,20 @@ await check('asset links carry a content hash, so an edge cache cannot keep serv
   }
   assert.equal(seen.size, 1, 'one version for the whole build');
 });
-await check('download page and top navigation on a phone: no sideways scroll', async (p) => {
-  for (const pg of ['download.html', 'index.html']) { await open(p, pg); assert.equal(await p.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true, pg); }
-}, 390);
+for (const w of [320, 360, 390]) await check(`phone ${w}px: nothing makes the page wider than the screen (download, templates, home, guide, a component page)`, async (p) => {
+  for (const pg of ['download.html', 'templates/index.html', 'index.html', 'guide/quickstart.html', 'components/table.html']) {
+    await open(p, pg);
+    const r = await p.evaluate(() => { const W = innerWidth, off = [...document.querySelectorAll('body *')].filter((e) => { const b = e.getBoundingClientRect(); return b.width > 0 && b.right > W + 1 && !e.closest('pre, .zh-table-wrap--scroll, .tpl-frame, .zh-drawer, dialog'); }).slice(0, 3).map((e) => `${e.tagName.toLowerCase()}.${String(e.className).split(' ')[0]} ends at ${Math.round(e.getBoundingClientRect().right)}`); return { over: document.documentElement.scrollWidth - W, off }; });
+    assert.ok(r.over <= 0, `${pg}: ${r.over}px too wide; sticking out: ${r.off.join(' | ')}`);
+  }
+}, w);
+await check('tables on a phone: cell content flows like a paragraph, a code chip is never stacked letter by letter', async (p) => {
+  for (const pg of ['download.html', 'guide/quickstart.html', 'guide/theme.html']) {
+    await open(p, pg);
+    const tall = await p.evaluate(() => [...document.querySelectorAll('.s-article td code.zh-code-inline')].filter((c) => { const b = c.getBoundingClientRect(), lh = parseFloat(getComputedStyle(c).lineHeight) || 20; return b.height > lh * 2.6; }).map((c) => `${c.textContent.slice(0, 20)} (${Math.round(c.getBoundingClientRect().height)}px)`));
+    assert.deepEqual(tall, [], `${pg}: code chips broken over many lines`);
+  }
+}, 320);
 
 await check('guide navigation and headings are numbered; the numbers in the side menu and the contents list agree', async (p) => {
   await open(p, 'guide/quickstart.html');
