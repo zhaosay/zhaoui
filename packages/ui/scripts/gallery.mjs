@@ -44,7 +44,7 @@ export function writeGallery({ out, metas, version, stats = [] }) {
 <meta name="robots" content="index,follow,max-snippet:-1">
 <meta property="og:type" content="website"><meta property="og:locale" content="zh_CN"><meta property="og:site_name" content="ZhaoUI">
 <meta property="og:title" content="ZhaoUI 组件库：${metas.length} 个原生 HTML/CSS/JS 组件与可复制示例"><meta property="og:description" content="${esc(DESC)}">
-<!-- <待确认：公开发布后的网址>：确定后在这里补 <link rel="canonical"> 和 og:url -->
+<!-- This page ships inside the package and is opened from disk; the same examples are on the website, which carries the canonical URLs. -->
 <script type="application/ld+json">${json(ldApp)}</script>
 <script type="application/ld+json">${json(ldList)}</script>
 <script type="application/ld+json">${json(ldFaq)}</script>

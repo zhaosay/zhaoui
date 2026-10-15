@@ -14,6 +14,7 @@ import { fileURLToPath } from 'node:url';
 import { gzipSync } from 'node:zlib';
 import esbuild from 'esbuild';
 import { extractComponents, withUsedKeyframes } from './css.mjs';
+import { readBase } from '../../../demo/base.mjs';
 import { buildDocs } from './docs.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -65,7 +66,7 @@ function emit(rel, kind, code, desc, opts = {}) {
 
 // ---------- CSS ----------
 const dropped = [];
-const baseHtml = read(join(demo, 'base.html'));
+const baseHtml = readBase();   // demo/base.html with the pieces in demo/base/ put back
 const baseStyle = baseHtml.match(/<style>([\s\S]*?)<\/style>/)[1];
 const cssParts = [{ name: 'base.html', css: withUsedKeyframes(extractComponents(baseStyle, dropped, null)) }]
   .concat(CSS_FRAGMENTS.map(([f, ex, srcDir, only]) => ({ name: f, css: withUsedKeyframes(extractComponents(read(join(demo, 'fragments', srcDir || f, 'style.css')), dropped, ex || null, only || null)) }))

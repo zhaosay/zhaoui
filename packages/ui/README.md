@@ -2,7 +2,7 @@
 
 ZhaoUI 的原生版：**一个 CSS 加一个 JS**，不依赖任何框架，用 `data-zh-*` 属性声明组件，也可以调用全局对象 `ZhaoUI`。
 
-> 状态：版本 0.1.0。MIT 许可证，任何人都可以免费使用、修改和分发，包括商用。暂未发布到 npm，请从 [ui.352m.com/download.html](https://ui.352m.com/download.html) 下载文件，或从 GitHub 获取源码。
+> 状态：版本 0.1.1。MIT 许可证，任何人都可以免费使用、修改和分发，包括商用。暂未发布到 npm，请从 [ui.352m.com/download.html](https://ui.352m.com/download.html) 下载文件，或从 GitHub 获取源码。
 
 ## 适合与不适合
 
@@ -37,8 +37,8 @@ TypeScript 会自动带上 `ZhaoUI` 的类型。
 
 | 文件 | 说明 | 大小 |
 |---|---|---|
-| `zhaoui.css` | Token 变量 + 全部组件样式 | 189.3 KB → 165.0 KB，gzip 28.3 KB |
-| `modular/core.css` | 核心：Token、基础、通用组件样式 | 156.8 KB → 136.4 KB，gzip 24.0 KB |
+| `zhaoui.css` | Token 变量 + 全部组件样式 | 190.2 KB → 165.2 KB，gzip 28.3 KB |
+| `modular/core.css` | 核心：Token、基础、通用组件样式 | 157.7 KB → 136.6 KB，gzip 24.0 KB |
 | `modular/select.css` | 下拉选择与级联选择的样式 | 8.8 KB → 7.8 KB，gzip 2.0 KB |
 | `modular/upload.css` | 文件上传的样式 | 4.2 KB → 3.7 KB，gzip 1.1 KB |
 | `modular/tree.css` | 树的样式 | 4.4 KB → 3.9 KB，gzip 1.2 KB |

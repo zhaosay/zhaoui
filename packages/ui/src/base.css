@@ -1,6 +1,13 @@
 /* Library base. Deliberately small: it never restyles bare elements, only what components need. */
 [class*="zh-"], [class*="zh-"]::before, [class*="zh-"]::after { box-sizing: border-box; }
 :where(dialog.zh-modal, .zh-drawer, .zh-pop) { font-family: var(--zh-font-sans); font-size: calc(var(--zh-font-base) * var(--zh-scale, 1)); line-height: var(--zh-line); color: var(--zh-text); }
+/* Page defaults.  The quickstart puts data-mode / data-audience on <html>; when one of them is there the page gets the theme's font, colours and
+   line height.  Without this a dark page stays white behind light text, and text outside the components is set in the browser's default serif
+   (Times, which on Windows means a serif CJK font).  Zero specificity (:where), so any rule of yours wins whatever the order.  It sets inherited
+   values on <html> and <body> only, never restyles other elements, and does nothing on a page that declares no theme.  font-size goes on <body>,
+   not <html>, so rem units in your own CSS keep meaning 16px. */
+:where(html[data-mode], html[data-audience]) { background: var(--zh-bg); color: var(--zh-text); font-family: var(--zh-font-sans); line-height: var(--zh-line); }
+:where(html[data-mode] > body, html[data-audience] > body) { font-size: calc(var(--zh-font-base) * var(--zh-scale, 1)); }
 /* Library elements that set display (e.g. .zh-menu { display: flex }) must still honour [hidden]. */
 [class*="zh-"][hidden] { display: none !important; }
 /* Reduced motion: keep opacity and colour feedback, remove movement, loops and long animations. Scoped to library classes. */

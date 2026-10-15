@@ -1,4 +1,4 @@
-// CSS extraction for the drop-in build. The component styles live in the demo (base.html + fragments); this module
+// CSS extraction for the drop-in build. The component styles live in the demo (base.html and demo/base/, plus the fragments); this module
 // pulls out the rules that belong to the library and leaves page-shell rules behind. Nothing is copied by hand.
 
 /** Split CSS into top-level rules / at-rules (brace aware; ignores braces in strings and comments). */

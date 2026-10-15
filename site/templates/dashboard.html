@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-CN" data-audience="c" data-mode="light" data-density="standard">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>控制台 | 后台模板</title>
+<meta name="description" content="用 ZhaoUI 搭的后台首页模板：侧边菜单、关键指标、图表和数据表格。">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="@@LIB@@/zhaoui.min.css">
+<link rel="stylesheet" href="@@LIB@@/zhaoui-utilities.min.css">
+<link rel="stylesheet" href="@@LIB@@/zhaoui-marketing.min.css">
+<style>
+  body { margin: 0; }
+  .tpl-app { display: grid; grid-template-columns: 15rem minmax(0, 1fr); min-height: 100vh; }
+  .tpl-app > .zh-side { position: sticky; top: 0; height: 100vh; }
+  .tpl-main { padding: 20px clamp(16px, 3vw, 32px) 40px; min-width: 0; }
+  .tpl-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+  .tpl-top h1 { margin: 0; font-size: 1.5em; }
+  .tpl-kpis { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); margin-bottom: 16px; }
+  .tpl-panels { display: grid; gap: 16px; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); margin-bottom: 16px; }
+  @media (max-width: 899px) { .tpl-app { grid-template-columns: minmax(0, 1fr); } .tpl-app > .zh-side { display: none; } .tpl-panels { grid-template-columns: minmax(0, 1fr); } }
+</style>
+</head>
+<body>
+<!-- ZhaoUI 模板：文案和数据都是占位示例，请替换成你自己的内容。样式和脚本在 @@LIB@@/ 下。 -->
+<div class="tpl-app">
+  <nav class="zh-side" data-zh-side data-collapsible="false" aria-label="后台导航">
+    <div class="zh-side-head"><i aria-hidden="true"></i><span>示例后台</span></div>
+    <ul>
+      <li class="zh-side-group">工作台</li>
+      <li><a href="dashboard.html" aria-current="page" data-icon="layout-dashboard">概览</a></li>
+      <li><a href="#" data-icon="file-text">内容管理</a></li>
+      <li><a href="#" data-icon="users">用户</a></li>
+      <li class="zh-side-group">系统</li>
+      <li><a href="#" data-icon="settings">设置</a></li>
+      <li><a href="landing.html" data-icon="arrow-left">返回官网</a></li>
+    </ul>
+  </nav>
+  <main id="main" class="tpl-main">
+    <div class="tpl-top">
+      <h1>概览</h1>
+      <div class="zh-tabs" role="tablist" aria-label="统计周期"><button role="tab" aria-selected="true" aria-controls="kpi-panel">近 7 天</button><button role="tab" aria-selected="false" aria-controls="kpi-panel">近 30 天</button></div>
+    </div>
+    <section id="kpi-panel" aria-label="关键指标">
+      <div class="tpl-kpis">
+        <div class="zh-card"><div class="zh-cardx-stat-label">访问量</div><strong>12.4 万</strong><div class="zh-cardx-stat-foot"><span style="color:var(--zh-trend-up)">+8.2%</span><span class="zh-hint">较上周</span></div></div>
+        <div class="zh-card"><div class="zh-cardx-stat-label">新增用户</div><strong>3,284</strong><div class="zh-cardx-stat-foot"><span style="color:var(--zh-trend-up)">+3.1%</span><span class="zh-hint">较上周</span></div></div>
+        <div class="zh-card"><div class="zh-cardx-stat-label">订单数</div><strong>1,046</strong><div class="zh-cardx-stat-foot"><span style="color:var(--zh-trend-down)">-1.4%</span><span class="zh-hint">较上周</span></div></div>
+        <div class="zh-card"><div class="zh-cardx-stat-label">转化率</div><strong>4.8%</strong><div class="zh-cardx-stat-foot"><span style="color:var(--zh-trend-up)">+0.3%</span><span class="zh-hint">较上周</span></div></div>
+      </div>
+    </section>
+    <section class="tpl-panels" aria-label="趋势与构成">
+      <div class="zh-card"><div data-zh-chart data-type="line" data-title="近 7 天访问量">
+        <script type="application/json">{ "labels": ["周一","周二","周三","周四","周五","周六","周日"], "series": [ { "name": "访问", "data": [1200, 1800, 1500, 2300, 2100, 2900, 3200] }, { "name": "下单", "data": [120, 190, 150, 260, 210, 330, 380] } ] }</script></div></div>
+      <div class="zh-card"><div data-zh-chart data-type="donut" data-height="220" data-title="渠道占比">
+        <script type="application/json">{ "series": [ { "name": "自然", "data": [520] }, { "name": "广告", "data": [310] }, { "name": "推荐", "data": [170] } ] }</script></div></div>
+    </section>
+    <section class="zh-card" aria-labelledby="orders-h">
+      <h2 id="orders-h" style="margin:0 0 12px;font-size:1.1em">最近订单</h2>
+      <div class="zh-table-wrap"><table class="zh-table">
+        <thead><tr><th scope="col">订单号</th><th scope="col">客户</th><th scope="col">状态</th><th scope="col" class="num">金额</th><th scope="col">操作</th></tr></thead>
+        <tbody>
+          <tr><td data-label="订单号">A-10231</td><td data-label="客户">示例客户一</td><td data-label="状态"><span class="zh-tag success">已完成</span></td><td data-label="金额" class="num">¥1,280.00</td><td data-label="操作"><button class="zh-btn sm text" type="button">详情</button></td></tr>
+          <tr><td data-label="订单号">A-10232</td><td data-label="客户">示例客户二</td><td data-label="状态"><span class="zh-tag warning">待付款</span></td><td data-label="金额" class="num">¥560.00</td><td data-label="操作"><button class="zh-btn sm text" type="button">详情</button></td></tr>
+          <tr><td data-label="订单号">A-10233</td><td data-label="客户">示例客户三</td><td data-label="状态"><span class="zh-tag danger">已取消</span></td><td data-label="金额" class="num">¥2,990.00</td><td data-label="操作"><button class="zh-btn sm text" type="button">详情</button></td></tr>
+        </tbody></table></div>
+      <nav class="zh-pg" data-zh-pager data-total="86" data-size="10" data-simple aria-label="订单分页" style="margin-top:12px"></nav>
+    </section>
+  </main>
+</div>
+<script src="@@LIB@@/zhaoui.min.js"></script>
+<script src="@@LIB@@/zhaoui-icons.min.js"></script>
+</body>
+</html>

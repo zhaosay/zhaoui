@@ -2,8 +2,9 @@
 // the things that must be absolute: canonical links, og:url, the sitemap and the llms.txt links.
 export const SITE = {
   name: 'ZhaoUI',
-  origin: 'https://ui.352m.com',   // <待确认：是否 https>  用户给了域名 ui.352m.com，协议按 https 假定
+  origin: 'https://ui.352m.com',
   base: '/',
+  repo: 'https://github.com/zhaosay/zhaoui',
   lang: 'zh-CN',
   tagline: '不依赖框架的中文 UI 组件库',
 };

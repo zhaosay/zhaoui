@@ -94,3 +94,12 @@ a.zh-btn { text-decoration: none; }
 .s-article.is-numbered h3 { counter-increment: s3; }
 .s-article.is-numbered h2::before { content: counter(s2) ". "; color: var(--zh-text-tertiary); font-variant-numeric: tabular-nums; }
 .s-article.is-numbered h3::before { content: counter(s2) "." counter(s3) " "; color: var(--zh-text-tertiary); font-variant-numeric: tabular-nums; }
+
+/* templates page: one card per template, a live preview under the text */
+.tpl-list { display: grid; gap: 24px; margin: 8px 0 32px; }
+.tpl-card { display: flex; flex-direction: column; gap: 12px; }
+.tpl-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.tpl-head h2 { margin: 0; padding: 0; font-size: 1.25em; }
+.tpl-card p { margin: 0; color: var(--zh-text-secondary); }
+.tpl-frame { display: block; width: 100%; height: 560px; margin-top: 4px; border: 1px solid var(--zh-border); border-radius: var(--zh-radius-md); background: #fff; }
+@media (max-width: 899px) { .tpl-frame { height: 480px; } }

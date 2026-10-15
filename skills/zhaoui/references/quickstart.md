@@ -31,8 +31,8 @@ ZhaoUI 的原生版只需要两个文件：一个 CSS，一个 JS。不依赖任
 
 | 文件 | 说明 | 大小 |
 |---|---|---|
-| `zhaoui.css` | Token 变量 + 全部组件样式 | 189.3 KB → 165.0 KB，gzip 28.3 KB |
-| `modular/core.css` | 核心：Token、基础、通用组件样式 | 156.8 KB → 136.4 KB，gzip 24.0 KB |
+| `zhaoui.css` | Token 变量 + 全部组件样式 | 190.2 KB → 165.2 KB，gzip 28.3 KB |
+| `modular/core.css` | 核心：Token、基础、通用组件样式 | 157.7 KB → 136.6 KB，gzip 24.0 KB |
 | `modular/select.css` | 下拉选择与级联选择的样式 | 8.8 KB → 7.8 KB，gzip 2.0 KB |
 | `modular/upload.css` | 文件上传的样式 | 4.2 KB → 3.7 KB，gzip 1.1 KB |
 | `modular/tree.css` | 树的样式 | 4.4 KB → 3.9 KB，gzip 1.2 KB |

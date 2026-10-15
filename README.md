@@ -6,6 +6,15 @@
 - 浏览器：Chrome / Edge 111+、Safari 16.4+、Firefox 113+
 - 许可证：MIT，任何人都可以免费使用、修改和分发，包括商用
 
+## English
+
+ZhaoUI is a dependency-free UI component library and design language with Chinese UI copy: **one CSS file and one JavaScript file**, components driven by `data-zh-*` attributes or the global `ZhaoUI` object, no framework and no build step. It ships dozens of accessible components (dialogs, tables, selects, date pickers, tree, upload, charts, command palette), light and dark themes, B-end and C-end looks, and a brand colour generator based on OKLCH. MIT licensed.
+
+- Website, docs, live playground: <https://ui.352m.com/>
+- Download: <https://ui.352m.com/download.html>, or `curl -fsSL https://ui.352m.com/install.sh | sh`
+- Targets Chrome and Edge 111+, Safari 16.4+, Firefox 113+. Not published to npm yet.
+- Documentation is in Chinese; the code, class names and API are English.
+
 ## 特点
 
 - 60 个组件：对话框、抽屉、表格、表单控件、下拉选择、日期选择、树、上传、基础图表、命令面板等，界面文案和键盘操作按中文使用习惯设计。
@@ -39,7 +48,7 @@ curl -fsSL https://ui.352m.com/install.sh \
   | sh -s -- --dir public/vendor/zhaoui --with icons,marketing
 ```
 
-脚本只往你指定的文件夹写文件，不用 sudo，不覆盖已有文件（除非加 `--force`），写入前用 [SHA256SUMS](https://ui.352m.com/SHA256SUMS) 校验。运行前可以先看一遍：`curl -fsSL https://ui.352m.com/install.sh`。Windows 的 PowerShell 写法和全部选项见 [下载页](https://ui.352m.com/download.html)。
+脚本只往你指定的文件夹写文件，不用 sudo，不覆盖已有文件（除非加 `--force`），写入前用 [SHA256SUMS](https://ui.352m.com/SHA256SUMS) 校验。加 `--version 0.1.0` 会固定版本，并改从 GitHub 发布取压缩包和校验值，不再依赖本站。运行前可以先看一遍：`curl -fsSL https://ui.352m.com/install.sh`。Windows 的 PowerShell 写法和全部选项见 [下载页](https://ui.352m.com/download.html)。
 
 校验值和脚本放在同一个站点上，只能发现下载损坏。要防备站点本身被改动，请对照 [GitHub 发布](https://github.com/zhaosay/zhaoui/releases)里独立保存的 `SHA256SUMS`，两处输出应该完全一样；安装脚本的源码在 [`site/install/install.sh`](site/install/install.sh)。
 
@@ -57,17 +66,17 @@ curl -fsSL https://ui.352m.com/install.sh \
 
 ## 构建和测试
 
-需要 Node.js。
+需要 Node.js 20 或更高。
 
 ```bash
 npm install
+npm run test:setup   # 下载测试用的 Chromium、Firefox、WebKit
 npm run build        # 生成 Token 和组件库，输出在 packages/*/dist
 npm run site         # 生成网站，输出在 site/dist-site
-npm test             # Token 测试
-node site/test/install.mjs   # 安装脚本测试（需要先运行 npm run site）
+npm run test:all     # 构建加全部测试
 ```
 
-组件和网站的浏览器测试（`npm run test:ui`、`npm run test:site`）用 Playwright，需要先安装 Playwright 和 axe-core，并下载 Chromium、Firefox、WebKit。
+Playwright 和 axe-core 已经写在 `devDependencies` 里，`npm install` 会装好。参与贡献请先看 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 每个组件的说明（类名、属性、事件、方法、无障碍）写在 `packages/ui/src/components/<名称>/meta.json`，文档、站点页面、`llms.txt` 都由它生成，请改这里，不要改生成出来的文件。
 

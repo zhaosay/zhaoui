@@ -1,11 +1,10 @@
 // Builds the website into site/dist-site/.  Run `npm run build` first (it makes packages/ui/dist and packages/ui/docs, which this reads).
 //   node site/build.mjs            build
 // Every page is plain HTML with relative links, so the folder can be uploaded anywhere or opened from disk.
-import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync, existsSync, readdirSync, statSync, utimesSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
-import { tmpdir } from 'node:os';
 import { gzipSync } from 'node:zlib';
 import { createHash } from 'node:crypto';
 import { abs, SITE } from './config.mjs';
@@ -16,6 +15,8 @@ import { GUIDE, guidePage, guideSide, changelogPage, designIndex, designSide } f
 import { homePage } from './lib/pages-home.mjs';
 import { playgroundPage } from './lib/pages-playground.mjs';
 import { downloadPage } from './lib/pages-download.mjs';
+import { makeZip } from './lib/zip.mjs';
+import { templatesPage, TEMPLATES } from './lib/pages-templates.mjs';
 import { checkLinks } from './lib/check-links.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url)), root = resolve(here, '..'), ui = join(root, 'packages', 'ui'), out = join(here, 'dist-site');
@@ -37,23 +38,27 @@ for (const f of readdirSync(dist)) if (statSync(join(dist, f)).isFile() && !f.en
 cpSync(join(dist, 'modular'), join(lib, 'modular'), { recursive: true, filter: (s) => !s.endsWith('.map') });
 write('assets/zhaoui/index.html', `<!doctype html><meta charset="utf-8"><title>ZhaoUI 下载文件</title><h1>ZhaoUI ${version} 下载文件</h1><ul>${[...readdirSync(lib).filter((f) => f !== 'index.html' && f !== 'modular'), ...readdirSync(join(lib, 'modular')).map((f) => 'modular/' + f)].map((f) => `<li><a href="${f}">${f}</a></li>`).join('')}</ul>`);
 // the zip of everything: the files under assets/zhaoui plus the changelog and the third-party notices, inside one folder named after the version
-const zipName = `zhaoui-${version}.zip`, stage = join(tmpdir(), `zhaoui-zip-${process.pid}`, `zhaoui-${version}`);
-rmSync(dirname(stage), { recursive: true, force: true }); mkdirSync(stage, { recursive: true });
-for (const f of readdirSync(dist)) if (statSync(join(dist, f)).isFile()) cpSync(join(dist, f), join(stage, f));
-cpSync(join(dist, 'modular'), join(stage, 'modular'), { recursive: true });
-for (const f of ['CHANGELOG.md', 'THIRD_PARTY_NOTICES.md', 'README.md']) cpSync(join(ui, f), join(stage, f));
-// reproducible: the same inputs give the same bytes, so the hash in SHA256SUMS (and in the GitHub release) stays valid across rebuilds.
-// Fixed timestamps, UTC (zip stores local time), files only (-D) and in sorted order.
-const walk = (d) => readdirSync(d, { withFileTypes: true }).flatMap((e) => e.isDirectory() ? walk(join(d, e.name)) : [join(d, e.name)]);
-const names = walk(stage).map((f) => `zhaoui-${version}/${f.slice(stage.length + 1)}`).sort();
-for (const n of names) utimesSync(join(dirname(stage), n), new Date('2026-01-01T00:00:00Z'), new Date('2026-01-01T00:00:00Z'));
-const zr = spawnSync('zip', ['-X', '-D', '-q', join(out, 'assets', zipName), '-@'], { cwd: dirname(stage), input: names.join('\n') + '\n', env: { ...process.env, TZ: 'UTC' }, encoding: 'utf8' });
-if (zr.status !== 0) { console.error('zip failed: ' + (zr.stderr || zr.error)); process.exit(1); }
-rmSync(dirname(stage), { recursive: true, force: true });
+const zipName = `zhaoui-${version}.zip`;
+makeZip({ top: `zhaoui-${version}`, out: join(out, 'assets', zipName), fill: (stage) => {
+  for (const f of readdirSync(dist)) if (statSync(join(dist, f)).isFile()) cpSync(join(dist, f), join(stage, f));
+  cpSync(join(dist, 'modular'), join(stage, 'modular'), { recursive: true });
+  for (const f of ['CHANGELOG.md', 'THIRD_PARTY_NOTICES.md', 'README.md']) cpSync(join(ui, f), join(stage, f));
+} });
+// the templates: standalone pages whose links to the library point at ../assets/zhaoui on the site and at zhaoui/ inside the zip
+const tplZipName = `zhaoui-templates-${version}.zip`, tplDir = join(here, 'templates');
+for (const t of TEMPLATES) write(`templates/${t.key}.html`, read(join(tplDir, `${t.key}.html`)).replaceAll('@@LIB@@', '../assets/zhaoui'));
+makeZip({ top: `zhaoui-templates-${version}`, out: join(out, 'assets', tplZipName), fill: (stage) => {
+  for (const t of TEMPLATES) writeFileSync(join(stage, `${t.key}.html`), read(join(tplDir, `${t.key}.html`)).replaceAll('@@LIB@@', 'zhaoui'));
+  mkdirSync(join(stage, 'zhaoui'));
+  for (const f of ['zhaoui.min.css', 'zhaoui-utilities.min.css', 'zhaoui-marketing.min.css', 'zhaoui.min.js', 'zhaoui-icons.min.js']) cpSync(join(dist, f), join(stage, 'zhaoui', f));
+  for (const f of ['THIRD_PARTY_NOTICES.md']) cpSync(join(ui, f), join(stage, 'zhaoui', f));
+  writeFileSync(join(stage, 'README.txt'), `ZhaoUI ${version} 模板\n\n用浏览器直接打开 landing.html、pricing.html、login.html、dashboard.html。\n页面里的文案、数据和价格都是占位示例，请替换成你自己的内容。\n样式和脚本在 zhaoui/ 文件夹里，移动页面时请一起带走。\n文档：${SITE.origin}/\n许可：MIT，图标来自 Lucide（见 zhaoui/THIRD_PARTY_NOTICES.md）。\n`);
+  cpSync(join(root, 'LICENSE'), join(stage, 'LICENSE'));
+} });
 // SHA256SUMS (same format as `sha256sum`, paths relative to the site root) and the installer that checks against it
 const sumsOf = [...readdirSync(lib).filter((f) => f !== 'index.html' && statSync(join(lib, f)).isFile()).map((f) => `assets/zhaoui/${f}`), `assets/${zipName}`];
 write('SHA256SUMS', sumsOf.sort().map((p) => `${createHash('sha256').update(readFileSync(join(out, p))).digest('hex')}  ${p}`).join('\n') + '\n');
-write('install.sh', read(join(here, 'install', 'install.sh')).replaceAll('@@ORIGIN@@', SITE.origin));
+write('install.sh', read(join(here, 'install', 'install.sh')).replaceAll('@@ORIGIN@@', SITE.origin).replaceAll('@@REPO@@', SITE.repo).replaceAll('@@VERSION@@', version));
 const sizeOf = (f) => { const p = join(lib, f); return existsSync(p) ? statSync(p).size : null; }, gzOf = (f) => { const p = join(lib, f); return existsSync(p) ? gzipSync(readFileSync(p), { level: 9 }).length : null; };
 const tok = join(root, 'packages', 'tokens', 'dist'); mkdirSync(join(out, 'assets', 'tokens'), { recursive: true });
 for (const f of ['zhaoui.css', 'zhaoui-style-glass.css', 'zhaoui.runtime.js']) cpSync(join(tok, f), join(out, 'assets', 'tokens', f));
@@ -80,16 +85,19 @@ add('design/index.html', designIndex({ visualHref: 'visual.html' }), { section: 
 const cside = componentSide(metas);
 add('components/index.html', componentIndex(metas, { abs }), { section: 'components', side: cside, sideLabel: '组件目录', group: '组件' });
 for (const m of order(metas)) add(`components/${m.name}.html`, componentPage(m, { metas, path: `components/${m.name}.html` }), { section: 'components', side: cside, sideLabel: '组件目录', group: '组件', keywords: [m.name, ...(m.classes || []), ...(m.attributes || []).map((a) => a.name), ...(m.events || []).map((e) => e.name), ...(m.methods || []).map((x) => x.name)].join(' ') });
+const kbOf = (n) => (n >= 1024 * 100 ? (n / 1024 / 1024).toFixed(1) + ' MB' : (n / 1024).toFixed(1) + ' KB');
+add('templates/index.html', templatesPage({ version, zip: { name: tplZipName, size: statSync(join(out, 'assets', tplZipName)).size }, kb: kbOf }), { section: 'templates', group: '模板', keywords: '模板 落地页 价格页 登录页 后台 仪表盘 下载', wide: true });
+for (const t of TEMPLATES) pages.push({ path: `templates/${t.key}.html`, title: `${t.title}模板`, description: t.desc, group: '模板', keywords: t.tags.join(' '), noindex: true });
 add('playground.html', playgroundPage({ metas }), { section: 'playground', group: '工具' });
 const coreIcons = (read(join(ui, 'docs', 'quickstart.md')).match(/(\d+) 个内置图标/) || [])[1]; if (!coreIcons) { console.error('cannot read the core icon count from docs/quickstart.md'); process.exit(1); }
-const dl = downloadPage({ version, coreIcons, repo: 'https://github.com/zhaosay/zhaoui', zip: { name: zipName, size: statSync(join(out, 'assets', zipName)).size }, sizeOf, gzOf });
+const dl = downloadPage({ version, coreIcons, repo: SITE.repo, zip: { name: zipName, size: statSync(join(out, 'assets', zipName)).size }, sizeOf, gzOf });
 const dlId = (text) => (dl.headings.find((h) => h.text === text) || {}).id;   // heading ids come from the page itself, so the side menu cannot drift from it
 const dlItem = (text) => { const id = dlId(text); if (!id) { console.error(`download page has no heading "${text}"`); process.exit(1); } return { label: text, href: `download.html#${id}` }; };
 add('download.html', dl, { section: 'download', group: '工具', sideLabel: '下载目录', keywords: '下载 压缩包 zip 命令行 安装 curl 引入 CDN 直接引用 modular 营销',
   side: [
     { title: '安装方式', items: ['下载全部文件', '命令行安装', '不下载，直接引用'].map(dlItem) },
     { title: '文件说明', items: ['核对下载的文件', '单个文件', '按需加载', '营销页区块的用法'].map(dlItem) },
-    { title: '相关页面', items: [{ label: '快速开始', href: 'guide/quickstart.html' }, { label: '营销页区块预览', href: 'components/marketing.html' }, { label: '更新日志', href: 'changelog.html' }] },
+    { title: '相关页面', items: [{ label: '快速开始', href: 'guide/quickstart.html' }, { label: '营销页区块预览', href: 'components/marketing.html' }, { label: '更新日志', href: 'changelog.html' }, { label: 'GitHub 仓库', href: SITE.repo }] },
   ] });
 add('404.html', { title: '页面不存在', description: '这个页面不存在，可能是链接写错了或页面已经搬走。', body: '<h1>页面不存在</h1><p class="s-lead">这个页面不存在，可能是链接写错了或页面已经搬走。</p><p><a class="zh-btn primary" href="index.html">回到首页</a> <a class="zh-btn" href="components/index.html">浏览组件</a></p>', home: true }, { group: '页面', noindex: true });
 

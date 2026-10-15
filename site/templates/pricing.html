@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN" data-audience="c" data-mode="light" data-density="standard">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>价格 | 价格页模板</title>
+<meta name="description" content="用 ZhaoUI 搭的价格页模板：三档价格卡、对比说明和常见问题。">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="@@LIB@@/zhaoui.min.css">
+<link rel="stylesheet" href="@@LIB@@/zhaoui-utilities.min.css">
+<link rel="stylesheet" href="@@LIB@@/zhaoui-marketing.min.css">
+</head>
+<body>
+<!-- ZhaoUI 模板：文案和数据都是占位示例，请替换成你自己的内容。样式和脚本在 @@LIB@@/ 下。 -->
+<header class="zh-nav zh-nav--contained" data-zh-nav aria-label="主导航">
+  <a class="zh-nav-logo" href="landing.html"><i aria-hidden="true"></i><span>示例科技</span></a>
+  <ul class="zh-nav-links">
+    <li><a class="zh-nav-link" href="landing.html#features">产品</a></li>
+    <li><a class="zh-nav-link" href="pricing.html" aria-current="page">价格</a></li>
+    <li><a class="zh-nav-link" href="landing.html#faq">常见问题</a></li>
+    <li><a class="zh-nav-link" href="dashboard.html">控制台</a></li>
+  </ul>
+  <div class="zh-nav-right">
+    <a class="zh-btn" href="login.html">登录</a>
+    <a class="zh-btn primary" href="pricing.html">免费试用</a>
+  </div>
+</header>
+<main id="main">
+  <section class="zh-section zh-section--center" id="pricing">
+    <div class="zh-wrap">
+      <p class="zh-eyebrow">价格</p>
+      <h1 class="zh-section-title">选一个适合现在的方案</h1>
+      <p class="zh-section-sub">所有方案都可以随时升级或取消。下面的价格是占位示例。</p>
+      <div class="zh-feature-grid">
+        <div class="zh-card zh-price"><p class="zh-price-name">基础版</p><div class="zh-price-amount">¥0<small>/月</small></div><p class="zh-price-desc">个人试用，够用就好</p>
+          <ul class="zh-price-list"><li><i data-i="check"></i>1 个项目</li><li><i data-i="check"></i>基础统计</li><li><i data-i="check"></i>社区支持</li></ul><a class="zh-btn lg" href="login.html">免费开始</a></div>
+        <div class="zh-card zh-price zh-price--popular"><span class="zh-tag zh-tag--filled primary zh-price-flag">最受欢迎</span><p class="zh-price-name">专业版</p><div class="zh-price-amount">¥99<small>/月</small></div><p class="zh-price-desc">小团队的日常协作</p>
+          <ul class="zh-price-list"><li><i data-i="check"></i>不限项目数</li><li><i data-i="check"></i>完整统计与导出</li><li><i data-i="check"></i>10 个成员</li><li><i data-i="check"></i>邮件支持</li></ul><a class="zh-btn primary lg" href="login.html">选择专业版</a></div>
+        <div class="zh-card zh-price"><p class="zh-price-name">企业版</p><div class="zh-price-amount">联系我们</div><p class="zh-price-desc">更大的规模与定制需求</p>
+          <ul class="zh-price-list"><li><i data-i="check"></i>专业版全部功能</li><li><i data-i="check"></i>单点登录与权限</li><li><i data-i="check"></i>专属支持</li></ul><a class="zh-btn lg" href="#contact">联系销售</a></div>
+      </div>
+    </div>
+  </section>
+  <section class="zh-section zh-section--subtle">
+    <div class="zh-wrap" style="max-width:56rem">
+      <h2 class="zh-section-title">方案对比</h2>
+      <div class="zh-table-wrap" style="margin-top:28px"><table class="zh-table">
+        <thead><tr><th scope="col">功能</th><th scope="col">基础版</th><th scope="col">专业版</th><th scope="col">企业版</th></tr></thead>
+        <tbody>
+          <tr><th scope="row" data-label="功能">项目数</th><td data-label="基础版">1</td><td data-label="专业版">不限</td><td data-label="企业版">不限</td></tr>
+          <tr><th scope="row" data-label="功能">成员数</th><td data-label="基础版">1</td><td data-label="专业版">10</td><td data-label="企业版">按需</td></tr>
+          <tr><th scope="row" data-label="功能">数据导出</th><td data-label="基础版">仅查看</td><td data-label="专业版">CSV</td><td data-label="企业版">CSV 与接口</td></tr>
+          <tr><th scope="row" data-label="功能">支持</th><td data-label="基础版">社区</td><td data-label="专业版">邮件</td><td data-label="企业版">专属</td></tr>
+        </tbody></table></div>
+    </div>
+  </section>
+  <section class="zh-section" id="faq">
+    <div class="zh-wrap" style="max-width:52rem">
+      <p class="zh-eyebrow">常见问题</p>
+      <h2 class="zh-section-title">你可能想先知道</h2>
+      <div class="zh-collapse" data-mode="single" style="margin-top:32px">
+        <div class="zh-collapse-item is-open"><h3 class="zh-collapse-h"><button class="zh-collapse-trigger" type="button"><span class="lead">可以先免费试用吗？</span><i data-i="chevron-right" class="zh-collapse-chev"></i></button></h3>
+          <div class="zh-collapse-panel"><div class="zh-collapse-inner"><div class="zh-collapse-content">可以。基础版不需要绑定付款方式，随时可以升级。</div></div></div></div>
+        <div class="zh-collapse-item"><h3 class="zh-collapse-h"><button class="zh-collapse-trigger" type="button"><span class="lead">数据保存在哪里？</span><i data-i="chevron-right" class="zh-collapse-chev"></i></button></h3>
+          <div class="zh-collapse-panel"><div class="zh-collapse-inner"><div class="zh-collapse-content">这里写你的真实说明。模板里的文字都是占位。</div></div></div></div>
+        <div class="zh-collapse-item"><h3 class="zh-collapse-h"><button class="zh-collapse-trigger" type="button"><span class="lead">怎么取消订阅？</span><i data-i="chevron-right" class="zh-collapse-chev"></i></button></h3>
+          <div class="zh-collapse-panel"><div class="zh-collapse-inner"><div class="zh-collapse-content">在账户设置里随时取消，当前周期结束后不再扣费。</div></div></div></div>
+      </div>
+    </div>
+  </section>
+  <section class="zh-section zh-section--brand" id="contact">
+    <div class="zh-wrap"><h2 class="zh-section-title">还有疑问？</h2><p class="zh-section-sub" style="margin:0 auto 24px">告诉我们你的场景，我们帮你选方案。</p><a class="zh-btn xl" href="#">联系销售</a></div>
+  </section>
+</main>
+<footer class="zh-footer">
+  <span>© 2026 示例科技。保留所有权利。</span>
+  <ul class="zh-footer-links"><li><a href="#">隐私政策</a></li><li><a href="#">服务条款</a></li><li><a href="#">联系我们</a></li></ul>
+</footer>
+<script src="@@LIB@@/zhaoui.min.js"></script>
+<script src="@@LIB@@/zhaoui-icons.min.js"></script>
+</body>
+</html>

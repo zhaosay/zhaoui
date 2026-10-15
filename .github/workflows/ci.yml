@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # The component tests, once per browser engine: full and minified files, the modular files, and the axe audit.
+  browsers:
+    name: tests (${{ matrix.engine }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        engine: [chromium, firefox, webkit]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps ${{ matrix.engine }}
+      - run: npm run build
+      - name: Token tests
+        run: npm test
+      - name: Types
+        run: npm run typecheck -w @zhaoui/ui
+      - name: Browser tests (${{ matrix.engine }})
+        run: node packages/ui/test/matrix.mjs ${{ matrix.engine }}
+
+  # The website, the installer, the package and the demo page.
+  site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      - name: Build the site (also checks every relative link and anchor)
+        run: npm run site
+      - run: npm run test:site
+      - name: A released version stays identical to its GitHub release
+        run: npm run check:release
+      - name: Installer
+        run: npm run test:install
+      - name: Package contents
+        run: npm run verify-pack -w @zhaoui/ui
+      - name: Demo page
+        run: node demo/scan.mjs
+
+  # Windows: the library has been reported to render differently there and has never been tested on it, so this job is what finds out.
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install chromium
+      - run: npm run build
+      - name: Browser tests (chromium)
+        run: node packages/ui/test/matrix.mjs chromium
+      - run: npm run site
+      - run: npm run test:site

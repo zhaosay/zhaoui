@@ -3,7 +3,7 @@ name: zhaoui
 description: Build or edit web pages with the ZhaoUI design language (zhaoui.css + zhaoui.js, no framework). Use when the user asks for a page, form, dialog, drawer, tabs, dropdown or message in ZhaoUI style, or when a page already links zhaoui.css / uses zh- classes or data-zh-* attributes.
 ---
 
-# ZhaoUI 0.1.0
+# ZhaoUI 0.1.1
 
 ZhaoUI 原生版：一个 CSS、一个 JS，不依赖框架。组件用 `data-zh-*` 属性声明，或调用全局对象 `ZhaoUI`。
 

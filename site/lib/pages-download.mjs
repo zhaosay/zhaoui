@@ -58,6 +58,7 @@ curl -fsSL ${abs('').replace(/\/$/, '')}/install.sh \\
 | \`--dir 文件夹\` | 装到哪个文件夹，默认 \`zhaoui\` |
 | \`--with 列表\` | 额外的文件，逗号分隔：\`icons\`（更多图标）、\`utilities\`（公共类）、\`marketing\`（营销页区块）、\`glass\`（玻璃风格） |
 | \`--all\` | 下载包含全部文件的压缩包，而不是单个文件 |
+| \`--version 版本\` | 固定版本，从 GitHub 发布取压缩包和校验值（见下面的“核对下载的文件”），隐含 \`--all\` |
 | \`--force\` | 覆盖已存在的文件，不加这个选项时遇到同名文件会停下，什么都不写 |
 
 这个脚本很短，运行前可以先看一遍：\`curl -fsSL ${abs('').replace(/\/$/, '')}/install.sh\`。它需要 curl 或 wget，只往你指定的文件夹写文件，不使用 sudo。写入前会用 [SHA256SUMS](SHA256SUMS) 校验每个文件，不一致就整体放弃。要注意，校验文件和脚本来自同一个站点，它能发现下载损坏，防不了站点本身被篡改。
@@ -86,7 +87,13 @@ curl -fsSL ${repo}/releases/download/v${version}/SHA256SUMS
 curl -fsSL ${abs('').replace(/\/$/, '')}/SHA256SUMS
 \`\`\`
 
-两条命令的输出应该完全一样。压缩包每次构建都得到同样的字节，所以 GitHub 发布里的 \`zhaoui-${version}.zip\` 和本站的是同一个文件。安装脚本的源码在 [GitHub](${repo}/blob/main/site/install/install.sh)，里面的 \`@@ORIGIN@@\` 在发布时换成本站地址，其余一字不差。
+两条命令的输出应该完全一样。想一步到位，可以让安装脚本直接从 GitHub 发布取文件，并用发布里的校验值核对，不再依赖本站：
+
+\`\`\`bash
+curl -fsSL ${abs('').replace(/\/$/, '')}/install.sh | sh -s -- --version ${version}
+\`\`\`
+
+这样压缩包和校验值都来自 GitHub，只有脚本本身还来自本站，所以想更稳妥，就把脚本先下载下来看一遍再运行。压缩包每次构建都得到同样的字节，所以 GitHub 发布里的 \`zhaoui-${version}.zip\` 和本站的是同一个文件。安装脚本的源码在 [GitHub](${repo}/blob/main/site/install/install.sh)，里面的 \`@@ORIGIN@@\` 在发布时换成本站地址，其余一字不差。
 
 ## 单个文件
 

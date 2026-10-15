@@ -6,6 +6,7 @@ export const TOP = [
   { key: 'guide', label: '指南', href: 'guide/quickstart.html', icon: 'book-open' },
   { key: 'design', label: '设计', href: 'design/index.html', icon: 'palette' },
   { key: 'components', label: '组件', href: 'components/index.html', icon: 'layout-dashboard' },
+  { key: 'templates', label: '模板', href: 'templates/index.html', icon: 'layout-grid' },
   { key: 'playground', label: '在线试用', href: 'playground.html', icon: 'play' },
   { key: 'download', label: '下载', href: 'download.html', icon: 'download' },
   { key: 'changelog', label: '更新日志', href: 'changelog.html', icon: 'history' },
@@ -56,7 +57,8 @@ export function page(o) {
 <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
 <link rel="canonical" href="${url}">
 <meta property="og:type" content="${home ? 'website' : ogType}"><meta property="og:site_name" content="${SITE.name}"><meta property="og:locale" content="zh_CN"><meta property="og:title" content="${esc(full)}"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${url}">
-<meta name="twitter:card" content="summary"><meta name="twitter:title" content="${esc(full)}"><meta name="twitter:description" content="${esc(description)}">
+<meta property="og:image" content="${abs('assets/og.png')}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="ZhaoUI：不依赖框架的中文 UI 组件库">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(full)}"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="${abs('assets/og.png')}">
 <link rel="alternate" type="text/plain" href="${abs('llms.txt')}" title="llms.txt">
 <link rel="icon" href="${R('assets/favicon.svg')}" type="image/svg+xml">
 <link rel="stylesheet" href="${R(ver('assets/zhaoui/zhaoui.min.css'))}">
@@ -101,7 +103,7 @@ ${toc ? `<div class="s-toc">${toc}</div>` : ''}
 </div>`}
 <footer class="zh-footer s-footer">
   <span>${SITE.name} ${o.version || ''} · 许可证尚未确定（目前仅团队内部使用）</span>
-  <nav aria-label="页脚"><ul class="zh-footer-links"><li><a href="${R('guide/quickstart.html')}">快速开始</a></li><li><a href="${R('components/index.html')}">组件</a></li><li><a href="${R('changelog.html')}">更新日志</a></li><li><a href="${R('llms.txt')}">llms.txt</a></li><li><a href="${R('llms-full.txt')}">llms-full.txt</a></li><li><a href="${R('sitemap.xml')}">站点地图</a></li><li><a href="${R('assets/zhaoui/')}">下载文件</a></li></ul></nav>
+  <nav aria-label="页脚"><ul class="zh-footer-links"><li><a href="${R('guide/quickstart.html')}">快速开始</a></li><li><a href="${R('components/index.html')}">组件</a></li><li><a href="${R('changelog.html')}">更新日志</a></li><li><a href="${R('llms.txt')}">llms.txt</a></li><li><a href="${R('llms-full.txt')}">llms-full.txt</a></li><li><a href="${R('sitemap.xml')}">站点地图</a></li><li><a href="${R('download.html')}">下载</a></li><li><a href="${SITE.repo}" rel="noopener">GitHub</a></li></ul></nav>
 </footer>
 ${side ? `<aside class="zh-drawer zh-drawer--left" id="s-drawer" aria-label="${esc(sideLabel)}"><div class="s-drawer-head"><strong>${esc(sideLabel)}</strong><button class="zh-btn sm text" type="button" data-zh-close>关闭</button></div>${sideHtml(side, path, sideLabel + '（手机）')}</aside>` : ''}
 <script src="${R(ver('assets/search-index.js'))}"></script>

@@ -1,8 +1,10 @@
 // Browser checks on the built site: every page loads without errors, nothing sticks out sideways, search / theme / playground / copy work, and an axe audit of key pages.
 import assert from 'node:assert/strict';
-import { readdirSync, statSync, readFileSync } from 'node:fs';
+import { readdirSync, statSync, readFileSync, writeFileSync, existsSync, mkdtempSync, rmSync } from 'node:fs';
 import { join, dirname, relative } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { tmpdir } from 'node:os';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { createServer } from 'node:http';
 import { loadPlaywright, launch, resolveNearPlaywright } from '../../packages/ui/test/env.mjs';
 
@@ -54,7 +56,7 @@ await check('component page: live example, code, API, FAQ, previous/next, canoni
 await check('download: a nav item on every kind of page, a zip that downloads and unpacks, file links that download, and a phone does not scroll sideways', async (p) => {
   for (const pg of ['index.html', 'guide/quickstart.html', 'components/tree.html', 'design/index.html']) {
     await open(p, pg);
-    assert.deepEqual(await p.evaluate(() => [...document.querySelectorAll('.zh-nav-links a')].map((a) => a.textContent.trim())), ['指南', '设计', '组件', '在线试用', '下载', '更新日志'], `${pg}: top navigation`);
+    assert.deepEqual(await p.evaluate(() => [...document.querySelectorAll('.zh-nav-links a')].map((a) => a.textContent.trim())), ['指南', '设计', '组件', '模板', '在线试用', '下载', '更新日志'], `${pg}: top navigation`);
   }
   await open(p, 'download.html');
   const r = await p.evaluate(() => ({ btn: document.querySelector('a.zh-btn.primary[download]')?.getAttribute('href'), files: [...document.querySelectorAll('.doc-body table a, article table a, main table a')].map((a) => [a.getAttribute('href'), a.hasAttribute('download')]), current: document.querySelector('.zh-nav-links a[aria-current="page"]')?.textContent.trim(), h1: document.querySelectorAll('h1').length }));
@@ -82,6 +84,51 @@ await check('text fills its column: paragraphs, lead text and code blocks are th
     assert.ok(r.n >= 1, `${pg}: has paragraphs`); assert.deepEqual(r.short, [], `${pg}: paragraphs narrower than the article (${r.art}px)`);
   }
 }, 1920);
+await check('share picture and links: og:image points at a real 1200x630 image, the footer links to GitHub and to the download page', async (p) => {
+  for (const pg of ['index.html', 'components/tree.html', 'download.html']) {
+    await open(p, pg);
+    const r = await p.evaluate(() => ({ og: document.querySelector('meta[property="og:image"]')?.content, tw: document.querySelector('meta[name="twitter:card"]')?.content, w: document.querySelector('meta[property="og:image:width"]')?.content, h: document.querySelector('meta[property="og:image:height"]')?.content, footer: [...document.querySelectorAll('.s-footer a')].map((a) => a.textContent.trim() + ' ' + a.getAttribute('href')) }));
+    assert.equal(r.og, 'https://ui.352m.com/assets/og.png', pg); assert.equal(r.tw, 'summary_large_image'); assert.deepEqual([r.w, r.h], ['1200', '630']);
+    assert.ok(r.footer.some((f) => /^GitHub https:\/\/github\.com\/zhaosay\/zhaoui$/.test(f)), `${pg}: GitHub link in the footer`); assert.ok(r.footer.some((f) => /^下载 .*download\.html$/.test(f)), `${pg}: download link in the footer`);
+  }
+  const png = await p.request.get(url('assets/og.png')); assert.equal(png.status(), 200); const buf = await png.body(); assert.deepEqual([buf.readUInt32BE(16), buf.readUInt32BE(20)], [1200, 630], 'the file really is 1200x630');
+});
+const TPL = ['landing', 'pricing', 'login', 'dashboard'];
+for (const w of [1280, 390]) await check(`templates at ${w}px: each loads without errors, has one h1, does not scroll sideways, and is actually styled`, async (p) => {
+  for (const k of TPL) {
+    await open(p, `templates/${k}.html`); await p.waitForTimeout(300);
+    const r = await p.evaluate(() => ({ h1: document.querySelectorAll('h1').length, wide: document.documentElement.scrollWidth - innerWidth, title: document.title, main: !!document.querySelector('main'), unstyled: [...document.querySelectorAll('.zh-btn.primary')].filter((b) => getComputedStyle(b).backgroundColor === 'rgba(0, 0, 0, 0)').length, unknownIcons: [...document.querySelectorAll('i[data-i]')].filter((i) => !i.querySelector('svg')).length }));
+    assert.equal(r.h1, 1, `${k}: h1`); assert.ok(r.wide <= 0, `${k}: sideways scroll ${r.wide}px`); assert.ok(r.title.length > 3 && r.main, `${k}: title and main landmark`);
+    assert.equal(r.unstyled, 0, `${k}: primary buttons are styled`); assert.equal(r.unknownIcons, 0, `${k}: every icon name exists in the icon pack`);
+  }
+}, w);
+await check('templates: pages interact (login validates, pricing FAQ opens, dashboard pager and tabs are wired) and the index lists them with previews', async (p) => {
+  await open(p, 'templates/login.html'); await p.click('button[type=submit]'); await p.waitForTimeout(150);
+  assert.equal(await p.evaluate(() => document.getElementById('l-mail').getAttribute('aria-invalid')), 'true'); assert.match(await p.evaluate(() => document.getElementById('l-mail-h').textContent), /邮箱/);
+  await p.fill('#l-mail', 'a@b.co'); await p.fill('#l-pass', 'x'); await p.click('button[type=submit]'); await p.waitForTimeout(250);
+  assert.equal(await p.evaluate(() => document.querySelectorAll('.zh-message').length > 0), true, 'valid input shows the message');
+  await open(p, 'templates/pricing.html'); await p.click('#faq .zh-collapse-item:nth-child(2) .zh-collapse-trigger'); await p.waitForTimeout(350);
+  assert.equal(await p.evaluate(() => document.querySelectorAll('#faq .zh-collapse-item.is-open').length), 1);
+  await open(p, 'templates/dashboard.html'); await p.waitForTimeout(400);
+  assert.equal(await p.evaluate(() => [document.querySelectorAll('.zh-chart svg').length, document.querySelectorAll('.zh-pg button').length > 0, document.querySelectorAll('.zh-tabs [role=tab][tabindex]').length > 0, document.querySelector('.zh-side a[aria-current=page]')?.textContent.trim()].join()), '2,true,true,概览');
+  await open(p, 'templates/index.html');
+  assert.deepEqual(await p.evaluate(() => [...document.querySelectorAll('.tpl-card iframe')].map((f) => f.getAttribute('src'))), TPL.map((k) => `${k}.html`)); assert.equal(await p.evaluate(() => !!document.querySelector('a.zh-btn.primary[download]')?.getAttribute('href').match(/zhaoui-templates-[\d.]+\.zip$/)), true);
+});
+await check('templates zip: unpacks, every local file a page refers to is in it, and a page opened from disk is styled and error free', async (p) => {
+  const dir = mkdtempSync(join(tmpdir(), 'zh-tpl-')); try {
+    await open(p, 'templates/index.html'); const href = await p.evaluate(() => document.querySelector('a.zh-btn.primary[download]').getAttribute('href'));
+    const res = await p.request.get(new URL(href, p.url()).href); assert.equal(res.status(), 200); writeFileSync(join(dir, 'x.zip'), await res.body());
+    const u = spawnSync('unzip', ['-q', 'x.zip'], { cwd: dir, encoding: 'utf8' }); assert.equal(u.status, 0, u.stderr);
+    const top = readdirSync(dir).find((n) => n.startsWith('zhaoui-templates-')); assert.ok(top, 'one top folder');
+    for (const k of TPL) { const html = readFileSync(join(dir, top, `${k}.html`), 'utf8');
+      for (const m of html.matchAll(/(?:href|src)="([^"#?]+)[^"]*"/g)) { if (/^(https?:|data:|mailto:)/.test(m[1])) continue; assert.ok(existsSync(join(dir, top, m[1])), `${k}.html refers to ${m[1]}, which is not in the zip`); }
+      assert.equal(/@@LIB@@|\.\.\/assets/.test(html), false, `${k}.html has no site-only paths`); }
+    assert.ok(existsSync(join(dir, top, 'LICENSE')) && existsSync(join(dir, top, 'README.txt')));
+    const errs = []; const q = await b.newPage(); q.on('console', (m) => { if (m.type() === 'error') errs.push(m.text()); }); q.on('pageerror', (e) => errs.push(e.message));
+    await q.goto(pathToFileURL(join(dir, top, 'landing.html')).href); await q.waitForTimeout(500);
+    assert.equal(await q.evaluate(() => getComputedStyle(document.querySelector('.zh-btn.primary')).backgroundColor !== 'rgba(0, 0, 0, 0)' && document.querySelectorAll('svg').length > 3), true, 'styled and icons drawn'); assert.deepEqual(errs, [], 'no errors from disk'); await q.close();
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});
 await check('asset links carry a content hash, so an edge cache cannot keep serving an old stylesheet or script', async (p) => {
   const seen = new Set();
   for (const pg of ['index.html', 'components/result.html', 'download.html', 'playground.html']) {
@@ -139,14 +186,15 @@ if (axePath) {
   const axe = readFileSync(axePath, 'utf8');
   for (const [mode, aud] of [['light', 'b'], ['dark', 'b'], ['light', 'c']]) await check(`axe (${mode}/${aud}): home, guide, design, components, playground`, async (p) => {
     const found = [];
-    for (const pg of ['index.html', 'guide/quickstart.html', 'design/index.html', 'components/index.html', 'components/table.html', 'components/upload.html', 'components/chart.html', 'playground.html', 'download.html', 'changelog.html']) {
+    for (const pg of ['index.html', 'guide/quickstart.html', 'design/index.html', 'components/index.html', 'components/table.html', 'components/upload.html', 'components/chart.html', 'playground.html', 'download.html', 'templates/index.html', 'templates/landing.html', 'templates/pricing.html', 'templates/login.html', 'templates/dashboard.html', 'changelog.html']) {
       await p.goto(url(pg)); await p.waitForTimeout(300); await p.evaluate(([m, a]) => ZhaoUI.setTheme({ mode: m, audience: a }), [mode, aud]); await p.waitForTimeout(200);
       await p.evaluate(axe); const r = await p.evaluate(() => axe.run({ exclude: [['#pg-frame']] }, { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21aa', 'best-practice'] } }));
       r.violations.filter((v) => v.id !== 'heading-order').forEach((v) => found.push(`${pg} ${v.id} x${v.nodes.length}: ${v.nodes[0].target.join(' ').slice(0, 80)}`));
     }
     assert.deepEqual(found, []);
   });
-} else console.log('skip axe: axe-core not installed next to Playwright');
+} else if (process.env.ZH_SKIP_AXE === '1') console.log('skip axe: ZH_SKIP_AXE=1');
+else { failed++; console.log('FAIL axe audit: axe-core is not installed (npm install at the repository root; set ZH_SKIP_AXE=1 to skip on purpose)'); }
 
 console.log(failed ? `FAILED [site]: ${passed} passed, ${failed} failed` : `ok [site]: ${passed} passed, 0 failed`);
 await b.close(); server.close(); process.exit(failed ? 1 : 0);

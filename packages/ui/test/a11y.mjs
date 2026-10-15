@@ -5,7 +5,11 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { loadPlaywright, launch, fileUrl, resolveNearPlaywright } from './env.mjs';
 const axePath = resolveNearPlaywright('axe-core/axe.min.js');
-if (!axePath) { console.log('skip [a11y]: axe-core not installed (npm i axe-core next to Playwright)'); process.exit(0); }
+if (!axePath) {
+  // a missing audit must not look like a passing one: it is only skipped when you ask for it
+  if (process.env.ZH_SKIP_AXE === '1') { console.log('skip [a11y]: ZH_SKIP_AXE=1'); process.exit(0); }
+  console.log('FAILED [a11y]: axe-core is not installed (npm install at the repository root; set ZH_SKIP_AXE=1 to skip on purpose)'); process.exit(1);
+}
 const axe = readFileSync(axePath, 'utf8'), pw = loadPlaywright(), b = await launch(pw, 'chromium');
 const page = fileUrl(join(dirname(fileURLToPath(import.meta.url)), '..', 'docs', 'gallery.html'));
 const IGNORE = new Set(['heading-order']);

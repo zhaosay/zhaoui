@@ -1,5 +1,6 @@
 // Shared by the browser tests: finds Playwright, launches an engine, and builds file:// URLs.  Works on macOS, Linux and Windows.
-// Playwright is looked up in $PW_DIR, then <tmpdir>/pw (the old default), then normal module resolution from this package.
+// Playwright is looked up by normal module resolution from this repository first (npm install at the root installs it),
+// then in $PW_DIR, then <tmpdir>/pw (the old default).
 import { createRequire } from 'node:module';
 import { pathToFileURL } from 'node:url';
 import { tmpdir, homedir } from 'node:os';
@@ -7,12 +8,12 @@ import { join } from 'node:path';
 import { existsSync, readdirSync } from 'node:fs';
 
 export function loadPlaywright() {
-  const dirs = [process.env.PW_DIR, join(tmpdir(), 'pw'), '/tmp/pw'].filter(Boolean).map((d) => join(d, 'x.js')).concat(import.meta.url);
+  const dirs = [import.meta.url, ...[process.env.PW_DIR, join(tmpdir(), 'pw'), '/tmp/pw'].filter(Boolean).map((d) => join(d, 'x.js'))];
   for (const d of dirs) {
     const req = createRequire(d);
     for (const name of ['playwright', 'playwright-core']) { try { return req(name); } catch {} }
   }
-  throw new Error('Playwright not found. Install it (npm i playwright) in $PW_DIR or ' + join(tmpdir(), 'pw') + ', then run again.');
+  throw new Error('Playwright not found. Run npm install at the repository root, then npm run test:setup to download the browsers.');
 }
 
 export const fileUrl = (path) => pathToFileURL(path).href;
@@ -48,7 +49,7 @@ export async function launch(pw, engine = process.env.ENGINE || 'chromium') {
 
 /** Resolve an extra package (e.g. axe-core) next to Playwright. */
 export function resolveNearPlaywright(name) {
-  const dirs = [process.env.PW_DIR, join(tmpdir(), 'pw'), '/tmp/pw'].filter(Boolean).map((d) => join(d, 'x.js')).concat(import.meta.url);
+  const dirs = [import.meta.url, ...[process.env.PW_DIR, join(tmpdir(), 'pw'), '/tmp/pw'].filter(Boolean).map((d) => join(d, 'x.js'))];
   for (const d of dirs) { try { return createRequire(d).resolve(name); } catch {} }
   return null;
 }

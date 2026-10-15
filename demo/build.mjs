@@ -5,6 +5,7 @@
 import { readFileSync, writeFileSync, readdirSync, existsSync, statSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { readBase } from './base.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, '..', '..');
@@ -15,7 +16,7 @@ const only = opt('--only') ? opt('--only').split(',') : null;
 
 const dirs = readdirSync(join(here, 'fragments')).filter((d) => statSync(join(here, 'fragments', d)).isDirectory()).sort();
 const read = (d, f) => (existsSync(join(here, 'fragments', d, f)) ? readFileSync(join(here, 'fragments', d, f), 'utf8') : '');
-let html = readFileSync(join(here, 'base.html'), 'utf8');
+let html = readBase();   // base.html with the pieces in demo/base/ put back
 const css = [], cssLast = [], js = [], sections = [], toc = [], topSections = [], topToc = [];
 const problems = [];
 
