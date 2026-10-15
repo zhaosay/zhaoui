@@ -2,7 +2,7 @@
 
 版本号遵循语义化版本。0.x 阶段接口可能调整。
 
-## 0.1.0（未发布，团队内部使用）
+## 0.1.0（2026-10-15 首次公开，MIT 许可证）
 
 首个版本。原生版 = 一个 CSS 加一个 JS，组件用 `data-zh-*` 属性声明。
 
@@ -40,3 +40,5 @@
 - 部分组件内部类名没有 `zh-` 前缀（如 `.body`、`.lead`、`.icon`），与宿主页面样式有冲突的可能。
 
 **渐变强调色与装饰类**：品牌色之外新增三个强调色 Token `--zh-accent-a/b/c`（由品牌色在 OKLCH 里旋转色相生成，随 `setBrand()` 变化，在白底和深色底上都保证至少 3:1，只用于大字、数字和装饰）和 `--zh-gradient-accent`；`zhaoui-marketing.css` 增加可选装饰类 `zh-aurora`（三团光斑，`zh-aurora--grid` 加网格线，`zh-aurora-stage` 作舞台）、`zh-glass-tag`、`zh-gradient-text`、`zh-index`（渐变序号）、`zh-stats-bar`、`zh-btn gradient`。通用细节并入默认外观：大标题字距收紧到 -0.04em、行高 1.06，眉题前加短横线。暗色光斑区块在外层元素上写 `data-mode="dark"` 即可，不单设主题预设。
+
+**公开发布**：源码在 GitHub 公开（MIT 许可证），网站 ui.352m.com 上线。下载页提供全部文件的压缩包、命令行安装脚本（`install.sh`，写入前用 `SHA256SUMS` 校验）和核对方法；压缩包可复现，同样的内容得到同样的哈希，GitHub 发布里保存一份独立的校验值。资源链接带内容哈希，更新后不会被边缘缓存卡住。

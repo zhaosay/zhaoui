@@ -20,7 +20,7 @@ const MODULAR = [
 
 const kb = (n) => (n >= 1024 * 100 ? (n / 1024 / 1024).toFixed(1) + ' MB' : (n / 1024).toFixed(1) + ' KB');
 
-export function downloadPage({ version, zip, sizeOf, gzOf, coreIcons }) {
+export function downloadPage({ version, zip, sizeOf, gzOf, coreIcons, repo }) {
   const size = (f) => { const b = sizeOf(f); return b == null ? '-' : kb(b); }, gz = (f) => { const b = gzOf(f); return b == null ? '-' : kb(b); };
   const row = ([f, d]) => `| [${f}](assets/zhaoui/${f}) | ${d} | ${size(f)} | ${gz(f)} |`;
   const modRow = ([m, d]) => { const js = `${m}.min.js`, css = `${m}.min.css`, hasCss = sizeOf(css) != null;
@@ -76,6 +76,17 @@ Invoke-WebRequest ${abs('').replace(/\/$/, '')}/assets/zhaoui/zhaoui.min.js -Out
 \`\`\`
 
 安装脚本在 Windows 上请用 Git Bash 或 WSL 运行。Windows 的这几条命令我没有在真实的 Windows 上测过。
+
+## 核对下载的文件
+
+本站的 \`SHA256SUMS\` 列出了每个文件的 SHA-256。校验值和文件在同一个站点上，只能发现下载损坏。要防备站点本身被人改动，请对照 GitHub 上独立保存的一份，两处账号和权限互不相干：
+
+\`\`\`bash
+curl -fsSL ${repo}/releases/download/v${version}/SHA256SUMS
+curl -fsSL ${abs('').replace(/\/$/, '')}/SHA256SUMS
+\`\`\`
+
+两条命令的输出应该完全一样。压缩包每次构建都得到同样的字节，所以 GitHub 发布里的 \`zhaoui-${version}.zip\` 和本站的是同一个文件。安装脚本的源码在 [GitHub](${repo}/blob/main/site/install/install.sh)，里面的 \`@@ORIGIN@@\` 在发布时换成本站地址，其余一字不差。
 
 ## 单个文件
 

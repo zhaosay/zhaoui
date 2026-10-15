@@ -41,6 +41,8 @@ curl -fsSL https://ui.352m.com/install.sh \
 
 脚本只往你指定的文件夹写文件，不用 sudo，不覆盖已有文件（除非加 `--force`），写入前用 [SHA256SUMS](https://ui.352m.com/SHA256SUMS) 校验。运行前可以先看一遍：`curl -fsSL https://ui.352m.com/install.sh`。Windows 的 PowerShell 写法和全部选项见 [下载页](https://ui.352m.com/download.html)。
 
+校验值和脚本放在同一个站点上，只能发现下载损坏。要防备站点本身被改动，请对照 [GitHub 发布](https://github.com/zhaosay/zhaoui/releases)里独立保存的 `SHA256SUMS`，两处输出应该完全一样；安装脚本的源码在 [`site/install/install.sh`](site/install/install.sh)。
+
 更多用法见 [快速开始](https://ui.352m.com/guide/quickstart.html)。暂未发布到 npm。
 
 ## 仓库结构

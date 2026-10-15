@@ -1,7 +1,7 @@
 // Builds the website into site/dist-site/.  Run `npm run build` first (it makes packages/ui/dist and packages/ui/docs, which this reads).
 //   node site/build.mjs            build
 // Every page is plain HTML with relative links, so the folder can be uploaded anywhere or opened from disk.
-import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync, existsSync, readdirSync, statSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync, existsSync, readdirSync, statSync, utimesSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
@@ -42,7 +42,12 @@ rmSync(dirname(stage), { recursive: true, force: true }); mkdirSync(stage, { rec
 for (const f of readdirSync(dist)) if (statSync(join(dist, f)).isFile()) cpSync(join(dist, f), join(stage, f));
 cpSync(join(dist, 'modular'), join(stage, 'modular'), { recursive: true });
 for (const f of ['CHANGELOG.md', 'THIRD_PARTY_NOTICES.md', 'README.md']) cpSync(join(ui, f), join(stage, f));
-const zr = spawnSync('zip', ['-r', '-X', '-q', join(out, 'assets', zipName), `zhaoui-${version}`], { cwd: dirname(stage), encoding: 'utf8' });
+// reproducible: the same inputs give the same bytes, so the hash in SHA256SUMS (and in the GitHub release) stays valid across rebuilds.
+// Fixed timestamps, UTC (zip stores local time), files only (-D) and in sorted order.
+const walk = (d) => readdirSync(d, { withFileTypes: true }).flatMap((e) => e.isDirectory() ? walk(join(d, e.name)) : [join(d, e.name)]);
+const names = walk(stage).map((f) => `zhaoui-${version}/${f.slice(stage.length + 1)}`).sort();
+for (const n of names) utimesSync(join(dirname(stage), n), new Date('2026-01-01T00:00:00Z'), new Date('2026-01-01T00:00:00Z'));
+const zr = spawnSync('zip', ['-X', '-D', '-q', join(out, 'assets', zipName), '-@'], { cwd: dirname(stage), input: names.join('\n') + '\n', env: { ...process.env, TZ: 'UTC' }, encoding: 'utf8' });
 if (zr.status !== 0) { console.error('zip failed: ' + (zr.stderr || zr.error)); process.exit(1); }
 rmSync(dirname(stage), { recursive: true, force: true });
 // SHA256SUMS (same format as `sha256sum`, paths relative to the site root) and the installer that checks against it
@@ -77,13 +82,13 @@ add('components/index.html', componentIndex(metas, { abs }), { section: 'compone
 for (const m of order(metas)) add(`components/${m.name}.html`, componentPage(m, { metas, path: `components/${m.name}.html` }), { section: 'components', side: cside, sideLabel: '组件目录', group: '组件', keywords: [m.name, ...(m.classes || []), ...(m.attributes || []).map((a) => a.name), ...(m.events || []).map((e) => e.name), ...(m.methods || []).map((x) => x.name)].join(' ') });
 add('playground.html', playgroundPage({ metas }), { section: 'playground', group: '工具' });
 const coreIcons = (read(join(ui, 'docs', 'quickstart.md')).match(/(\d+) 个内置图标/) || [])[1]; if (!coreIcons) { console.error('cannot read the core icon count from docs/quickstart.md'); process.exit(1); }
-const dl = downloadPage({ version, coreIcons, zip: { name: zipName, size: statSync(join(out, 'assets', zipName)).size }, sizeOf, gzOf });
+const dl = downloadPage({ version, coreIcons, repo: 'https://github.com/zhaosay/zhaoui', zip: { name: zipName, size: statSync(join(out, 'assets', zipName)).size }, sizeOf, gzOf });
 const dlId = (text) => (dl.headings.find((h) => h.text === text) || {}).id;   // heading ids come from the page itself, so the side menu cannot drift from it
 const dlItem = (text) => { const id = dlId(text); if (!id) { console.error(`download page has no heading "${text}"`); process.exit(1); } return { label: text, href: `download.html#${id}` }; };
 add('download.html', dl, { section: 'download', group: '工具', sideLabel: '下载目录', keywords: '下载 压缩包 zip 命令行 安装 curl 引入 CDN 直接引用 modular 营销',
   side: [
     { title: '安装方式', items: ['下载全部文件', '命令行安装', '不下载，直接引用'].map(dlItem) },
-    { title: '文件说明', items: ['单个文件', '按需加载', '营销页区块的用法'].map(dlItem) },
+    { title: '文件说明', items: ['核对下载的文件', '单个文件', '按需加载', '营销页区块的用法'].map(dlItem) },
     { title: '相关页面', items: [{ label: '快速开始', href: 'guide/quickstart.html' }, { label: '营销页区块预览', href: 'components/marketing.html' }, { label: '更新日志', href: 'changelog.html' }] },
   ] });
 add('404.html', { title: '页面不存在', description: '这个页面不存在，可能是链接写错了或页面已经搬走。', body: '<h1>页面不存在</h1><p class="s-lead">这个页面不存在，可能是链接写错了或页面已经搬走。</p><p><a class="zh-btn primary" href="index.html">回到首页</a> <a class="zh-btn" href="components/index.html">浏览组件</a></p>', home: true }, { group: '页面', noindex: true });
