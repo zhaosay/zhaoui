@@ -25,9 +25,10 @@ export async function createHarness() {
     p.errs = []; p.on('pageerror', (e) => p.errs.push(e.message)); p.on('console', (m) => { if (m.type() === 'error') p.errs.push('console: ' + m.text()); });
     await p.goto(FILE); await p.waitForTimeout(250); return p;
   }
-  const test = async (label, fn, w) => { const p = await fresh(w); try { await fn(p); assert.deepEqual(p.errs, [], 'page errors'); h.passed++; } catch (e) { h.failed++; console.log(`FAIL ${label}\n   ${e.message.split('\n').slice(0, 14).join(' | ')}`); } await p.close(); };
+  const say = (label) => { if (process.env.ZH_VERBOSE) console.log('  . ' + label); };   // ZH_VERBOSE=1 names each test as it starts, so a hang shows where
+  const test = async (label, fn, w) => { say(label); const p = await fresh(w); try { await fn(p); assert.deepEqual(p.errs, [], 'page errors'); h.passed++; } catch (e) { h.failed++; console.log(`FAIL ${label}\n   ${e.message.split('\n').slice(0, 14).join(' | ')}`); } await p.close(); };
   const wait = (p, ms = 200) => p.waitForTimeout(ms);
-  Object.assign(h, { pw, HERE, VARIANT, pagePath, FILE, ENGINE, launch, b, fresh, test, wait });
+  Object.assign(h, { say, pw, HERE, VARIANT, pagePath, FILE, ENGINE, launch, b, fresh, test, wait });
   Object.assign(h, createHelpers(h));
   return h;
 }

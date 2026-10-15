@@ -1,6 +1,6 @@
 // Smoke test part 2 of 3  regressions found by the skill trial (an agent that only read the docs wrote three pages).  Run by ../smoke.mjs with the shared harness.
 export default async function run(h) {
-  const { pw, HERE, VARIANT, pagePath, FILE, ENGINE, launch, b, fresh, test, wait, assert, fileUrl, join, dirname, readFileSync, writeFileSync, existsSync, readdirSync, fileURLToPath, val, txt, hostOf, cItems, day, dis, testEx, E, tracks, wd, pseudoContent, css, UTIL, utilPage, SIDE } = h;
+  const { pw, HERE, VARIANT, pagePath, FILE, ENGINE, launch, b, fresh, test, wait, assert, fileUrl, join, dirname, readFileSync, writeFileSync, existsSync, readdirSync, fileURLToPath, val, txt, hostOf, cItems, day, dis, testEx, E, tracks, wd, pseudoContent, css, UTIL, utilPage, SIDE , until } = h;
   // ---------- regressions found by the skill trial (an agent that only read the docs wrote three pages) ----------
   await test('tabs: several tabs controlling ONE panel keep it visible; different panels still swap', async (p) => {
     const hidden = (id) => p.evaluate((id) => document.getElementById(id).hidden, id);
@@ -102,7 +102,7 @@ export default async function run(h) {
     assert.equal(await css(p, E('form', 'input[type="radio"]'), 'accentColor'), primary);
     const sw = E('form', '.zh-switch'); assert.equal(await css(p, sw, 'backgroundColor'), primary, 'checked switch'); const onT = await css(p, sw, 'transform', '::after');
     await p.click(sw); await wait(p, 250); assert.equal(await p.evaluate((s) => document.querySelector(s).checked, sw), false);
-    assert.notEqual(await css(p, sw, 'backgroundColor'), primary, 'unchecked switch loses the brand colour'); assert.notEqual(await css(p, sw, 'transform', '::after'), onT, 'the knob moves');
+    assert.notEqual(await until(p, () => css(p, sw, 'backgroundColor'), (v) => v !== primary), primary, 'unchecked switch loses the brand colour'); assert.notEqual(await until(p, () => css(p, sw, 'transform', '::after'), (v) => v !== onT), onT, 'the knob moves');
     assert.equal(await css(p, E('form', '.zh-select select'), 'appearance'), 'none'); assert.equal(await css(p, E('form', '.zh-select'), 'position'), 'relative'); assert.notEqual(await css(p, E('form', '.zh-select'), 'content', '::after'), 'none');
     assert.deepEqual(await p.evaluate(() => { const f = document.querySelector('[data-example="form"] .zh-field'), x = getComputedStyle(f); return [x.display, x.flexDirection]; }), ['flex', 'column']);
     const hs = await p.evaluate(() => { const i = document.querySelector('[data-example="form"] .zh-input'), h0 = i.getBoundingClientRect().height; i.classList.add('sm'); const hs = i.getBoundingClientRect().height; i.classList.remove('sm'); i.classList.add('lg'); const hl = i.getBoundingClientRect().height; return [hs < h0, hl > h0]; });

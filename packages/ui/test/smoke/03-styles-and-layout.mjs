@@ -1,6 +1,6 @@
 // Smoke test part 3 of 3  tree.  Run by ../smoke.mjs with the shared harness.
 export default async function run(h) {
-  const { pw, HERE, VARIANT, pagePath, FILE, ENGINE, launch, b, fresh, test, wait, assert, fileUrl, join, dirname, readFileSync, writeFileSync, existsSync, readdirSync, fileURLToPath, val, txt, hostOf, cItems, day, dis, testEx, E, tracks, wd, pseudoContent, css, UTIL, utilPage, SIDE } = h;
+  const { pw, HERE, VARIANT, pagePath, FILE, ENGINE, launch, b, fresh, test, wait, assert, fileUrl, join, dirname, readFileSync, writeFileSync, existsSync, readdirSync, fileURLToPath, val, txt, hostOf, cItems, day, dis, testEx, E, tracks, wd, pseudoContent, css, UTIL, utilPage, SIDE , until } = h;
   // ---------- tree ----------
   await testEx('tree: rows with levels, collapsed children hidden, tri-state checkboxes, keyboard, events', async (p) => {
     const T = E('tree', '.zh-tree');
@@ -76,7 +76,8 @@ export default async function run(h) {
     await p.evaluate(() => window.scrollTo(0, document.getElementById('an-c').getBoundingClientRect().top + window.pageYOffset - 5)); await wait(p, 250); assert.equal(await cur(), '#an-c');
     await p.click('#an a[href="#an-a"]'); await p.waitForFunction(() => Math.abs(document.getElementById('an-a').getBoundingClientRect().top - 10) < 3, null, { timeout: 4000 });
     assert.equal(await cur(), '#an-a', 'clicked link is current at once'); assert.equal(await p.evaluate(() => document.activeElement.id), 'an-a', 'target receives focus');
-    assert.notEqual(await css(p, '#an a[href="#an-a"]', 'borderLeftColor'), await css(p, '#an a[href="#an-b"]', 'borderLeftColor'), 'the current link is marked on the rail');
+    const other = await css(p, '#an a[href="#an-b"]', 'borderLeftColor');   // the mark fades in; wait for it instead of guessing how long
+    assert.notEqual(await until(p, () => css(p, '#an a[href="#an-a"]', 'borderLeftColor'), (v) => v !== other), other, 'the current link is marked on the rail');
     assert.ok((await p.evaluate(() => window.__an)).includes('an-c'));
   });
 

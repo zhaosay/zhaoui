@@ -40,7 +40,15 @@ async function explain() {
     for (const n of b.keys()) if (!a.has(n)) out.push(`only in the build: ${n}`);
     const z = (f) => spawnSync('unzip', ['-v', f], { encoding: 'utf8' }).stdout.split('\n').filter((l) => /[0-9a-f]{8}\s+\S+$/.test(l)).map((l) => l.trim().split(/\s+/)).map((c) => [c[c.length - 1], c[c.length - 2]]);
     const crcA = new Map(z(join(dir, 'released.zip'))), crcB = new Map(z(join(root, 'site', 'dist-site', 'assets', `zhaoui-${version}.zip`)));
-    for (const [n, c] of crcA) if (crcB.has(n) && crcB.get(n) !== c) out.push(`content differs (CRC ${c} vs ${crcB.get(n)}): ${n}`);
+    for (const [n, c] of crcA) if (crcB.has(n) && crcB.get(n) !== c) {
+      out.push(`content differs (CRC ${c} vs ${crcB.get(n)}): ${n}`);
+      if (/\.(md|txt|json|css)$/.test(n)) {   // small text files: show the changed lines
+        const read = (f) => spawnSync('unzip', ['-p', f, n], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 }).stdout;
+        writeFileSync(join(dir, 'a.txt'), read(join(dir, 'released.zip'))); writeFileSync(join(dir, 'b.txt'), read(join(root, 'site', 'dist-site', 'assets', `zhaoui-${version}.zip`)));
+        const d = spawnSync('diff', ['-U0', join(dir, 'a.txt'), join(dir, 'b.txt')], { encoding: 'utf8' }).stdout.split('\n').filter((l) => /^[-+]/.test(l) && !/^(---|\+\+\+)/.test(l)).slice(0, 16);
+        if (d.length) out.push('    ' + d.map((l) => l.slice(0, 160)).join('\n    '));
+      }
+    }
     return out.length ? 'Entries that differ:\n  ' + out.slice(0, 40).join('\n  ') : 'The two zips list the same entries with the same sizes, CRCs and attributes: the difference is in the zip container itself (headers, extra fields).';
   } catch (e) { return 'could not compare the entries: ' + e.message; } finally { rmSync(dir, { recursive: true, force: true }); }
 }

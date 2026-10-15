@@ -14,6 +14,7 @@ export function createHelpers(h) {
   const dis = (p, d) => p.evaluate((d) => document.querySelector(`.zh-dp-day[data-d="${d}"]`).getAttribute('aria-disabled') === 'true', d);
   // ---------- pure-style components (card, table, form controls, layout, feedback, breadcrumb): the documented examples, measured as rendered ----------
   async function testEx(label, fn, w = 1280) {
+    h.say(label);
     const p = await b.newPage({ viewport: { width: w, height: 900 } });
     p.errs = []; p.on('pageerror', (e) => p.errs.push(e.message)); p.on('console', (m) => { if (m.type() === 'error') p.errs.push('console: ' + m.text()); });
     try {
@@ -40,5 +41,8 @@ export function createHelpers(h) {
   }
   // ---------- side menu, back to top, kbd, page header ----------
   const SIDE = `<div id="sd-host" style="display:flex;height:420px"><nav class="zh-side" id="sd" data-zh-side aria-label="站点导航"><div class="zh-side-head"><i aria-hidden="true"></i><span>ZhaoUI</span></div><ul><li class="zh-side-group">工作台</li><li><a href="#" data-icon="layout-dashboard">概览</a></li><li><a href="#" data-icon="file-text">内容管理</a><ul><li><a href="#/articles" id="sd-art" aria-current="page" data-badge="12">文章</a></li><li><a href="#/media">媒体库</a></li></ul></li><li><a href="#/users" id="sd-off" aria-disabled="true">用户</a></li><li><a href="#/set" id="sd-set" data-icon="settings">设置</a></li></ul></nav></div><div style="height:2600px"></div><button id="bt" data-zh-backtop data-threshold="300"></button>`;
-  return { val, txt, hostOf, cItems, day, dis, testEx, E, tracks, wd, pseudoContent, css, UTIL, utilPage, SIDE };
+  // Polls `read` until `ok(value)` holds (or the time runs out) and returns the last value: a transition or a scroll handler ends when it ends,
+  // which on a slow machine is later than any fixed pause one picks.
+  const until = async (p, read, ok, ms = 2500) => { let v = await read(); for (let t = 0; t < ms && !ok(v); t += 100) { await wait(p, 100); v = await read(); } return v; };
+  return { until, val, txt, hostOf, cItems, day, dis, testEx, E, tracks, wd, pseudoContent, css, UTIL, utilPage, SIDE };
 }
