@@ -35,7 +35,8 @@
 ```bash
 curl -fsSL https://ui.352m.com/install.sh | sh
 # 放到别处并同时装可选文件
-curl -fsSL https://ui.352m.com/install.sh | sh -s -- --dir public/vendor/zhaoui --with icons,marketing
+curl -fsSL https://ui.352m.com/install.sh \
+  | sh -s -- --dir public/vendor/zhaoui --with icons,marketing
 ```
 
 脚本只往你指定的文件夹写文件，不用 sudo，不覆盖已有文件（除非加 `--force`），写入前用 [SHA256SUMS](https://ui.352m.com/SHA256SUMS) 校验。运行前可以先看一遍：`curl -fsSL https://ui.352m.com/install.sh`。Windows 的 PowerShell 写法和全部选项见 [下载页](https://ui.352m.com/download.html)。

@@ -72,7 +72,15 @@ add('components/index.html', componentIndex(metas, { abs }), { section: 'compone
 for (const m of order(metas)) add(`components/${m.name}.html`, componentPage(m, { metas, path: `components/${m.name}.html` }), { section: 'components', side: cside, sideLabel: '组件目录', group: '组件', keywords: [m.name, ...(m.classes || []), ...(m.attributes || []).map((a) => a.name), ...(m.events || []).map((e) => e.name), ...(m.methods || []).map((x) => x.name)].join(' ') });
 add('playground.html', playgroundPage({ metas }), { section: 'playground', group: '工具' });
 const coreIcons = (read(join(ui, 'docs', 'quickstart.md')).match(/(\d+) 个内置图标/) || [])[1]; if (!coreIcons) { console.error('cannot read the core icon count from docs/quickstart.md'); process.exit(1); }
-add('download.html', downloadPage({ version, coreIcons, zip: { name: zipName, size: statSync(join(out, 'assets', zipName)).size }, sizeOf, gzOf }), { section: 'download', group: '工具', keywords: '下载 压缩包 zip 引入 CDN 直接引用 modular 营销' });
+const dl = downloadPage({ version, coreIcons, zip: { name: zipName, size: statSync(join(out, 'assets', zipName)).size }, sizeOf, gzOf });
+const dlId = (text) => (dl.headings.find((h) => h.text === text) || {}).id;   // heading ids come from the page itself, so the side menu cannot drift from it
+const dlItem = (text) => { const id = dlId(text); if (!id) { console.error(`download page has no heading "${text}"`); process.exit(1); } return { label: text, href: `download.html#${id}` }; };
+add('download.html', dl, { section: 'download', group: '工具', sideLabel: '下载目录', keywords: '下载 压缩包 zip 命令行 安装 curl 引入 CDN 直接引用 modular 营销',
+  side: [
+    { title: '安装方式', items: ['下载全部文件', '命令行安装', '不下载，直接引用'].map(dlItem) },
+    { title: '文件说明', items: ['单个文件', '按需加载', '营销页区块的用法'].map(dlItem) },
+    { title: '相关页面', items: [{ label: '快速开始', href: 'guide/quickstart.html' }, { label: '营销页区块预览', href: 'components/marketing.html' }, { label: '更新日志', href: 'changelog.html' }] },
+  ] });
 add('404.html', { title: '页面不存在', description: '这个页面不存在，可能是链接写错了或页面已经搬走。', body: '<h1>页面不存在</h1><p class="s-lead">这个页面不存在，可能是链接写错了或页面已经搬走。</p><p><a class="zh-btn primary" href="index.html">回到首页</a> <a class="zh-btn" href="components/index.html">浏览组件</a></p>', home: true }, { group: '页面', noindex: true });
 
 // the full visual demo, with its asset links pointed at the copies under assets/tokens

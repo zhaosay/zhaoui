@@ -49,7 +49,8 @@ curl -fsSL ${abs('').replace(/\/$/, '')}/install.sh | sh
 要放到别的文件夹，或者同时装可选文件：
 
 \`\`\`bash
-curl -fsSL ${abs('').replace(/\/$/, '')}/install.sh | sh -s -- --dir public/vendor/zhaoui --with icons,marketing
+curl -fsSL ${abs('').replace(/\/$/, '')}/install.sh \\
+  | sh -s -- --dir public/vendor/zhaoui --with icons,marketing
 \`\`\`
 
 | 选项 | 说明 |

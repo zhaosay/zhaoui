@@ -66,6 +66,14 @@ await check('download: a nav item on every kind of page, a zip that downloads an
   for (const f of r.files) { const res = await p.request.get(new URL(f[0], p.url()).href); assert.equal(res.status(), 200, f[0]); }
   assert.equal(await p.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true, 'no sideways scroll');
 }, 1280);
+await check('download page has a side menu whose links all point at real headings; component pages keep their action buttons off the example box', async (p) => {
+  await open(p, 'download.html');
+  const r = await p.evaluate(() => { const links = [...document.querySelectorAll('.s-side .zh-side a')].map((a) => a.getAttribute('href')); return { links, missing: links.filter((h) => h.includes('#') && !document.getElementById(h.split('#')[1]) && h.startsWith('download.html')), groups: document.querySelectorAll('.s-side .zh-side-group').length, toc: !!document.querySelector('[data-zh-anchor]') }; });
+  assert.equal(r.groups, 3); assert.ok(r.links.length >= 9, 'side menu links'); assert.deepEqual(r.missing, [], 'every in-page link has a heading'); assert.equal(r.toc, true, 'the contents list on the right is still there');
+  await open(p, 'components/result.html');
+  const g = await p.evaluate(() => { const st = document.querySelector('.s-stage').getBoundingClientRect(), a = document.querySelector('.s-actions'), bs = [...a.querySelectorAll('.zh-btn')].map((x) => x.getBoundingClientRect()); return { above: a.getBoundingClientRect().top - st.bottom, between: bs[1].left - bs[0].right, same: bs[0].height === bs[1].height && [...a.querySelectorAll('.zh-btn')].every((x) => x.className === 'zh-btn sm') }; });
+  assert.ok(g.above >= 12, `space between the example box and its buttons (${g.above}px)`); assert.ok(g.between >= 10, `space between the two buttons (${g.between}px)`); assert.equal(g.same, true, 'both buttons are the same kind');
+});
 await check('download page and top navigation on a phone: no sideways scroll', async (p) => {
   for (const pg of ['download.html', 'index.html']) { await open(p, pg); assert.equal(await p.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true, pg); }
 }, 390);

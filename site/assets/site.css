@@ -27,7 +27,7 @@ body { margin: 0; background: var(--zh-bg); color: var(--zh-text); font-family: 
 .s-badges { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 8px; }
 .s-stage { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 16px; padding: 24px; background: var(--zh-bg-elevated); border: 1px solid var(--zh-border); border-radius: var(--zh-radius-lg); min-width: 0; overflow-x: auto; }
 .s-stage > :is(div, section, form, ul, ol, table, p, nav, article, header, footer, dl, pre, figure, fieldset) { flex: 1 1 100%; min-width: 0; }
-.s-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; }
+.s-article .s-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0 0; }   /* more specific than ".s-article p", which would zero the top margin */
 .s-note { padding: 10px 14px; border: 1px solid var(--zh-border); border-radius: var(--zh-radius-md); background: var(--zh-bg-subtle); color: var(--zh-text-secondary); }
 .doc-code { position: relative; margin: 0 0 16px; }
 .doc-code pre { margin: 0; max-height: 28rem; }
