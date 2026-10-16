@@ -2,7 +2,7 @@
 
 ZhaoUI 的原生版：**一个 CSS 加一个 JS**，不依赖任何框架，用 `data-zh-*` 属性声明组件，也可以调用全局对象 `ZhaoUI`。
 
-> 状态：版本 0.1.2。MIT 许可证，任何人都可以免费使用、修改和分发，包括商用。暂未发布到 npm，请从 [ui.352m.com/download.html](https://ui.352m.com/download.html) 下载文件，或从 GitHub 获取源码。
+> 状态：版本 0.1.3。MIT 许可证，任何人都可以免费使用、修改和分发，包括商用。暂未发布到 npm，请从 [ui.352m.com/download.html](https://ui.352m.com/download.html) 下载文件，或从 GitHub 获取源码。
 
 ## 适合与不适合
 
@@ -37,14 +37,14 @@ TypeScript 会自动带上 `ZhaoUI` 的类型。
 
 | 文件 | 说明 | 大小 |
 |---|---|---|
-| `zhaoui.css` | Token 变量 + 全部组件样式 | 190.2 KB → 165.2 KB，gzip 29.5 KB |
-| `modular/core.css` | 核心：Token、基础、通用组件样式 | 157.7 KB → 136.6 KB，gzip 25.0 KB |
+| `zhaoui.css` | Token 变量 + 全部组件样式 | 191.3 KB → 165.9 KB，gzip 29.6 KB |
+| `modular/core.css` | 核心：Token、基础、通用组件样式 | 158.5 KB → 137.0 KB，gzip 25.1 KB |
 | `modular/select.css` | 下拉选择与级联选择的样式 | 8.8 KB → 7.8 KB，gzip 2.0 KB |
 | `modular/upload.css` | 文件上传的样式 | 4.2 KB → 3.7 KB，gzip 1.2 KB |
 | `modular/tree.css` | 树的样式 | 4.4 KB → 3.9 KB，gzip 1.2 KB |
 | `modular/chart.css` | 基础图表的样式 | 2.5 KB → 2.2 KB，gzip 0.9 KB |
 | `modular/command.css` | 命令面板的样式 | 3.2 KB → 2.9 KB，gzip 1.0 KB |
-| `modular/date.css` | 日期、日期范围、时间、日期时间选择的样式 | 10.0 KB → 8.9 KB，gzip 2.2 KB |
+| `modular/date.css` | 日期、日期范围、时间、日期时间选择的样式 | 10.3 KB → 9.2 KB，gzip 2.2 KB |
 | `zhaoui-utilities.css` | 可选：公共类（间距、布局、文字、响应式显示隐藏、动画） | 65.1 KB → 56.0 KB，gzip 9.5 KB |
 | `zhaoui-marketing.css` | 可选：营销页区块（页宽、区块、hero、特性卡、价格卡） | 10.9 KB → 8.1 KB，gzip 2.3 KB |
 | `zhaoui-style-glass.css` | 可选：玻璃拟态风格包（实验性） | 16.5 KB → 14.0 KB，gzip 1.9 KB |

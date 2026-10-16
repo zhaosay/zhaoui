@@ -33,7 +33,7 @@ const scopeStyle = (cssText, name, other) => cssText.replace(new RegExp(`^(\\[da
 writeFileSync(join(dist, 'zhaoui-style-glass.css'), scopeStyle(readFileSync(join(dirname(fileURLToPath(import.meta.url)), '..', 'styles', 'glass.css'), 'utf8'), 'glass', 'flat'));
 
 const json = {
-  version: '0.1.2',
+  version: '0.1.3',
   base,
   modes: Object.fromEntries(Object.keys(modes).map((m) => [m, { ...resolveAliases(modes[m]), ...statusTints(m) }])),
   audiences,

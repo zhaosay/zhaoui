@@ -27,6 +27,30 @@ const data = JSON.parse(read(join(ui, 'docs', 'components.json'))), metas = data
 const gz = (name) => { const f = join(ui, 'dist', name.endsWith('.js') ? name.replace(/\.js$/, '.min.js') : name.replace(/\.css$/, '.min.css')); return existsSync(f) ? (gzipSync(new Uint8Array(readFileSync(f)), { level: 9 }).length / 1024).toFixed(1) : null; };
 const faq = makeFaq({ metas, gz }), desc = makeDesc(metas.length);
 
+// When a page last changed and when it first appeared, from the git history of the files it is made from (YYYY-MM-DD).  Without git, or without
+// history for the files, there is no date and the page simply carries none: a made-up date is worse than none.
+// the page of a component is named after meta.json's "name", which is not always the folder it sits in (the page "date" is the folder "datepicker")
+const componentDir = Object.fromEntries(readdirSync(join(ui, 'src', 'components')).filter((d) => existsSync(join(ui, 'src', 'components', d, 'meta.json'))).map((d) => [JSON.parse(readFileSync(join(ui, 'src', 'components', d, 'meta.json'), 'utf8')).name, d]));
+const gitDates = new Map();
+function gitDate(paths, first = false) {
+  const key = paths.join('|') + first; if (gitDates.has(key)) return gitDates.get(key);
+  const r = spawnSync('git', ['log', ...(first ? ['--reverse'] : ['-1']), '--format=%cI', '--', ...paths], { cwd: root, encoding: 'utf8' });
+  const v = r.status === 0 ? (r.stdout.split('\n')[0] || '').slice(0, 10) : '';
+  gitDates.set(key, v || undefined); return v || undefined;
+}
+const sourcesOf = (path) => {
+  let m;
+  if ((m = path.match(/^components\/([\w-]+)\.html$/)) && m[1] !== 'index') return [`packages/ui/src/components/${componentDir[m[1]] || m[1]}`];
+  if ((m = path.match(/^guide\/([\w-]+)\.html$/))) return [`packages/ui/src/docs/${m[1]}.md`];
+  if (path === 'changelog.html') return ['packages/ui/CHANGELOG.md'];
+  if (path === 'download.html') return ['site/lib/pages-download.mjs'];
+  if (path === 'playground.html') return ['site/lib/pages-playground.mjs', 'site/assets/playground.js'];
+  if (path.startsWith('templates/')) return ['site/templates', 'site/lib/pages-templates.mjs'];
+  if (path.startsWith('design/')) return ['site/lib/pages-guide.mjs', 'demo/base.html', 'demo/base'];
+  return ['site/lib/pages-home.mjs', 'packages/ui/src/components'];
+};
+const datesOf = (path) => ({ modified: gitDate(sourcesOf(path)), published: gitDate(sourcesOf(path), true) });
+
 rmSync(out, { recursive: true, force: true }); mkdirSync(out, { recursive: true });
 const write = (rel, content) => { const f = join(out, rel); mkdirSync(dirname(f), { recursive: true }); writeFileSync(f, content); };
 
@@ -36,7 +60,7 @@ const dist = join(ui, 'dist'), lib = join(out, 'assets', 'zhaoui');
 mkdirSync(lib, { recursive: true });
 for (const f of readdirSync(dist)) if (statSync(join(dist, f)).isFile() && !f.endsWith('.map')) cpSync(join(dist, f), join(lib, f));
 cpSync(join(dist, 'modular'), join(lib, 'modular'), { recursive: true, filter: (s) => !s.endsWith('.map') });
-write('assets/zhaoui/index.html', `<!doctype html><meta charset="utf-8"><title>ZhaoUI 下载文件</title><h1>ZhaoUI ${version} 下载文件</h1><ul>${[...readdirSync(lib).filter((f) => f !== 'index.html' && f !== 'modular'), ...readdirSync(join(lib, 'modular')).map((f) => 'modular/' + f)].map((f) => `<li><a href="${f}">${f}</a></li>`).join('')}</ul>`);
+write('assets/zhaoui/index.html', `<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><title>ZhaoUI ${version} 下载文件</title><meta name="description" content="ZhaoUI ${version} 的全部文件清单。下载说明和压缩包在下载页。"></head><body><h1>ZhaoUI ${version} 下载文件</h1><p><a href="../../download.html">返回下载页</a></p><ul>${[...readdirSync(lib).filter((f) => f !== 'index.html' && f !== 'modular'), ...readdirSync(join(lib, 'modular')).map((f) => 'modular/' + f)].map((f) => `<li><a href="${f}">${f}</a></li>`).join('')}</ul></body></html>`);
 // the zip of everything: the files under assets/zhaoui plus the changelog and the third-party notices, inside one folder named after the version
 const zipName = `zhaoui-${version}.zip`;
 makeZip({ top: `zhaoui-${version}`, out: join(out, 'assets', zipName), fill: (stage) => {
@@ -46,7 +70,7 @@ makeZip({ top: `zhaoui-${version}`, out: join(out, 'assets', zipName), fill: (st
 } });
 // the templates: standalone pages whose links to the library point at ../assets/zhaoui on the site and at zhaoui/ inside the zip
 const tplZipName = `zhaoui-templates-${version}.zip`, tplDir = join(here, 'templates');
-for (const t of TEMPLATES) write(`templates/${t.key}.html`, read(join(tplDir, `${t.key}.html`)).replaceAll('@@LIB@@', '../assets/zhaoui'));
+for (const t of TEMPLATES) write(`templates/${t.key}.html`, read(join(tplDir, `${t.key}.html`)).replaceAll('@@LIB@@', '../assets/zhaoui').replace('<link rel="icon"', '<meta name="robots" content="noindex, follow">\n<link rel="icon"'));   // noindex only on the website: the copy in the zip has none
 makeZip({ top: `zhaoui-templates-${version}`, out: join(out, 'assets', tplZipName), fill: (stage) => {
   for (const t of TEMPLATES) writeFileSync(join(stage, `${t.key}.html`), read(join(tplDir, `${t.key}.html`)).replaceAll('@@LIB@@', 'zhaoui'));
   mkdirSync(join(stage, 'zhaoui'));
@@ -74,11 +98,11 @@ write('assets/playground-bundle.js', `window.ZH_PG = ${JSON.stringify({ css: ['z
 // ---------- pages ----------
 const pages = [];   // { path, html, title, description, group, keywords, noindex }
 function add(path, p, o = {}) {
-  const html = page({ path, version, ...o, ...p });
+  const html = page({ path, version, dates: datesOf(path), ...o, ...p });
   pages.push({ path, html, title: p.title, description: p.description, group: o.group || '页面', keywords: o.keywords || '', noindex: o.noindex });
   write(path, html);
 }
-add('index.html', homePage({ metas, faq, gz, desc }), { group: '首页' });
+add('index.html', homePage({ metas, faq, gz, desc, version }), { group: '首页' });
 for (const g of GUIDE) add(`guide/${g.key}.html`, guidePage(g.key, join(ui, 'docs')), { section: 'guide', side: guideSide(), sideLabel: '指南目录', group: '指南', numbered: true, keywords: g.desc });
 add('changelog.html', changelogPage(ui), { section: 'changelog', side: guideSide(), sideLabel: '指南目录', group: '指南' });
 add('design/index.html', designIndex({ visualHref: 'visual.html' }), { section: 'design', side: designSide(), sideLabel: '设计目录', group: '设计' });
@@ -99,13 +123,13 @@ add('download.html', dl, { section: 'download', group: '工具', sideLabel: '下
     { title: '文件说明', items: ['核对下载的文件', '单个文件', '按需加载', '营销页区块的用法'].map(dlItem) },
     { title: '相关页面', items: [{ label: '快速开始', href: 'guide/quickstart.html' }, { label: '营销页区块预览', href: 'components/marketing.html' }, { label: '更新日志', href: 'changelog.html' }, { label: 'GitHub 仓库', href: SITE.repo }] },
   ] });
-add('404.html', { title: '页面不存在', description: '这个页面不存在，可能是链接写错了或页面已经搬走。', body: '<h1>页面不存在</h1><p class="s-lead">这个页面不存在，可能是链接写错了或页面已经搬走。</p><p><a class="zh-btn primary" href="index.html">回到首页</a> <a class="zh-btn" href="components/index.html">浏览组件</a></p>', home: true }, { group: '页面', noindex: true });
+add('404.html', { title: '页面不存在', description: '这个页面不存在，可能是链接写错了或页面已经搬走。', body: '<h1>页面不存在</h1><p class="s-lead">这个页面不存在，可能是链接写错了或页面已经搬走。</p><p><a class="zh-btn primary" href="index.html">回到首页</a> <a class="zh-btn" href="components/index.html">浏览组件</a></p>', home: true }, { group: '页面', noindex: true, robots: 'noindex' });
 
 // the full visual demo, with its asset links pointed at the copies under assets/tokens
 const demoOut = join(out, 'design', 'visual.html');
 const r = spawnSync(process.execPath, [join(root, 'demo', 'build.mjs'), '--out', demoOut], { encoding: 'utf8' });
 if (r.status !== 0) { console.error(r.stdout + r.stderr); process.exit(1); }
-write('design/visual.html', read(demoOut).replace(/(href|src)="[^"]*packages\/tokens\/dist\//g, '$1="../assets/tokens/').replace('</head>', `<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">\n<link rel="canonical" href="${abs('design/visual.html')}">\n</head>`));
+write('design/visual.html', read(demoOut).replace(/(href|src)="[^"]*packages\/tokens\/dist\//g, '$1="../assets/tokens/').replace('</head>', `<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">\n<link rel="canonical" href="${abs('design/visual.html')}">\n<meta property="og:type" content="article"><meta property="og:site_name" content="${SITE.name}"><meta property="og:locale" content="zh_CN"><meta property="og:title" content="完整视觉演示 | ${SITE.name}"><meta property="og:url" content="${abs('design/visual.html')}"><meta property="og:image" content="${abs('assets/og.png')}">\n<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="${abs('assets/og.png')}">\n</head>`));
 pages.push({ path: 'design/visual.html', title: '完整视觉演示', description: 'ZhaoUI 设计语言的完整视觉演示：色彩、字体、间距、圆角、阴影、动效、组件与交互模式。', group: '设计', keywords: '色彩 字体 间距 动效 Token 品牌色 涨跌色' });
 
 // ---------- Markdown copies, search index, sitemap, robots, llms ----------
@@ -113,9 +137,9 @@ for (const f of readdirSync(join(ui, 'docs', 'components'))) cpSync(join(ui, 'do
 for (const g of GUIDE) cpSync(join(ui, 'docs', `${g.key}.md`), join(out, 'guide', `${g.key}.md`));
 const index = pages.filter((p) => !p.noindex).map((p) => ({ t: p.title, u: p.path, d: p.description, g: p.group, k: p.keywords }));
 write('assets/search-index.js', `window.ZH_SITE_INDEX = ${JSON.stringify(index)};\n`);
-write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.filter((p) => !p.noindex).map((p) => `  <url><loc>${abs(p.path === 'index.html' ? '' : p.path)}</loc></url>`).join('\n')}\n</urlset>\n`);
-write('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${abs('sitemap.xml')}\n`);
-const llms = read(join(ui, 'docs', 'llms.txt')).replace(/\]\(components\/([\w-]+)\.md\)/g, (_, n) => `](${abs(`components/${n}.html`)})`).replace(/\]\(([\w-]+)\.md\)/g, (_, n) => `](${abs(`guide/${n}.html`)})`).replace(/\]\(llms-full\.txt\)/, `](${abs('llms-full.txt')})`);
+write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.filter((p) => !p.noindex).map((p) => `  <url><loc>${abs(p.path === 'index.html' ? '' : p.path)}</loc>${datesOf(p.path).modified ? `<lastmod>${datesOf(p.path).modified}</lastmod>` : ''}</url>`).join('\n')}\n</urlset>\n`);
+write('robots.txt', `# Everything here is public.  For language models: llms.txt is the index and llms-full.txt is the documentation in one file; every component and\n# guide page also has a Markdown copy next to it (for example components/tree.md).\nUser-agent: *\nAllow: /\n\nSitemap: ${abs('sitemap.xml')}\n`);
+const llms = read(join(ui, 'docs', 'llms.txt')).replace(/\]\(components\/([\w-]+)\.md\)/g, (_, n) => `](${abs(`components/${n}.md`)})`).replace(/\]\(([\w-]+)\.md\)/g, (_, n) => `](${abs(`guide/${n}.md`)})`).replace(/\]\(llms-full\.txt\)/, `](${abs('llms-full.txt')})`);
 write('llms.txt', llms); write('llms-full.txt', read(join(ui, 'docs', 'llms-full.txt')));
 
 // ---------- check every link we just wrote ----------

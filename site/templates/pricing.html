@@ -9,6 +9,10 @@
 <link rel="stylesheet" href="@@LIB@@/zhaoui.min.css">
 <link rel="stylesheet" href="@@LIB@@/zhaoui-utilities.min.css">
 <link rel="stylesheet" href="@@LIB@@/zhaoui-marketing.min.css">
+<style>
+  /* a 320px phone: logo, two small buttons and the page edges have to fit in one row */
+  @media (max-width: 359px) { .zh-nav-right { gap: 4px; } .zh-nav-right .zh-btn.sm { padding-inline: 10px; } .zh-nav-logo { gap: 6px; } }
+</style>
 </head>
 <body>
 <!-- ZhaoUI 模板：文案和数据都是占位示例，请替换成你自己的内容。样式和脚本在 @@LIB@@/ 下。 -->
@@ -21,8 +25,8 @@
     <li><a class="zh-nav-link" href="dashboard.html">控制台</a></li>
   </ul>
   <div class="zh-nav-right">
-    <a class="zh-btn" href="login.html">登录</a>
-    <a class="zh-btn primary" href="pricing.html">免费试用</a>
+    <a class="zh-btn sm" href="login.html">登录</a>
+    <a class="zh-btn primary sm" href="pricing.html">免费试用</a>
   </div>
 </header>
 <main id="main">

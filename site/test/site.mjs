@@ -129,6 +129,43 @@ await check('templates zip: unpacks, every local file a page refers to is in it,
     assert.equal(await q.evaluate(() => getComputedStyle(document.querySelector('.zh-btn.primary')).backgroundColor !== 'rgba(0, 0, 0, 0)' && document.querySelectorAll('svg').length > 3), true, 'styled and icons drawn'); assert.deepEqual(errs, [], 'no errors from disk'); await q.close();
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
+await check('SEO and AI-search facts on every page: title, description, canonical, one h1, language, share image, dates, author, Markdown copy', async () => {
+  const all = walk(dir).filter((f) => f.endsWith('.html')).map((f) => relative(dir, f).split('\\').join('/')), read = (f) => readFileSync(join(dir, f), 'utf8');
+  const meta = (h, re) => (h.match(re) || [])[1];
+  const indexable = all.filter((f) => !/<meta name="robots" content="[^"]*noindex/.test(read(f)) && f !== 'design/visual.html');
+  assert.ok(indexable.length >= 70, `indexable pages (${indexable.length})`);
+  for (const f of indexable) {
+    const h = read(f), title = meta(h, /<title>([^<]*)<\/title>/), desc = meta(h, /<meta name="description" content="([^"]*)"/), canon = meta(h, /<link rel="canonical" href="([^"]*)"/);
+    assert.ok(title && [...title].length >= 6 && [...title].length <= 70, `${f}: title length (${title})`);
+    assert.ok(desc && [...desc].length >= 40 && [...desc].length <= 170, `${f}: description length ${desc ? [...desc].length : 'none'}`);
+    assert.equal(canon, 'https://ui.352m.com/' + (f === 'index.html' ? '' : f), `${f}: canonical is its own address`);
+    assert.equal((h.match(/<h1[ >]/g) || []).length, 1, `${f}: exactly one h1`); assert.match(h, /<html lang="zh-CN"/, `${f}: lang`); assert.match(h, /name="viewport" content="width=device-width, initial-scale=1"/, `${f}: viewport`);
+    assert.match(h, /property="og:image" content="https:\/\/ui\.352m\.com\/assets\/og\.png"/, `${f}: share image`);
+    const ld = [...h.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => JSON.parse(m[1]));
+    const art = ld.find((x) => x['@type'] === 'TechArticle');
+    if (art) { for (const k of ['datePublished', 'dateModified']) assert.match(art[k] || '', /^\d{4}-\d{2}-\d{2}$/, `${f}: ${k}`); assert.equal(art.author && art.author.name, 'zhaosay', `${f}: author`); assert.ok(art.publisher && art.image && art.mainEntityOfPage, `${f}: publisher, image, mainEntityOfPage`); }
+    const md = meta(h, /<link rel="alternate" type="text\/markdown" href="([^"]*)"/);
+    if (/^(components|guide)\/[\w-]+\.html$/.test(f) && f !== 'components/index.html') { assert.ok(md, `${f}: points at its Markdown copy`); assert.ok(existsSync(join(dir, md.replace('https://ui.352m.com/', ''))), `${f}: the Markdown copy exists (${md})`); }
+  }
+  const home = [...read('index.html').matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => JSON.parse(m[1])), app = home.find((x) => x['@type'] === 'SoftwareApplication');
+  for (const k of ['softwareVersion', 'license', 'downloadUrl', 'sameAs', 'author', 'offers']) assert.ok(app[k], `SoftwareApplication has ${k}`);
+  assert.match(app.downloadUrl, /assets\/zhaoui-\d+\.\d+\.\d+\.zip$/); assert.ok(existsSync(join(dir, app.downloadUrl.replace('https://ui.352m.com/', ''))), 'the download URL in the structured data exists');
+  // pages that are not search content say so: the 404 page, the sample templates, the bare file list; and the demo page and the list still have the basics
+  assert.match(read('404.html'), /<meta name="robots" content="noindex"/); for (const k of ['landing', 'pricing', 'login', 'dashboard']) assert.match(read(`templates/${k}.html`), /<meta name="robots" content="noindex, follow"/, `${k} template`);
+  for (const k of ['landing', 'pricing', 'login', 'dashboard']) assert.equal(/noindex/.test(readFileSync(join(dirname(fileURLToPath(import.meta.url)), '..', 'templates', `${k}.html`), 'utf8')), false, `the template source (what the zip gets) has no noindex: ${k}`);
+  const list = read('assets/zhaoui/index.html'); assert.match(list, /<html lang="zh-CN"/); assert.match(list, /name="viewport"/); assert.match(list, /name="robots" content="noindex"/); assert.match(list, /<title>[^<]{6,}<\/title>/);
+  assert.match(read('design/visual.html'), /property="og:image"/);
+});
+await check('sitemap, robots and llms.txt: every address exists, has a date, and noindex pages are left out; llms.txt links to real Markdown copies', async () => {
+  const sm = readFileSync(join(dir, 'sitemap.xml'), 'utf8'), urls = [...sm.matchAll(/<url><loc>([^<]*)<\/loc>(?:<lastmod>([^<]*)<\/lastmod>)?<\/url>/g)];
+  assert.equal(urls.length, (sm.match(/<url>/g) || []).length, 'every entry parses');
+  for (const [, loc, mod] of urls) { assert.match(mod || '', /^\d{4}-\d{2}-\d{2}$/, `${loc}: lastmod`); const f = loc.replace('https://ui.352m.com/', '') || 'index.html'; assert.ok(existsSync(join(dir, f)), `${loc} exists`); assert.equal(/noindex/.test(readFileSync(join(dir, f), 'utf8').match(/<meta name="robots"[^>]*>/)?.[0] || ''), false, `${loc} is not noindex`); }
+  for (const bad of ['404.html', 'assets/zhaoui/index.html', 'templates/landing.html']) assert.equal(sm.includes(bad), false, `${bad} is not in the sitemap`);
+  const robots = readFileSync(join(dir, 'robots.txt'), 'utf8'); assert.match(robots, /^User-agent: \*$/m); assert.match(robots, /^Allow: \/$/m); assert.match(robots, /^Sitemap: https:\/\/ui\.352m\.com\/sitemap\.xml$/m); assert.equal(/^Disallow: \/\s*$/m.test(robots), false, 'nothing is blocked');
+  const llms = readFileSync(join(dir, 'llms.txt'), 'utf8'), links = [...llms.matchAll(/\]\((https:\/\/ui\.352m\.com\/[^)]*)\)/g)].map((m) => m[1]);
+  assert.ok(links.length >= 60 && links.some((l) => l.endsWith('.md')), `llms.txt links (${links.length}) include Markdown copies`); for (const l of links) assert.ok(existsSync(join(dir, l.replace('https://ui.352m.com/', ''))), `llms.txt link exists: ${l}`);
+  assert.equal(/\]\((?!https:)[^)]*\)/.test(llms.replace(/```[\s\S]*?```/g, '')), false, 'every link in llms.txt is absolute');
+});
 await check('asset links carry a content hash, so an edge cache cannot keep serving an old stylesheet or script', async (p) => {
   const seen = new Set();
   for (const pg of ['index.html', 'components/result.html', 'download.html', 'playground.html']) {
@@ -138,8 +175,8 @@ await check('asset links carry a content hash, so an edge cache cannot keep serv
   }
   assert.equal(seen.size, 1, 'one version for the whole build');
 });
-for (const w of [320, 360, 390]) await check(`phone ${w}px: nothing makes the page wider than the screen (download, templates, home, guide, a component page)`, async (p) => {
-  for (const pg of ['download.html', 'templates/index.html', 'index.html', 'guide/quickstart.html', 'components/table.html']) {
+for (const w of [320, 360, 390, 768, 820, 899]) await check(`screen ${w}px: nothing makes the page wider than the screen (home, guide, component, download, templates, playground)`, async (p) => {
+  for (const pg of ['download.html', 'templates/index.html', 'templates/landing.html', 'templates/pricing.html', 'index.html', 'guide/quickstart.html', 'components/table.html', 'playground.html']) {
     await open(p, pg);
     const r = await p.evaluate(() => { const W = innerWidth, off = [...document.querySelectorAll('body *')].filter((e) => { const b = e.getBoundingClientRect(); return b.width > 0 && b.right > W + 1 && !e.closest('pre, .zh-table-wrap--scroll, .tpl-frame, .zh-drawer, dialog'); }).slice(0, 3).map((e) => `${e.tagName.toLowerCase()}.${String(e.className).split(' ')[0]} ends at ${Math.round(e.getBoundingClientRect().right)}`); return { over: document.documentElement.scrollWidth - W, off }; });
     assert.ok(r.over <= 0, `${pg}: ${r.over}px too wide; sticking out: ${r.off.join(' | ')}`);

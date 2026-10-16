@@ -27,7 +27,7 @@ const TARGET = ['chrome111', 'safari16.4', 'firefox113'];      // same floor as 
 // [fragment, selectors to leave out]. Leave-outs are classes that belong to the demo page's own examples, not to the library.
 const CSS_FRAGMENTS = [
   ['00-core'], ['20-popover'], ['30-dropdown', /\.zh-dd-/], ['30-dropdown-menu', /\.zh-(sel|cas)-|\.zh-btn\b|\.zh-dd-(chip|chips|ctx|place|split)/, '30-dropdown'], ['33-input'],
-  ['31-datepicker', /\.zh-dp-(inline|events|detail|legend|chip)/],
+  ['31-datepicker', /\.zh-dp-(inline-wrap|events|detail|legend|chip)/],   // .zh-dp-inline itself is not demo-only: ZhaoUI.calendar() puts it on its host and the cell size (--zh-dp-cell) is defined there
   ['32-slider-rating', /\.zh-rate-(sum|score|dist)/],
   ['40-badge', /\.zh-bdg-(lab|menu)|\.zh-avatar-list/],
   ['41-panel'],

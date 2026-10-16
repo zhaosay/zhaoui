@@ -1,7 +1,8 @@
 // The home page.  Built from the library's own marketing blocks (zhaoui-marketing.css), so it is also the proof that those blocks are enough for a real landing page.
 import { esc, GROUPS } from '../../packages/ui/scripts/facts.mjs';
+import { SITE, abs } from '../config.mjs';
 
-export function homePage({ metas, faq, gz, desc }) {
+export function homePage({ metas, faq, gz, desc, version }) {
   const f = (n) => gz(n) || '—', by = Object.fromEntries(metas.map((m) => [m.name, m]));
   const features = [
     ['package', '零依赖', `原生 HTML、CSS、JS。压缩后 JavaScript 约 ${f('zhaoui.js')} KB、CSS 约 ${f('zhaoui.css')} KB（gzip），不需要 jQuery、Vue 或 React。`],
@@ -93,7 +94,7 @@ export function homePage({ metas, faq, gz, desc }) {
     <div class="zh-hero-actions" style="justify-content:center"><a class="zh-btn xl" href="guide/quickstart.html">阅读快速开始</a><a class="zh-btn xl" href="playground.html">打开在线试用</a></div>
   </div>
 </section>`;
-  const ld = [{ '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'ZhaoUI', applicationCategory: 'DeveloperApplication', operatingSystem: 'Web', inLanguage: 'zh-CN', description: desc },
+  const ld = [{ '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'ZhaoUI', url: abs(), applicationCategory: 'DeveloperApplication', operatingSystem: 'Web', inLanguage: 'zh-CN', description: desc, softwareVersion: version, license: SITE.license, downloadUrl: abs(`assets/zhaoui-${version}.zip`), releaseNotes: abs('changelog.html'), sameAs: [SITE.repo], programmingLanguage: ['JavaScript', 'CSS'], isAccessibleForFree: true, offers: { '@type': 'Offer', price: '0', priceCurrency: 'CNY' }, author: { '@type': 'Person', name: SITE.author.name, url: SITE.author.url } },
     { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }];
   return { title: `ZhaoUI：不依赖框架的中文 UI 组件库（${metas.length} 个组件）`, description: desc, body, ld, home: true };
 }

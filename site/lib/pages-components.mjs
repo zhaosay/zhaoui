@@ -39,7 +39,7 @@ export function componentPage(m, ctx) {
   H.push({ level: 2, id: 'faq', text: '常见问题' }); o += `<h2 id="faq">常见问题</h2>\n${faq.map(([q, a]) => `<h3>${esc(q)}</h3>\n<p>${cell(a)}</p>`).join('\n')}\n`;
   o += `<nav class="s-pn" aria-label="上一个和下一个组件">${prev ? `<a class="zh-card zh-card--hover" href="${prev.name}.html"><small>上一个</small><strong>${esc(prev.title)}</strong></a>` : '<span></span>'}${next ? `<a class="zh-card zh-card--hover s-next" href="${next.name}.html"><small>下一个</small><strong>${esc(next.title)}</strong></a>` : ''}</nav>\n`;
   const ld = [{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }];
-  return { title: `${m.title}（${m.name}）`, description: `${m.title}：${lead(m).split('。')[0]}。附实时示例、可复制代码、属性、事件、方法与无障碍说明。`.slice(0, 160), body: o, headings: H, ld, crumbs: [{ name: '组件', href: 'components/index.html' }] };
+  return { title: `${m.title}（${m.name}）`, description: `${m.title}：${lead(m).split('。')[0]}。附实时示例、可复制代码，${[m.attributes?.length && `${m.attributes.length} 个属性`, m.classes?.length && `${m.classes.length} 个样式类`, m.events?.length && `${m.events.length} 个事件`, m.methods?.length && `${m.methods.length} 个方法`].filter(Boolean).concat('无障碍说明').join('、')}。`.slice(0, 160), body: o, headings: H, ld, crumbs: [{ name: '组件', href: 'components/index.html' }] };
 }
 
 export function componentIndex(metas, ctx) {

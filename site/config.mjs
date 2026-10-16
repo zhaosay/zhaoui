@@ -5,6 +5,8 @@ export const SITE = {
   origin: 'https://ui.352m.com',
   base: '/',
   repo: 'https://github.com/zhaosay/zhaoui',
+  author: { name: 'zhaosay', url: 'https://github.com/zhaosay' },
+  license: 'https://opensource.org/licenses/MIT',
   lang: 'zh-CN',
   tagline: '不依赖框架的中文 UI 组件库',
 };

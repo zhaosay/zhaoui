@@ -112,3 +112,16 @@ a.zh-btn { text-decoration: none; }
 .s-cell { min-width: 0; text-align: end; }
 .s-cell code { overflow-wrap: anywhere; }
 @media (min-width: 768px) { .s-cell { text-align: start; } }
+
+/* Tablet widths (768 to 899px): the phone navigation ends at 767px, and the full search box next to seven links no longer fits, so the page grew sideways.
+   The search becomes an icon button; its label for assistive technology stays on the button. */
+@media (max-width: 899px) {
+  .s-nav .zh-nav-search { min-width: 0; width: var(--zh-control-h); padding: 0; justify-content: center; }
+  .s-nav .zh-nav-search .zh-nav-st, .s-nav .zh-nav-search .zh-kbd { display: none; }
+}
+/* The playground's tool buttons wrap instead of pushing the page wider on a 320px phone */
+.pg-tools { flex-wrap: wrap; }
+/* Footer links are text in a row; give them a taller hit area without changing how the row looks */
+.s-footer .zh-footer-links a { display: inline-block; padding-block: 7px; }
+/* Touch screens: a text field smaller than 16px makes iOS zoom the page when it gets focus */
+@media (pointer: coarse) { #pg-code { font-size: 16px; } }

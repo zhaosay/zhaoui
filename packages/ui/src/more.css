@@ -141,3 +141,16 @@ a.zh-btn { text-decoration: none; }
 .zh-side-num { flex: none; min-width: 1.7em; color: var(--zh-text-tertiary); font-variant-numeric: tabular-nums; }
 .zh-side-item[aria-current="page"] .zh-side-num { color: inherit; }
 .zh-side.is-collapsed .zh-side-num { display: none; }
+
+/* Touch screens: small round buttons keep their look but are at least 24px (WCAG 2.5.8).  `:root` raises the specificity above the component rules,
+   which come later in this file's output. */
+@media (pointer: coarse) {
+  :root .zh-dp-clear, :root .zh-sel-clear { width: 28px; height: 28px; }
+  :root .zh-tag-close { min-width: 24px; min-height: 24px; }
+  /* the remove button inside a multi-select tag is 18px and the tag is tight, so only the hit area grows */
+  :root .zh-sel-tag button { position: relative; }
+  :root .zh-sel-tag button::after { content: ""; position: absolute; inset: -5px; }
+  /* the dot stays 8px; the padding is the hit area, so the gap moves into it */
+  :root .zh-carousel-dots { gap: 0; }
+  :root .zh-carousel-dot { box-sizing: content-box; padding: 8px; background-clip: content-box; }
+}

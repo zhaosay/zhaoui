@@ -7,9 +7,9 @@ import { esc } from '../../packages/ui/scripts/facts.mjs';
 export const GUIDE = [
   { key: 'quickstart', label: '快速开始', desc: '一个 CSS 加一个 JS 引入 ZhaoUI，两种用法，事件与动态内容，按需引入。' },
   { key: 'theme', label: '主题', desc: '用 data-mode、data-audience、data-density、data-brand 等属性切换亮暗、B/C 端、密度与品牌色。' },
-  { key: 'icons', label: '图标', desc: '内置的图标、完整图标包的用法，以及如何增加自己的图标。' },
-  { key: 'styles', label: '样式类', desc: '不需要 JS 就能使用的样式类：按钮、提示气泡等。' },
-  { key: 'utilities', label: '公共类', desc: '可选的公共类文件：间距、布局、文字、响应式显示隐藏和动画。' },
+  { key: 'icons', label: '图标', desc: '内置的常用图标、可选的完整 Lucide 图标包怎么用，用 data-i 属性在页面里放图标，以及需要时如何增加你自己的图标。' },
+  { key: 'styles', label: '样式类', desc: '不需要写 JavaScript 就能使用的样式类：按钮的各种变体、提示气泡等，每个类的写法、状态和可访问性说明。' },
+  { key: 'utilities', label: '公共类', desc: '可选的公共类文件 zhaoui-utilities.css：间距、布局、文字、响应式显示隐藏和动画，一个类名一个效果，不依赖 JavaScript。' },
 ];
 export const guideSide = () => [
   { title: '指南', numbered: true, items: [...GUIDE.map((g) => ({ label: g.label, href: `guide/${g.key}.html` })), { label: '更新日志', href: 'changelog.html' }] },
@@ -31,7 +31,7 @@ export function guidePage(key, docsDir) {
 
 export function changelogPage(pkgDir) {
   const { html, headings } = md(readFileSync(join(pkgDir, 'CHANGELOG.md'), 'utf8'));
-  return { title: '更新日志', description: 'ZhaoUI 各版本的变化：新增组件、构建产物、无障碍修正和已知限制。', body: html, headings: headings.filter((h) => h.level > 1) };
+  return { title: '更新日志', description: 'ZhaoUI 各版本的更新日志：每个版本新增的组件和功能、修正的问题、构建产物与无障碍的变化，以及已知的限制。', body: html, headings: headings.filter((h) => h.level > 1) };
 }
 
 export function designIndex({ visualHref }) {

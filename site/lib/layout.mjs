@@ -37,11 +37,14 @@ function tocHtml(headings, numbered) {
 }
 
 export function page(o) {
-  const { path, section = '', title, description, body, headings = [], side = null, sideLabel = '目录', ld = [], crumbs = [], home = false, ogType = 'article' } = o;
+  const { path, section = '', title, description, body, headings = [], side = null, sideLabel = '目录', ld = [], crumbs = [], home = false, ogType = 'article', dates = {}, robots = 'index,follow,max-snippet:-1,max-image-preview:large' } = o;
+  const author = { '@type': 'Person', name: SITE.author.name, url: SITE.author.url };
+  // component and guide pages have a Markdown copy next to them; say so in the head so a crawler or a language-model agent can find it
+  const mdCopy = /^(components|guide)\/[\w-]+\.html$/.test(path) && path !== 'components/index.html' ? path.replace(/\.html$/, '.md') : '';
   const R = (p) => rel(path, p), full = home ? title : `${title} | ${SITE.name}`, url = abs(path === 'index.html' ? '' : path);
   const bc = home ? [] : [{ name: '首页', href: 'index.html' }, ...crumbs, { name: title, href: path }];
   const ldAll = [
-    { '@context': 'https://schema.org', '@type': home ? 'WebSite' : 'TechArticle', ...(home ? { name: SITE.name, url: abs(), description, inLanguage: SITE.lang } : { headline: title, description, inLanguage: SITE.lang, url, isPartOf: { '@type': 'WebSite', name: SITE.name, url: abs() } }) },
+    { '@context': 'https://schema.org', '@type': home ? 'WebSite' : 'TechArticle', ...(home ? { name: SITE.name, url: abs(), description, inLanguage: SITE.lang } : { headline: title, description, inLanguage: SITE.lang, url, mainEntityOfPage: url, image: abs('assets/og.png'), datePublished: dates.published, dateModified: dates.modified, author, publisher: author, license: SITE.license, isPartOf: { '@type': 'WebSite', name: SITE.name, url: abs() } }) },
     ...(bc.length ? [{ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: bc.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: abs(c.href === 'index.html' ? '' : c.href) })) }] : []),
     ...ld,
   ];
@@ -54,12 +57,14 @@ export function page(o) {
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(full)}</title>
 <meta name="description" content="${esc(description)}">
-<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<meta name="robots" content="${robots}">
 <link rel="canonical" href="${url}">
 <meta property="og:type" content="${home ? 'website' : ogType}"><meta property="og:site_name" content="${SITE.name}"><meta property="og:locale" content="zh_CN"><meta property="og:title" content="${esc(full)}"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${url}">
 <meta property="og:image" content="${abs('assets/og.png')}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="ZhaoUI：不依赖框架的中文 UI 组件库">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(full)}"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="${abs('assets/og.png')}">
-<link rel="alternate" type="text/plain" href="${abs('llms.txt')}" title="llms.txt">
+<link rel="alternate" type="text/plain" href="${abs('llms.txt')}" title="llms.txt">${mdCopy ? `
+<link rel="alternate" type="text/markdown" href="${abs(mdCopy)}" title="Markdown">` : ''}${dates.modified ? `
+<meta property="article:modified_time" content="${dates.modified}">` : ''}
 <link rel="icon" href="${R('assets/favicon.svg')}" type="image/svg+xml">
 <link rel="stylesheet" href="${R(ver('assets/zhaoui/zhaoui.min.css'))}">
 <link rel="stylesheet" href="${R(ver('assets/zhaoui/zhaoui-utilities.min.css'))}">

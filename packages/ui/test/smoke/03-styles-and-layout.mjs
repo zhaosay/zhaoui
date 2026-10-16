@@ -99,7 +99,34 @@ export default async function run(h) {
   });
 
 
+  // The touch rules are inside @media (pointer: coarse); a touch context makes the browser match it.
+  await test('touch screens: the clear and close buttons and the carousel dots have a hit area of at least 24px', async (p) => {
+    const ctx = await h.b.newContext({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true }), q = await ctx.newPage();
+    try {
+      await q.goto(FILE); await wait(q, 250);
+      const r = await q.evaluate(() => { const host = document.createElement('div'); host.innerHTML = '<button class="zh-dp-clear" id="t-dp"></button><button class="zh-sel-clear" id="t-sel"></button><span class="zh-tag"><button class="zh-tag-close" id="t-tag"></button></span><div class="zh-carousel-dots"><button class="zh-carousel-dot" id="t-dot"></button><button class="zh-carousel-dot" aria-current="true" id="t-dot2"></button></div>'; document.body.append(host);
+        const s = (id) => { const e = document.getElementById(id), c = getComputedStyle(e), pad = (k) => parseFloat(c[k]) || 0; return { w: parseFloat(c.width) + (c.boxSizing === 'content-box' ? pad('paddingLeft') + pad('paddingRight') : 0), h: parseFloat(c.height) + (c.boxSizing === 'content-box' ? pad('paddingTop') + pad('paddingBottom') : 0), vis: parseFloat(c.width) }; };
+        return { coarse: matchMedia('(pointer: coarse)').matches, dp: s('t-dp'), sel: s('t-sel'), tag: s('t-tag'), dot: s('t-dot'), dot2: s('t-dot2') }; });
+      assert.equal(r.coarse, true, 'the context is a touch screen');
+      for (const k of ['dp', 'sel', 'tag', 'dot', 'dot2']) assert.ok(r[k].w >= 24 && r[k].h >= 24, `${k} is at least 24x24 (${r[k].w}x${r[k].h})`);
+      assert.equal(r.dot.vis, 8, 'the visible dot is still 8px');
+      const reach = await q.evaluate(() => { document.querySelectorAll('body > div').forEach((d) => { if (d.querySelector('#t-dp')) d.remove(); }); const host = document.createElement('div'); host.style.cssText = 'position:fixed;top:120px;left:40px;z-index:9999'; host.innerHTML = '<span class="zh-sel-tag" style="display:inline-flex">甲<button type="button" id="t-seltag" aria-label="移除 甲"><svg width="12" height="12"></svg></button></span>'; document.body.append(host); const b = document.getElementById('t-seltag'); const r = b.getBoundingClientRect(), at = (dx, dy) => document.elementFromPoint(r.left + r.width / 2 + dx, r.top + r.height / 2 + dy);
+        return { size: [Math.round(r.width), Math.round(r.height)], right: at(r.width / 2 + 4, 0) === b, below: at(0, r.height / 2 + 4) === b, farAway: at(r.width / 2 + 14, 0) === b }; });
+      assert.ok(reach.right && reach.below, `the tag's remove button (${reach.size.join('x')}) can be hit 4px outside its box`); assert.equal(reach.farAway, false, 'but not 14px away');
+    } finally { await ctx.close(); }
+  });
+
   // ---------- inline calendar ----------
+  await testEx('calendar is laid out, not collapsed: day cells are a usable size, do not overlap, and fit a phone', async (p) => {
+    for (const w of [1280, 390]) {
+      await p.setViewportSize({ width: w, height: 900 });
+      await p.evaluate(() => { const d = document.createElement('div'); d.id = 'cal-size'; document.body.append(d); window.__cal = ZhaoUI.calendar('#cal-size', { value: new Date(2026, 9, 16) }); }); await wait(p, 150);
+      const r = await p.evaluate(() => { const days = [...document.querySelectorAll('#cal-size .zh-dp-day')].map((e) => e.getBoundingClientRect()), host = document.getElementById('cal-size').getBoundingClientRect(); const overlap = days.filter((a, i) => days.slice(i + 1).some((b) => Math.min(a.right, b.right) - Math.max(a.left, b.left) > 2 && Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top) > 2)).length; return { n: days.length, minW: Math.min(...days.map((d) => d.width)), minH: Math.min(...days.map((d) => d.height)), overlap, hostRight: host.right, vw: innerWidth, border: getComputedStyle(document.getElementById('cal-size')).borderTopWidth }; });
+      assert.ok(r.n >= 28, `${w}px: month has its days (${r.n})`); assert.ok(r.minW >= 28 && r.minH >= 28, `${w}px: a day cell is at least 28px (${r.minW}x${r.minH})`);
+      assert.equal(r.overlap, 0, `${w}px: no two day cells overlap`); assert.ok(r.hostRight <= r.vw, `${w}px: the calendar fits the screen`); assert.equal(r.border, '1px', `${w}px: the inline calendar frame is styled`);
+      await p.evaluate(() => document.getElementById('cal-size').remove());
+    }
+  });
   await testEx('calendar: shows a month, picks a day, honours disabled dates and marks, set() moves the month', async (p) => {
     const C = '#cal-demo';
     await p.evaluate(() => { window.__c = []; document.addEventListener('zh:calendar-change', (e) => window.__c.push(e.detail.value)); });
