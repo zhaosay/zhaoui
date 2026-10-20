@@ -2,7 +2,7 @@
 
 ZhaoUI 的原生版：**一个 CSS 加一个 JS**，不依赖任何框架，用 `data-zh-*` 属性声明组件，也可以调用全局对象 `ZhaoUI`。
 
-> 状态：版本 0.1.3。MIT 许可证，任何人都可以免费使用、修改和分发，包括商用。暂未发布到 npm，请从 [ui.352m.com/download.html](https://ui.352m.com/download.html) 下载文件，或从 GitHub 获取源码。
+> 状态：版本 0.1.4。MIT 许可证，任何人都可以免费使用、修改和分发，包括商用。暂未发布到 npm，请从 [ui.352m.com/download.html](https://ui.352m.com/download.html) 下载文件，或从 GitHub 获取源码。
 
 ## 适合与不适合
 
@@ -37,8 +37,8 @@ TypeScript 会自动带上 `ZhaoUI` 的类型。
 
 | 文件 | 说明 | 大小 |
 |---|---|---|
-| `zhaoui.css` | Token 变量 + 全部组件样式 | 191.3 KB → 165.9 KB，gzip 29.6 KB |
-| `modular/core.css` | 核心：Token、基础、通用组件样式 | 158.5 KB → 137.0 KB，gzip 25.1 KB |
+| `zhaoui.css` | Token 变量 + 全部组件样式 | 192.5 KB → 167.0 KB，gzip 29.9 KB |
+| `modular/core.css` | 核心：Token、基础、通用组件样式 | 159.7 KB → 138.0 KB，gzip 25.4 KB |
 | `modular/select.css` | 下拉选择与级联选择的样式 | 8.8 KB → 7.8 KB，gzip 2.0 KB |
 | `modular/upload.css` | 文件上传的样式 | 4.2 KB → 3.7 KB，gzip 1.2 KB |
 | `modular/tree.css` | 树的样式 | 4.4 KB → 3.9 KB，gzip 1.2 KB |
@@ -49,8 +49,8 @@ TypeScript 会自动带上 `ZhaoUI` 的类型。
 | `zhaoui-marketing.css` | 可选：营销页区块（页宽、区块、hero、特性卡、价格卡） | 10.9 KB → 8.1 KB，gzip 2.3 KB |
 | `zhaoui-style-glass.css` | 可选：玻璃拟态风格包（实验性） | 16.5 KB → 14.0 KB，gzip 1.9 KB |
 | `zhaoui-icons.js` | 可选：完整 Lucide 图标集（372 个） | 67.0 KB → 62.6 KB，gzip 17.1 KB |
-| `zhaoui.js` | 主题运行时 + 全部组件行为 + 内置图标 + 自动初始化 | 264.2 KB → 179.8 KB，gzip 57.9 KB |
-| `modular/brand.js` | 品牌色运行时：ZhaoUI.setBrand()、Logo 取色（可选） | 22.6 KB → 13.7 KB，gzip 6.3 KB |
+| `zhaoui.js` | 主题运行时 + 全部组件行为 + 内置图标 + 自动初始化 | 265.4 KB → 180.8 KB，gzip 58.2 KB |
+| `modular/brand.js` | 品牌色运行时：ZhaoUI.setBrand()、Logo 取色（可选） | 23.8 KB → 14.7 KB，gzip 6.6 KB |
 | `modular/core.js` | 核心：组件注册与自动初始化 + 通用组件行为（必须最先加载） | 123.8 KB → 83.9 KB，gzip 26.3 KB |
 | `modular/select.js` | 下拉选择与级联选择的行为（在 core.js 之后加载） | 35.9 KB → 23.2 KB，gzip 7.7 KB |
 | `modular/upload.js` | 文件上传的行为（在 core.js 之后加载） | 9.3 KB → 7.3 KB，gzip 3.1 KB |

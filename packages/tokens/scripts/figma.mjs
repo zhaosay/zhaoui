@@ -34,9 +34,10 @@ export function figmaTokens() {
   const modeSet = (m) => {
     const o = { ...resolve(modes[m]), ...statusTints(m) };
     const b = brand[m];
-    const set = { color: { text: {}, surface: {}, border: {}, status: {}, brand: {}, chart: {}, glass: {} } };
+    const set = { color: { text: {}, surface: {}, border: {}, status: {}, brand: {}, chart: {}, glass: {}, accent: {} } };
     for (const [k, v] of Object.entries(o)) {
-      if (k.startsWith('chart-')) set.color.chart[k.slice(6)] = col(v);
+      if (k.startsWith('accent-')) set.color.accent[k] = col(v);
+      else if (k.startsWith('chart-')) set.color.chart[k.slice(6)] = col(v);
       else if (k.startsWith('glass-')) set.color.glass[k.slice(6)] = col(v);
       else if (/^(text|num-|trend-)/.test(k)) set.color.text[k] = col(v);
       else if (/^bg|^code-bg|^overlay|^mark-bg/.test(k)) set.color.surface[k] = col(v);

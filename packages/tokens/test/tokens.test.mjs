@@ -153,3 +153,20 @@ test('accent colours for gradients: three distinct colours, large-type contrast 
     for (const col of cols) { assert.ok(contrast(col, '#ffffff') >= 3, `${hex} ${col} on white ${contrast(col, '#ffffff').toFixed(2)}`); assert.ok(contrast(col, '#0b0b12') >= 3, `${hex} ${col} on dark ${contrast(col, '#0b0b12').toFixed(2)}`); }
   }
 });
+
+
+test('named accent labels are readable in both modes and exported to CSS and Figma', () => {
+  const figma = JSON.parse(readFileSync(new URL('../dist/tokens.figma.json', import.meta.url), 'utf8'));
+  for (const mode of ['light', 'dark']) {
+    for (const name of ['coral', 'sky', 'mint', 'sun', 'rose', 'lime']) {
+      const key = `accent-${name}`, tokens = modes[mode];
+      for (const bg of [tokens[`${key}-bg`], ...surfaces(mode)]) {
+        assert.ok(contrast(tokens[`${key}-text`], bg) >= 4.5, `${mode} ${name} on ${bg}`);
+      }
+      for (const role of ['text', 'bg', 'border']) {
+        assert.ok(css.includes(`--zh-${key}-${role}: ${tokens[`${key}-${role}`]};`));
+        assert.equal(figma[mode].color.accent[`${key}-${role}`].$value, tokens[`${key}-${role}`]);
+      }
+    }
+  }
+});

@@ -7,12 +7,13 @@ import { esc } from '../../packages/ui/scripts/facts.mjs';
 export const GUIDE = [
   { key: 'quickstart', label: '快速开始', desc: '一个 CSS 加一个 JS 引入 ZhaoUI，两种用法，事件与动态内容，按需引入。' },
   { key: 'theme', label: '主题', desc: '用 data-mode、data-audience、data-density、data-brand 等属性切换亮暗、B/C 端、密度与品牌色。' },
+  { key: 'design-recipes', label: '风格与点缀色', desc: '按项目选择不同的视觉方向，复用活泼纸感方案、字号与圆角配方，以及六组支持浅色和深色模式的点缀色与搭配示例。' },
   { key: 'icons', label: '图标', desc: '内置的常用图标、可选的完整 Lucide 图标包怎么用，用 data-i 属性在页面里放图标，以及需要时如何增加你自己的图标。' },
   { key: 'styles', label: '样式类', desc: '不需要写 JavaScript 就能使用的样式类：按钮的各种变体、提示气泡等，每个类的写法、状态和可访问性说明。' },
   { key: 'utilities', label: '公共类', desc: '可选的公共类文件 zhaoui-utilities.css：间距、布局、文字、响应式显示隐藏和动画，一个类名一个效果，不依赖 JavaScript。' },
 ];
 export const guideSide = () => [
-  { title: '指南', numbered: true, items: [...GUIDE.map((g) => ({ label: g.label, href: `guide/${g.key}.html` })), { label: '更新日志', href: 'changelog.html' }] },
+  { title: '指南', numbered: true, items: [...GUIDE.map((g) => ({ label: g.label, href: `guide/${g.key}.html` })), { label: '版本更新', href: 'changelog.html' }] },
 ];
 
 // links inside docs/*.md point at sibling .md files; on the site they are pages
@@ -26,12 +27,12 @@ const guideLink = (from) => (u) => {
 export function guidePage(key, docsDir) {
   const g = GUIDE.find((x) => x.key === key), { html, headings } = md(readFileSync(join(docsDir, `${key}.md`), 'utf8'), { link: guideLink() });
   const h1 = headings.find((h) => h.level === 1);
-  return { title: h1 ? h1.text : g.label, description: g.desc, body: html, headings: headings.filter((h) => h.level > 1), crumbs: [{ name: '指南', href: 'guide/quickstart.html' }] };
+  return { title: h1 ? h1.text : g.label, description: g.desc, body: html + (key === 'design-recipes' ? accentSamples() : ''), headings: headings.filter((h) => h.level > 1), crumbs: [{ name: '指南', href: 'guide/quickstart.html' }] };
 }
 
 export function changelogPage(pkgDir) {
   const { html, headings } = md(readFileSync(join(pkgDir, 'CHANGELOG.md'), 'utf8'));
-  return { title: '更新日志', description: 'ZhaoUI 各版本的更新日志：每个版本新增的组件和功能、修正的问题、构建产物与无障碍的变化，以及已知的限制。', body: html, headings: headings.filter((h) => h.level > 1) };
+  return { title: '版本更新', description: 'ZhaoUI 各版本的更新日志：每个版本新增的组件和功能、修正的问题、构建产物与无障碍的变化，以及已知的限制。', body: html, headings: headings.filter((h) => h.level > 1) };
 }
 
 export function designIndex({ visualHref }) {
@@ -65,3 +66,9 @@ export function designIndex({ visualHref }) {
   return { title: '设计规范', description: 'ZhaoUI 的设计语言：Token 体系、OKLCH 色彩、B/C 端与亮暗主题、密度、图表色板与可访问性原则，附完整视觉演示。', body, headings: [{ level: 2, id: 'visual', text: '完整视觉演示' }, { level: 2, id: 'principles', text: '原则' }, { level: 2, id: 'dimensions', text: '主题维度' }, { level: 2, id: 'browsers', text: '浏览器' }, { level: 2, id: 'more', text: '相关文档' }] };
 }
 export const designSide = () => [{ title: '设计', items: [{ label: '概览', href: 'design/index.html' }] }, { title: '延伸', items: [{ label: '主题的用法', href: 'guide/theme.html' }, { label: '全部组件', href: 'components/index.html' }] }];
+
+// Uses the public mode-aware tokens, so the site theme switch previews both palettes.
+function accentSamples() {
+  const accents = [['coral', '珊瑚橙', '重点入口'], ['sky', '湖蓝', '机构资料'], ['mint', '薄荷绿', '行程分类'], ['sun', '暖黄', '备注提醒'], ['rose', '莓果粉', '协作成员'], ['lime', '青柠绿', '新增内容']];
+  return `<section aria-label="点缀色实景色板"><h2>实景色板</h2><p>切换右上角的浅色或深色主题，查看文字、底色和边框的搭配。</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:var(--zh-space-4)">${accents.map(([name, label, example]) => `<article style="padding:var(--zh-space-5);border:1px solid var(--zh-accent-${name}-border);border-radius:var(--zh-radius-md);color:var(--zh-accent-${name}-text);background:var(--zh-accent-${name}-bg)"><h3 style="margin:0;color:inherit">${label}</h3><p>${example}</p><code>accent-${name}</code></article>`).join('')}</div></section>`;
+}

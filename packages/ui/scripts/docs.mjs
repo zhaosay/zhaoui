@@ -82,7 +82,7 @@ export function buildDocs({ pkg, root, version, files, coreIcons, stats }) {
     .replace(/\{\{core_icon_count\}\}/g, String(coreIcons.length))
     .replace(/\{\{(full|core|select|date|upload|tree|chart|command|brand)_js_kb\}\}/g, (_, n) => gzKb(n === 'full' ? 'zhaoui.js' : `modular/${n}.js`))
     .replace('{{component_list}}', metas.map((m) => m.title).join('、'));
-  const general = { quickstart: '快速开始', theme: '主题', icons: '图标', styles: '样式类', utilities: '公共类（可选）' };
+  const general = { quickstart: '快速开始', theme: '主题', 'design-recipes': '风格方案与点缀色', icons: '图标', styles: '样式类', utilities: '公共类（可选）' };
   for (const k of Object.keys(general)) writeFileSync(join(out, `${k}.md`), fill(read(join(pkg, 'src', 'docs', `${k}.md`))));
   for (const m of metas) writeFileSync(join(out, 'components', `${m.name}.md`), componentMd(m));
 

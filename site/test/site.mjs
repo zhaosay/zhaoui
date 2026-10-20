@@ -56,7 +56,7 @@ await check('component page: live example, code, API, FAQ, previous/next, canoni
 await check('download: a nav item on every kind of page, a zip that downloads and unpacks, file links that download, and a phone does not scroll sideways', async (p) => {
   for (const pg of ['index.html', 'guide/quickstart.html', 'components/tree.html', 'design/index.html']) {
     await open(p, pg);
-    assert.deepEqual(await p.evaluate(() => [...document.querySelectorAll('.zh-nav-links a')].map((a) => a.textContent.trim())), ['指南', '设计', '组件', '模板', '在线试用', '下载', '更新日志'], `${pg}: top navigation`);
+    assert.deepEqual(await p.evaluate(() => [...document.querySelectorAll('.zh-nav-links a')].map((a) => a.textContent.trim())), ['指南', '设计', '组件', '模板', '在线试用', '下载', '版本更新'], `${pg}: top navigation`);
   }
   await open(p, 'download.html');
   const r = await p.evaluate(() => ({ btn: document.querySelector('a.zh-btn.primary[download]')?.getAttribute('href'), files: [...document.querySelectorAll('.doc-body table a, article table a, main table a')].map((a) => [a.getAttribute('href'), a.hasAttribute('download')]), current: document.querySelector('.zh-nav-links a[aria-current="page"]')?.textContent.trim(), h1: document.querySelectorAll('h1').length }));
@@ -193,7 +193,7 @@ await check('tables on a phone: cell content flows like a paragraph, a code chip
 await check('guide navigation and headings are numbered; the numbers in the side menu and the contents list agree', async (p) => {
   await open(p, 'guide/quickstart.html');
   const r = await p.evaluate(() => ({ side: [...document.querySelectorAll('.s-side .zh-side-item .zh-side-num')].map((x) => x.textContent), toc: [...document.querySelectorAll('.s-toc .s-num')].slice(0, 3).map((x) => x.textContent), h2: getComputedStyle(document.querySelector('.s-article h2'), '::before').content, cur: document.querySelector('.s-side [aria-current=page]').textContent.trim() }));
-  assert.deepEqual(r.side, ['1', '2', '3', '4', '5', '6'], 'five guide pages and the changelog, numbered in order'); assert.match(r.cur, /^1.*快速开始/); assert.equal(r.toc[0], '1.'); assert.match(r.h2, /counter\(s2\)/, 'headings are numbered by a CSS counter');
+  assert.deepEqual(r.side, ['1', '2', '3', '4', '5', '6', '7'], 'six guide pages and the changelog, numbered in order'); assert.match(r.cur, /^1.*快速开始/); assert.equal(r.toc[0], '1.'); assert.match(r.h2, /counter\(s2\)/, 'headings are numbered by a CSS counter');
 });
 await check('large screens: the page uses the width it is given', async (p) => {
   await open(p, 'index.html'); const w = await p.evaluate(() => document.querySelector('.zh-wrap').getBoundingClientRect().width); assert.ok(w >= 1600, `content is ${Math.round(w)}px wide on a 1920px screen`);

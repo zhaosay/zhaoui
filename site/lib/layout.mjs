@@ -9,7 +9,7 @@ export const TOP = [
   { key: 'templates', label: '模板', href: 'templates/index.html', icon: 'layout-grid' },
   { key: 'playground', label: '在线试用', href: 'playground.html', icon: 'play' },
   { key: 'download', label: '下载', href: 'download.html', icon: 'download' },
-  { key: 'changelog', label: '更新日志', href: 'changelog.html', icon: 'history' },
+  { key: 'changelog', label: '版本更新', href: 'changelog.html', icon: 'history' },
 ];
 
 /** From the page at `from` (path under the site root) to `to`. */
@@ -108,7 +108,7 @@ ${toc ? `<div class="s-toc">${toc}</div>` : ''}
 </div>`}
 <footer class="zh-footer s-footer">
   <span>${SITE.name} ${o.version || ''} · 许可证尚未确定（目前仅团队内部使用）</span>
-  <nav aria-label="页脚"><ul class="zh-footer-links"><li><a href="${R('guide/quickstart.html')}">快速开始</a></li><li><a href="${R('components/index.html')}">组件</a></li><li><a href="${R('changelog.html')}">更新日志</a></li><li><a href="${R('llms.txt')}">llms.txt</a></li><li><a href="${R('llms-full.txt')}">llms-full.txt</a></li><li><a href="${R('sitemap.xml')}">站点地图</a></li><li><a href="${R('download.html')}">下载</a></li><li><a href="${SITE.repo}" rel="noopener">GitHub</a></li></ul></nav>
+  <nav aria-label="页脚"><ul class="zh-footer-links"><li><a href="${R('guide/quickstart.html')}">快速开始</a></li><li><a href="${R('components/index.html')}">组件</a></li><li><a href="${R('changelog.html')}">版本更新</a></li><li><a href="${R('llms.txt')}">llms.txt</a></li><li><a href="${R('llms-full.txt')}">llms-full.txt</a></li><li><a href="${R('sitemap.xml')}">站点地图</a></li><li><a href="${R('download.html')}">下载</a></li><li><a href="${SITE.repo}" rel="noopener">GitHub</a></li></ul></nav>
 </footer>
 ${side ? `<aside class="zh-drawer zh-drawer--left" id="s-drawer" aria-label="${esc(sideLabel)}"><div class="s-drawer-head"><strong>${esc(sideLabel)}</strong><button class="zh-btn sm text" type="button" data-zh-close>关闭</button></div>${sideHtml(side, path, sideLabel + '（手机）')}</aside>` : ''}
 <script src="${R(ver('assets/search-index.js'))}"></script>

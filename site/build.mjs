@@ -121,7 +121,7 @@ add('download.html', dl, { section: 'download', group: '工具', sideLabel: '下
   side: [
     { title: '安装方式', items: ['下载全部文件', '命令行安装', '不下载，直接引用'].map(dlItem) },
     { title: '文件说明', items: ['核对下载的文件', '单个文件', '按需加载', '营销页区块的用法'].map(dlItem) },
-    { title: '相关页面', items: [{ label: '快速开始', href: 'guide/quickstart.html' }, { label: '营销页区块预览', href: 'components/marketing.html' }, { label: '更新日志', href: 'changelog.html' }, { label: 'GitHub 仓库', href: SITE.repo }] },
+    { title: '相关页面', items: [{ label: '快速开始', href: 'guide/quickstart.html' }, { label: '营销页区块预览', href: 'components/marketing.html' }, { label: '版本更新', href: 'changelog.html' }, { label: 'GitHub 仓库', href: SITE.repo }] },
   ] });
 add('404.html', { title: '页面不存在', description: '这个页面不存在，可能是链接写错了或页面已经搬走。', body: '<h1>页面不存在</h1><p class="s-lead">这个页面不存在，可能是链接写错了或页面已经搬走。</p><p><a class="zh-btn primary" href="index.html">回到首页</a> <a class="zh-btn" href="components/index.html">浏览组件</a></p>', home: true }, { group: '页面', noindex: true, robots: 'noindex' });
 
