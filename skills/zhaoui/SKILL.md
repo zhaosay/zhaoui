@@ -3,7 +3,7 @@ name: zhaoui
 description: Build or edit web pages with the ZhaoUI design language (zhaoui.css + zhaoui.js, no framework). Use when the user asks for a page, form, dialog, drawer, tabs, dropdown or message in ZhaoUI style, or when a page already links zhaoui.css / uses zh- classes or data-zh-* attributes.
 ---
 
-# ZhaoUI 0.1.4
+# ZhaoUI 0.1.5
 
 ZhaoUI 原生版：一个 CSS、一个 JS，不依赖框架。组件用 `data-zh-*` 属性声明，或调用全局对象 `ZhaoUI`。
 
@@ -81,6 +81,8 @@ ZhaoUI 原生版：一个 CSS、一个 JS，不依赖框架。组件用 `data-zh
 纯样式：按钮（`zh-btn`，含 `primary` / `text` / `danger`）、提示气泡（`zh-tip` + `data-tip`）。
 
 **没有独立版的东西不要假设它存在**：日期、上传、树、导航、分页、表格、下拉选择等，在演示页里有，但还没有文档和测试。用户需要时，先说明这一点，再决定是自己写样式还是让用户等。
+
+公开文档、示例和发布说明仅使用通用业务称呼；项目中的真实品牌名、机构名、内部系统名与来源信息，仅在用户明确要求公开时写入。
 
 ## 必须遵守的规则
 

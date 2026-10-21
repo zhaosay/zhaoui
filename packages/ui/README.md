@@ -2,7 +2,7 @@
 
 ZhaoUI 的原生版：**一个 CSS 加一个 JS**，不依赖任何框架，用 `data-zh-*` 属性声明组件，也可以调用全局对象 `ZhaoUI`。
 
-> 状态：版本 0.1.4。MIT 许可证，任何人都可以免费使用、修改和分发，包括商用。暂未发布到 npm，请从 [ui.352m.com/download.html](https://ui.352m.com/download.html) 下载文件，或从 GitHub 获取源码。
+> 状态：版本 0.1.5。MIT 许可证，任何人都可以免费使用、修改和分发，包括商用。暂未发布到 npm，请从 [ui.352m.com/download.html](https://ui.352m.com/download.html) 下载文件，或从 GitHub 获取源码。
 
 ## 适合与不适合
 

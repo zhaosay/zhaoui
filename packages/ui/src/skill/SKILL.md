@@ -23,6 +23,8 @@ ZhaoUI 原生版：一个 CSS、一个 JS，不依赖框架。组件用 `data-zh
 
 **没有独立版的东西不要假设它存在**：日期、上传、树、导航、分页、表格、下拉选择等，在演示页里有，但还没有文档和测试。用户需要时，先说明这一点，再决定是自己写样式还是让用户等。
 
+公开文档、示例和发布说明仅使用通用业务称呼；项目中的真实品牌名、机构名、内部系统名与来源信息，仅在用户明确要求公开时写入。
+
 ## 必须遵守的规则
 
 1. **引入**：`<link rel="stylesheet" href="zhaoui.css">` 与 `<script src="zhaoui.js"></script>`（正式页面用同目录下的 `zhaoui.min.css` / `zhaoui.min.js`）（放在 `</body>` 前、不加 `defer`，你自己的内联脚本写在它后面）；`<html>` 上写 `data-audience`、`data-mode`、`data-density`。
